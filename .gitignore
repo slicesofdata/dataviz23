@@ -1,2 +1,12 @@
-/.quarto/
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/.quarto/
+notes/
+data/
+omit/
+*.RData
+*.rdb
+*.rdx
