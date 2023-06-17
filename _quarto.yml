@@ -56,10 +56,14 @@ website:
 
 format:
   html:
-    theme: minty
+    theme: css/styles.scss #minty
     css: [css/nav.css,css/styles.css]
     toc: true
     include-in-header: "css/fontawesome.html"
+    #mainfont: arial #Nunito
+    fontsize: 1rem
+    linkcolor: "#096980"
+    monofont: courier new
 
 editor: source
 
