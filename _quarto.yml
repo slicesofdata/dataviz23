@@ -24,6 +24,8 @@ website:
         file: modules/index.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
+      - text: "Exercises"
+        file: exercises #/index.qmd
 
     right:
       - icon: github
@@ -48,6 +50,11 @@ website:
       collapse-level: 2
       align: left
       contents: modules
+    - title: "Exercises"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents: exercises
  #   - title: "Compendium"
 #      style: "floating"
 #      collapse-level: 2
