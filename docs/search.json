@@ -7,6 +7,13 @@
     "text": "Nothing to see here"
   },
   {
+    "objectID": "exercises/index.html",
+    "href": "exercises/index.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "Various tasks and exercises will be found here.\nThe exercise list will be updated as the semester progresses."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "PSYC167",
@@ -21,123 +28,123 @@
     "text": "This is the course website for PSYC 167: Data Visualization, taught by Prof. Gabriel I. Cook; 1 credit\nDescription\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nSources\nThis course will use open-educational resources, typically licensed on creative commons."
   },
   {
-    "objectID": "modules/1 Introduction/index.html",
-    "href": "modules/1 Introduction/index.html",
+    "objectID": "modules/01 Introduction/index.html",
+    "href": "modules/01 Introduction/index.html",
     "title": "1 Introduction",
     "section": "",
-    "text": "Welcome to the orientation learning module for PSYC 2530. We will cover everything here and more on the first day of class. See you there."
+    "text": "Welcome to the orientation learning module for PSYC 167. We have a lot of ground to cover this semester and in return you will have much to showcase for yourself.\nIf you are willing to embrace challenge and troubleshooting, you will walk away with:\nWarning: If you are not up for the challenge, you may feel overwhelmed, likely be miserable, and will want to give up. If that’s you, there are other courses that may be a better fit for you.\nWe will cover everything here and more on the first day of class. See you there."
   },
   {
-    "objectID": "modules/1 Introduction/index.html#goals",
-    "href": "modules/1 Introduction/index.html#goals",
+    "objectID": "modules/01 Introduction/index.html#goals",
+    "href": "modules/01 Introduction/index.html#goals",
     "title": "1 Introduction",
     "section": "Goals",
     "text": "Goals\n\nGeneral course orientation\nget you ready for the first week"
   },
   {
-    "objectID": "modules/1 Introduction/index.html#read",
-    "href": "modules/1 Introduction/index.html#read",
+    "objectID": "modules/01 Introduction/index.html#read",
+    "href": "modules/01 Introduction/index.html#read",
     "title": "1 Introduction",
     "section": "Read",
     "text": "Read\nRead the syllabus for this course."
   },
   {
-    "objectID": "modules/1 Introduction/index.html#getting-started-goals",
-    "href": "modules/1 Introduction/index.html#getting-started-goals",
+    "objectID": "modules/01 Introduction/index.html#getting-started-goals",
+    "href": "modules/01 Introduction/index.html#getting-started-goals",
     "title": "1 Introduction",
     "section": "Getting started goals",
-    "text": "Getting started goals\nThere are many possibilities for technical difficulties as we get started. The computer room is equipped with the software that we need, however, I strongly encourage you to install the necessary software on your own computer.\nThroughout the semester we will be using software called R, Rstudio, quarto, and github. All of this software is free and open-source, and can be installed on windows, mac, or linux.\nOver the semester, you will be using these tools to build a personal course blog and website. Every week will involve blogging assignments, and there are slightly more involved midterm and final projects.\nPlease follow these instructions to create a quarto blog. Don’t worry if you can’t get it to work, we will troubleshoot in class."
+    "text": "Getting started goals\nThere are many possibilities for technical difficulties as we get started. The computer room is equipped with the software that we need, however, I strongly encourage you to install the necessary software on your own computer.\nThroughout the semester we will be using software called R, Rstudio, quarto, and github. All of this software is free and open-source, and can be installed on windows, mac, or linux."
   },
   {
-    "objectID": "modules/1 Introduction/index.html#quarto-blog-instructions",
-    "href": "modules/1 Introduction/index.html#quarto-blog-instructions",
-    "title": "1 Introduction",
-    "section": "Quarto blog instructions",
-    "text": "Quarto blog instructions\nThis is a blog post I made (on my own quarto blog), about how to get started blogging with quarto.\nhttps://crumplab.com/blog/post_887_8_25_22_quartoblog/"
-  },
-  {
-    "objectID": "modules/1 Introduction/index.html#week-1-assignment",
-    "href": "modules/1 Introduction/index.html#week-1-assignment",
+    "objectID": "modules/01 Introduction/index.html#week-1-assignment",
+    "href": "modules/01 Introduction/index.html#week-1-assignment",
     "title": "1 Introduction",
     "section": "Week 1 assignment",
-    "text": "Week 1 assignment\n\nOnce you have created your quarto blog, please submit the url to your blog on blackboard (to the week 0 assignment.)"
+    "text": "Week 1 assignment\n\nenter here"
   },
   {
-    "objectID": "modules/1 Introduction/index.html#more-goals-for-week-1",
-    "href": "modules/1 Introduction/index.html#more-goals-for-week-1",
+    "objectID": "modules/01 Introduction/index.html#more-goals-for-week-1",
+    "href": "modules/01 Introduction/index.html#more-goals-for-week-1",
     "title": "1 Introduction",
     "section": "More Goals for Week 1",
-    "text": "More Goals for Week 1\nWe have two more introductory week classes. In these two classes we have a few goals to keep us busy.\n\nGet an overall sense of what we can do with the data-analysis and data visualization software we are using in the class.\nSolve technical problems associated with the first assignment (getting R, R Studio, Github Desktop, and your Quarto blog working.)\nGet some basic understanding of the workflow we will be using, make sure it works, and start getting into the learning process.\n\nThroughout the first week I will be updating this page as well as the compendium with material as we go."
+    "text": "More Goals for Week 1"
   },
   {
-    "objectID": "modules/1 Introduction/index.html#data-science-in-a-box",
-    "href": "modules/1 Introduction/index.html#data-science-in-a-box",
-    "title": "1 Introduction",
-    "section": "Data science in a box",
-    "text": "Data science in a box\nThere are many great free resources on the web for learning data skills with R. This example comes from data science in a box.\nhttps://datasciencebox.org\nThis whole course is built using quarto, the same tool we will use for our blogs.\nThere are different approaches to learning R from scratch. One approach is start with all of the fundamental building blocks of coding, and then slowly move into much higher level tasks for data analysis, like learning how to use functions for data-visualization. Another approach is to begin with a hands-on example of using R for reproducible data-analysis and visualization.\nNOTE: “Reproducible” is an important concept we will emphasize throughout the course. For now a “reproducible” analysis means that other people can re-do the same analysis that you did and get the same results.\nIn class we will look at the “First dataviz” example from the hello world section:\nhttps://datasciencebox.org/02-hello-world.html\n\nInstructions\nGOAL: Our big goal here is to reproduce the data-visualization from this example on our own computer using R Studio, and then talk about what we are looking at.\n\nOpen Rstudio\nMake a new project\n\n\n\nUnder the file menu, select “New project”, or click the top-right corner of R studio (with the blue R cube), and choose New Project.\nIMPORTANT: You should almost always be working inside an R studio project. We will talk more about this in class.\nChoose “New Directory”\nChoose “New Project”\nCreate a name, and choose where to save it, e.g. “datavis1”\nClick “Create project”\n\n\n\nYou can confirm you are now in an R studio project by looking at the top right hand corner, you should see a blue cube with the name of your project.\n\n\nThis is what an empty R studio project looks like. The bottom right corner shows you the folder for your current project. There is only one file “datavis1.Rproj”. If you click on this file from your filesystem (e.g., in finder on a mac, or in explorer or my computer on windows), then it will load Rstudio and this project.\n\nCreate a new quarto document. Click the green circle with a plus, choose new “Quarto document”.\n\n\nGive your document a title.\n\nClick the “Render” Button. Then save your document in your R project folder.\nIMPORTANT. The title of your document can be different from the name of the file. You should change the file name from “Untitled.qmd” to something more descriptive like “datavis_example.qmd”, and then press save.\nAfter saving and rendering the document you will see the html (web-page) output. The file doesn’t have any text or analysis code, so it will appear mostly blank.\n\nThe datascience in a box course has an example data analysis and visualization that we should be able to reproduce on our computers.\nThis example shows a short data-analysis report that conducts a visualization of United Nations voting data for different countries.\nThe source code for this report is available here:\nhttps://github.com/rstudio-education/datascience-box/blob/main/course-materials/application-exercises/ae-01a-un-votes/unvotes.qmd\n\nCopy the plain text from line 1 to line 92, and then paste it into your own .qmd document. Make sure you replace all of your original text. Save your .qmd document.\nRstudio may ask you to install some missing packages, click the install option.\nOnce the packages are installed, then you should be able to render the document. And, you should see something like this.\n\n\nWe are going to cover the rest in class. If you missed class you can try the videos about this content on datascience in a\nhttps://datasciencebox.org/02-hello-world.html\nThe first two videos are probably most helpful and similar to what we will discuss in class.\nFinally, I created a folder called examples in the gihthub repository for this course. This example is located in the “datavis1” folder. You can also download this folder and access its contents as another method to try the example:\nhttps://github.com/CrumpLab/psyc3470/tree/master/examples"
+    "objectID": "modules/02 Installing R and R Studio/index.html",
+    "href": "modules/02 Installing R and R Studio/index.html",
+    "title": "2 Installing R and RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
   },
   {
-    "objectID": "modules/2 R and R Studio/index.html",
-    "href": "modules/2 R and R Studio/index.html",
+    "objectID": "modules/02 Installing R and R Studio/index.html#read",
+    "href": "modules/02 Installing R and R Studio/index.html#read",
+    "title": "2 Installing R and RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/02 Installing R and R Studio/index.html#do",
+    "href": "modules/02 Installing R and R Studio/index.html#do",
+    "title": "2 Installing R and RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html",
+    "href": "modules/03 Installing Git and GitHub Desktop/index.html",
+    "title": "03 Git this and Git that",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#read",
+    "href": "modules/03 Installing Git and GitHub Desktop/index.html#read",
+    "title": "03 Git this and Git that",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#do",
+    "href": "modules/03 Installing Git and GitHub Desktop/index.html#do",
+    "title": "03 Git this and Git that",
+    "section": "Do",
+    "text": "Do\n\nCreate a GitHub account\nInstall Git\nConfigure Git with RStudio"
+  },
+  {
+    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#additional-resources",
+    "href": "modules/03 Installing Git and GitHub Desktop/index.html#additional-resources",
+    "title": "03 Git this and Git that",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nGithub\nWe will be use of Github to backup, store, and share your code with me and your collaborators.\nWe will troubleshoot Github challenges both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it’s rather advanced.\nhttps://happygitwithr.com (updated reguarly)"
+  },
+  {
+    "objectID": "modules/04 Creating a Posit Account/index.html",
+    "href": "modules/04 Creating a Posit Account/index.html",
     "title": "2 R, R studio, Quarto and Github",
     "section": "",
     "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
   },
   {
-    "objectID": "modules/2 R and R Studio/index.html#read",
-    "href": "modules/2 R and R Studio/index.html#read",
+    "objectID": "modules/04 Creating a Posit Account/index.html#read",
+    "href": "modules/04 Creating a Posit Account/index.html#read",
     "title": "2 R, R studio, Quarto and Github",
     "section": "",
     "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
   },
   {
-    "objectID": "modules/2 R and R Studio/index.html#additional-resources",
-    "href": "modules/2 R and R Studio/index.html#additional-resources",
+    "objectID": "modules/04 Creating a Posit Account/index.html#additional-resources",
+    "href": "modules/04 Creating a Posit Account/index.html#additional-resources",
     "title": "2 R, R studio, Quarto and Github",
     "section": "Additional resources",
     "text": "Additional resources\n\nQuarto\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nhttps://quarto.org\n\n\nGithub\nWe will be making use of Github to store and share your course blog and website.\nWe will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.\nhttps://happygitwithr.com"
   },
   {
-    "objectID": "modules/2 R and R Studio/index.html#week-2-assignment-make-a-tip-sheet",
-    "href": "modules/2 R and R Studio/index.html#week-2-assignment-make-a-tip-sheet",
+    "objectID": "modules/04 Creating a Posit Account/index.html#week-2-assignment-make-a-tip-sheet",
+    "href": "modules/04 Creating a Posit Account/index.html#week-2-assignment-make-a-tip-sheet",
     "title": "2 R, R studio, Quarto and Github",
     "section": "Week 2 Assignment: Make a tip sheet",
     "text": "Week 2 Assignment: Make a tip sheet\nWe are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.\nThis week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In section 1.2, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”\nMaking a tip sheet for yourself is the assignment for this weeks blog post.\n\nInstructions\n\nMake a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.\nSubmit the URL to your tips post to the week 2 assignment on blackboard."
-  },
-  {
-    "objectID": "modules/3 Reports with R Markdown/index.html",
-    "href": "modules/3 Reports with R Markdown/index.html",
-    "title": "3 Reports with R Markdown",
-    "section": "",
-    "text": "https://psyteachr.github.io/ads-v2/02-reports.html"
-  },
-  {
-    "objectID": "modules/3 Reports with R Markdown/index.html#read",
-    "href": "modules/3 Reports with R Markdown/index.html#read",
-    "title": "3 Reports with R Markdown",
-    "section": "",
-    "text": "https://psyteachr.github.io/ads-v2/02-reports.html"
-  },
-  {
-    "objectID": "modules/3 Reports with R Markdown/index.html#overview",
-    "href": "modules/3 Reports with R Markdown/index.html#overview",
-    "title": "3 Reports with R Markdown",
-    "section": "Overview",
-    "text": "Overview\nThe textbook chapter covers writing R markdown documents (.Rmd extension). R Markdown is a notebook style coding document that can contain plain text (markdown), and executable R code chunks along with outputs, and compile everything into one output document. This system uses a package called knitr to “knit” together the plain text and code into a final output.\nOur class is using a newer notebook system called quarto (.qmd extension). Most of the same concepts and syntax used in r.Rmd work in .qmd.\nWe are just starting to learn bits of R coding. In class we have executed bits of R code in the console. Moving forward we will be writing whole scripts of code and saving our scripts in text files. It is possible to store R code in .R files, however, these script files do not allow for regular text. Instead, we will be using notebook style .qmd documents that contain both code and text.\n\nMOST IMPORTANT: Reproducible document\nThe most important concept here is that we will be learning to code using a reproducible document creation system. This provides an integrated document format to write and execute code, and to write text for purposes of communication.\n\n\nBasic Skills for this section\n\nBe able to make a new .qmd document\nBe able to render a .qmd document\nExplain the difference between the source editor view and visual editor view in Rstudio.\nBe able to insert simple markdown plain text (headers, lists, paragraphs), and render the document.\nBe aware of resources to help you learn more about markdown options.\nBe able to insert an R code chunk, and show the output in the rendered document.\n\n\nmacro for quick insert\n\n\nRunning R code chunks in a qmd\n\n\npressing play\ncopy/paste into console\nhighlight then command-enter (mac)\nprecedence issues (first to last)\n\n\nBe aware of R code chunk options, and how to use eval, messages, error, warning, and echo.\nBe able to set code chunk options per chunk, and/or for the whole document. Understand rules for precedence (which options will apply if both are set.)\nWrite inline r code.\nExplain how the rendering environment is different from the Rstudio environment.\nBe aware of more advanced quarto options for html documents, and try some of the options."
-  },
-  {
-    "objectID": "modules/3 Reports with R Markdown/index.html#additional-resources",
-    "href": "modules/3 Reports with R Markdown/index.html#additional-resources",
-    "title": "3 Reports with R Markdown",
-    "section": "Additional resources",
-    "text": "Additional resources\n\nQuarto documents\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nGeneral tips for writing in quarto markdown:\nhttps://quarto.org/docs/authoring/markdown-basics.html\nMaking an html document:\nhttps://quarto.org/docs/output-formats/html-basics.html\nMaking a pdf document:\nhttps://quarto.org/docs/output-formats/pdf-basics.html\nR code chunk options:\nhttps://quarto.org/docs/computations/execution-options.html"
-  },
-  {
-    "objectID": "modules/3 Reports with R Markdown/index.html#week-3-assignment",
-    "href": "modules/3 Reports with R Markdown/index.html#week-3-assignment",
-    "title": "3 Reports with R Markdown",
-    "section": "Week 3 assignment",
-    "text": "Week 3 assignment\n\n\n\nWrite your blog post, and submit the link to this assignment on blackboard. The video tutorial gives an extended walkthrough.\n\nAt this point we are just beginning to start coding, and at the end of this session we will have learned more about using .qmd documents. We have already been using .qmd documents for our blog posts. And, we will be using throughout the semester for almost everything we do, including coding.\nThe blog post for this week is to write a post where you check off as many basic skills as you can for this section. The basic skills are the same as above, I put them in a code chunk to make them easier to copy.\n“Checking off” the skills means making notes, or making additions/changes to your .qmd document to show yourself you can accomplish these tasks and/or understand the concepts.\n1.  Be able to make a new .qmd document\n\n2.  Be able to render a .qmd document\n\n3.  Explain the difference between the source editor view and visual editor view in Rstudio.\n\n4.  Be able to insert simple markdown plain text (headers, lists, paragraphs), and render the document.\n\n5.  Be aware of resources to help you learn more about markdown options.\n\n6.  Be able to insert an R code chunk, and show the output in the rendered document.\n  -   macro for quick insert\n  \n7.  Running R code chunks in a qmd\n  -   pressing play\n  -   copy/paste into console\n  -   highlight then command-enter (mac)\n  -   precedence issues (first to last)\n\n8.  Be aware of R code chunk options, and how to use eval, messages, error, warning, and echo.\n\n9.  Be able to set code chunk options per chunk, and/or for the whole document. Understand rules for precedence (which options will apply if both are set.)\n\n10. Write inline r code.\n\n11. Explain how the rendering environment is different from the Rstudio environment.\n\n12. Be aware of more advanced quarto options for html documents, and try some of the options."
   },
   {
     "objectID": "modules/index.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PSYC167 - 3 Reports with R Markdown</title>
+<title>PSYC167 - 2 Installing R and RStudio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -129,6 +95,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../modules/index.html" rel="" target="">
  <span class="menu-text">Modules</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../exercises" rel="" target="">
+ <span class="menu-text">Exercises</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -147,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../../modules/3 Reports with R Markdown/index.html">3 Reports with R Markdown</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../../modules/02 Installing R and R Studio/index.html">2 Installing R and RStudio</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -176,20 +146,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/1 Introduction/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../modules/01 Introduction/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1 Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/2 R and R Studio/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../modules/02 Installing R and R Studio/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2 Installing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../modules/04 Creating a Posit Account/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2 R, R studio, Quarto and Github</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../modules/3 Reports with R Markdown/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">3 Reports with R Markdown</span></a>
+  <a href="../../modules/03 Installing Git and GitHub Desktop/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 Git this and Git that</span></a>
   </div>
 </li>
       </ul>
@@ -205,16 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#read" id="toc-read" class="nav-link active" data-scroll-target="#read">Read</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
-  <ul class="collapse">
-  <li><a href="#most-important-reproducible-document" id="toc-most-important-reproducible-document" class="nav-link" data-scroll-target="#most-important-reproducible-document">MOST IMPORTANT: Reproducible document</a></li>
-  <li><a href="#basic-skills-for-this-section" id="toc-basic-skills-for-this-section" class="nav-link" data-scroll-target="#basic-skills-for-this-section">Basic Skills for this section</a></li>
-  </ul></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional resources</a>
-  <ul class="collapse">
-  <li><a href="#quarto-documents" id="toc-quarto-documents" class="nav-link" data-scroll-target="#quarto-documents">Quarto documents</a></li>
-  </ul></li>
-  <li><a href="#week-3-assignment" id="toc-week-3-assignment" class="nav-link" data-scroll-target="#week-3-assignment">Week 3 assignment</a></li>
+  <li><a href="#do" id="toc-do" class="nav-link" data-scroll-target="#do">Do</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">3 Reports with R Markdown</h1>
+<h1 class="title">2 Installing R and RStudio</h1>
 </div>
 
 
@@ -240,101 +207,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="read" class="level2">
 <h2 class="anchored" data-anchor-id="read">Read</h2>
-<p><a href="https://psyteachr.github.io/ads-v2/02-reports.html" class="uri">https://psyteachr.github.io/ads-v2/02-reports.html</a></p>
+<p>Read the intro to R and RStudio chapter from the textbook.</p>
+<p><a href="https://psyteachr.github.io/ads-v2/01-intro.html" class="uri">https://psyteachr.github.io/ads-v2/01-intro.html</a></p>
 </section>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The textbook chapter covers writing R markdown documents (.Rmd extension). R Markdown is a notebook style coding document that can contain plain text (markdown), and executable R code chunks along with outputs, and compile everything into one output document. This system uses a package called <code>knitr</code> to “knit” together the plain text and code into a final output.</p>
-<p>Our class is using a newer notebook system called quarto (.qmd extension). Most of the same concepts and syntax used in <code>r.Rmd</code> work in <code>.qmd.</code></p>
-<p>We are just starting to learn bits of R coding. In class we have executed bits of R code in the console. Moving forward we will be writing whole scripts of code and saving our scripts in text files. It is possible to store R code in .R files, however, these script files do not allow for regular text. Instead, we will be using notebook style .qmd documents that contain both code and text.</p>
-<section id="most-important-reproducible-document" class="level3">
-<h3 class="anchored" data-anchor-id="most-important-reproducible-document">MOST IMPORTANT: Reproducible document</h3>
-<p>The most important concept here is that we will be learning to code using a reproducible document creation system. This provides an integrated document format to write and execute code, and to write text for purposes of communication.</p>
-</section>
-<section id="basic-skills-for-this-section" class="level3">
-<h3 class="anchored" data-anchor-id="basic-skills-for-this-section">Basic Skills for this section</h3>
-<ol type="1">
-<li>Be able to make a new <code>.qmd</code> document</li>
-<li>Be able to render a <code>.qmd</code> document</li>
-<li>Explain the difference between the source editor view and visual editor view in Rstudio.</li>
-<li>Be able to insert simple markdown plain text (headers, lists, paragraphs), and render the document.</li>
-<li>Be aware of resources to help you learn more about markdown options.</li>
-<li>Be able to insert an R code chunk, and show the output in the rendered document.</li>
-</ol>
+<section id="do" class="level2">
+<h2 class="anchored" data-anchor-id="do">Do</h2>
 <ul>
-<li>macro for quick insert</li>
+<li>Install R</li>
+<li>Install RStudio</li>
+<li>Configure RStudio</li>
 </ul>
-<ol start="7" type="1">
-<li>Running R code chunks in a qmd</li>
-</ol>
-<ul>
-<li>pressing play</li>
-<li>copy/paste into console</li>
-<li>highlight then command-enter (mac)</li>
-<li>precedence issues (first to last)</li>
-</ul>
-<ol start="8" type="1">
-<li>Be aware of R code chunk options, and how to use eval, messages, error, warning, and echo.</li>
-<li>Be able to set code chunk options per chunk, and/or for the whole document. Understand rules for precedence (which options will apply if both are set.)</li>
-<li>Write inline r code.</li>
-<li>Explain how the rendering environment is different from the Rstudio environment.</li>
-<li>Be aware of more advanced quarto options for html documents, and try some of the options.</li>
-</ol>
-</section>
-</section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional resources</h2>
-<section id="quarto-documents" class="level3">
-<h3 class="anchored" data-anchor-id="quarto-documents">Quarto documents</h3>
-<p>The quarto website contains many helpful examples. We will cover aspects throughout the semester.</p>
-<p>General tips for writing in quarto markdown:</p>
-<p><a href="https://quarto.org/docs/authoring/markdown-basics.html" class="uri">https://quarto.org/docs/authoring/markdown-basics.html</a></p>
-<p>Making an html document:</p>
-<p><a href="https://quarto.org/docs/output-formats/html-basics.html" class="uri">https://quarto.org/docs/output-formats/html-basics.html</a></p>
-<p>Making a pdf document:</p>
-<p><a href="https://quarto.org/docs/output-formats/pdf-basics.html" class="uri">https://quarto.org/docs/output-formats/pdf-basics.html</a></p>
-<p>R code chunk options:</p>
-<p><a href="https://quarto.org/docs/computations/execution-options.html" class="uri">https://quarto.org/docs/computations/execution-options.html</a></p>
-</section>
-</section>
-<section id="week-3-assignment" class="level2">
-<h2 class="anchored" data-anchor-id="week-3-assignment">Week 3 assignment</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/QcmFSIPGJBM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
-</iframe>
-<ol type="1">
-<li>Write your blog post, and submit the link to this assignment on blackboard. The video tutorial gives an extended walkthrough.</li>
-</ol>
-<p>At this point we are just beginning to start coding, and at the end of this session we will have learned more about using .qmd documents. We have already been using .qmd documents for our blog posts. And, we will be using throughout the semester for almost everything we do, including coding.</p>
-<p>The blog post for this week is to write a post where you check off as many basic skills as you can for this section. The basic skills are the same as above, I put them in a code chunk to make them easier to copy.</p>
-<p>“Checking off” the skills means making notes, or making additions/changes to your .qmd document to show yourself you can accomplish these tasks and/or understand the concepts.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Be able to make a new .qmd document</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Be able to render a .qmd document</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Explain the difference between the source editor view and visual editor view in Rstudio.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Be able to insert simple markdown plain text (headers, lists, paragraphs), and render the document.</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Be aware of resources to help you learn more about markdown options.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Be able to insert an R code chunk, and show the output in the rendered document.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  -   </span>macro for quick insert</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Running R code chunks in a qmd</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">  -   </span>pressing play</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  -   </span>copy/paste into console</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  -   </span>highlight then command-enter (mac)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  -   </span>precedence issues (first to last)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Be aware of R code chunk options, and how to use eval, messages, error, warning, and echo.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Be able to set code chunk options per chunk, and/or for the whole document. Understand rules for precedence (which options will apply if both are set.)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Write inline r code.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Explain how the rendering environment is different from the Rstudio environment.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Be aware of more advanced quarto options for html documents, and try some of the options.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
