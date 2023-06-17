@@ -6,8 +6,7 @@ format:
     theme: cosmo #quartz
     #css: css/home.css
     fontcolor: black
-    #mainfont: Nunito
-    #fontsize: 
+
 ---
 
 ```{r, echo=FALSE}
