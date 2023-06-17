@@ -1,20 +1,65 @@
 project:
   type: website
   output-dir: docs
+  preview:
+    port: 167
+    browser: true
+    navigate: true
+  render:
+    - "*.qmd"
+    - "!omit/"
+    - "!examples/"
 
 website:
-  title: "dataviz23"
+  title: "PSYC167"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: "Home"
+        file: index.qmd
+      - text: "Syllabus"
+        file: syllabus/syllabus.qmd
+      #- text: "Textbook"
+      #  href: https://psyteachr.github.io/ads-v2
+      - text: "Modules"
+        file: modules/index.qmd
+      #- text: "Compendium"
+      #  file: compendium/index.qmd
+
+    right:
+      - icon: github
+        href: https://github.com/slicesofdata/psyc167
+        aria-label: GitHub
+
+  sidebar:
+      #style: "floating"
+      #collapse-level: 2
+      #align: left
+      #contents: auto
+    - title: "Home"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - syllabus/syllabus.qmd
+        - auto: "modules"
+        #- compendium
+    - title: "Modules"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents: modules
+ #   - title: "Compendium"
+#      style: "floating"
+#      collapse-level: 2
+#      align: left
+#      contents: compendium
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: minty
+    css: [css/nav.css,css/styles.css]
     toc: true
+    include-in-header: "css/fontawesome.html"
 
-
+editor: source
 
