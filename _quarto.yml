@@ -61,7 +61,7 @@ format:
     toc: true
     include-in-header: "css/fontawesome.html"
     #mainfont: arial #Nunito
-    fontsize: 1rem
+    fontsize: 1.2rem
 #    linkcolor: "#096980"
 #    monofont: courier new
 
