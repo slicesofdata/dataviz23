@@ -1,0 +1,30 @@
+---
+title: "2 Installing R and RStudio"
+#author: ""
+#date: ""
+order: 2 
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Read
+
+Read the intro to R and RStudio chapter from the textbook.
+
+<https://psyteachr.github.io/ads-v2/01-intro.html>
+
+
+
+## Do
+
+- Install R
+- Install RStudio
+- Configure RStudio
+
+
