@@ -1,0 +1,6 @@
+pkg_list <- c(
+  "dplyr", "here", "quarto", "readr",
+  "rmarkdown", "gt", "gtsummary", 
+  "ggplot2", "kable", "kableExtra",
+  "fs" 
+)
