@@ -5,9 +5,11 @@
 .Rprofile
 
 /.quarto/
+_content/
+_R/
 notes/
-data/
 omit/
+
 *.RData
 *.rdb
 *.rdx
