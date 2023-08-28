@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Overview of Modules for PSYC 167">
+<meta name="author" content="Gabriel I. Cook">
+<meta name="dcterms.date" content="2023-08-28">
 
-<title>PSYC167 - Modules</title>
+<title>PSYC167 - Histograms and density plots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -159,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/16  - histograms_and_density_plots.html"><strong>Histograms and density plots</strong></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -179,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../modules/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../modules/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modules</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -188,32 +155,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/01 - installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/01  - installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Installing R &amp; RStudio</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/01_installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Installing R &amp; RStudio</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/02 - creating_a_posit_account.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/02  - creating_a_posit_account.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Creating a Posit Account</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/03 - installing_git_and_github_desktop.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/03  - installing_git_and_github_desktop.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Installing Git &amp; GitHub Desktop</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/04 - project_management_with_here.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Project management with {here}</strong></span></a>
+  <a href="../modules/04  - project_management_with_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Project Management</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -224,8 +185,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/05 - graphical_perception.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/05  - graphical_perception.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Graphical perception</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/06  - data_frame_manipulation_and_wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Data frame manipulation and wrangling</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -236,8 +203,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/06 - data_frame_manipulation_and_wrangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Data frame manipulation and wrangling</strong></span></a>
+  <a href="../modules/07  - data_subsets_and_summaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Data subsets and summaries</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -248,19 +215,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/07 - data_subsets_and_summaries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Data subsets and summaries</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../modules/08  - geom_line.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Line Plots</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/08 - ggplot_and_the_grammar_of_graphics.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/08  - ggplot_and_the_grammar_of_graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>{ggplot} and the grammar of graphics</strong></span></a>
   </div>
 </li>
@@ -278,97 +239,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/09 - visualizing_amounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/09  - visualizing_amounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>visualizing amounts</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/10 - spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/10  - spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Spatial position and adjustment</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/11 - considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/11  - considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Considerations in data visualization</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/12 - visualizing_associations.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/12  - visualizing_associations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Visualizing associations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/13 - color_scales_and_palettes.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/13  - color_scales_and_palettes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Color scales and palettes</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/14 - statistical_transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/14  - statistical_transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Statistical transformations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/15 - coordinates_axes_and_position_scales.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/15  - coordinates_axes_and_position_scales.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Coordinates, axes, and position scales</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/16 - histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/16  - histograms_and_density_plots.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/17 - visualizing_more_distributions.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/17  - visualizing_more_distributions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Visualizing more distributions</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/18 - visualizing_uncertainty.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/18  - visualizing_uncertainty.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Visualizing uncertainty</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/19 - visualizing_trends.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/19  - visualizing_trends.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Visualizing trends</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/20 - legends_and_arrangement.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/20  - legends_and_arrangement.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Legends and arrangement</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/21 - annotation_and_text.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/21  - annotation_and_text.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Annotation and text</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/22 - designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/22  - designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Designing perceptually-efficient visualizations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/23 - attentional_control.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/23  - attentional_control.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Attentional control</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/24 - multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/24  - multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
   </div>
 </li>
@@ -380,19 +341,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../modules/Intro_to_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Intro to ggplot</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../modules/Intro_to_ggplot_shorttest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Intro to ggplot</strong></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/project_management_with_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Project Management with {here}</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/reading_managing_writing_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Reading, Managing, &amp; Writing Data</strong></span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../modules/Introduction/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Modules x</span></a>
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">05 vcd text - content</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/05 vcd text - content/01-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Orientation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../modules/Introduction/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules x</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../modules/Introduction/introduction.html" class="sidebar-item-text sidebar-link">
@@ -419,7 +415,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#module-structure" id="toc-module-structure" class="nav-link active" data-scroll-target="#module-structure">Module structure</a></li>
+  <li><a href="#under-construction" id="toc-under-construction" class="nav-link active" data-scroll-target="#under-construction"><strong>Under Construction</strong></a>
+  <ul class="collapse">
+  <li><a href="#content-pending" id="toc-content-pending" class="nav-link" data-scroll-target="#content-pending"><strong>Content Pending</strong></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -428,19 +427,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modules</h1>
+<h1 class="title"><strong>Histograms and density plots</strong></h1>
 </div>
 
-<div>
-  <div class="description">
-    Overview of Modules for PSYC 167
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel I. Cook </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 28, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -448,24 +454,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).</p>
-<p>The modules consists of content from chapters of various textbooks that are freely available:</p>
-<ul>
-<li></li>
-<li><a href="https://psyteachr.github.io/ads-v2/" class="uri">https://psyteachr.github.io/ads-v2/</a></li>
-</ul>
-<section id="module-structure" class="level2">
-<h2 class="anchored" data-anchor-id="module-structure">Module structure</h2>
-<p>In general, modules will contain readings, additional resources, and weekly assignments.</p>
-<p>The modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mtcars</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="under-construction" class="level1">
+<h1><strong>Under Construction</strong></h1>
+<section id="content-pending" class="level2">
+<h2 class="anchored" data-anchor-id="content-pending"><strong>Content Pending</strong></h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
