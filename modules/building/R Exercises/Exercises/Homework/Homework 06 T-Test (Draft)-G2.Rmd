@@ -1,0 +1,692 @@
+---
+title: "t-Tests "
+author: "datapartner names"
+date: "type data"
+output: html_document
+---
+
+options(scipen=999)
+#options(scipen=0)
+
+
+##1. Overview of the one-sample t-Test##
+
+The procedures for testing hypotheses described up to this point comparing a group of scores to a known population (e.g., z-test). For many research questions, however, you do not have without any direct information about populations you wish to study. In such cases, you can estimate population parameters using sample statistics. These kinds of research situations are very common in behavioral and social science research, where usually the only information available is from the samples. You want to compare the mean of the scores in a sample to a population for which the mean is known but the variance is unknown. Hypothesis testing in this situation is called a one-sample t-test.
+
+The *one-sample t-test*, like the z-test, the one-sample *t*-test compares the mean of a single sample to a hypothesized population value (e.g., mu).  Unlike the other t-tests (e.g., independent and dependent), this test analyzes data from only one dependent variable. 
+
+**For example: To test this we are going to create a dataset of 20 first year resident female doctors resting systolic blood pressures drawn at random from one area,**
+
+```{r}
+BP <- c(128,  127, 124, 126, 144, 142, 133, 140, 132, 131, 130, 132, 149, 122, 139, 119,136, 129, 126, 128)
+
+# convert the vector into a data frame object
+BLOOD <- as.data.frame(BP) 
+
+# look at the data frame
+BLOOD$BP
+```
+
+##Examining Data and Assumptions of *t*-tests## 
+
+1.1.  The first assumption that we must examine is the normality of our data to determine if we have any outliers. 
+
+```{r}
+library(lattice)
+histogram(~BLOOD$BP) 
+
+# examine visually; normal fit using quantile-quantile plots 
+qqnorm(BLOOD$BP); qqline(BLOOD$BP)
+```
+
+
+1.n. You can also use different statistical tests to examine whether the shape of distributions differ from the shape of a normal distribution. Some tests are included in the nortest library. We will use the Shapiro-Wilk test using shapiro.test() and the Lilliefors (Kolmogorov-Smirnov) test for normality using the lillie.test() function.
+
+
+```{r}
+# Move Up 
+library(nortest) # Load the nortest library
+
+# pass the variable of interest into the function
+shapiro.test(BLOOD$BP) # The p value is > .05
+
+# pass the variable into the function
+lillie.test(BLOOD$BP) # The p value is > .05
+```
+
+If your data adhere to a fairly normal distribution, you can compare your sample mean to a population mean.  In order to calculate a one-sample t-test you must obtain the mean and standard deviation of the sample. You could do this manually as you have before, but a function will also accomplish this. 
+
+```{r}
+mean.BP <- mean(BLOOD$BP)
+mean.BP
+
+sd.BP <- sd(BLOOD$BP)
+sd.BP 
+```
+
+Knowing your sample mean and standard deviation you also must know the mean of the population 
+you are testing. From previous large studies of women drawn at random from the healthy 
+general public, a resting systolic blood pressure of 120 mm Hg was predicted as the population mean for the relevant age group.  
+
+To summarize:
+- Sample mean = 131.85
+- Population mean = 120
+- Sample size n = 20
+- Sample sd = 7.741039
+
+
+Below is the formula to conduct a one sample t-test:
+t = (Sample mean - population mean) / (unbiased sample standard deviation / sqrt(n))
+
+By substitution,
+t = (131.85 - 120)/ (7.741039)/ sqrt(20))
+
+You could write your own formula: 
+
+```{r}
+t <- (mean.BP - 120) /(sd.BP / sqrt(20)) 
+t
+```
+
+However, there is an easier way to calculate the *t*-value and obtain the corresponding *p*-value. The t.test() function from the built-in stats library can be used to conduct the one-sample *t*-test. Of course, you will need to specify variable and the population mean arguments in the t.test() function.   
+
+```{r}
+t.test(BLOOD$BP, mu = 120)
+```
+
+#Reporting the t-test#
+Based on the R output, you will see the variable for which you calculated the sample mean and estimated standard deviation (S), the t-value based on the calculation, the degrees of freedom for the mean (n-1), and the p-value correspond to finding a difference between the sample and population means if they were supposed to be equal to each other under H0. 
+
+When you calculate a *t*-test and report the results of the statistic, you will need to specify the *t*-value and the degrees of freedom. The df for the one-sample *t*-test is n - 1. 
+
+If you used the *p*-value to make decisions about H0, you could interpret the data as evidence for the sample (its mean) being different from the population mean. In other words, you have evidence that you sample does not come from a population with a mean of 120; your sample likely comes from a population with a mean that is statistically greater than 120 (perhaps closer to 131.85). 
+
+You don't always need to compare a sample mean to a population mean. Perhaps you want to compare your sample mean to some hypothetical value. Some other uses of a one-sample *t*-test include:
+
+1) testing a sample against a pre-defined value, 
+2) testing a sample against an expected value, 
+3) testing a sample against common sense or expectations, 
+4) testing the results of a replicated experiment against the results of an original study
+
+
+##1.2 Estimating variance and Standard Deviation the of Population##
+
+If you do not know the variance or standard deviation of the population of individuals, you can estimate them from what you do know-the scores of the people in your sample. In the logic of hypothesis testing, the sample of experimental units (e.g., people) you study is assumed to be a random sample taken from a particular population with a particular mean and varieance. The variance of this sample ought to reflect the variance of that population. If the scores in the population have a lot of variation, then the scores in a sample randomly selected from that population should also have a lot of variation. Yet, the variance of your sample will generally be slightly smaller than the population. Thus the variance of your sample is referred to as a *biased estimate* of the population variance. 
+
+To gain an *unbiased estimate* of variance or standard deviation for your population, you can use the built-in var() and sd() functions which return the *unbiased estimates*. Many statistics software will always provide unbiased estimates.
+
+
+```{r}
+# Calculate the standard deviation
+dev.BP <- BLOOD$BP - mean(BLOOD$BP) # Create deviation scores for each value from the sample mean.
+dev.BP # notice some deviation scores are positive or negative based on whether the scores are above or below the sample mean
+
+# Square those deviation scores 
+squared.dev.BP <- dev.BP^2
+squared.dev.BP # Now these are all squared values
+
+# sum the squared deviations
+SS <- sum(squared.dev.BP) 
+SS
+
+# biased variance; SS/n
+var.biased.BP <- SS/length(BLOOD$BP) 
+var.biased.BP
+
+# unbiased variance; SS/(n-1)
+var.unbiased.BP <- SS/(length(BLOOD$BP) - 1)
+var.unbiased.BP
+
+# biased sd
+sd.biased.BP <- sqrt(var.biased.BP)
+sd.biased.BP
+
+# unbiased sd
+sd.unbiased.BP <- sqrt(var.unbiased.BP)
+sd.unbiased.BP
+
+# unbiased estimates using the functions
+var(BLOOD$BP)
+sd(BLOOD$BP)
+```
+
+Notice how the biased estimate is slightly smaller than the unbiased estimate. This indicates that the biased estimate is stating that the variability in the population of scores is smaller than it actually is. Also, the size of the bias will decrease as sample sizes increase because larger samples will be less biased in general so the correction factor using df (degrees of freedom) is used. 
+
+Once you have figured the estimated population variance, you can figure the standard deviation of the comparison distribution. As always, when you have a sample of more than one, the comparison distribution is a distribution of means (sampling distribution). And the variance of a distribution of means is the variance of the population of individuals divided by the sample size. You have just estimated the variance of the population. Thus, you can estimate the variance of the distribution of means by dividing the estimated population variance by the sample size. The standard deviation of the distribution of means is the square root of its variance.
+
+##1.3 Degrees of Freedom##
+
+The concept of degrees of freedom is central to the principle of estimating statistics of populations from samples of them. "Degrees of freedom" is commonly abbreviated to df. In short, think of df as a mathematical restriction that we need to put in place when we calculate an estimate one statistic from an estimate of another. The idea is that, when figuring the variance, you first have to know the mean. If you know the mean and all but one of the scores in the sample, you can figure out the one you do not know with a little arithmetic. Thus, once you know the mean, one of the scores in the sample is not free to have any possible value. So in this kind of situation the df is the number of scores minus 1. In terms of a formula,
+                            
+*df = N - 1*
+
+In our example we have 19 degrees of freedom:
+```{r}
+df = 20 - 1 #Because our n is 20
+df
+
+# or
+df = length(BLOOD$BP) - 1
+df                                 
+```                                                     
+
+##1.4 Violation of Assumptions##
+
+While the blood data was relatively normal this will not often be the case. For example, There is a data set in R that reports tipping behavior at restaurants. 
+
+```{r}
+tips <- read.csv("tips.csv", header = T, sep = ",", dec = ".", fill = T)
+# look at the file # to reduce confusion, make sure a column is not the 
+# same name as your data frame 
+head(tips)
+
+# look at more details
+str(tips)
+```
+
+Now to examine if tip is interval/ratio data and is normally distributed. (For this data 0 means no tip was left)
+
+```{r}
+hist(tips$tip) #does not look normal
+
+# What about tips as a proportion of the total bill? Maybe that's better.
+tips$prop <- (tips$tip/tips$total_bill)
+
+# Now take a look
+hist(tips$prop) #looks like it could be skewed positively
+
+# Do some statistical tests for normality of the distribution 
+shapiro.test(tips$prop) # The p value is < .05, so this distribution is very different from a normal one
+
+lillie.test(tips$prop) # same as above
+```
+
+Tipping data appear to be different from what a normal distribution would expect. We Before we conduct a *t*-test, it would be wise to perform a log transformation on the data. 
+
+```{r}
+tips$proplog <- log10(tips$prop)
+```
+
+
+Let's do it all again:
+```{r}
+shapiro.test(tips$proplog) #  The p value is still < .05
+lillie.test(tips$proplog) # The p value is still < .05
+
+# We can also test for skew 
+library(moments) #for looking at moments of a disribution
+skewness(tips$proplog, na.rm = TRUE) # the skew is negative
+agostino.test(tips$proplog) # Even the transformation didn't help
+```
+
+While the distribution is still not perfectly normal in shape, it is looking much better and we will proceed with the *t*-test. First we will create a constant for all cases to examine all cases in the data. Later we can use this same method to look at separate groups. 
+
+```{r}
+head(tips)
+tips$all <- 1 # just set all cases equal 1 
+
+# Make sure the variable was created
+head(tips) # all is the last variable in the tips data frame
+
+```
+
+Now that we have created a constant we will run the analysis to determine if our same mean is *significantly greater/less* than a 20% tip. Instead of using the t.test() function we are going to use the built in t.test() function. 
+
+
+```{r}
+mean(tips$prop[tips$all==1]) # select a subset based on the constant
+
+t.test(tips$prop[tips$all==1], mu = .20, alternative ="two.sided", conf.level=.95) #select only one condition.
+```
+
+We can also specify that we only want to determine if the sample mean is *significantly greater* than 20% 
+
+```{r}
+
+t.test(tips$prop[tips$all==1], mu = .20, alternative ="greater", conf.level=.95) 
+```
+
+Note: p value is 1 because there is no chance that 16% can be greater than 20% for this one-tailed test
+
+Is the same mean *significantly less* than 20% though? 
+
+```{r}
+
+t.test(tips$prop[tips$all==1], mu = .20, alternative ="less", conf.level=.95) 
+```
+
+Note: p value is < .05 ; the overall sample tips less than 20% 
+
+
+## 2.0 t-test for Sample Means
+The situation you just learned about (the *t*-test for a single sample) is for when you know the population mean but not its variance and you have a single sample of scores. It turns out that in most research you do not even know the population's mean; plus, in most research situations, you usually have not one set but two sets of scores. These two things, not knowing the population mean and having two sets of scores, almost always go together. This situation is very common. This kind of research situation  is called a repeated-measures design (also known as a within-subjects design). A common example is when you measure the same people before and after some social or psychological intervention. This specific kind of repeated-measures situation is called a before-after design.
+
+The hypothesis-testing procedure for the situation in which each person is measured twice (that is, the situation in which we have a repeated-measures design) is called a t test for dependent means. The *t*-test for dependent means is also called a paired-sample t test, a t test for correlated means, a  *t*-test for matched samples, and a *t*-test for matched pairs. Each of these names come from the same idea that in this kind of t test you are comparing two sets of scores that are related to each other in a direct way, such as each person being tested before and after some procedure.
+
+You do a  *t*-test for dependent means in exactly the same way as a t test for a single sample, except that: 
+(a) you use something called difference scores and 
+(b) you assume that the population mean (of the difference scores) is 0 under H0. 
+
+
+2.1 Difference Scores
+
+With a repeated-measures design, your sample includes two scores for each experimental unit (e.g., person) instead of just one. The way you handle this is to make the two scores per person into one score per person! You do this magic by creating difference scores: For each person, you subtract one score from the other. If the difference is before versus after, difference scores are also called change scores.
+
+To show this we are going to bring in pre-test and post-test scores from a group of students who ranked happiness scores before and finals week. 
+
+```{r}
+Paired <- read.csv("Paired.csv")
+View(Paired)
+```
+
+As you can see we have pre-test scores and post-test scores. Now we need to create the difference scores so we can analyze the data to examine if the difference is close to or far away from 0. 
+
+```{r}
+Paired$Diff <- Paired$Pre - Paired$Post
+View(Paired)
+str(Paired)
+
+mean.diff <- mean(Paired$Diff)
+mean.diff
+```
+
+Notice how a new variable has been created called *Diff* which took the pre-test minus the post-test. Keep in mind that a negative value means that scores are higher on the post-test and do not mistake it for a decrease in scores. Since we know the mean of the differences we can say that on average happiness scores were 2.05 higher after finals week (that's why mean.diff is negative). 
+
+To conduct a paired-sample *t*-test we will use the built-in t.test() function from the stats libarary as well as write out the equation. The two variables are included as separate arguments; the order does not matter. Also, the mean difference because under H0 = 0, so there is no need to include the argument to set mu. Just make sure to specify that the data are paired by setting the paired argument to TRUE (e.g., paired = TRUE). You did not have to do this for the one-sample *t*-test and by default the test is two-tailed. 
+
+The general formulat is:  t.test(X1, X2, paired = TRUE)
+
+```{r}
+t.test(Paired$Pre, Paired$Post, paired = TRUE)
+```
+
+The *t*-value, df, *p*-value, and mean difference scores are included in the output. If you use the *p*-value to help determine the evidence for the difference value being the same as or different from 0, the paired-samples *t*-test reveals the true difference in means is not equal to 0. Rather, there is a difference in happiness before and after final exams. Finally, because the sample difference score is  estimated from the sample, it is not completely accurate representation of the population difference. A 95% confidence interval provides a range for the actual difference score that you might expect the true difference to be. Notice the the interval does not include a difference of 0, so you an be 95% confident that the real difference score is not 0. Instead, there must be some systematic reason for the difference in happiness scores that is not simply due to random chance. Perhaps students are stressed out before final exams and they relax after them. 
+
+
+## 3. Assumptions for *t*-tests## 
+
+3.1. Different Assumptions for *t*-test
+
+As we have seen, when you are using an estimated population variance, the comparison distribution is a *t* distribution rather than a *z* distribution (normal).
+
+However, in order to perform a *t*-test, there are few assumptions that should be met. 
+
+3.2. Assumptions for the one-sample *t*-test
+
+a) The data must be interval/ratio
+b) The data should follow the normal probability distribution
+c) The sample is a random sample from its population
+
+3.3. Assumptions for the paired-samples *t*-test
+
+a) The data must be interval/ratio
+b) The difference scors for the matched pairs should follow a normal probability distribution.
+c) The sample of pairs is a random sample from its population
+
+
+When you have a repeated-measures design with two measurement variables and do not have interval/ratio data or have violated normality, you can use an alternative test called the Wilcoxon Signed-Ranks Test using the wilcox.test() function from the built-in stats library. However, if the X1 and X2 values are the same (ties), they are dropped from the analyses.
+
+Similar to the paired-samples *t*-test, the function takes the form:
+
+wilcox.test(X1, X2, paired = TRUE) 
+
+```{r}
+wilcox.test(Paired$Pre, Paired$Post, paired = TRUE)
+```
+
+The Wilcoxon test does not calculate the magnitude of the difference between X1 and X2 scores. Rather, it examines how many times X1 > X2 and X2 > X1 independent of the size of the difference. When X1 and X2 are the same (ties), they are dropped from the analysis. The test compares the sum of the ranking order of the difference (e.g., the number of times X1 > X2 vs. X2 > X1) and compares that to a distribution that assumes the ranks are the same as expected under H0. The output provides a Wilcoxon test value and a *p*-value associated with the likelihood of such differences occurring under H0.
+
+If you examine the data, you will see that the Diff variable has only 1 tie (0), 4, instances of Pre > Post scores and 15 instances of Post > Pre scores. If using the *p*-value to make decisions about Pre = Post, you will see that p < .05, so that can be used as evidence of a difference in happiness before and after final exams. 
+
+
+
+
+
+
+
+#Two Sample t-Test
+
+            *Assumptions*
+a) The data are continuous (not discrete).
+b) The data follow the normal probability distribution.
+c) The variances of the two populations are equal. (If not the Welch Unequal-Variance test is used.)
+e) The two samples are independent. 
+h) Both samples are random samples from their respective populations. 
+
+
+##Two Sample T-Test
+
+
+The two-sample t-test is one of the most commonly used hypothesis tests. It is applied to compare whether the average difference between two groups is really significant or if it is due instead to random chance. It helps to answer questions like whether the average grade is higher for those who study or whether drug treatment led to higher rankings than a placebo. 
+To show the use of a two-sample t-test we will bring in students score on a quiz that was worth 30 points. The students were drawn from classes at two different schools. Since we do not have sigma for the whole populations we cannot perform a z-test. 
+
+
+```{r}
+Grade <- read.csv("Grades.csv", header = TRUE)
+```
+
+Since a two-sample t-test compares means it is usually helpful to examine the mean of each individual group first:
+
+```{r}
+mean(Grade$A)
+mean(Grade$B)
+
+
+```
+
+
+An examination of the distributions would be in order at this point, as the t-test assumes sampling from normal populations. 
+
+```{r}
+par(mfrow=c(1,2))      # set graphics window to plot side by side
+plot(density(Grade$A), main="Class A")
+plot(density(Grade$B), main="Class B")
+```
+
+
+The smoothed distributions appear reasonably mound-shaped, although with samples this small, it's hard to say for sure what the parent distribution looks like.  Another way to examine the data is through boxplots
+
+```{r}
+boxplot(Grade$A, Grade$B, ylab="Scores on Exam",     
+names=c("Grade A","Grade B"),                             
+main="Scores on Exam by Class")       
+```
+
+
+The function t.test() will be used to determine if the two means are different:
+
+```{r}
+t.test(Grade$A, Grade$B)
+```
+
+From the t.test() above it appears as if the two means are significantly different with these students class A performing significantly better than students in Class B. While the direction of this difference is not shown with the t.test() 
+function it can be inferred by examining the means of the groups. 
+
+You may also notice that the t.test() function applying the *Welch Two Sample t-test*. By default the two-tailed test is done, and the Welch correction for nonhomogeneity of variance is applied when using this function. The standard t-test assumes that both groups of data are sampled from normal populations with the same standard deviations.  While the Welch t-test assumes that both populations are sampled from normal populations, but does not assume that those two populations have the same standard deviation. 
+
+
+These however can be changed.
+
+Below we will run a one-sided t-test examining if the first variable is significantly greater than the second variabel. We will also assume equal variance. 
+
+```{r}
+t.test(Grade$A, Grade$B, alternative="greater", var.equal=T)
+```
+
+
+3.2 Splitting your data
+
+Remember out tip data? We are now going to examine it comparing males and females. First let us examine the data for males and females. 
+```{r}
+par(mfrow=c(2,2))
+hist(tips$prop[tips$sex=="Male"], main="Tipping Behavior", xlab = "Percent of Total Bill", 
+     ylab = "Frequency", xlim=c(0,.8),  ylim=c(0, 15), breaks=50, col="blue")
+hist(tips$prop[tips$sex=="Female"], main="Tipping Behavior", xlab = "Percent of Total Bill", 
+     ylab = "Frequency", xlim=c(0,.8),  ylim=c(0, 15), breaks=50, col="red")
+qqnorm(tips$prop[tips$sex=="Male"], main = "Male Tips Q-Q Plot") #definitely looks funky
+qqnorm(tips$prop[tips$sex=="Female"], main = "Female Tips Q-Q Plot") #definitely looks funky
+par(mfrow=c(1,1)) #reset the parameters to 1 rol, 1 column
+```
+
+We notice from the Q-Q plot that the data definitely looks a little funky and should examine the data for normality.
+
+```{r}
+
+# Lets do a Shapiro test for normality
+shapiro.test(tips$prop)
+shapiro.test(tips$prop[tips$sex=="Male"]) 
+shapiro.test(tips$prop[tips$sex=="Female"]) 
+
+# Or the K-S test
+library(nortest) #import the library
+lillie.test(tips$prop[tips$sex=="Male"]) # The p value is < .05
+lillie.test(tips$prop[tips$sex=="Female"]) # The p value is < .05
+# Tipping data appear to be different from what a normal dist. would expect. True for both men and women.
+# We really should remove outliers or transform the data to be normal in shape if we want to do a t-test
+
+```
+
+
+We notice that for the Shapiro test that p is less than .05 meaning that the data is not distributed normally. The tipping data appears to be different from a normal distribution. This is true for both men and women and it might be useful to remove outliers or transform the data to be normal in shape if we want to do a t-test. 
+
+
+Next, we will examine if the variance is equal for both groups using levels test of equality. 
+
+```{r}
+# Move up install.packages("lawstat")
+library(lawstat)
+levene.test(tips$prop, tips$sex, location="mean")
+
+```
+
+p > .05, so we can assume that the variance is equal and continue on with the t-test.  
+Below we run a t-test to determine if the difference in sample means is larger than 0. 
+ 
+```{r}
+t.test(tips$prop[tips$sex=="Male"], tips$prop[tips$sex=="Female"], alternative ="two.sided", 
+      paired = F, conf=.95, var.equal=F)
+# Setting var.equal = FALSE will correct for differences in variances. 
+```
+
+
+According to our analysis the difference between means is not larger than what would be expected due to random variability so we Fail to reject the H0 that the difference = 0.
+
+Yet, because of violations of the normality assumption, the t-test is not appropriate. One solution is to use a test that does not assume normal distributions (e.g., *Wilcoxon test*). The Wilcoxon rank sum test compares *medians* for *independent* groups.
+
+Since the Wilcoxon test compares medians we should take a look at the medians of our two groups
+
+```{r}
+median(tips$prop[tips$sex=="Male"]) ; median(tips$prop[tips$sex=="Female"])
+```
+The medians look about the same but lets test it:
+
+```{r}
+
+wilcox.test(tips$prop[tips$sex=="Male"], tips$prop[tips$sex=="Female"], alternative ="two.sided", 
+            paired = FALSE, conf.int = TRUE, conf.level = 0.95)
+```
+
+
+The interpretation of medians is the same as the means. The difference between medians is not larger than what would be expected due to random variability so we Fail to reject the H0 that the difference = 0.
+
+ 
+## 4.0 Effect Size
+
+
+4.1 Dependent Samples 
+
+The conventions for effect size may already be familiar to you: A small effect size is .20, a medium effect size is .50, and a large effect size is .80..Typically a higher effect size is better. The estimated effect size for a study using a t test for dependent means is the mean of the difference scores divided by the estimated standard deviation of the population of difference scores. If we go back to the pre-test and post-test scores for happiness before and after finals week we can determine the effect size below:
+
+```{r}
+HappyEffect <- MeanDiff / sdDiff
+HappyEffect
+```
+
+From that example we have an effect size of .7 which revels a medium-high effect size. 
+
+
+4.2 Independent Samples
+
+For the independent samples T-test, Cohen's d is determined by calculating the mean difference between your two groups,and then dividing the result by the pooled standard deviation. To test this we can go back to our tip data and examine the effect size of male vs female tippers. 
+
+```{r}
+MaleTip <- mean(tips$prop[tips$sex=="Male"])
+FemaleTip <- mean(tips$prop[tips$sex=="Female"])
+
+MaleTip
+FemaleTip
+
+TipEffect <- (MaleTip - FemaleTip) / sd(tips$prop)
+TipEffect
+
+```
+
+
+From this example we see a very small effect size of .14.
+
+
+
+##5.0 Do it yourself!!
+
+
+
+5.1 Independent Sample T-Test 
+
+
+Bring in HwPaired data set and conduct a paired samples t-test examining Males vs Females on how many hours a day they spend on social media. 
+
+Q20 - How many hours a ... do you spend on social media. 
+For the variable Gender:
+               *Males = 0*
+               *Females = 1*
+Hours a day is a continuous variable. 
+               
+               
+```{r}
+#hide
+HwPaired <- read.csv("HwPaired.csv")
+
+```
+
+Using histogram and Q-Q plots, compare if the data for Male and Female is normally distributed?
+
+
+```{r}
+#hide
+par(mfrow=c(2,2))
+hist(HwPaired$Q20[HwPaired$Gender==0])
+hist(HwPaired$Q20[HwPaired$Gender==1])
+qqnorm(HwPaired$Q20[HwPaired$Gender==0])
+qqnorm(HwPaired$Q20[HwPaired$Gender==1])
+par(mfrow=c(1,1))
+```
+
+
+*Answer*
+Is the data normally distibuted?
+Answer:
+
+Now test if the data is normally distributed:
+
+```{r}
+
+#hide
+shapiro.test(HwPaired$Q20)
+shapiro.test(HwPaired$Q20[HwPaired$Gender==0]) 
+shapiro.test(HwPaired$Q20[HwPaired$Gender==1]) 
+```
+
+*Answer*
+Was the test significant?
+Answer:
+
+What was the p-value?
+Answer:
+
+
+Run a normal t-test to compare if there is a difference between males and females with social media usage. 
+ 
+```{r}
+#hide
+t.test(HwPaired$Q20[HwPaired$Gender==0], HwPaired$Q20[HwPaired$Gender==1], alternative ="two.sided", paired = F, conf=.95, var.equal=F)
+ 
+```
+
+*Answer*
+Are they significantly different?
+Answer:
+
+What is the t value?
+Answer:
+
+What is the p-value?
+Answer: 
+
+
+Yet, because of violations of the normality assumption, the t-test is not appropriate. Use the Wilcoxon test:
+
+```{r}
+#hide
+wilcox.test(HwPaired$Q20[HwPaired$Gender==0], HwPaired$Q20[HwPaired$Gender==1], alternative ="two.sided", 
+            paired = FALSE, conf.int = TRUE, conf.level = 0.95)
+```
+
+*Answers*
+Does this reveal a significant difference?
+Answer:
+
+What is the null hypothesis?
+Answer:
+
+
+What is the effect size?
+
+```{r}
+#hide
+
+```
+
+*Answer*
+What level would you classify the effect size?
+Answer:
+
+
+5.2 Paired Sample T-Test
+A clinic provides a program to help their clients lose weight and asks a consumer agency to investigate the effectiveness of the program. The agency takes a sample of 15 people, weighing each person in the sample before the program begins and 3 months later to produce the table in Figure 2. Determine whether the program is effective.
+
+Bring in the Weight.csv datafile
+
+```{r}
+#hide
+Weight <- read.csv("Weight.csv")
+```
+
+
+For this we have Before and after scores.
+
+
+Create a difference score and view the file to make sure the difference score is there:
+```{r}
+#hide
+Weight$Diff <- Weight$Before - Weight$After
+
+View(Weight)
+str(Weight)
+```
+
+
+
+What is the mean of the difference:
+```{r}
+#Hide
+WeightDiff <- mean(Weight$Diff)
+WeightDiff
+
+```
+
+*Answer*
+How much weight was lost on average?
+Answer:
+
+
+Conduct a paired-sample t-test using the t.test() function. Just make sure when using this function to specify that the data is paired
+
+Answer:
+
+```{r}
+#Hide
+t.test(Weight$Before, Weight$After, paired = TRUE)
+
+```
+
+
+*Answer*
+Is the difference significant?
+Answer:
+
+What is the p-value?
+Answer:
+
+If 0 was included in the 95% confidence interval would the difference still be significant?
+Answer:
+

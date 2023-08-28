@@ -1,0 +1,262 @@
+---
+title: "Homework 03"
+author: "replace this with your names"
+date: "replace with the date"
+output: html_document
+---
+
+## Before you begin
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message. After adding that code, you must make sure that it will execute. So remember to run your code by highlighting it and pressing the RUN button or pressing CONTROL+ENTER. 
+
+
+If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish.
+
+## 1. Installing libraries using RStudio
+
+- Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you check the box to Install Dependecies. Do not install with code.
+
+- Mac users, most of you should already have XQuartz installed from the first R class, but please make sure that you have it downloaded and installed in your Applications folder. See the original download instruction file if you need help.  
+
+1.2. Key functions used for this assignment: 
+
+- as.data.frame() for combining vectors into a data frame; built-in
+- hist(); built-in library
+- lattice::histogram() for histograms; lattice library
+- qqnorm() and qqline() for examining normality; built-in library
+- with() ; built-in stats library
+
+## 2. Loading libraries
+After you finished the install, use the library() function to load the library by adding your R code in the empty code chunk below (between the ```). Hint: If you don't like typing all those characters out by hand, click on the Code option on the toolbar and learn the keyboard shortcut next to Insert Chunk. 
+
+**ANSWER:** 
+```{r}
+```
+
+## 3. Checking your working directory
+Always make sure that your working directory is correct. Use the getwd() function to check it by adding the code to the block. Verify that your working directory is correct. If it wasn't correct, save your work, set it in the global settings and then restart RStudio. If that does not work use the setwd() function or please see Lukas or myself for help.
+**ANSWER:** 
+```{r}
+```
+
+## 4. Descriptive statistics ##
+A. How do outliers (extreme scores) affect measures of central tendency? 
+**ANSWER:**
+
+B. What information does the variance and the mean provide about a distribution of scores?
+**ANSWER:**
+
+## 5. Understanding properties for inferential statistics ##
+
+A. Six months after a divorce, the former wife and husband each take a test that measures divorce adjustment. The wife's score is 63, and the husband's score is 59; over all the mean score for divorced women on this test is 60 with a standard deviation of 6; the mean score for divorced men on this test is 55 with a standard deviation of 4. If greater scores represent better adjustment, has the wife or the husband adjusted better to the divorce in relation to other divorced women and men of the same gender? Please explain your answer to yourself verbally as a means of testing whether you are able to describe the concepts appropriately.
+**ANSWER:**
+
+B. A psychologist has studied eye fatigue using a particular measure, which she administers to students after they have worked for one hour typing on a computer.  On this measure, she has found that the distribution follows a normal curve defined by mean = 80 and a standard deviation = 8. We can use the pnorm() function to retrn the probability associated with scoring below a certain value. The pnorm() function uses 3 arguments to do this: (1) the value that you want to test, (2) the mean of the distribution, and (3) the standard deviation of the distribution. 
+
+I've provided an example to get you started.  
+```{r}
+# Example: For determining the probability of a score falling the below 70:
+pnorm(70, mean = 80, sd = 8)
+```
+
+C. Keep in mind that pnorm() is returning a *p* value that is *LESS* than the value you enter as the first argument of pnorm(). *Hint:* You might need to do some subtraction or draw out your distribution by hand to see what you are really doing. You can complete the items by adding your code below the comment line for each value. Use the pnorm() function, determine the probability that students have Z scores that are:
+**ANSWER:** 
+```{r}
+# 1. Below 2.10
+
+# 2. Below -1.78
+
+# 3. Above .45
+
+# 4. Above -1.5
+
+```
+
+## 6. Calculating z scores using the formula ##
+You can use the z-score formula z = (x - mean)/sd to determine the z score that corresponds to a raw score of 70 when that parent distribution is a normal distribution defined by a mean = 80 and sd = 8. We can assign that value to an R object named z70. For example:
+```{r}
+z70 <- (70 - 80)/8
+z70 # let's see what's in the object
+```
+
+A. Use this logic to calculate the z score that corresponds to an WAIS IQ score of 120, for which the IQ distribution is assumed to be normally distributed with a mean = 100 and sd = 15. 
+**ANSWER:** 
+```{r}
+```
+
+If we had z scores and we knew that our distribution was a standard normal distribution defined by a mean = 0 and sd = 1, we could also find that probability of someone scoring less than a z score of that z70 value. For example: 
+```{r}
+pnorm(-1.25, mean = 0, sd = 1) # if we pass the -1.25 value into pnorm()
+pnorm(z70, mean = 0, sd = 1)   # we get the same thing if we pass the object z70 into pnorm() because z70 = -1.25
+```
+
+B. Now, do the same thing as demonstrated above for the z score that corresponds to your IQ score of 120. And of course, make sure that you pay attention to whether your z scores are positive (above) or negative (below) the mean.
+```{r}
+```
+
+## 7. Applying the logic to the real world ##
+Suppose that you are designing an instrument panel for a large industrial machine. The machine requires the person using it to reach 2 feet from a particular position. The reach for this position for adult women is known to have a mean of 2.8 feet with a standard deviation of .5 feet. The reach for adult men is known to have a mean of 3.1 feet with a standard deviation of .6 feet. Both women's and men's reach from this position is distributed normally. 
+
+If this machine design is implemented:
+ * What percentage of women will be unable to work on this instrument panel? 
+ * What percentage of men will be unable to work on this instrument panel? 
+
+A. Use the appropriate R function to answer this question and assign that to the objects f and m. I've started this for you by creating the objects, but you now need to write the function with the proper arguments. Simply replace the 0 with your function. 
+**ANSWER:** 
+```{r}
+f <- 0 
+m <- 0 
+```
+These will be probability values, so we will need to convert them to percentages by multiplying by 100. I'll do this for you and show you how we can have RMarkdown add your answer for you automatically by calling the object inside the code. You will see that I use the round() function to round the returned value to only 2 decimal points or else you will have many decimals. **IMPORTANT:** *DO NOT type your answer below because your R code will do it for you when you knit your HTML file when you are finished.* 
+
+Percent of Women **ANSWER:** `r round(100*f, 2)`%
+Percent of Men **ANSWER:** `r round(100*m, 2)`%
+
+## 8. Reading a file ##
+A. Read in the cdc.csv file using the read.csv() function and assign the file to a data frame object named health by adding your code below. Remember, the name of the csv file is a string, so you will have to put your quotes around the file name. Yes, of course, execute it to make sure you did this correctly.  If R throws an error because it cannot find the file, remember to make sure it's in your Psyc109 directory or perhaps you spelled something incorrectly.
+**ANSWER:** 
+```{r}
+```
+
+## 9. Examining the data frame's contents ##
+A. Apply the str() function in order to examine the structure of your data frame.
+**ANSWER:** 
+```{r}
+```
+
+B. Is age the 5th, 6th, or 8th variable?   **ANSWER:** 
+
+C. How many levels are there for genhlth?  **ANSWER:** 
+
+## 10. Examining shape and normality ##
+
+Take a look at the shape of the age variable. 
+
+A. Use the hist() function to produce a histogram for age. 
+**ANSWER:** 
+```{r}
+```
+
+B. Check the skewness() and kurtosis() of age. If you need to load a library in order to do so, remember to use the library() function.
+**ANSWER:** 
+```{r}
+```
+
+C. Now use both the qqnorm() and the qqline() functions to plot a quantile-quantile plot so that you can examine whether the age variable is normal in shape; the qqline() function fits a line to the qqnorm plot. If the points fall along that line, age will be roughly normal in shape. Simply type the functions and put your variable object inside the parentheses as you did above. 
+**ANSWER:** 
+```{r}
+```
+
+## 11. Understanding data frames by their row by column structure ##
+This section is general information about how R deals with data frames, so follow along. We used R to access individual variables in a data frame before using the $ operator (e.g., dataframe$variable; cdc$weight). We could have also used a couple other methods. For example, cdc$weight produces the same output as cdc["weight"]. However, using those methods, we are limited if we wish to examine more than one variable. However, a data frame is simply a list of vectors of equal length. Because the vectors, which you think about as variables are equal length, data frames are represented by rows and columns. The structure allows you to plot the any column (vector/variable) or any row (case) by specifying the row(s) and column(s) of interest. Using str(), you saw that the age variable is the 8th column in the data frame. What's nice is that we can perform R functions on variables simply by specifying the rows and columns within square brackets (e.g., [row, column]) of the health data frame that correspond the variables we wish to examine. 
+```{r}
+# To examine what data is on row 9 and column 8 of our health data frame object
+health[9, 8]
+
+# Or to look at rows 1 through 9 and see the first 9 cases for the age variable
+health[1:9, 8]
+
+# If we want to see all cases in the age variable, we can just omit the row number. However, this will produce all 20K cases, so I will comment out that line of code using pound.
+#health[, 10]
+
+# We can also simply look at the 22nd row of the entire data frame if you ever wanted to by simply omitting the column value. By not passing a value into the column (or row) slot, R interprets that as you telling it to show all columns (or rows). Notice the 22 will appear on the left of your output - that is your index value. If you enumerate your participants in a data file, the index does not not mean it's participant 22, but rather just the 22nd row of your data frame. R provides the variable names here, which is helpful.
+health[22, ]
+
+# And if for some reason we only wanted the mean of cases 1 through 10, we could apply the mean() function to column 8 in the health data frame.
+mean(health[1:10, 8], na.rm = TRUE)
+
+# Otherwise, we can look at the mean of all cases for age, by simply omitting the row value.
+mean(health[, 8], na.rm = TRUE)
+
+# And of course, this is the same thing as:
+mean(health$age,  na.rm = TRUE)
+
+# Following this same logic, we can plot a histogram for age in two ways. And if we wanted to, we could put both lines of code on one line using a semicolon. Of course, you don't need to see two identical histograms, but you get the point.
+hist(health[, 8]) ; hist(health$age)
+```
+
+A. Based on what you have gathered so far, do you think the distribution of age follows a normal distribution?
+**ANSWER:**  
+
+## 12. Bonus Learning Time: This is mostly just for learning some new things. ##
+When you used str() to see how many levels of genhlth there were, you should have discovered the answer. But we can also do this another way, which is very useful as you will see. But first, 
+
+A. Use the levels() function on your genhlth variable to return the level names of genhlth
+**ANSWER:** 
+```{r}
+```
+
+B. Use the nlevels() function on your genhlth variable to return the number of levels of genhlth 
+**ANSWER:** 
+```{r}
+```
+
+C. We can use the histogram() function in the lattice library to create some nice graphs. In order to do so, you will have to leverage some of the function arguments that are not needed to create the default graph. For example, you could plot a histogram for weight as a function of gender (groups). But there are some special things we need to keep in mind. 
+
+- The ~ needs to precede the variable that you want to plot. There is good reason for this, but we won't get into the reason why just yet. 
+
+- The | is used to specify which factor/categorical variable by which to split out your variable. 
+
+- So ~X | Race would mean "Hey, plot the numeric variable X for each level of Race."
+
+So, using our health data frame, let's plot a histogram for weight a each level of gender, we would have:
+```{r}
+histogram(~health$weight | health$gender) 
+```
+
+D. What is the label on the y-axis?   **ANSWER:**  
+
+By default, histogram() does not plot frequencies. Rather, the default plot type is "percent". The code behind the default would look like. Also, notice that when you add an argument, you need to separate each argument with a comma. If you don't include the comma, R with throw an error because you aren't telling it what to do correctly.  
+```{r}
+histogram(~health$weight | health$gender, type = "percent") 
+```
+
+E. We can change the type argument from "percent" to "count" by copying the code above and modifying it in the code block below. Remember, all arguments need to be inside the parentheses of the histogram() function; always make sure you enclose your functions in parentheses.
+**ANSWER:** 
+```{r}
+```
+
+F. What is the label on the y-axis?   **ANSWER:**
+
+Notice that the x-axis label on the graph looks clunky with the $ in the variable name. We can change it by adding the xlab argument to our code. We can add a main label too by adding the main arugument. The labels are letter strings, so strings need to be inside quotes. These are already added to the code, but you could change them if you wanted to. Again, notice that the arguments are separated by commas. Also, as shown, you can put arguments on separate lines if you wish to make your code more readable, but if you do, they lines need to be indented.
+```{r}
+histogram(~health$weight | health$gender, type = "count", 
+          main = "Weight by Sex",
+          xlab = "Weight") 
+```
+
+And if you don't like the side-by-side layout, you can add the layout argument. However, you will need to know how many levels there are of your grouping variable. In this example, you would use the number of levels of sex, which is 2. By default, the layout displays the graphs side-by-side. I set layout = c(1,2) so that we can see both plots along the same x-axis with one on top of the other.
+```{r}
+histogram(~health$weight | health$gender, type = "count", 
+          main = "Weight by Sex",
+          xlab = "Weight",
+          layout = c(1, 2)) 
+```
+
+G. Based on your graph, do weights appear greater for men or for women?   **ANSWER:**
+
+But if we wanted to plot the graphs in a similar way to see groups based on the genhlth variable rather than the sex variable, you would have to count the levels and change the from 2 to the other value. If you use the nlevels() function as demostrated above, you can replace 2 with nlevels(health$genhlth) and R will do this for you. Be careful, however, because you are nesting a functions inside of functions and you need to make sure your parentheses match. If you look carefully, you are nesting nlevels() inside c() which is inside histogram(), which gives you 3 sets of parentheses.
+```{r}
+histogram(~health$weight | health$genhlth, type = "count", 
+          main = "Weight by Sex",
+          xlab = "Weight",
+          layout = c(1, nlevels(health$genhlth))) 
+```
+
+H. But this graph is (probably) not yet perfect because you (probably) didn't change the labels to reflect your new grouping variable. Change main and xlab lables to be correct for the variables you are plotting. 
+**ANSWER:** 
+```{r}
+histogram(~health$weight | health$genhlth, type = "count", 
+          main = "?",
+          xlab = "?",
+          layout = c(1,nlevels(health$genhlth))) 
+```
+
+For more details on histogram() type ?histogram in the console window below and look at the help window.
+
+### Now save your file and press the knit button to create your HTML file. I hope you had fun! ###
+
+#### Other: You can see what version of R you are using and to see the libraries/packages used ####
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+Sys.time()
+```

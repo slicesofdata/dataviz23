@@ -1,0 +1,1087 @@
+---
+title: "**_quarto_ggplot_starter**"
+#description: |
+author: "Gabriel I. Cook"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+# https://quarto.org/docs/reference/formats/html.html
+
+format: 
+  html:    
+    theme: css/styles.scss
+    toc: true                   # include a table of contents
+    toc-depth: 3
+    toc-location: right          # body/left/right
+    toc-expand: true
+    number_sections: true       # enumerate sections flagged with #
+    code_fold: true             # allow option to show/ture/false code
+    number-depth: 1
+
+#    code-fold: true
+    #css: [css/nav.css,css/styles.css]
+    
+    #backgroundcolor: blue
+  #html_document:               
+
+#theme: cosmo #quartz
+    #css: css/home.css
+    #fontcolor: black
+    #page-layout: full
+    #css: [css/nav.css,css/styles.css]
+    
+#editor_options: 
+#  chunk_output_type: console
+
+#output: 
+#  quarto::html_document:
+
+execute: 
+#  eval: true
+#  echo: true
+#  output: 
+#  warning: true
+#  error: true
+#  include: true
+#  cache: true
+  freeze: true  # never re-render during project render 
+  #freeze: auto  # re-render only when source changes
+    
+---
+
+
+```{r notes, include=FALSE}
+# to hide code, in plot block, use  #| echo: true
+
+# for plots:
+ # add  | fig-cap: "caption"  
+ # add #| label: the the name of the figure label
+
+# https://quarto.org/docs/computations/execution-options.html
+
+
+```
+
+## Load Libraries
+
+```{r libraries}
+#| warning: false
+#| message: false
+library(ggplot2)
+library(here)
+library(tidyverse)
+library(magrittr)
+
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(gapminder)
+library(here)
+library(tidyverse)
+library(socviz)
+```
+
+## Functions
+
+Get the class repo using `usethis::use_course()` and source it.
+
+```{r external-functions}
+#suppressWarnings(lapply(c("data", "r", "r/src", "figs", "docs"), FUN = function(x) dir.create(here::here(x))))
+
+usethis::use_course(url = "https://github.com/slicesofdata/dataviz167/archive/master.zip", 
+                    destdir = here::here("r", "src"))
+#                    
+if (file.exists(
+  here::here("dataviz167-main", "r", "external_functions.R"))) source(
+    here::here("dataviz167-main", "r",  "external_functions.R"))
+
+
+```
+
+```{r}
+source("C:/Users/gcook/Sync/Progs/R/R-Portable/mypackages/zaatar Scripts/get_ticker_price.R")
+tkr <- get_ticker_price(); print(tkr)
+
+```
+## Saving plots (move to other location)
+
+You can pipe into ggplot functions and inside of them. Let's create a template example.
+
+```{r}
+# https://stackoverflow.com/questions/49753263/ggplot-subset-data-functions-and-dplyr
+
+template <- diamonds %>%
+  ggplot(data = ., 
+         aes(x = carat, 
+             y = price, 
+             color = cut)
+         ) + 
+  geom_point(alpha = .5, position = "jitter", size = 1) +
+  geom_smooth(data = . %>% filter(color == "J")) +  # piping data to filter funcs
+  labs(caption = "Smooths only for J color")
+
+ggsave(filename = here::here("figs", "diamonds_full.png"),
+       plot = template,
+       device = "png",
+       dpi = 320,
+       width = 5,
+       height = 5
+       )
+
+```
+
+```{r}
+template <- diamonds %>%
+  group_by(cut) %>%
+  ggplot(data = ., 
+         aes(x = carat, 
+             y = price, 
+             color = cut)
+         ) + 
+  geom_point() +
+  geom_smooth(data = . %>% filter(color == "J")) +  # piping data to filter funcs
+  labs(caption = "Smooths only for J color") 
+
+
+#Saving iteration of plots. 
+# Using the dot-place holder as lhs When the dot is used as lhs, the result will be a functional sequence, i.e. a function which applies the entire chain of right-hand sides in turn to its input. See the examples.
+#
+
+
+
+
+diamonds %>% 
+  group_by_at(., cut) %>%
+  summarise(., m = mean(cut, na.rm = T))
+    
+diamonds %>% 
+  group_by(cut) %>%
+  do(
+    ggsave(here::here("figs", 
+                      paste0("diamonds_", .$cut[1], ".png")), 
+           plot = template %+% .)
+    )
+
+```
+
+
+
+
+## Dplyr pipelines
+
+```{r pipeline}
+rel_by_region <- gss_sm %>%
+    group_by(bigregion, religion) %>%
+    summarize(N = n()) %>%
+    mutate(freq = N / sum(N),
+           pct = round((freq*100), 0))
+
+```
+
+
+```{r table-11 }
+rel_by_region
+```
+
+# using ka
+
+```{r table-2 }
+rel_by_region %>%
+  kableExtra::kable()
+
+  kableExtra::kbl()
+```
+
+
+```{r table-2 }
+rel_by_region
+rel_by_region %>%
+  view_html()
+
+```
+
+
+
+```{r table-3 }
+rel_by_region %>% 
+  group_by(bigregion) %>%
+  summarize(total = sum(pct))      
+```
+
+```{r dodge2}
+## dodge2 presently requires the development version of ggplot
+## devtools::install_github("tidyverse/ggplot2")
+
+p <- ggplot(rel_by_region, 
+            aes(x = bigregion, 
+                y = pct, 
+                fill = religion)
+            )
+
+p + geom_col(position = "dodge2") +
+    labs(x = "Region",
+         y = "Percent", 
+         fill = "Religion"
+         ) +
+    theme(legend.position = "top")      
+```
+
+```{r facet_dodge}
+p <- ggplot(rel_by_region, 
+            aes(x = religion, 
+                y = pct, 
+                fill = religion)
+            )
+p + geom_col(position = "dodge") +
+    labs(x = NULL, 
+         y = "Percent", 
+         fill = "Religion") +
+    guides(fill = FALSE) + 
+    coord_flip() + 
+    facet_grid(~ bigregion)      
+
+```
+
+## Continuous variables by category
+
+```{r 05-tables-and-labels-3 }
+organdata %>% 
+  select(1:6) %>% 
+  sample_n(size = 10)      
+```
+
+```{r 05-tables-and-labels-4 }
+p <- ggplot(data = organdata,
+            mapping = aes(x = year, 
+                          y = donors)
+            )
+
+p + geom_point()      
+```
+
+```{r grouped_and_faceted}
+p <- ggplot(data = organdata,
+            mapping = aes(x = year, 
+                          y = donors)
+            )
+p + 
+  geom_line(aes(group = country)) + 
+  facet_wrap(~ country)      
+```
+
+```{r 05-tables-and-labels-5 }
+p <- ggplot(data = organdata,
+            mapping = aes(x = country, 
+                          y = donors)
+            )
+
+p + geom_boxplot()      
+```
+
+
+```{r 05-tables-and-labels-6 }
+p <- ggplot(data = organdata,
+            mapping = aes(x = country, 
+                          y = donors)
+            )
+
+p + geom_boxplot() + coord_flip()      
+```
+
+
+```{r 05-tables-and-labels-7 }
+p <- ggplot(data = organdata,
+            mapping = aes(
+              x = reorder(country, donors, 
+                          na.rm = T),
+              y = donors)
+            )
+
+p + geom_boxplot() +
+    labs(x = NULL) +
+    coord_flip()      
+```
+
+
+```{r 05-tables-and-labels-8 }
+p <- ggplot(data = organdata,
+            mapping = aes(
+              x = reorder(country, donors, 
+                          na.rm = T),
+              y = donors, 
+              fill = world)
+            )
+
+
+p + geom_boxplot() + 
+  labs(x = NULL) +
+  coord_flip() + 
+  theme(legend.position = "top")      
+```
+
+```{r 05-tables-and-labels-9 }
+p <- ggplot(data = organdata,
+            mapping = aes(
+              x = reorder(country, donors, 
+                          na.rm = T),
+              y = donors, color = world)
+            )
+
+p + geom_point() + 
+  labs(x = NULL) +
+  coord_flip() + 
+  theme(legend.position = "top")
+      
+```
+
+```{r 05-tables-and-labels-10 }
+p <- ggplot(data = organdata,
+            mapping = aes(
+              x = reorder(country, donors, 
+                          na.rm = T),
+              y = donors, 
+              color = world)
+            )
+
+p + geom_jitter() + 
+  labs(x = NULL) +
+  coord_flip() + 
+  theme(legend.position = "top")      
+```
+
+# You can change virtually anthing about the theme you with using `ggplot2::theme()`
+
+- `aspect ratio`
+- `axis`: title, text, ticks, line, 
+- `legend`: background, margins, spacing, key, lext, alignment, title, etc. 
+
+
+# Changing `theme()` `legend.position`
+
+You can change position of legends to `"none"`, `"left"`, `"right"`, `"bottom"`, `"top"`, etc. 
+
+```{r 05-tables-and-labels-11 }
+?theme
+organdata
+p <- ggplot(data = organdata,
+            mapping = aes(x = reorder(country, 
+                                      donors, 
+                                      na.rm = TRUE),
+                          y = donors, 
+                          color = world)
+            )
+p
+```
+
+
+- add a `geom_*` to jitter points
+
+```{r}
+p <- p + 
+  geom_jitter(position = position_jitter(width = 0.15))
+
+p
+```
+
+By default, the legend will be positioned to the left. 
+
+Remove the x-axis label using `labs()` and by setting `x = NULL`.
+
+```{r}
+p <- p +
+  labs(x = NULL)
+
+p 
+```
+
+
+Conserve space and move the legend to the top using `theme()` and by setting `legend.position = "top")`.
+
+```{r}
+p <- p +
+  theme(legend.position = "top")  
+
+p
+```
+
+
+But this is difficult to read, so flip the coordinates with `coord_flip()`.
+
+```{r}
+p <- p + 
+  coord_flip() 
+
+p
+      
+```
+
+
+```{r summarize}
+by_country <- organdata %>% 
+  group_by(consent_law, country) %>%
+  summarize(donors_mean = mean(donors, na.rm = TRUE),
+            donors_sd = sd(donors, na.rm = TRUE),
+            gdp_mean = mean(gdp, na.rm = TRUE),
+            health_mean = mean(health, na.rm = TRUE),
+            roads_mean = mean(roads, na.rm = TRUE),
+            cerebvas_mean = mean(cerebvas, na.rm = TRUE)
+            )
+
+by_country
+```
+
+A better way to summarize is to apply a function across multiple variables, for example, those that are numeric, of contain certain characters, etc.
+
+
+```{r better_summarize}
+by_country <- organdata %>% 
+  group_by(consent_law, country) %>%
+    summarize_if(is.numeric, 
+                 list(~ mean(., na.rm = TRUE), 
+                      ~ sd(., na.rm = TRUE))) %>%
+    ungroup()
+
+by_country
+```
+
+```{r 05-tables-and-labels-12 }
+p <- ggplot(data = by_country,
+            mapping = aes(
+              x = donors_mean, 
+              y = reorder(country, donors_mean),
+              color = consent_law)
+            )
+
+p + geom_point(size = 3) +
+    labs(x = "Donor Procurement Rate",
+         y = "", color = "Consent Law") +
+    theme(legend.position="top")      
+
+```
+
+
+```{r 05-tables-and-labels-13 }
+p <- ggplot(data = by_country,
+            mapping = aes(
+              x = donors_mean,
+              y = reorder(country, donors_mean))
+            )
+
+p + geom_point(size = 3) +
+    facet_wrap(~ consent_law, 
+               scales = "free_y", 
+               ncol = 1
+               ) +
+    labs(x = "Donor Procurement Rate",
+         y = "")       
+```
+
+```{r 05-tables-and-labels-14 }
+p <- ggplot(data = by_country, 
+            mapping = aes(
+              x = reorder(country, donors_mean), 
+              y = donors_mean)
+            )
+
+p + geom_pointrange(
+  mapping = aes(ymin = donors_mean - donors_sd,
+                ymax = donors_mean + donors_sd)
+  ) +
+  labs(x = "", 
+       y = "Donor Procurement Rate") + 
+  coord_flip()      
+
+```
+
+## Plot text directly
+
+Create the plot object and point plot.
+
+```{r 05-tables-and-labels-15 }
+p <- ggplot(data = by_country,
+            mapping = aes(
+              x = roads_mean, 
+              y = donors_mean)
+            )
+
+
+p <- p + geom_point() 
+s
+p
+```
+
+
+Add text to the plot points using `geom_text()` and setting the mapping aesthetic to the variable containing the country labels. 
+
+```{r}
+p + 
+  geom_text(mapping = aes(label = country))
+
+#p
+```
+
+You could also change the text label size by setting `size = some number`.
+
+```{r}
+p + 
+  geom_text(mapping = aes(label = country),
+            hjust = 1, 
+            size = 10
+            )
+```
+
+
+Great, but no matter the size, the text obscures the points. You can change the horizontal position by setting `hjust` to a value. 
+
+`0` is the default, which positions the leftmost letter at the point.  
+
+```{r}
+p + 
+  geom_text(mapping = aes(label = country),
+            hjust = 0)
+```
+
+Setting `hjust = 1` positions the rightmost character at the point.
+
+```{r}
+p + 
+  geom_text(mapping = aes(label = country),
+            hjust = 1)
+```
+
+You could mess with this all day to find the best position. We need a better way. 
+
+
+- One solution is to replace the points with labels. If you prefer your text labels have backgrounds, check out `geom_label()`.
+
+```{r}
+p + geom_label(mapping = aes(label = country))
+```
+
+
+- a better position would to automate the process of finding a good fit. Luckily, there is a package for that. 
+
+## `ggrepel`
+
+To repel text, use functions from `ggrepel`.
+
+```{r 05-tables-and-labels-17 }
+library(ggrepel)
+```
+
+Using `ggrepel::geom_text_repel()` rather than `geom_text()` and `ggrepel::geom_label_repel()` rather than `geom_label()`. 
+
+```{r}
+p + geom_text_repel(mapping = aes(label = country))
+```
+
+The text will move to a reasonably appropriate coordinate position and add lines for difficult to identify points. Voilà!
+
+
+Remember that aesthetics in the plot object will be inherited by default, so code smart. Add `label` as an aesthetic.
+
+```{r}
+p <- ggplot(data = by_country,
+            mapping = aes(
+              x = roads_mean, 
+              y = donors_mean,
+              label = country
+              )
+            )
+
+p + 
+  geom_point() +
+  geom_text_repel()
+
+```
+
+Keep in mind that nothing is perfect. You may still run into problems. If `geom_text_repel()` provides a warning like:
+
+`Warning message:`
+` ggrepel: 2 unlabeled data points (too many overlaps). Consider  increasing max.overlaps`
+
+The number of overlaps in points defaults to 10. 
+
+
+
+## Setting other Labels using `labs()`
+
+While at it, we need to clean up other text content in `labs()`.
+
+If you specify these as their own character objects, the `ggplot` code can be more manageable and any edits can be done in one code section. You could also make these obtjecs list items if you wanted. 
+
+```{r}
+p_title    <- "My Title"
+p_subtitle <- "A great Subtitle!"
+p_caption  <- "A wonderful caption"
+x_label    <- "A good x label"
+y_label    <- "A y label"
+
+p + 
+  geom_point() +
+  geom_text_repel() +
+  labs(title = p_title,
+       subtitle = p_subtitle,
+       caption = p_caption,
+       x = x_label,
+       y = y_label
+       )
+```
+
+
+
+## Passing `HTML` code to to labels.
+
+```{r}
+p_title    <- "My Title"
+p_subtitle <- "A great Subtitle!"
+p_caption  <- "A wonderful caption"
+x_label    <- "A good x label"
+y_label    <- "A y label"
+
+p + 
+  geom_point() +
+  geom_text_repel() +
+  labs(title = p_title,
+       subtitle = p_subtitle,
+       caption = p_caption,
+       x = x_label,
+       y = y_label
+       )
+```
+
+
+
+
+
+
+## Bringing elements into focus
+
+## Add text hierarchy + color
+
+## Highlighting Values using the `gghighlight` library.
+
+`gghighlight()` is the main workhorse function of `gghighlight` which can be used to highlight the lines with max values are larger than some set threshold value
+
+```{r}
+library(gghighlight)
+?gghighlight
+
+```
+
+```{r}
+# Highlight the points whose values are larger than 10
+p + 
+  geom_point() +
+  gghighlight(roads_mean > 150 & donors_mean > 20)
+
+
+p + 
+  geom_point() +
+  gghighlight(roads_mean > 150 & donors_mean > 20, 
+              label_key = category
+              )
+```
+
+
+```{r}
+my_title_col = "#FF0000"
+qq = paste0("xxx, **<span style='color:",
+            my_title_col,
+            "'>Orange Juice</span>** xxx **<span style='color:",
+            my_title_col,
+            "'>Vitamin C</span>**")
+
+
+
+p + 
+  geom_point() +
+  gghighlight(roads_mean > 120) + 
+  geom_text_repel() +
+  labs(title = qq,
+       subtitle = p_subtitle,
+       caption = p_caption,
+       x = x_label,
+       y = y_label
+       )
+  
+
+
+ToothGrowth %>%
+  mutate(supplement = case_when(
+           supp == "OJ" ~ "Orange Juice", 
+           supp == "VC" ~ "Vitamin C", 
+           TRUE ~ as.character(supp))) %>%
+  group_by(supplement, dose) %>%
+  summarise(mean_length = mean(len)) %>%
+  mutate(categorical_dose = factor(dose)) %>%
+  ggplot(aes(x = categorical_dose,
+             y = mean_length,
+             fill = supplement)) +
+  geom_bar(stat = "identity",
+           position = "dodge",
+           colour = "#FFFFFF", 
+           size = 2) + 
+  labs(x = "Dose",
+       y = "Mean length (mm)",
+       title = "In smaller doses, Orange Juice was associated with greater mean tooth growth, compared to equivalent doses of Vitamin C",
+       subtitle = "With the highest dose, the mean recorded length was almost identical.") +
+  facet_wrap(supplement ~ ., ncol = 1) +
+  theme_minimal()
+
+
+ToothGrowth %>%
+  mutate(supplement = case_when(supp == "OJ" ~ "Orange Juice", supp == "VC" ~ "Vitamin C", TRUE ~ as.character(supp))) %>%
+  group_by(supplement, dose) %>%
+  summarise(mean_length = mean(len)) %>%
+  mutate(categorical_dose = factor(dose)) %>%
+  ggplot(aes(x = categorical_dose,
+             y = mean_length,
+             fill = supplement)) +
+  geom_bar(stat = "identity",
+           position = "dodge",
+           colour = "#FFFFFF", 
+           size = 2) + 
+  labs(x = "Dose",
+       y = "Mean length (mm)",
+       title = "In smaller doses, Orange Juice was associated with greater mean tooth growth,
+compared to equivalent doses of Vitamin C",
+       subtitle = "With the highest dose, the mean recorded length was almost identical.") +
+  facet_wrap(supplement ~ ., ncol = 1) +
+  theme_minimal()
+
+
+
+basic_plot <- penguins %>%
+  ggplot() +
+  geom_point(aes(x = bill_length_mm, 
+                 y = flipper_length_mm, 
+                 colour = species, 
+                 size = body_mass_g),
+             alpha = 0.9) +
+  labs(title = "This is the title!",
+       subtitle = "And the subtitle!",
+       x = "x label",
+       y = "y label")
+
+basic_plot
+```
+
+The `ggtext` library will allow you to use Markdown or CSS/HTML code inside text elements passed to `ggplot`. For lots of examples of things you can try with `ggtext`, visit [https://wilkelab.org/ggtext/](https://wilkelab.org/ggtext/).
+
+See these links to see how to code HTML  ['<style>'](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style) and ['<span>'](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span) elements. You can edit the code there to see how it works. s
+
+In addition, sometimes you might wish to add line breaks using ['<br>'](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br)
+
+
+```{r}
+
+ggplot(data = iris, 
+       mapping = aes(x = Sepal.Length, 
+                     y = Sepal.Width, 
+                     color = Species)
+       ) +
+  
+  # make a scatterplot
+  geom_point(size = 3) +
+  
+  #manually set the color scheme
+  scale_color_manual(
+    name = NULL,
+    values = c(setosa = "#0072B2", 
+               virginica = "#009E73", 
+               versicolor = "#D55E00"),
+    
+    # add labels and italicize them inside with html code 
+    labels = c(
+      setosa = "<i style='color:#0072B2'>I. setosa</i>",
+      virginica = "<i style='color:#009E73'>I. virginica</i>",
+      versicolor = "<i style='color:#D55E00'>I. versicolor</i>")
+  ) +
+  
+  labs(
+    # use markdown for bold ** and italics *  
+    title = "**Fisher's *Iris* dataset**
+    <span style='font-size:9pt'>making my font size 9 pt  *Iris*
+    species</span>",
+    
+    # or add line break elements with <br>
+    x = "Sepal length (cm)", y = "Sepal width (cm)",
+    
+    # or bring attention to an element using html code rather than markdown using <b> to bold and </b> to end bold
+    #caption = "<b>Source</b>: *the source*"
+    
+    # or use markdown code if you prefer
+    # caption = "**Source**: *the source*"
+    
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_markdown(lineheight = 1.1),
+    legend.text = element_markdown(size = 11),
+    plot.caption = element_markdown(size = 11)
+  )
+
+
+
+
+mean_by1 <- function(data, 
+                    by,  
+                    var, 
+                    name = "mean", ...) {
+  data %>%
+    dplyr::group_by(., 
+                    {{ by }}) %>%
+    dplyr::summarise(.,
+                     "{name}" := mean({{ var }}, ...)
+                     )
+}
+
+mean_by1(mtcars, var = mpg, name = "v", na.rm = T)
+
+
+
+```
+
+Using `glue::glue()`, you can glue together some text that includes some html coding.
+
+```{r}
+my_html_subtitle <- 
+  glue("Changing the subtitle to include an html break<br><span style='color:#FF0000'>**making the font color red**</span> and break <br>
+  <span style='color:#3383c0'>**blue**</span>and break <br> and the <span style='color:#33c038'>**green**</span>.")
+my_html_subtitle
+
+
+basic_plot +
+  scale_colour_manual(values = penguin_palette) +
+  theme_minimal() +
+  labs(subtitle = glue("Changing the subtitle to include an html break<br><span style='color:#FF0000'>**making the font
+                       color red**</span> and break <br> 
+                       <span style='color:#3383c0'>**blue**</span>
+                       and break <br> and the 
+                       <span style='color:#33c038'>**green**</span>.")) +
+  geom_textbox(data = p_summaries,
+               aes(x = mean_x, 
+                   y = mean_y, 
+                   colour = species,
+                   label = glue("{species}<span style='color:{penguin_palette$light_text}; 
+                                font-size:9pt'><br>Mean Body Mass<br></span>
+                                {mean_mass_kg} Kg")),
+               halign = 0.5, hjust = 0.5,
+               size = 6.5, 
+               family = "Segoe UI",
+               box.color = NA,
+               alpha = 0.8,
+               maxwidth = unit(6.5, "lines")) +
+  geom_textbox(data = p_exceptions,
+               aes(x = label_x, y = label_y,
+                   colour = species,
+                   vjust = label_vjust, valign = label_vjust,
+                   hjust = label_hjust, halign = label_hjust,
+                   label = glue("{nickname}<br>
+                                <span style='color:{penguin_palette$dark_text};font-size:9pt'>
+                                {description}</span>")),
+               width = unit(12, "lines"),
+               size = 5, 
+               lineheight = 0.9,
+               fill = NA,
+               family = "Segoe UI",
+               box.colour = NA) +
+  scale_y_continuous(expand = expansion(c(.2, .2))) +
+  guides(colour = "none",
+         size = guide_legend(title = "Body mass (g)", reverse = T,
+                             override.aes = list(colour = penguin_palette$dark_text))) +
+  theme(text = element_text(family = "Segoe UI", 
+                            colour = penguin_palette$light_text),
+        plot.subtitle = element_markdown(size = 14, 
+                                         lineheight = 1.3,
+                                         margin = unit(c(0, 0, 0.5, 0), "cm")),
+        plot.title = element_markdown(family = "Arvo",
+                                      size = 22, colour = penguin_palette$dark_text,
+                                      margin = unit(c(1, 0, 0.5, 0), "cm")),
+        axis.text = element_text(colour = penguin_palette$light_text, size = 8),
+        axis.title = element_text(family = "Arvo", 
+                                  colour = penguin_palette$dark_text, size = 10),
+        legend.position = "top",
+        legend.justification = "left",
+        legend.margin = margin(unit(c(0,-0.45,0,0), "cm")),
+        legend.title = element_text(family = "Arvo", colour = penguin_palette$dark_text),
+        panel.grid.minor = element_blank())
+```
+
+
+
+
+
+```{r 05-tables-and-labels-18 }
+elections_historic %>% dplyr::select(2:7)       
+```
+
+```{r 05-tables-and-labels-19, layout = 'l-screen-inset', fig.height=10, fig.width=12}
+p_title <- "Presidential Elections: Popular & Electoral College Margins"
+p_subtitle <- "1824-2016"
+p_caption <- "Data for 2016 are provisional."
+x_label <- "Winner's share of Popular Vote"
+y_label <- "Winner's share of Electoral College Votes"
+
+elections_historic$winner_label
+
+p <- elections_historic %>%
+  ggplot(data = ., 
+            aes(x = popular_pct, 
+                y = ec_pct,
+                label = winner_label)
+            )
+
+p + geom_hline(yintercept = 0.5, 
+               size = 1.4, 
+               color = "gray80") +
+    geom_vline(xintercept = 0.5, 
+               size = 1.4, 
+               color = "gray80") +
+    geom_point() +
+    geom_text_repel() +
+    scale_x_continuous(labels = scales::percent) +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = x_label, 
+         y = y_label, 
+         title = p_title, 
+         subtitle = p_subtitle,
+         caption = p_caption
+         )      
+```
+
+## Label Selectively
+
+
+```{r 05-tables-and-labels-20 }
+
+point_p <- ggplot(data = by_country,
+            mapping = aes(
+              x = gdp_mean, 
+              y = health_mean)
+            ) + 
+  geom_point() 
+```
+
+Using `subset()` specify the data frame, rows, and color to include in the subset.
+
+Then pass a data subset to `geom_text_repel()`
+
+```{r 05-tables-and-labels-20 }
+point_p +
+    geom_text_repel(
+      data = subset(
+        x = by_country, 
+        subset = gdp_mean > 25000
+      ),
+      mapping = aes(label = country)
+      )
+
+
+point_p <- ggplot(data = by_country,
+            mapping = aes(x = gdp_mean, 
+                          y = health_mean)
+            ) + geom_point() 
+
+point_p +
+    geom_text_repel(
+      data = subset(by_country,
+                    gdp_mean > 25000 | health_mean < 1500 |
+                                  country %in% "Belgium"),
+                    mapping = aes(label = country))      
+```
+
+```{r 05-tables-and-labels-21 }
+organdata$ind <- organdata$ccode %in% c("Ita", "Spa") &
+                    organdata$year > 1998
+
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads,
+                          y = donors, color = ind))
+p + geom_point() +
+    geom_text_repel(data = subset(organdata, ind),
+                    mapping = aes(label = ccode)) +
+    guides(label = FALSE, color = FALSE)      
+```
+
+
+## Arbitrary annotation
+
+```{r 05-tables-and-labels-22 }
+p <- ggplot(data = organdata, mapping = aes(x = roads, y = donors))
+p + geom_point() + annotate(geom = "text", x = 91, y = 33,
+                            label = "A surprisingly high \n recovery rate.",
+                            hjust = 0)
+      
+```
+
+```{r 05-tables-and-labels-23 }
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors))
+p + geom_point() +
+    annotate(geom = "rect", xmin = 125, xmax = 155,
+             ymin = 30, ymax = 35, fill = "red", alpha = 0.2) + 
+    annotate(geom = "text", x = 157, y = 33,
+             label = "A surprisingly high \n recovery rate.", hjust = 0)      
+```
+
+
+## Scales and Guides
+
+```{r 05-tables-and-labels-24 }
+
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads,
+                          y = donors,
+                          color = world))
+p + geom_point()
+```
+
+```{r 05-tables-and-labels-25 }
+
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads,
+                          y = donors,
+                          color = world))
+p + geom_point() +
+    scale_x_log10() +
+    scale_y_continuous(breaks = c(5, 15, 25),
+                       labels = c("Five", "Fifteen", "Twenty Five"))
+```
+
+
+```{r 05-tables-and-labels-26 }
+
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads,
+                          y = donors,
+                          color = world))
+p + geom_point() +
+    scale_color_discrete(labels =
+                             c("Corporatist", "Liberal",
+                               "Social Democratic", "Unclassified")) +
+    labs(x = "Road Deaths",
+         y = "Donor Procurement",
+        color = "Welfare State")
+
+```
+
+
+```{r 05-tables-and-labels-27 }
+
+p <- ggplot(data = organdata,
+            mapping = aes(x = roads,
+                          y = donors,
+                          color = world))
+p + geom_point() +
+    labs(x = "Road Deaths",
+         y = "Donor Procurement") +
+    guides(color = FALSE)
+
+```
+
+
+

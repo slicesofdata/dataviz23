@@ -1,0 +1,243 @@
+---
+title: "Team-Based Cognitive Task Overview"
+#author: ""
+date: "Presentation Due: In Class November 3rd" #"`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Your first team-based project involves working with cognitive-task data. You will clean, manipulate, summarize, and visualize the data from the task in order to convey a story about data. You will do so in collaboration with your data-science team members. As such, you should review the project, brainstorm how to tackle the task, determine how best to allocate duties to team members based on skills, etc. 
+
+I recommend setting up weekly meetings for 30 minutes to an hour in order to: a) establish specific personal and team goals for the upcoming week (not something like "Will work on variables."), b) report to the team what you have accomplished/how you have met said goals from the previous week, and c) share with me a summary of those goals and accomplishments weekly. Your ability to fulfill your goals will be weighted toward your grade as will be your ability to send me each week a copy of the goals and accomplishments that you send to your team. In addition, team members will participate in providing feedback weekly about team members' role and accomplishments; keeps everyone honest.
+
+# **Teams**
+
+A: Maria-Jose, Brian, Natasha
+
+B: Kayleah, Rebecca, Janey
+
+C: Ming, Jenna, Catherine
+
+
+ 
+# **Data Description**
+
+The Stroop task data are available in slack #data "gcds_stroop_project_data.csv". 
+
+
+## *Variables in Data*
+
+If you run a experiment measuring human cognition over many trials, you will typically have data that appears in this long format. Rows in the data represent different observations, of which there are many for each participant. One component of this class involves working with cognitive data and understanding how cognitive mechanisms.   
+
+As part of this first project, you will need to summarize the data for cognitive tasks and communicate a story about what is going on. In order to achieve that goal, you will need to understand the variables in the data set. 
+
+Variables by name:  
+
+- `date`: completion date
+- `id`: the individual id
+- `block`: the task block type (Practice, Stroop, Emotional Stroop)
+- `trial`: the trial number in the block
+- `word`: the word presented on the trial
+- `font`: the font color in which the word was presented on that trial
+- `valence`: the emotional valence based on mean ANEW norm ratings 
+- `resp`: the response key pressed on that trial
+- `rt`: the response time for that trial
+- `wf_kf`: the Kuĉera and Francis (1967) word norm value (higher means more common words)
+- `val_mn`: the mean valence rating for the word from the ANEW norms database (range: 1 (negative) ... 5 (neutral) ... 9 (positive)
+- `arous_mn`: the mean arousal rating for the word from the ANEW norms database (range: 1 (low arousal) ... 9 (high arousal)
+- `domin_mn`: the mean dominance rating for the word from the ANEW norms database (range: 1 (low dominance) ... 9 (high dominance))
+- `val_sd`, `arous_sd`, and `domin_sd`: the standard deviations of rated norms
+
+
+
+# **Standard Stroop Task Summary**
+
+For the standard color-naming Stroop Task, not all of the above variables are needed as some correspond to another task. You will likely see `NA`s in many columns. 
+
+Individuals saw the words *blue*, *green*, *orange*, and *yellow*, which appeared in font colors that either matched or mismatched the color word. The task goal was to identify as quickly as one was able, the font color by pressing a corresponding key on the keyboard (e.g., blue = d, green = f, orange = j yellow = k). Response times were measures in seconds. There were 24 practice trials and 120 task trials. You should find that the words were randomized to be presented equally and that there are an equal number of congruent and incongruent trials. Of course, there may have been a programming error. If the trial counts differ, then the mean (point estimator) obtained from the trials used to estimate average performance may vary as a function of that, which under some instances is problematic.
+
+
+The *Stroop Interference Effect* (SIE) is a measure of cognitive interference due to the incongruence (mismatch) between the color word and the font color. SIE is measured for both *error rates* and *response latencies* and is calculated by taking the difference between incongruent trials and congruent trials (e.g, incongruent - congruent). These SIE measures would be calculated for each respondent in order to obtain individual differences in cognitive control. 
+
+
+# **Project Goals**
+
+Create the variables necessary to obtain the measures of interest. Summarize the data in tabular form. Visualize the data in plot form. You are telling a story about what you have found in the data. You have a minimum viable product as described below but creativity is valuable as well in order to convey insights. 
+
+
+## *Variables of Interest for the Stroop Task*
+
+1. Accuracy/General Error Rate (incorrect responses) 
+2. Response latencies based on correct trials only
+3. Stroop interference for both measures 
+
+
+## *Data Cleaning*
+
+Consider how you might deal for which something odd might have happened on a given trial. Address the data as appropriate, e.g., `NA`, etc.
+
+
+## *Outcome Measures to Summarize*
+
+1. Group-level average error/accuracy by trial type (based on the estimated average respondent-level data)
+2. Group-level average response latencies for accurate trials (based on the estimated average respondent-level data)
+3. Group-level SIE (based on the estimated average respondent-level data) 
+
+## *Data Visualizations*
+
+Create visuals that would be used to tell a story about the data to convey differences in respondents as well as how all respondents are performing collectively. Plot choice is up to you. Think about the data, tell a story. Best story wins.
+
+## *Plotting Advice* 
+
+Keep in mind that you may need to create, and use, different data frames for creating plots. The plot will represent the goal of the visualization.
+
+### A. *Plot 1 (responded-level data)*
+
+1.	For each respondent, plot a box-plot geometry of response latencies for all congruent and all incongruent trials. Consider how you might plot the same plot separately for each respondent. The goal is to visualize the pattern of congruent verses incongruent response latencies for each respondent. After all, these patterns will be combined when you create and plot group-level data, so looking at each respondent individually is useful information.  
+
+2.	Add a point-plot geom layer to see all of the points for all congruent and incongruent trials overlayed onto the box plots. To make the congruent and incongruent trials pop visually and just for practice, make the congruent and incongruent points appear in different colors. Make sure to address overplotting.
+
+
+### B. *Plot 2 (group-level summarized data)*
+
+1.	Plot a group-level point-plot geom representing the *means* of all  respondent's congruent and incongruent response latencies.  
+
+2.	Add a box plot geom that represents the same data
+
+
+### C. *Plot 3*
+
+Using the means for each respondent, plot histogram- or density-plot geoms for congruent and incongruent trials. Changing the color of the congruent and incongruent trials will allow you to easily distinguish the two visualizations. Changing transparency may also be helpful.
+
+
+
+# *Dealing with Outliers*
+
+A.	Visually
+
+1. Examine using a vizualization whether there are any outliers in your group-level data. Participants who are not responding like others may influence your interpretation and model you test later. 
+
+B.	Computationally 
+
+1. Mathematically examine outliers in your group-level data by calculating z scores for both the congruent and incongruent trials separately. 
+
+2. If any respondent's response latencies are 3 (or 2.5) standard deviations above or below the group-level mean for either the congruent and incongruent trials, flag them as an outlier by creating a new variable. 
+
+C.	Replot your visualiztion that dislays group-level data using both box- and point-plot geoms for congruent and incongruent trials but now after filtering out outliers (if there are any).
+
+
+
+# *Group-Level Summaries in a Table*
+
+1. Summarize the data so that you present in a table (not a plot) the group-level means, standard deviations, and sample sizes for the congruent and incongruent trials. Keep in mind that a repeated-measures design like this should have sample sizes that are equal for the levels of that variable, so your sample sizes should be equal.
+
+## *Presentation*
+
+You will present your project to the class as a slideshow using something like PowerPoint, Google Slides, Beamer, etc. Plots can be copied and inserted into the presentation. Consider slide aesthetics, content, etc. 
+
+
+
+NOTE ------------------------------ **Integrate the following**
+# **Stakeholders**
+
+The stakeholders for your project deliverable include your friends whose data you and your peers are collecting for the exercises.  
+
+
+# **Data Visualizations**
+
+Keep in mind that you may need to create, and use, different data frames for creating plots. The plot will represent the goal of the visualization.
+
+
+## A. *Plot 1 (responded-level data)*
+
+1.	For each respondent, plot a box-plot geometry of response latencies for all congruent and all incongruent trials. Consider how you might plot the same plot separately for each respondent. The goal is to visualize the pattern of congruent verses incongruent response latencies for each respondent. After all, these patterns will be combined when you create and plot group-level data, so looking at each respondent individually is useful information.  
+
+2.	Add a point-plot geom layer to see all of the points for all congruent and incongruent trials overlayed onto the box plots. To make the congruent and incongruent trials pop visually and just for practice, make the congruent and incongruent points appear in different colors. Make sure to address overplotting.
+
+
+## B. *Plot 2 (group-level summarized data)*
+
+1.	Plot a group-level point-plot geom representing the *means* of all  respondent's congruent and incongruent response latencies.  
+
+2.	Add a box plot geom that represents the same data
+
+
+## C. *Plot 3*
+
+1.	Using the means for each respondent, plot histogram- or density-plot geoms for congruent and incongruent trials. Changing the color of the congruent and incongruent trials will allow you to easily distinguish the two visualizations. Changing transparency may also be helpful.
+
+
+
+# *Dealing with Outliers*
+
+A.	Visually
+
+1. Examine using a visualization whether there are any outliers in your group-level data. Participants who do not respond like others may influence your interpretation and model you test later. 
+
+B.	Computationally 
+
+1. Mathematically examine outliers in your group-level data by calculating z scores for both the congruent and incongruent trials separately. 
+
+2. If any respondent's repsonse latencies are 3 (or 2.5) standard deviations above or below the group-level mean for either the congruent and incongruent trials, flag them as an outlier by creating a new variable. 
+
+C.	Replot your visualiztion that dislays group-level data using both box- and point-plot geoms for congruent and incongruent trials but now after filtering out outliers (if there are any).
+
+
+
+# *Group-Level Summaries in a Table*
+
+1. Summarize the data so that you present in a table (not a plot) the group-level means, standard deviations, and sample sizes for the congruent and incongruent trials. Keep in mind that a repeated-measures design like this should have sample sizes that are equal for the levels of that variable, so your sample sizes should be equal.
+
+
+2. 
+
+
+
+
+
+
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+# For Emotional Stroop
+# Variables to calculate:
+# 1. Accuracy 
+# 2. Errors (incorrect responses)
+# 3. Stimulus type as factor (order doesn't matter here but for practice order by ROYGBIV by passing levels = c() argument)
+# 4. Difference between neutral and negative (for each id pivot?)
+# 5. Difference between neutral and negative (for each id pivot?)
+
+# Variables to summarize:
+# 1. Probability/Percentage of Errors 
+# 2. Average response times for accurate trials for both congruent and incongruent 
+# 3. Average difference between neutral and negative
+# 4. Avearge difference between neutral and positive
+# 
+## *Emotional Stroop Task Summary*
+
+#Individuals saw words that different in word valence color words that #appeared in font colors that either matched or mismatched the color #word. Similar to the standard color-naming Stroop Task, the task goal #was to identify the font color of the word by pressing a corresponding #key on the keyboard (e.g., blue = d, green = f, orange = j yellow = #k).
+#
+#There were 192 task trials. Response times were measures in seconds.
+#
+
+
+
+
+
+#Related Topics:
+#
+#- [Bradley & Lang (1999) Affective Norms for English Words (ANEW): #Instruction Manual and Affective #Ratings](https://www.semanticscholar.org/paper/Affective-Norms-for-Eng#lish-Words-(ANEW)%3A-Manual-Bradley-Lang/c765eb0a31849361d829b24e173a3#7bab0919892)
+#
+#- [Kuĉera & Francis #(1967)](https://www.historyofinformation.com/detail.php?entryid=3003)
+#
+#
+#As mentioned previously, there are two versions of the task. Well, #actually three (e.g., `r cat(unique(STROOP$block), sep = ", ")`). The #tasks are found  but the practice
+
+```

@@ -1,0 +1,30 @@
+---
+title: "**Installing R & RStudio**"
+author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+#order: 2 
+---
+
+```{r, include = FALSE}
+#knitr::opts_chunk$set(
+#  collapse = TRUE,
+#  comment = "#>"
+#)
+```
+
+## **Read**
+
+Read the intro to R and RStudio chapter from the textbook.
+
+<https://psyteachr.github.io/ads-v2/01-intro.html>
+
+
+
+## **Do**
+
+- Install R
+- Install RStudio
+- Configure RStudio
+
+

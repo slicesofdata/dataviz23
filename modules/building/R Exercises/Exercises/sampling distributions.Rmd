@@ -1,0 +1,391 @@
+---
+title: "Sampling Distributions"
+output: html_document
+---
+
+# Sampling distribution of the mean, standard error of the mean
+
+# Code examples are in R.
+
+Researchers who do experiments know that you get more accurate answers
+when you repeat the measurement or the experiment a number of times
+and take the average of the individual outcomes.
+
+It would be useful to know how closely the average of several
+measurements may be to the true value.
+
+It is also useful to know how much we can improve out estimate if we
+increase the number of measurements, that is, increase the sample
+size.
+
+Shortly, we will see how to perform a statistical test to see if the
+mean blood pressure of a group of patients taking a drug is lower than
+the mean blood pressure of a group of patients taking a placebo. This
+is an example of many problems where we compare the means of two (or
+more) groups to see if they are different.
+
+If we want to compare two means, it is useful to think about how
+accurately we can determine the true mean of an entire population (all
+patients who might get the drug) when we take a sample of patients
+from that population (just the patients in our clinical trial).
+
+How close will the sample mean be to the true population mean?
+
+How much error might we expect if we use the sample mean to estimate
+the true population mean?
+
+This error in estimating the population mean from a sample is our
+topic here.
+
+
+
+# First, let define a parent population of 1000 patients who receive a placebo.
+# We generate the parent population as 1000 data points from a normal distribution with mean = 150, standard deviation = 20
+
+```{r}
+set.seed(2)
+IQ = rnorm(1000, 100, 15)
+```
+
+# Bimodal
+```{r}
+hist(IQ)
+
+sampdist <- function(n = 10, mean = 0, sd = 1) {
+#      for (i in 30) {
+              pop = round(rnorm(100000, mean, sd), 0)  
+              samp.dist = sample(pop, n)
+              samp.dist2 = sample(pop, 100000)
+#        }
+        samp.dist = round(samp.dist, 0)
+        samp.dist2 = round(samp.dist2, 0)
+        stats = rbind(paste0("Mean pop = ", round(mean(pop), 2)),
+              paste0("Std.Dev. pop = ", round(sd(pop), 2)), 
+              paste0("Mean samp.dist. = ", round(mean(samp.dist), 2)), 
+              paste0("Std.Dev. = ", round(sd(samp.dist), 2))    )
+        par(mfrow = c(3,1))
+        hist(pop, xlim = c(40,160)); 
+        hist(samp.dist, main = paste0("Sample; n = ",n), xlab = "sample"); 
+        hist(samp.dist2, main = paste0("Samp. Dist."),  xlim = c(40,160), xlab = "samp.dist") ;
+        par(mfrow = c(1,1))
+        return(stats)
+}
+
+# Test it
+sampdist(2, 100, 15)
+sampdist(5, 100, 15)
+sampdist(50, 100, 15)
+sampdist(100, 100, 15)
+
+
+for (i in 30) {
+        x = rnorm(10, 100, 15)
+        #return(x)
+}
+
+```
+
+
+
+# Plot a histogram
+```{r}
+placebo = c(6,7,8)
+hist(placebo)
+```
+
+# Alternatively, can look at a density plot
+```{r}
+plot(density(placebo), xlim = c(50, 250),ylim = c(0,.025))
+```
+
+
+# Calculate the mean, and standard deviation for the parent population
+# Should be near mean BP = 150, standard deviation = 20
+```{r}
+mean(placebo); sd(placebo)
+```
+
+
+# Let's take a sample of N=30 observations from the 1000 observations in the parent population
+```{r}
+my.sample = sample(placebo,30)
+```
+
+
+# Let's look at the sample
+```{r}
+my.sample
+mean(my.sample)
+sd(my.sample)
+```
+
+
+The mean of the sample is a little different from the mean of the
+parent population. Is it possible to estimate how close the sample
+mean might be to the true mean of the parent population?
+
+If we took many samples, and calculated the mean for each sample, how
+close would those means be to the true mean of the parent population?
+
+# Take 100 random samples of size N=30 from the placebo parent population
+# For each sample, calculate the sample mean, giving 100 sample means.
+# Also, for each sample, calculate the sample standard deviation.
+
+```{r}
+sample.means.list = c(); sample.sd.list = c()
+for(sample in 1:100) {
+        new.sample = sample(placebo,30)
+        sample.means.list[sample] = mean(new.sample)
+        sample.sd.list[sample] = sd(new.sample)
+}
+
+# Print and plot the sample means
+# Mean for the Normal distribution was 150.
+print(sort(sample.means.list))
+hist(sample.means.list, ylab = "Frequency", xlab = "Sample mean")
+
+# Compare the distribution of the parent population to the
+# distribution of the sample means
+
+par(mfrow=c(1,2))
+hist(placebo, xlim = c(80,240), ylim = c(0,200))
+hist(sample.means.list, xlim=c(80,240), ylim=c(0,50))
+```
+
+# Density plots
+```{r}
+par(mfrow=c(1,2))
+plot(density(placebo), xlim=c(80,240),ylim=c(0,.025))
+plot(density(sample.means.list), xlim=c(80,240))
+```
+
+# plot(density(sample.means.list))
+
+# Examine the 100 samples means. Calculate the mean and standard
+# deviation of the 100 sample means.
+
+```{r}
+mean(sample.means.list) ; sd(sample.means.list)
+```
+
+
+# How do these means compare to the parent population means?
+
+```{r}
+mean(placebo); sd(placebo)
+```
+
+# We have taken 100 samples, calculated the mean of each sample, and calculated the mean of those 100 sample means.
+
+```{r}
+mean(sample.means.list)
+```
+
+# When we plot these 100 means, we are looking at the sampling distribution of the mean
+
+```{r}
+par(mfrow=c(1,2))
+hist(placebo, xlim=c(80,240), ylim=c(0,200))
+hist(sample.means.list, xlim=c(80,240), ylim=c(0,50))
+```
+
+# We defined Standard error of the mean (SEM) = the standard deviation
+# of the sampling distribution of the mean. For this particular sample
+# of 100, we get
+
+```{r}
+sd(sample.means.list)
+```
+
+# The standard error for the mean is
+# SEM = sigma/(sqrt(n)) = sd(placebo)/(sqrt(n))
+# where sigma is the standard deviation of the parent population, and
+# n = 30 is the number of observations in each sample.
+
+```{r}
+sd(placebo)/(sqrt(30))
+```
+
+#  sd(sample.means.list) will usually be close to sd(placebo)/(sqrt(30))
+
+In this example, we took 100 samples, each of size 30, and saw that
+the SEM estimated from the sample was close to the SEM defined by the
+parent population.
+
+However, we usually cannot take 100 samples, so we cannot estimate the
+SEM that way. We usually only get to take one sample. How can we
+estimate the standard error of the mean when we only have one sample?
+
+Also, in this example, we knew sigma= sd(placebo), the standard deviation
+of the parent population, but usually we do not know sigma.
+
+When we only have one sample, we use the sample standard deviation, s, as our estimate of sigma.
+
+From the single sample, we have the sample standard deviation s, and the sample size n.
+
+We estimate the standard error of the mean as
+
+SEM = s/(sqrt(n)).
+
+For example, we earlier created
+
+```{r}
+my.sample = sample(placebo,30)
+
+my.sample
+mean(my.sample)
+sd(my.sample)
+```
+
+From my.sample, we estimate the standard error of the mean as
+
+SEM = s/(sqrt(n))
+```{r}
+print(paste0("SEM = ", sd(my.sample)/(sqrt(30))))
+```
+
+
+
+
+# How close is the SEM estimated from one sample to the true SEM?
+
+# Calculate the standard deviation for each of 100 samples of size n=30
+
+```{r}
+sample.sd.list=c()
+for(sample in 1:100) {
+        new.sample=sample(placebo,30)
+        sample.means.list[sample]=mean(new.sample)
+        sample.sd.list[sample]=sd(new.sample)
+}
+
+
+# Print and plot the sample standard deviations
+# Mean for the Normal distribution was 150.
+print(sort(sample.sd.list))
+hist(sample.sd.list,ylab="Frequency",xlab="Sample standard deviation")
+
+# Compare sample standard deviations to sd of parent population
+sd(placebo)
+
+# Compare SEM of parent population to SEM estimated from samples
+# SEM defined for parent population
+sd(placebo)/sqrt(30)
+
+# Estimate SEM from each sample sd SEM = sd/sqrt(30)
+SEM.sample.estimates.list = sample.sd.list/sqrt(30)
+
+print(sort(SEM.sample.estimates.list))
+hist(SEM.sample.estimates.list,ylab="Frequency",xlab="Estimated SEM, N=30")
+
+
+# How is the estimated SEM affected by the sample size?
+SEM = sd/sqrt(n)
+```
+
+# Try sample size n = 60 instead of n = 30.
+
+# Calculate the standard deviation for each of 100 samples of size n=60
+```{r}
+sample.sd.list=c()
+for(sample in 1:100) {
+        new.sample=sample(placebo,60)
+        sample.means.list[sample]=mean(new.sample)
+        sample.sd.list[sample]=sd(new.sample)
+}
+
+# Print and plot the sample standard deviations
+# Mean for the Normal distribution was 150.
+print(sort(sample.sd.list))
+hist(sample.sd.list,ylab="Frequency",xlab="Sample standard deviation")
+
+# Compare sample standard deviations to sd of parent population
+sd(placebo)
+
+# Compare SEM of parent population to SEM estimated from samples
+# SEM defined for parent population
+sd(placebo)/sqrt(60)
+
+# Estimate SEM from each sample sd SEM = sd/sqrt(60)
+SEM.sample.estimates.list.n60= sample.sd.list/sqrt(60)
+
+print(sort(SEM.sample.estimates.list.n60))
+hist(SEM.sample.estimates.list.n60,ylab="Frequency",xlab="Estimated SEM, N=60")
+```
+
+# As we increase the sample size, we decrease the standard error of the mean.
+
+
+## How is the estimated SEM affected by the standard deviation of the parent population?
+
+SEM = sd/sqrt(n)
+
+# Define a parent population of 1000 patients who receive a placebo.
+# We generate the parent population as 1000 data points from a normal distribution with mean = 150, standard deviation = 10.
+(In our earlier example, we had SD=20)
+
+```{r}
+placebo.sd10 = rnorm(1000, 150, 10)
+```
+
+# Plot a histogram
+```{r}
+hist(placebo.sd10)
+```
+
+
+# Alternatively, can look at a density plot
+```{r}
+plot(density(placebo.sd10), xlim= c(50, 250),ylim=c(0,.05))
+```
+
+
+# Calculate the mean, and standard deviation for the parent population
+# Should be near mean BP = 150, standard deviation = 10
+```{r}
+mean(placebo.sd10); sd(placebo.sd10)
+```
+
+
+
+# Calculate the standard deviation for each of 100 samples of size n=60
+```{r}
+sample.sd.list=c()
+for(sample in 1:100)  {
+        new.sample=sample(placebo.sd10,60)
+        sample.means.list[sample]=mean(new.sample)
+        sample.sd.list[sample]=sd(new.sample)
+}
+```
+
+
+# Print and plot the sample standard deviations
+# Mean for the Normal distribution was 150.
+```{r}
+print(sort(sample.sd.list))
+hist(sample.sd.list,ylab="Frequency",xlab="Sample standard deviation")
+```
+
+
+# Compare sample standard deviations to sd of parent population
+```{r}
+sd(placebo.sd10)
+```
+
+
+# Compare SEM of parent population to SEM estimated from samples
+# SEM defined for parent population
+```{r}
+sd(placebo.sd10)/sqrt(60)
+
+```
+
+# Estimate SEM from each sample sd SEM = sd/sqrt(60)
+```{r}
+SEM.sample.estimates.list= sample.sd.list/sqrt(60)
+
+print(sort(SEM.sample.estimates.list))
+hist(SEM.sample.estimates.list,ylab="Frequency",xlab="Estimated SEM")
+```
+
+# Compare n=30, n=60, sd = 10

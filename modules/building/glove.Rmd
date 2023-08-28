@@ -1,0 +1,75 @@
+---
+title: "glove"
+author: "gcook"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(see) # for plotting
+library(ggraph) # needs to be loaded
+library(correlation) #
+library(dplyr)
+
+
+
+
+# Correlation Matrix
+mtcars %>%
+  dplyr::select(mpg, cyl, disp, wt, drat) %>%
+  correlation::correlation(., 
+                           method = "pearson",
+                           winsorize = T
+                           ) %>%
+  summary(., redundant = F) %>%
+  plot() +            # plot 
+  ggtitle("") +       # add your own title
+  see::theme_modern() # clean up the plot and put in a modern theme
+  
+# # Gaussian Graphical Models
+mtcars %>%
+  dplyr::select(mpg, cyl, disp, wt) %>%
+  correlation::correlation(., 
+                           method = "pearson",
+                           winsorize = T,
+                           partial = T
+                           ) %>%
+  plot() +
+  ggtitle("")        # add your own title
+
+
+
+mtcars %>%
+  dplyr::select(mpg, cyl, disp, wt, drat) %>%
+  correlation::correlation(., method = "pearson") %>%
+  summary(., redundant = F) %>%
+  plot() +            # plot 
+  ggtitle("") +       # add your own title
+  see::theme_modern() # clean up the plot and put in a modern theme
+  
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# https://stackoverflow.com/questions/61146392/how-to-initialize-second-glove-model-with-solution-from-first
+#?rsparse::GloVe
+library(rsparse)
+data("movielens100k")
+x = crossprod(sign(movielens100k))
+
+model = GloVe$new(rank = 10, x_max = 5)
+
+w_i = model$fit_transform(x = x, n_iter = 5, n_threads = 1)
+w_j = model$components
+init = list(w_i = t(w_i), model$bias_i, w_j = w_j, b_j = model$bias_j)
+
+model2 = GloVe$new(rank = 10, x_max = 10, init = init)
+w_i2 = model2$fit_transform(x)
+
+
+
+```
+

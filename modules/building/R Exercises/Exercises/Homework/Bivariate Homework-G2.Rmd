@@ -1,0 +1,671 @@
+---
+title: "Regression"
+author: "replace with partner names"
+date: "replace with date"
+output: html_document
+---
+
+http://ww2.coastal.edu/kingw/statistics/R-tutorials/simplenonlinear.html
+http://faculty.chicagobooth.edu/richard.hahn/teaching/formulanotation.pdf
+http://www.statmethods.net/stats/rdiagnostics.html
+http://www.r-bloggers.com/r-tutorial-series-graphic-analysis-of-regression-assumptions/
+
+a.	On the regression output, label the values for b0, b1, standardized beta, SS residual, SS total, r, and R-squared 
+b.	Explain what these numbers mean in terms of the variables in the study.
+c.	Use SSR and SST to calculate the model fit SSM and compare it to R-squared. These values should be the same. 
+
+
+
+```{r, echo=FALSE}
+#http://www.r-bloggers.com/r-tutorial-series-graphic-analysis-of-regression-assumptions/
+#http://www.upi.com/Odd_News/2016/03/02/Girl-5-blows-safety-pin-out-of-her-nose-after-6-month-mystery-illness/4111456933440/?spt=sec&or=on
+#graphing https://www.youtube.com/watch?v=ZtBmMhGkxxA
+```
+
+
+##Part A##
+##Before you begin##
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+Besides lecture notes, some videos help with understanding R output. I recommend watching:
+- https://www.youtube.com/watch?v=eTZ4VUZHzxw
+- 
+
+##1. Installing and using libraries in RStudio##
+
+1.1. Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you check the box to Install Dependencies. Do not install with code.
+
+- foreign
+- lme4
+- Mac users, most of you should already have XQuartz installed from the first R class, but please make sure that you have it downloaded and installed in your Applications folder. See the original download instruction file if you need help.  
+- 
+
+1.2. Functions used for this assignment: 
+
+- lm() for evaluating linear models 
+- xyplot() from lattice for scatterplots
+
+
+## 2. Loading libraries ##
+Use the library() function to load the following libraries: moments, lattice, PerformanceAnalytics, psych
+
+**ANSWER:** 
+```{r, message = FALSE, warning = FALSE}
+library("lme4")
+library("moments")
+
+```
+
+## 3. Checking your working directory ##
+Always make sure that your working directory points to Psyc109 on your desktop. 
+```{r}
+getwd()
+setwd("C:/users/gcook/desktop/Psyc109/")
+getwd()
+```
+
+##Part B##
+##1. General Linear Regression##
+
+1.1. Linear regression is an approach for modeling the linear relationship between a criterion y and one or more predictor/explanatory variables (or independent variables). 
+
+There are two common forms of linear regression:
+
+  1. Simple-linear regression is used when the goal is to use one predictor variable in the linear regression equation to predict a criterion variable (Ex: formula: criterion  ~ predictor). This will produce a linear model of your criterion as-a-function-of your predictor. 
+
+  2. Multiple-linear regression is used to indicate there is more than one predictor in the
+linear regression equation (Ex: formula: criterion ~ predictor1 + predictor2 + predictor3).
+
+1.2 Linear regression also makes several key assumptions:
+
+    - Linear relationship between predictor(s) and criterion
+    - Multivariate normality
+    - 
+    - Homoscedasticity
+    - Independence 
+    - No or little multicollinearity (for multiple regression)
+
+
+##2. Simple Linear Regression##
+
+2.1. Understanding Simple Bivariate Linear Regression.
+
+For a simple-linear regression there is:
+
+  - One predictor in the equation
+  
+  - An unstandardized regression coefficient that represents 
+    the marginal relationship between the criteriona and the 
+    predictor variables.
+    
+  - The standardized regression coefficient equals
+    the zero-order correlation.
+    
+2.2 Reading in the data
+
+One of the first steps in completing a simple linear regression is to plot your data on a scatter plot. For that we are going to need to bring some data into our workspace. We will read in a data file named "Album Sales.csv" and assign it to a data frame object named ALBUM.
+
+```{r}
+#Below let's bring in the antelope.csv file.
+#Antelope <- read.csv("Antelope.csv")
+
+#We will read in a data file that is already built-in to the R software and then make it into a data frame object named STATES. 
+STATES <- as.data.frame(state.x77)  # The data is not a data frame, so we can make it one
+is.data.frame(STATES) # If STATES is now a data frame, you should get TRUE
+str(STATES) # Examine the structure so you know the name 
+
+
+#ALBUM1 <- read.delim("Album Sales 1.dat", header = TRUE)
+#ALBUM <- read.csv("Album Sales 1.csv") # Read in csv file and assign as data frame object
+ALBUM <- read.csv("Album Sales.csv") # Read in csv file and assign as data frame object
+#ALBUM$Id <- ALBUM$X # Create a new variable
+#ALBUM$Sales <- ALBUM$sales
+#ALBUM$Adverts <- ALBUM$adverts
+
+#ALBUM <- ALBUM[, -1]
+#write.csv(ALBUM, file = "Album Sales.csv")
+
+str(ALBUM) # Check the structure; notice the variables and 
+```
+
+
+As usual, the first thing to do with any new data set is to view the data frame. You will notice that the str() of the data frame indicates that there are 200 observations of data (rows) and 3 variables (columns). The varibles/columns are:
+
+- *Id* represents the unique Id for advertizement in the data set 
+- *Sales* represents record sales (in thousands of pounds)
+- *Advert* represents the amount spent on an advertisement (thousands of pounds)
+
+```{r}
+#View(Antelope)
+View(ALBUM)
+```
+
+
+
+
+#Producing a correlation matrix# 
+As we have done before, you can specify all of the variable pairs you want to correlate, but if there are multiple pairs, there is an easier way than doing this repeatedly for each x-y pair. You can simply use the cor() function on the ALBUM object itself (e.g., cor(ALBUM)) rather than specify the variable names as you have done before (e.g., cor(ALBUM$sales, ALBUM$adverts)).
+
+```{r}
+cor(ALBUM)
+```
+
+However, the decimal points in the correlation matrix are a little busy. We can use the built-in round() function to round the results by specifying the number of decimals to round to. With R, you can nest functions inside functions, so we will nest cor() inside round() in order to round the correlation values for all the variable pairs. Remember, cor() using Pearson's r by default.
+
+```{r}
+round(cor(ALBUM), 3)  # rounding makes it easier to look at
+
+round(cor(ALBUM[, -1]), 3)  # because ID is meaningless for our correlations, we can remove column 3 of ALBUM because ID is the third column in the ALBUM data frame
+```
+
+```{r}
+pairs(ALBUM[, -1]) # plot the pairs of scatterplots in 
+```
+
+#Define a linear model#
+We will define a linear model using the built-in lm() function by specifying arguments of the function. The general form of the model is as follows:
+
+mymodel <- lm(formula = criterion ~ predictor, 
+              data = dataframe, 
+              na.action = some action)
+
+- *mymodel* is an object that contains information about the linear model; summary() will be useful for inspecting the model
+- *criterion* is the predicted variable 
+- *predictor(s)* are the variable used to predict scores on the criterion
+- *data* is the name of the data frame
+- *na.action* (optional) allows you to specify a complete data set if you wish to drop out anyone with missing values; this in an alternative to subetting when using regression models
+
+You can specify the predictor and the criterion ("y as a function of x") as well as the data frame. 
+
+```{r}
+# Using the dataframe$variable approach
+ALBUM.model <- lm(formula = ALBUM$Sales ~ ALBUM$Adverts)
+
+# Specifying the data object makes things easier
+ALBUM.model <- lm(formula = Sales ~ Adverts, data = ALBUM)
+
+# If there are missing values, we can remove them
+ALBUM.model <- lm(formula = Sales ~ Adverts, data = ALBUM, na.action = na.exclude)
+```
+
+
+# Examining and interpreting the simple bivariate linear model#
+If you only wanted to examine the y-intercept and the regression coefficient, you can simply ask to see them by calling the model object.
+
+```{r}
+ALBUM.model  # Displays only the coefficients
+```
+
+Or you can summarize other details of the linear model by using the built-in summary() function. 
+
+```{r}
+summary(ALBUM.model)
+```
+
+*Interpreting Overall Model Fit*
+
+n.1. The *Multiple R-squared* represents the proportion of variance in the criterion that is accounter for by the predictor. The square root of this is Pearson's correlation coefficient. Because there is only one predictor, this multiple R-squared is really just r squared. Because the estimates are based on samples, they are not perfect for making inferences about the populations you really care about. The adjusted R-squared is adjusted for shrinkage, or loss of predictive power that occurs when using sample data to predict population data; the more error in the regression model (e.g., residuals), the more the adjusted R-squared will differ from the unadjusted R-squared. 
+
+n.2. The *F-statistic* represents the ANOVA test value of the ratio test of the model. A statistically significant result indicates that the regression model explains the data better than model based on the mean of album sales (mean-based model). If the *p*-value is less than your alpha level, then the regression model fits the data well. This ANOVA test only tells you whether the overall model fits the data; it does not examine the components of the model.
+
+*Interpreting Specific Model Parameters (coefficents part of the table)*
+
+The coeffiencts report is displayed in 2 rows and 4 columns. 
+n.1. The *Estimate* column displays the two estimated coeffient values y-intercept (b0) and the regression coefficient (b1). The *Std. Error* column displays the error in estimating the coefficients. This error indicates the amount of error in coefficients; small error is good and would indicate that b0 and b1 would not vary as much from sample to sample. The *t* value column displays the value of the *t*-statistic, which simply tests whether the coeffienct differs from 0, which can be inferred also from the Pr(>|t|) column, which is the *p*-value for the t-test.
+
+   n.n. The first row corresponds to the y-intercept (b0). The y-intercept predicts the 
+   number of sales when no money is spent on advertisements. A *p*-value less than alpha 
+   means the y-intercept differs from 0. Mathematically, this can be < 
+   0. 
+
+   n.n.2. The second row corresponds to the regression coefficient/slope (b1). This 
+   represents the increase or decrease (depending on whether the correlation is positive or 
+   negative) in the number of album sales for each unit change in money spent on 
+   advertising. A *p*-value less than alpha means the slope differs from 0. When there are 
+   multiple predictor variables, there will be slopes corresponding the each predictor and 
+   the criterion. 
+   
+
+#Examining Model Assumptions#
+Model assumptions can and should be inspected both visually and statistically. Passing the model to the built-in plot() function will return a set of plots for inspecting the model assumptions. Other specialize functions from other libraries can also help inspect a model.
+
+*Assumptions and things to look for:*
+n.1. The predictor(s) must be either quantitative or categorical (2 categories); the criterion must be quantitative and continuous. The criterion should also be unbounded or unconstrained; for example if a scale that ranges from 1 to 9 is used to measure the criterion and responses only fall between say 3 and 7, the data are constrained, or bounded. This can only be checke by evaluating the range using the built-in range() function. 
+
+```{r}
+range(ALBUM$Sales)
+```
+
+n.2. Predictors should not be restricted and not have variances that are near 0. Range restriction in general is always problematic with regression.
+
+```{r}
+mean(ALBUM$Adverts, na.rm = TRUE)
+
+range(ALBUM$Adverts)
+var(ALBUM$Adverts, na.rm = TRUE)
+sd(ALBUM$Adverts, na.rm = TRUE)
+
+library(lattice)
+histogram(~ ALBUM$Adverts)  # notice that the predictor is skewed positively; this si 
+```
+
+The predictor (advertisements) appears to be skewed positively. We can test whether it is statistically different from a normal distribution by using the Shapiro-Wilk test. The shapiro.test() function is part of the built-in stats library so you don't need to load anything special. The D'Agostino test will test for skewness only, not normality, but is part of the moments library so you would need to load it if you wanted to test for skewness. The Shapiro-Wilk test value is W (kind of like the z-test value is Z). In order to determine if the distribution is not normal in shape, compare the *p*-value that corresponds to Shapiro-Wilk test value (W) to your desired alpha. In this example, we can see that our distribution of money spent on advertisements is not normal if alpha = .05. 
+
+```{r}
+shapiro.test(ALBUM$Adverts)
+
+#library(moments)
+#moments::agostino.test(ALBUM$Adverts)
+```
+
+When you have skewness, you should deal address that problem. You can mathematically transform your data from raw values to another metric. However, you need to be careful when interpreting statistics using transformed data because you are no longer dealing with actual raw data. Although we will not deal with transformations much in this class, you can find some discussions online, for example at https://en.wikipedia.org/wiki/Power_transform and http://pareonline.net/getvn.asp?v=8&n=6
+
+Just for example, we can create a new variable in our data frame that represents the square root of the adverts variable. We will use the built-in sqrt() function. There are other transformations that can fix your data if this one doesn't work. We won't get into all of them here.
+
+```{r}
+ALBUM$Adverts.sqrt <- sqrt(ALBUM$Adverts)
+str(ALBUM)  # check the structure to make sure the variable is there.
+
+histogram(~ ALBUM$Adverts.sqrt)  # looks better than before
+qqnorm(ALBUM$Adverts.sqrt); qqline(ALBUM$Adverts.sqrt)  # the tails of the distribution don't hug the identity line; could be a problem.
+
+shapiro.test(ALBUM$Adverts.sqrt) # but these transformed data still have a distribution different from normal, see p-value
+```
+
+
+The plot() function will produce model plots for examining the assumptions of the model. You can view each plot separately or produce a 2x2 chart that displays them together. However, grouping them will reduce their size. 
+
+```{r}
+par(mfrow = c(2,2))  # adjust the plot to plot the 4 graphs on one chart with 2 rows, 2 columns.
+plot(ALBUM.model)
+par(mfrow = c(1,1))  # return to 1 row, 1 column
+```
+
+
+n.3. The relationship between the criterion and the predictor(s) is linear rather than curvilinear. Plot #1 is the residual plot for which errors (y-axis)) plotted as a function of predicted/fitted values (x-axis); a straight horizontal line on this plot would indicate that the linearity assumption is met; ff a curvilinear model is better than a linear model, then the errors would not be distributed normally, but instead be greater in some parts of the plot than in others. 
+
+
+n.4 Homoscedasticity of the residuals. The variance in the residuals, or error in prediction, should be the same across the values of the prectors. Homoscedasticity is also referred to as constant variance. Non-constant variance in the residuals is referred to as heteroscedasticity. We can examine homoscedasticity visually and statistically.
+
+Plot #1 can also provide information about the variance in the residuals across levels of the predictor. Based on this example, you can see that there is more variability of the residuals (y-axis) on the left side of the plot than at the right side; thus the variability in residuals does not seem to be constant. If the variance is not constant, then we may have issues with residuals not being distributed normally (see next assumption).
+
+If we want to statisically test for constant variance, we can use the ncvTest() function from the car library (install if you haven't yet). The ncv stands for non-constant variance. We want constant variance. The ncvTest() function provides a Chi-Square test value and a corresponding *p*-value for the test. If p is less than or equal to alpha, you have evidence that that you have non-constant variance, or heteroscedasticity. Unfortunately, we have heteroscedasticity. 
+
+```{r}
+library(car)
+ncvTest(ALBUM.model) # the p-value is much lower than .05
+```
+
+
+n.5. Residuals (prediction errors) are distributed normally. If errors are random and the size of the prediction error does not depend on whether the score on the predictor is low or high, then those errors should be distributed normally. Plot #2 will provide detail about the normality of the residuals. Plot #2 is a quantile-quantile plot used to determine normality of errors; if points fall along the identity line, the errors are normally distributed. In this example, you can see that points on the ends of the distribution do not quite fall along the identify line. We could also test this assumption by using the sharipo.test() function on the residuals themselves. 
+
+We can take a look at a histogram or because the residuals are actually stored as part of the information returned from running the lm() function, we can extract those residuals from the model object. Lukily, they are named appropriately as residuals. Remember, the model was ALBUM.model; the residuals do not depart from a normal distribution. 
+
+```{r}
+histogram(~ ALBUM.model$residuals) # take a look; looks fairly normal to the eye
+
+shapiro.test(ALBUM.model$residuals) # test for normality; p > alpha so the residuals do not depart far enough from normality to say we have violated this assumption.
+```
+
+
+n.6. No colinearity among predictors; predictors should not be correlated linearly. When you have more than one predictor, you have to examine for colinearity. Colinearity makes the beta values unreliable and untrustworthy when making inferences from samples to populations. Colinearity affects your beta coefficients in other ways, but we won't address them here. You should just know to see if you meet this assumption. Because we only have one predictor, we cannot test for this assumption. 
+
+If you did want to examine the relationships between predictors, you can use a model to provide a linear relationship. For example, you can examing the correlation using the built-in cor() function, or you can also build a simple bivariate linear model and examine the linearity as you did in the item above. 
+
+```{r}
+#Examples if you have multiple predictors.
+#cor(mydataframe$predictor1, mydataframe$predictor2)
+#lm(predictor1 ~ predictor2, data = mydataframe)
+```
+
+n.7. Independence of errors. For any two obervations in the data, the errors are not related. This is usually not a problem as long as your sample is selected at random and you don't allow people to participate in your study, allow them to talk to other participants, etc. in ways that affect how two people (or objects) respond. This independence assumption can be tested using the Durbin-Watson test using the durbinWatsonTest() function in the car library. The Durbin-Watson test will produce a D-W statistic value that will be large if independence is violated (and you have dependence). Compare p to alpha. In this example, we do not see violations of independence, which is good.
+
+```{r}
+durbinWatsonTest(ALBUM.model)
+```
+
+
+
+
+You will notice that the variable names are X1, X2, X3, and X4.  Below is a description of the variables for later interpretation. 
+
+  Antelope Data Set:
+
+    ID = The ID standings for the year number that the data was collected
+    X1 = spring fawn count/100
+    X2 = size of adult antelope population/100
+    X3 = annual precipitation (inches)
+    X4 = winter severity index (1=mild,5=severe)
+    
+Again check the structure of your data frame and its contents. Pay attention to the names and spelling of the variables. As in the last assignment use the summary() function from the psych library to examine the means of the two variables. For the first part of the homework you only need to examine the first two variables. 
+
+**ANSWER:**
+```{r}
+#Check the variable names
+str(Antelope)
+
+#Calculate the and median mean for both variables; compare them and ask yourself if their values inform you about skew. Remember you need to specify the data frame object in order to tell R to obtain some of the data frame's contents. 
+
+summary(Antelope$X1)
+summary(Antelope$X2)
+
+
+
+```
+
+
+
+Use the appropriate functions from the moments library to calculate the skewness and kurtosis of both variables. Consider whether the variables are distributed normally.
+
+**ANSWER:**
+```{r}
+
+skewness(Antelope$X1)
+skewness(Antelope$X2)
+
+kurtosis(Antelope$X1)
+kurtosis(Antelope$X2)
+```
+
+?shapiro.test
+library(nortest)
+??nortest
+
+##3. Building a linear model##
+
+After examining our data we are going to want to determine the line that "best fits" a seemingly linear relationship between our two variables. The basic way of writing formulas in R is dependent ~ independent. The tilde can be interpreted as "regressed on" or "predicted by". The second most important component for computing basic regression in R is the actual function you need for it: lm(...), which stands for "linear model".
+
+
+```{r}
+## Builds a linear model called regression
+cor.test(Antelope$X1, Antelope$X2)
+Antelope
+regression <- lm(formula = X1 ~ X2, data = Antelope)
+
+## shows us the intercept and slope for the line that best fits the relationship
+regression
+
+summary(regression)
+plot(regression)
+
+durbinWatsonTest(regression)
+
+ncvTest(regression)
+spreadLevelPlot(regression)
+
+multreg <- lm(formula = X1 ~ X2 + X3, data = Antelope)
+cloud(X1 ~ X2 * X3, main="3D Scatterplot by Cylinders", data = Antelope)
+
+vif(multreg)
+summary(multreg)
+
+plot(multreg)
+
+durbinWatsonTest(multreg)
+
+
+
+library(gvlma)
+cor.test(Antelope$X2, Antelope$X3)
+gvmodel <- gvlma(regression) 
+summary(gvmodel)
+
+
+
+library("car")
+outlierTest(regression)
+
+
+summary(regression)
+plot(regression$residuals)
+
+plot(resid(regression))
+```
+
+In this case the slope of the line that best fits the relationship of X1 and X2 has a slope of.4975 and an intercept of -1.6791. It would be nice to view the scatterplot of the data and this line together on the same graph. 
+
+One might use the commands:
+
+```{r}
+## This creates a plot of the relationship and places the linear relationship line on the plot
+plot(Antelope$X1 ~ Antelope$X2)
+abline(regression)
+
+library("lattice")
+xyplot(X1 ~ X2, data = Antelope)
+
+
+```
+
+
+What this tells us is that for a year with an adult antelope population(X2) of 0, a -1.6791 score on fawns is predicted in the spring(X1). This is often also called a conditional expectation because it is the value you expect for the dependent variable under the condition that the independent variable is 0. Put a bit more formally: E(Y|X=0) = -1.6791. The regression weight is the predicted difference between the years that differ in adult population by 1 point in the data.
+
+##4. Determining Outliers 
+
+4.1. Cooks Distance
+
+When building a linear model, it is always important to determine if there are any outliers in your data. We will be using Cook's distance to determine the influence that a data point has on your linear model. For this linear model we will consider any score with a Cook's distance value greater than 1 an outlier. 
+
+Below we will examine the cooks distance for our linear model:
+
+```{r}
+#Let's view the Cook's distance for the dataset Antelope
+
+plot(regression, which = 4:4, bin = 1)
+
+```
+
+In this graph the x-axis refers to the data point while the y-axis refers to cook's distance, telling us how influential each data point is. It may appear data points 6 and 7 are the most influential but the y-axis is very small with the highest data point being slightly above .6 cooks distance. We can determine that our original data set did not have any extremely influence single data points. If any data points are above a 1 on Cook's distance, it is up to you to remove them using previous methods of removing outliers. 
+
+
+##5. The assumptions of a linear model
+
+After removing outliers from our data set it is important that we test the assumptions of a linear model. While we may already know that some of the assumptions have been satisfied, for the purpose of this test we are going to check them all again in this section
+
+5.1. Linear relationship.    
+
+The best way to determine if there is a linear relationship between the variables is to graph it out on a scatterplot. 
+
+Graph out the linear relationship below:
+
+**Answer** 
+
+```{r}
+
+
+
+```
+
+
+**Answer**
+Is there a linear relationship between the variables? 
+Answer:
+
+
+5.2. Multivariate normality.
+
+Secondly, the linear-regression analysis requires all variables to be multivariate normal.  This assumption can best be checked with a histogram and a fitted normal curve or a Q-Q-Plot. A Q-Q plot is a scatterplot created by plotting two sets of quantiles against one another. Quantiles as cut points that divide the data into equal-sized groups; quartiles have 3 cut points which split the data into 4 quarters. If both sets of quantiles came from the same distribution, we should see the points forming a line that's roughly straight. If you have roughly a straight line on a Q-Q plot then most will argue that the assumption of multivariate normality has been met, although this is not a full proof method
+
+Below we will plot out a Q-Q plot:
+
+```{r}
+
+## This will plot out a 4 different charts - The top right one is the Q-Q plot. 
+par(mfrow = c(2, 2))
+plot(regression)
+par(mfrow = c(1, 1)) # return the parameters to 1 row, 1 column or all graphs will be grouped
+
+```
+
+** Answers**
+Is the line on the Q-Q plot a relatively straight line?
+Answer:
+
+**Answers**
+Have we satisfied the assumption of Multivariate normality?
+Answer: 
+
+5.3. -No or little multicollinearity.
+
+Multicollinearity exists when two or more of the predictors in a regression model are moderately or highly correlated. Unfortunately, when it exists, it can wreak havoc on our analysis and thereby limit the research conclusions we can draw. Luckily bivariate regression only has one predictor which means multicollinearity cannot be a problem. Problems in multicollinearty will arise when we move on to multiple linear regression. 
+
+
+5.4. Homoscedasticity.
+
+Homoscedasticity refers to the assumption that that the dependent variable exhibits similar amounts of variance across the range of values for an independent variable. Homoscedacity means that when you plot the individual prediction error against the predicted value, the variance of the error predicted value should be constant. To check the assumptions of homoscedacity we will examine the "Residuals vs Fitted" graph that we previously plotted. 
+
+
+The plot of residuals versus fitted values is useful for checking the assumption of linearity and homoscedasticity. If the model does not meet the linear model assumption, we would expect to see residuals that are very large (big positive value or big negative value). To assess the assumption of linearity we want to ensure that the residuals are not too far away from 0 (standardized values less than -2 or greater than 2 are deemed problematic). To assess if the homoscedasticity assumption is met we look to make sure that there is no pattern in the residuals and that they are equally spread around the y = 0 line. Luckily for us it appears that our data is spread around the line, with no points over .3.
+
+**Answers**
+Have we violated the assumptions of Homoscedacity?
+Answer:
+
+
+##6. A Summary of the linear model
+
+6.1. Linear Model Summary / Significant Predictors 
+
+Like for most R objects, the summary-function shows the most important information in a nice table.
+
+
+```{r}
+## This will show a summary of the linear model
+summary(regression)
+
+```
+
+
+What is the most important information in this table? Most probably would say the coefficients-section, which contains the parameter estimates and their corresponding t-tests. This shows us that X1(adult antelope population) is significantly related to X2(spring fawn count). This can be seen in the low p-value. If a predictor is not shown to be significant in this table than we cannot predict scores based off of the non-significant variable. 
+
+
+6.2. The R-Squared 
+
+The second most important line is the one containing the Multiple R-squared which represents the amount of variance accounted for in the dependent variable by the predictors. In this case over 88% of the variability in variable X1 is shared with the variability in the variable X2(spring fawn count). Due to the fact that the R^2 is the squared multiple correlation between the dependent and predictor we should be able to gain the R^2 by squaring the correlation between the two variables. To check this, we can use
+
+```{r}
+
+summary(regression)$r.squared
+cor(Antelope$X1, Antelope$X2)^2
+
+```
+
+
+
+6.3. Predicting Scores
+
+It is also important to point out that based off of the F-statistic and p-value at the bottom of the summary table we can determine that our model is significant and that X2 significantly predicts the score on X1. These predictions allow us to infer what value of 2 on the X2 variable would result in on X1. The coefficient of X2 is interpreted as the different in the predicted value in Y (in this case X1) for each one-unit difference in X2. However, if X2 were a categorical variable coded as 0 or 1, a one unit difference represents switching from one category to the other, then the coefficient of X2 would then be the average difference in Y(X1) between the category for which X2 = 0 (the reference group) and the category for which X2 = 1 (the comparison group). 
+
+Now let us show this in R:
+
+```{r}
+# This is the coefficient for variable X2 and can be found in the coefficients table
+X2Coeff <- .49752
+
+#This is the intercept for the linear model
+Intercept <- -1.67914
+
+#Lets test our linear model when the variable X2 is 3
+X2 <- 3
+
+## Place it in our linear model (Y = X2 * Coefficient + Intercept)
+PredictedScore <- X2 * X2Coeff + Intercept 
+
+## Predicted Score
+PredictedScore
+
+```
+
+
+** Answer **
+The predicted score for X1 when X2 is 3 is:
+
+It is important to mention that when more variables are added to the linear model that the coefficients will change. You will not have to worry about this until multiple regression but it is something to keep in mind. 
+
+
+##7.  Do it yourself!
+
+7.1. Load the "Alcohol.csv" from your working directory into an object named Alcohol and look at its structure.
+**ANSWER:**
+``` {r}
+# Load the csv
+#Hide
+Alcohol <- read.csv("Alcohol.csv")
+```
+
+
+7.2. Now examine the names of the variables, mean, median, skewness, and kurtosis of the relevant variables. 
+**ANSWER:**
+```{r}
+# Names 
+str(Alcohol); names(Alcohol)
+# Mean
+
+# Median
+
+# Skewness
+
+# kurtosis
+
+```
+
+
+7.3. Make a linear model where the variable Sips predicts Tempo
+**ANSWER:**
+```{r}
+
+
+```
+
+
+7.4. Next plot out the relationship and place your linear model line on it. 
+**ANSWER:**
+```{r, message = FALSE, warning = FALSE}
+#hide 
+
+```
+Book
+
+
+7.5. Are any of the data points outliers?
+**ANSWER:**
+```{r, message = FALSE, warning = FALSE}
+
+
+```
+
+
+7.6 Are any of the assumptions violated?
+**Answers:**
+```{r}
+
+
+```
+
+
+7.7. Now view the summary of the model
+**ANSWER:**
+```{r}
+
+```
+
+
+7.8. Is sips a significant predictor of tempo?
+**ANSWER:** 
+
+
+
+7.9. How much variance is accounted for in tempo by sips?
+**ANSWER:** 
+
+
+7.10 Using only the cor() function, show how the r-square is achieved
+```{r}
+
+
+
+```
+
+
+
+

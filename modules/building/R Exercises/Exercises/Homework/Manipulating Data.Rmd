@@ -1,0 +1,22 @@
+---
+title: "Manipulating Data"
+author: "gcook"
+date: "February 19, 2016"
+output: html_document
+---
+
+Removing columns.
+
+```{r}
+library("car")
+a = names(mtcars)
+
+mtcars[, !names(mtcars) %in% c("carb", "mpg")] # doesn't seem to work for me
+b = names(mtcars)
+
+a; b 
+```
+
+Other tips:
+https://stackoverflow.com/questions/8005154/conditionally-remove-dataframe-rows-with-r
+

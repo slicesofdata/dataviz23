@@ -1,0 +1,51 @@
+---
+title: "Stroop Data"
+author: ""
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{R message=FALSE, warning=FALSE, include=FALSE}
+
+#ggplot cheatsheet http://www.zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/
+
+
+# clean R objects
+rm(list = ls(all.names = TRUE))
+
+# se the paths for project, script, and data dirs
+this_rmd_path = rstudioapi::getActiveDocumentContext()$path
+proj_name = "stroop"
+proj_dir <- gsub("r/.*.Rmd","", this_rmd_path)
+r_dir <- paste0(proj_dir, "r/")
+data_dir <- paste0(proj_dir, "data/")
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# libraries
+library(magrittr)
+library(ggplot2)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# check the r files here
+list.files(paste0(r_dir, proj_name))
+
+# source the functions
+source("https://pastebin.com/raw/97NNTTzu") # functions
+source("https://pastebin.com/raw/2mKHgPR3") # get funs from file
+
+# source the scripts
+source(paste0(r_dir, proj_name, "/read_data.R"))
+source(paste0(r_dir, proj_name, "/clean_data.R"))
+#source(paste0(r_dir, proj_name, "/model_data.R"))
+```
+
+```{r}
+view(head(df), 10) #%>% htmlTable::htmlTableWidgetOutput()
+```

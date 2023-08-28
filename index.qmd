@@ -1,20 +1,26 @@
 ---
-title: " "
+title: " " #Home
 
 format:
   html: 
-    theme: cosmo #quartz
+    #theme: cosmo #quartz
     #css: css/home.css
-    fontcolor: black
+    #fontcolor: black
+    page-layout: full
 
 ---
 
 ```{r, echo=FALSE}
-#| out.width: "100%"
-#knitr::include_graphics('images/datafingertips.jpg')
+#| image: images/dataviz_hex_plus_course.jpg
+#| fig-width: 4
+#| figh-height: 5
+#| out-width: "20%"
+#| fig-align: "left"
+knitr::include_graphics('images/dataviz_hex_plus_course.jpg')
 ```
 
-## PSYC 167: Data Visualization
+
+## **PSYC 167: Data Visualization**
 
 This is the course website for PSYC 167: *Data Visualization*, taught by [Prof. Gabriel I. Cook](https://gabrielcook.xyz); 1 credit
 

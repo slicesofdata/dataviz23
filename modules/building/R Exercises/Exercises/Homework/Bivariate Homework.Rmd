@@ -1,0 +1,393 @@
+---
+title: "Regression"
+author: "Lukas"
+date: "Wednesday, February 24, 2016"
+output: html_document
+---
+
+
+##Part A##
+## Before you begin##
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+
+##1. Installing and using libraries in RStudio##
+
+1.1. Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you check the box to Install Dependencies. Do not install with code.
+
+- lme4
+- Mac users, please make sure that you have XQuartz downloaded and in your Applications folder
+
+
+1.2. Functions used for this assignment: 
+
+## 2. Loading libraries ##
+Use the library() function to load the following libraries: moments, lme4
+
+**ANSWER:** 
+```{r, message = FALSE, warning = FALSE}
+library("lme4")
+library("moments")
+
+```
+
+## 3. Checking your working directory ##
+Always make sure that your working directory points to Psyc109 on your desktop. 
+```{r}
+getwd()
+```
+
+##Part B##
+##1. General Linear Regression
+
+1.1. In statistics, linear regression is an approach for modeling the relationship between a dependent variable y and one or more explanatory variables (or independent variables). 
+
+When it comes to linear regression there are two common forms:
+
+  1. Simple linear regression is used to indicate there is one predictor in the linear
+regression equation.
+
+  2. Multiple linear regression is used to indicate there is more than one predictor in the
+linear regression equation.
+
+1.2 Linear regression also makes several key assumptions:
+
+    -Linear relationship.           
+   
+    -Multivariate normality.
+    
+    -No or little multicollinearity.
+       
+    -Homoscedasticity.
+
+
+##2. Simple Linear Regression
+
+2.1. Understanding Simple Linear Regression.
+
+
+For a simple linear regression there is:
+
+  - One predictor in the equation
+  
+  - An unstandardized regression coefficient
+    that represents the marginal relationship
+    between Y and X1.
+    
+  - Standardized regression coefficient equals
+    the zero-order correlation.
+    
+2.2 Reading in the data
+
+One of the first steps in completing a simple linear regression is to plot your data on a scatter plot. For that we are going to need to bring some data into our workspace. Below let's bring in the antelope.csv file.
+
+```{r}
+Antelope <- read.csv("Antelope.csv")
+```
+
+As usual the first thing to do with any new dataset is to first view the datafile
+
+```{r}
+View(Antelope)
+```
+
+
+You will notice that the variable names are X1, X2, X3, and X4.  Below is a description of the variables for later interpretation. 
+
+  Antelope Data Set:
+
+    ID = The ID standings for the year number that the data was collected
+    X1 = spring fawn count/100
+    X2 = size of adult antelope population/100
+    X3 = annual precipitation (inches)
+    X4 = winter severity index (1=mild,5=severe)
+    
+Again check the structure of your data frame and its contents. Pay attention to the names and spelling of the variables. As in the last assignment use the summary () function from the psych library to examine the means of the two variables. For the first part of the homework you only need to examine the first two variables. 
+
+**ANSWER:**
+```{r}
+#Check the variable names
+str(Antelope)
+
+#Calculate the and median mean for both variables; compare them and ask yourself if their values inform you about skew. Remember you need to specify the data frame object in order to tell R to obtain some of the data frame's contents. 
+
+summary(Antelope$X1)
+summary(Antelope$X2)
+
+
+
+```
+
+
+
+Use the appropriate functions from the moments library to calculate the skewness and kurtosis of both variables. Consider whether the variables are distributed normally.
+
+**ANSWER:**
+```{r}
+
+skewness(Antelope$X1)
+skewness(Antelope$X2)
+
+kurtosis(Antelope$X1)
+kurtosis(Antelope$X2)
+
+```
+
+
+##3. Building a linear model
+
+After examining our data we are going to want to determine the line that "best fits" a seemingly linear relationship between our two variables. The basic way of writing formulas in R is dependent ~ independent. The tilde can be interpreted as "regressed on" or "predicted by". The second most important component for computing basic regression in R is the actual function you need for it: lm(...), which stands for "linear model".
+
+
+```{r}
+## Builds a linear model called regression
+regression <- lm(Antelope$X1 ~ Antelope$X2)
+
+## shows us the intercept and slope for the line that best fits the relationship
+regression
+
+
+```
+
+In this case the slope of the line that best fits the relationship of X1 and X2 has a slope of.4975 and an intercept of -1.6791. It would be nice to view the scatterplot of the data and this line together on the same graph. 
+
+One might use the commands:
+
+```{r}
+## This creates a plot of the relationship and places the linear relationship line on the plot
+plot(Antelope$X1 ~ Antelope$X2)
+abline(regression)
+
+```
+
+
+What this tells us is that for a year with an adult antelope population(X2) of 0, a -1.6791 score on fawns is predicted in the spring(X1). This is often also called a conditional expectation because it is the value you expect for the dependent variable under the condition that the independent variable is 0. Put a bit more formally: E(Y|X=0) = -1.6791. The regression weight is the predicted difference between the years that differ in adult population by 1 point in the data.
+
+##4. Determining Outliers 
+
+4.1. Cooks Distance
+
+When building a linear model, it is always important to determine if there are any outliers in your data. We will be using Cook's distance to determine the influence that a data point has on your linear model. For this linear model we will consider any score with a Cook's distance value greater than 1 an outlier. 
+
+Below we will examine the cooks distance for our linear model:
+
+```{r}
+#Let's view the Cook's distance for the dataset Antelope
+
+plot(regression, which = 4:4, bin = 1)
+
+```
+
+In this graph the x-axis refers to the data point while the y-axis refers to cook's distance, telling us how influential each data point is. It may appear data points 6 and 7 are the most influential but the y-axis is very small with the highest data point being slightly above .6 cooks distance. We can determine that our original data set did not have any extremely influence single data points. If any data points are above a 1 on Cook's distance, it is up to you to remove them using previous methods of removing outliers. 
+
+
+##5. The assumptions of a linear model
+
+After removing outliers from our data set it is important that we test the assumptions of a linear model. While we may already know that some of the assumptions have been satisfied, for the purpose of this test we are going to check them all again in this section
+
+5.1. Linear relationship.    
+
+The best way to determine if there is a linear relationship between the variables is to graph it out on a scatterplot. 
+
+Graph out the linear relationship below:
+
+**Answer** 
+
+```{r}
+
+
+
+```
+
+
+**Answer**
+Is there a linear relationship between the variables? 
+Answer:
+
+
+5.2. Multivariate normality.
+
+Secondly, the linear regression analysis requires all variables to be multivariate normal.  This assumption can best be checked with a histogram and a fitted normal curve or a Q-Q-Plot. A Q-Q plot is a scatterplot created by plotting two sets of quantiles against one another. If both sets of quantiles came from the same distribution, we should see the points forming a line that's roughly straight. If you have roughly a straight line on a Q-Q plot then most will argue that the assumption of multivariate normality has been met, although this is not a full proof method
+
+Below we will plot out a Q-Q plot:
+
+```{r}
+
+## This will plot out a 4 different charts - The top right one is the Q-Q plot. 
+par(mfrow = c(2, 2))
+plot(regression)
+
+```
+
+** Answers**
+Is the line on the Q-Q plot a relatively straight line?
+Answer:
+
+**Answers**
+Have we satisfied the assumption of Multivariate normality?
+Answer: 
+
+5.3. -No or little multicollinearity.
+
+Multicollinearity exists when two or more of the predictors in a regression model are moderately or highly correlated. Unfortunately, when it exists, it can wreak havoc on our analysis and thereby limit the research conclusions we can draw. Luckily bivariate regression only has one predictor which means multicollinearity cannot be a problem. Problems in multicollinearty will arise when we move on to multiple linear regression. 
+
+
+5.4. Homoscedasticity.
+
+Homoscedasticity refers to the assumption that that the dependent variable exhibits similar amounts of variance across the range of values for an independent variable. homoscedacity means that when you plot the individual error against the predicted value, the variance of the error predicted value should be constant. To check the assumptions of homoscedacity we will examine the "Residuals vs Fitted" graph that we previously plotted. 
+
+
+The plot of residuals versus fitted values is useful for checking the assumption of linearity and homoscedasticity. If the model does not meet the linear model assumption, we would expect to see residuals that are very large (big positive value or big negative value). To assess the assumption of linearity we want to ensure that the residuals are not too far away from 0 (standardized values less than -2 or greater than 2 are deemed problematic). To assess if the homoscedasticity assumption is met we look to make sure that there is no pattern in the residuals and that they are equally spread around the y = 0 line. Luckily for us it appears that our data is spread around the line, with no points over .3.
+
+**Answers**
+Have we violated the assumptions of Homoscedacity?
+Answer:
+
+
+##6. A Summary of the linear model
+
+6.1. Linear Model Summary / Significant Predictors 
+
+Like for most R objects, the summary-function shows the most important information in a nice table.
+
+
+```{r}
+## This will show a summary of the linear model
+summary(regression)
+
+```
+
+
+What is the most important information in this table? Most probably would say the coefficients-section, which contains the parameter estimates and their corresponding t-tests. This shows us that X1(adult antelope population) is significantly related to X2(spring fawn count). This can be seen in the low p-value. If a predictor is not shown to be significant in this table than we cannot predict scores based off of the non-significant variable. 
+
+
+6.2. The R-Squared 
+
+The second most important line is the one containing the Multiple R-squared which represents the amount of variance accounted for in the dependent variable by the predictors. In this case over 88% of the variability in variable X1 is shared with the variability in the variable X2(spring fawn count). Due to the fact that the R^2 is the squared multiple correlation between the dependent and predictor we should be able to gain the R^2 by squaring the correlation between the two variables. To check this, we can use
+
+```{r}
+
+summary(regression)$r.squared
+cor(Antelope$X1, Antelope$X2)^2
+
+```
+
+
+
+6.3. Predicting Scores
+
+It is also important to point out that based off of the F-statistic and p-value at the bottom of the summary table we can determine that our model is significant and that X2 significantly predicts the score on X1. These predictions allow us to infer what value of 2 on the X2 variable would result in on X1. The coefficient of X2 is interpreted as the different in the predicted value in Y (in this case X1) for each one-unit difference in X2. However, if X2 were a categorical variable coded as 0 or 1, a one unit difference represents switching from one category to the other, then the coefficient of X2 would then be the average difference in Y(X1) between the category for which X2 = 0 (the reference group) and the category for which X2 = 1 (the comparison group). 
+
+Now let us show this in R:
+
+```{r}
+# This is the coefficient for variable X2 and can be found in the coefficients table
+X2Coeff <- .49752
+
+#This is the intercept for the linear model
+Intercept <- -1.67914
+
+#Lets test our linear model when the variable X2 is 3
+X2 <- 3
+
+## Place it in our linear model (Y = X2 * Coefficient + Intercept)
+PredictedScore <- X2 * X2Coeff + Intercept 
+
+## Predicted Score
+PredictedScore
+
+```
+
+
+** Answer **
+The predicted score for X1 when X2 is 3 is:
+
+It is important to mention that when more variables are added to the linear model that the coefficients will change. You will not have to worry about this until multiple regression but it is something to keep in mind. 
+
+
+##7.  Do it yourself!
+
+7.1. Load the "Alcohol.csv" from your working directory into an object named Alcohol and look at its structure.
+**ANSWER:**
+``` {r}
+# Load the csv
+#Hide
+#Alcohol <- read.csv("Alcohol.csv")
+```
+
+
+7.2. Now examine the names of the variables, mean, median, skewness, and kurtosis of the relevant variables. 
+**ANSWER:**
+```{r}
+# Names 
+#str(Alcohol); names(Alcohol)
+# Mean
+
+# Median
+
+# Skewness
+
+# kurtosis
+
+```
+
+
+7.3. Make a linear model where the variable Sips predicts Tempo
+**ANSWER:**
+```{r}
+
+
+```
+
+
+7.4. Next plot out the relationship and place your linear model line on it. 
+**ANSWER:**
+```{r, message = FALSE, warning = FALSE}
+#hide 
+
+```
+Book
+
+
+7.5. Are any of the data points outliers?
+**ANSWER:**
+```{r, message = FALSE, warning = FALSE}
+
+
+```
+
+
+7.6 Are any of the assumptions violated?
+**Answers:**
+```{r}
+
+
+```
+
+
+7.7. Now view the summary of the model
+**ANSWER:**
+```{r}
+
+```
+
+
+7.8. Is sips a significant predictor of tempo?
+**ANSWER:** 
+
+
+
+7.9. How much variance is accounted for in tempo by sips?
+**ANSWER:** 
+
+
+7.10 Using only the cor() function, show how the r-square is achieved
+```{r}
+
+
+
+```
+
+
+
+

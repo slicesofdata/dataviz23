@@ -1,0 +1,147 @@
+---
+title: "Readings"
+editor: visual
+
+format:
+  html:
+    theme: css/styles.scss 
+    css: [css/nav.css,css/styles.css]
+    toc: true
+    #include-in-header: "css/fontawesome.html"
+    #mainfont: arial #Nunito
+    fontsize: 1.2rem
+    #toc: true
+    toc-expand: true
+    toc-depth: 4
+---
+
+::: {#hero-heading}
+:::
+
+
+
+You should read the enumerated items (those prefaced by numbers); others can supplemental. 
+
+### **Topic**
+  1. xxx
+  2. xxx
+
+
+
+### **Guided Practice with Posit Primers**
+  1. [Bar Plots](https://posit.cloud/learn/primers/3.2)
+  2. [Box Plots](https://posit.cloud/learn/primers/3.4)
+  3. [Scatterplots](https://posit.cloud/learn/primers/3.5)
+  4. [Line Plots](https://posit.cloud/learn/primers/3.4)
+
+### **Topic**
+  1. xxx
+  2. xxx
+  
+### **The Grammar of Graphics** using `ggplot`
+  1. xxx
+
+  
+### **Mapping Data to Visual Elements**
+  1. [Mapping Data to Aesthetics](https://clauswilke.com/dataviz/aesthetic-mapping.html)
+  2. [Make a Plot](http://socviz.co/makeplot.html)
+  
+    i) xxx
+
+
+### **Aesthetic Considerations Designing Perceptually Efficient Visualizations**
+
+
+### **Spatial Position and Adjustment (CH 7)**
+  1. [Addressing Overplotting](https://clauswilke.com/dataviz/overlapping-points.html) with `geom_jitter()`
+  2. 
+
+### **Statistical Transformations: Data as-is Versus Summaries**
+
+###  *Data Preparation* using `dplyr`
+  
+#### Selecting Rows and Columns: `select()` and `filter()` 
+    1.2. Grouping/Pooling Data: `group_by()`
+
+  2. Data aggregation: `summarize()`
+
+### **Scales and Axes (CH 6)**
+
+### **Visualizing Comparisons**
+  1. xxx
+  2. xxx
+  
+
+
+### **Visualizing Uncertainty**
+  1. [Histograms/Density Plots](https://clauswilke.com/dataviz/histograms-density-plots.html)
+  2. xxx
+  
+### **Visualizing Associations and Trends**
+  1. [Scatterplots](https://clauswilke.com/dataviz/visualizing-associations.html)
+    Using `group_by` for subgroups
+  2. [Line Plots](https://clauswilke.com/dataviz/visualizing-trends.html)
+
+
+
+[Visualizing Amounts](https://clauswilke.com/dataviz/visualizing-amounts.html)
+[Visualizing Proportions or Ratios](https://clauswilke.com/dataviz/visualizing-proportions.html)
+
+https://clauswilke.com/dataviz/visualizing-amounts.html
+
+
+### **Making Visualizations Better**
+  1. [Principle of Proportional Ink](https://clauswilke.com/dataviz/proportional-ink.html)
+  2. [Color Pitfalls](https://clauswilke.com/dataviz/color-pitfalls.html)
+  3. [Storytelling](https://clauswilke.com/dataviz/telling-a-story.html)
+  4. [Why People Make Bad Charts (and What to Do When it Happens)](https://flowingdata.com/2018/06/28/why-people-make-bad-charts-and-what-to-do-when-it-happens/)
+  5. [Refining Plots](http://socviz.co/refineplots.html)
+  
+  
+### **Annotation**
+  * Claus Wilke, Claus Wilke, *Fundamentals of Data Visualization
+    1. [redundant-coding.html](https://clauswilke.com/dataviz/redundant-coding.html) 
+    2. [Small Multiples](https://clauswilke.com/dataviz/multi-panel-figures.html)
+    3. [Title and Captions](https://clauswilke.com/dataviz/figure-titles-captions.html)
+    4. [Axis Labesls](https://clauswilke.com/dataviz/small-axis-labels.html)
+
+### **Emphasis**
+  1. Calling Attention to Points
+  2. Annotating Points
+  3. Highlighting Sections
+
+
+### **Image Formats**
+  1. [jpg, png, or svg?](https://clauswilke.com/dataviz/image-file-formats.html)
+  2. [File Formats Explained](https://www.theglowstudio.com/file-formats-explained/)
+    
+  +  [Whats the difference between jpg png and gif](https://gizmodo.com/5656669/whats-the-difference-between-jpg-png-and-gif)
+ 
+
+  + Kieran Healy, Data Visualization
+    - [xx](http://socviz.co/workgeoms.html)
+  
+  
+[Cara Thompson, "Level Up Your Labels: Tips and Tricks for Annotating Plots"]
+(https://www.cararthompson.com/talks/user2022)
+
+### **Reproduce vs. Replicate**
+  1. [What is the `reprex` library?](https://reprex.tidyverse.org/index.html)
+  2. [Reproducible example with `reprex`](https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219)
+  2. 
+  3. 
+
+### **Animation**
+
+
+```{mermaid}
+flowchart RL
+  B(Data) --> A(Plot) 
+  C(Geometry) --> A(Plot) 
+  D(Statistics) --> A(Plot)
+  E(Coordinate System) --> A(Plot)
+  F(Theme) --> A(Plot)
+```
+
+
+

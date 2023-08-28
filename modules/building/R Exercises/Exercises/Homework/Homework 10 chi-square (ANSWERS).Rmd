@@ -1,0 +1,251 @@
+---
+title: "Homework 10: Qualitative-Nominal-Categorical Data: Chi-Squared Tests"
+author: "partner names"
+date: "type date"
+output: html_document
+---
+
+```{r, echo=F}
+#http://yatani.jp/teaching/doku.php?id=hcistats:chisquare
+#http://www.theanalysisfactor.com/effect-size/
+#http://daniellakens.blogspot.com/search/label/Bayesian%20Statistics
+```
+
+##Part A##
+#General Questions#
+
+1. **QUESTION:** How many independent variables are needed for the chi-squared goodness-of-fit test?
+
+*ANSWER:* 
+
+
+
+2. **QUESTION:** Create your own example of a situation for which you would you use a chi-squared goodness-of-fit test. Do not use an example from the Internet. Be specific about your IVs, levels, and measurement. 
+
+*ANSWER:* 
+
+
+
+##Part B##
+
+##Before you begin##
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+##1. Installing and using libraries in RStudio##
+
+1.1. Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you *check the box to Install Dependencies*. Do not install with code.
+
+- Mac users, most of you should already have XQuartz installed from the first R class, but please make sure that you have it downloaded and installed in your Applications folder. See the original download instruction file if you need help.  
+
+
+1.2. Key functions used for this assignment: 
+
+- options() for changing the scientific notiation display (e.g., scipen = 999)
+- assocstats() for obtaining effect size measures for chi-quared tests; vcd library
+
+
+
+
+## 2. Loading libraries ##
+If you know what libraries you will use for your code, you can load them now. Use the library() function to load the following libraries: lattice, nortest. 
+
+*ANSWER:* 
+```{r, message = FALSE, warning = FALSE}
+
+```
+
+Change from scientific notation if you want. 
+
+```{r}
+options(scipen = 999) #options(scipen=0)
+```
+
+##1.0. Overview of the binomial test##
+
+1.1. The binomial test is a test used to analyze data that are nominal (categorical) in scale. It is also well suited for analyzing data for which medians or means do not make much sense. For example, belonging or not belonging to a category may not produce values for reporting averages. Asking 100 people whether they own a Windows, Macbook, or a Linix computer would tell you how many people belong to each category. You could count the number of people who use a certain computer type as a *frequency or count* of use for each category and using the mode as a measure of central tendency, you would know which computer type was most common. In this case, the "average" would be the mode rather than the mean or median. If 50 people in your sample have a Mac, 47 have a Windows PC, and 3 have a Linux PC, the data points are just observation counts of 50, 47, and 3. Moreover, there is also no variability to calculate because all people who have a Mac are the same -- they have a Mac. 
+
+One application of the Chi-squared test is for determining whether frequencies obtained from data fit an expected frequency. For example, you might see an add on campus for a yoga class and wonder if the number of men and women who attend the class are the same, 50% each. So you decide to take the yoga class, which has 30 people and you categorize everyone (including yourself) accordingly. You discover that there are 5 men and 25 women. Because you know about sampling bias, you want to test whether the counts are different from an expected equal likelihood of 50%.
+
+```{r}
+YOGA <- c(5, 25) # 5 men, 25 women
+YOGA.bi <- binom.test(YOGA, p = 1/6) # 1/6th should be men
+YOGA.bi
+sum(YOGA) # the sample size, both men and women; the same as the "number of trials"
+
+binom.test(YOGA, p = 0.25)
+```
+
+##1.0. Overview of the *Chi-squared ($\chi$^2^)* test##
+
+1.1. The Chi-squared ($\chi$^2^) test is a commonly used test for data that are nominal (categorical) in scale. It is also well suited for analyzing data for which medians or means do not make much sense. For example, belonging or not belonging to a category may not produce values for reporting averages. Asking 100 people whether they own a Windows, Macbook, or a Linix computer would tell you how many people belong to each category. You could count the number of people who use a certain computer type as a *frequency or count* of use for each category and using the mode as a measure of central tendency, you would know which computer type was most common. In this case, the "average" would be the mode rather than the mean or median. If 50 people in your sample have a Mac, 47 have a Windows PC, and 3 have a Linux PC, the data points are just observation counts of 50, 47, and 3. Moreover, there is also no variability to calculate because all people who have a Mac are the same -- they have a Mac. 
+
+For many research questions, you might assign people randomly to different categories and being smart by keeping the sample sizes across your groups equal. Or you may want to keep equal numbers of non-randomized variables (e.g., Gender, Race, Ethnicity etc.) for purposes of studying a dependent variable. For other research questions, belongingness to groups may be the dependent variable. You might simply collect data by asking questions about how people fit into categories (e.g., Do you recycle? Do you own a Mac?, Do you own a home?, etc.). 
+
+Chi-squared tests take on two general forms, which depend on the question ask and the number of independent variables studied. 
+
+#2.0 The Chi-squared goodness-of-fit test#
+
+2.1. One application of the Chi-squared test is for determining whether frequencies obtained from data fit an expected frequency. For example, you might see an add on campus for a yoga class and wonder if the number of men and women who attend the class are the same, 50% each. So you decide to take the yoga class, which has 30 people and you categorize everyone (including yourself) accordingly. You discover that there are 5 men and 25 women. Because you know about sampling bias, you want to test whether the counts are different from an expected equal likelihood of 50%.
+
+**ugh-------------------------------------- **
+```{r}
+library(vcd)
+YOGA <- c
+```
+
+2.2. By default, the chi-squared test assumes equal probabilities of events (expected values) across levels of your IV. In some cases, when you know nothing about various events, a reasonable assumption is that they could be equal. However, you might believe that more women take a yoga class than do men because a friend who runs an off-campus yoga studio told you that they only about 20% of all people who enroll are men. You now wonder if the on-campus class differs from the 20% men, 80% women ratio your friend proclaimed. In this case, you would have to change your expected frequencies to something other than the equivalent frequencies.
+
+To change the expected probabilities, add the "p" argument to the chist.test() function; p is a vector of probabilities of the same length as your levels of IV, in this case 2 levels. The sum of the probabilities has to sum to 1.0.
+```{r}
+YOGA.bi <- binom.test(YOGA, p = .50) # 50% men, 50% women
+YOGA.bi #; YOGA.es # notice they are the same.
+
+# to change the expected probabilities, add the 
+YOGA.bi <- binom.test(YOGA, p = 0.20)) #20% men, 80% women
+YOGA.bi$e
+#YOGA2080.es <- assocstats(YOGA, p = c(0.20, 0.80))
+YOGA.bi #; YOGA2080.es
+```
+
+2.3. Reporting the test statistic values
+
+Based on the R output, you will see the variable for which you calculated, xxxx, the $\chi$^2^ value based on the calculation, the degrees of freedom, and the *p*-value corresponding to finding frequncies differ from expected under H0. 
+
+When you calculate a Chi-squared test for independence and report the results of the statistic, you will need to specify the ($\chi$^2^ value and the degrees of freedom. The df for the test is ** ** 
+
+To report the outcome of the test, the general form is:
+
+  $\chi$^2^ (1, N = sample size) = chi-squared value, p < or > $\alpha$ 
+
+By substitution and making sure to italicize $\chi$ and p, we can say:
+
+  $\chi$^2^(1, N = xx) = x.xx, *p* < .05; phi = 0.xx
+
+qchisq(.95, df=1)
+
+```{r}
+
+
+```
+
+
+If you used the *p*-value to make decisions about H0, you could interpret the data as evidence for the frequncy counts from your samples not being the same as expected. In other words, you have evidence that you samples do not come from populations with equivalent ownership across ownership of the computer types; your samples likely come from populations with unequal frequencies. 
+
+
+#3.0. The Chi-squared test for independence#
+
+Another application of the Chi-squared test for determining whether belongingness to one category depends on belongingness to another category. This type of Chi-squared test is referred to as a * test for independence*. For this In this case, the null hypothesis is that the occurrence of the outcomes for the two groups is equal. For example, you have two user groups (e.g., male and female, or young and elderly). And you have nominal data for each group, for example, whether they use mobile devices or which OS they use. So, your data look like this. If your data of the two groups came from the same participants (i.e., the data were paired), you should use the McNemar's test.
+
+```{r}
+a = c(2, 1, 2, 3, 3, 2, 2, 3, 2, 3, 3, 2, 2, 3)
+b = c(1, 2, 1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1)
+
+# read in data frame. 
+
+
+# Create a frequency table based on the variables of interest. 
+table(a, b) # rows (a), by columns (b)
+chi.table <- table(a, b) # assign it to an object
+
+# pass the object to the chisq.test() function
+data.chi2 <- chisq.test(chi.table)
+data.chi2
+
+# pass the object to the assocstats() function from the vcd library
+data.chi2.es <- assocstats(chi.table)
+
+data.chi2; data.chi2.es  
+
+chi.test <- function(table) {
+  library(vcd)
+  test.value <- chisq.test(table)
+  es <- assocstats(table)
+  return(list=list(test.value, es))
+} # t.chi <- chi.test(data); t.chi[[2:2,1]]
+
+# 3 x 2
+data2 <- matrix(c(16, 11, 3, 21, 8, 1), ncol=2, byrow=T)
+data2
+
+chisq.test(data2)
+```
+
+A warning message like "Chi-squared approximation may be incorrect" will appear if you have small cell values in the contingency table. 
+
+#table(SURVEY$Gender, SURVEY$Dress)
+
+##4. Degrees of Freedom##
+
+The concept of degrees of freedom is central to the principle of estimating statistics of populations from samples of them. "Degrees of freedom" is commonly abbreviated to df. In short, think of df as a mathematical restriction that we need to put in place when we calculate an estimate one statistic from an estimate of another. The idea is that, when figuring the variance, you first have to know the mean. If you know the mean and all but one of the scores in the sample, you can figure out the one you do not know with a little arithmetic. Thus, once you know the mean, one of the scores in the sample is not free to have any possible value. So in this kind of situation the df is the number of scores minus 1. In terms of a formula,
+                            
+  df = n - 1
+
+
+In our example we have 19 degrees of freedom:
+                                               
+
+##3. Assumptions for *$\chi$ squared* tests## 
+
+3.1. As we have seen, when you are using an estimated population variance, the comparison distribution is a *t* distribution rather than a *z* distribution (normal).
+
+However, in order to perform a *t*-test, there are few assumptions that should be met. 
+
+3.2. Assumptions for the $\chi$-squared goodness-of-fit test
+
+  a) Expected frequencies cannot be smaller than XXXX; if you have sample sized smaller than 10, use a Fisher's exact test fisher.test()
+
+
+3.3. Assumptions for the $\chi$-squared test for independence
+
+  a) 
+
+# 4. Effect size: Calculating the strength of an effect##
+
+The conventions for effect size may already be familiar to you in the form of correlation values. Correlation providing a measure of the strength of relationship between variables. Typically, a larger effect size provides better evidence for the difference between comparison groups. 
+
+
+
+##5. Do it yourself!##
+
+1. Does the amount of littering (or not littering) depend on the amount of existing rubbish on the ground? To answer this question, you observed 358 people in three different environments. One environment has 0-1 pieces of rubbish on the Ground, a second has 2-4 pieces, and a third environment has 8-16 pieces on the ground. You observe the people in the different environments and categorize them based on whether they do or do not litter on the ground.
+
+Data taken from:
+Cialdini, R. B., Reno, R. R. & Kallagren, C. A. (1990). A focus theory of normative conduct: Recycling the concept of norms to reduce littering in public places. *Journal of Personality and Social Psychology, 58,* 1015-1020. 
+
+If the data are not in a data frame with rows representing different observations, but instead you have the actual frequency counts, create a matix with the number of columns and rows necessary.
+
+**Pieces---0-1, 2-4, 8-16**
+Litter-----102, 91, 71, 
+Not litter--17, 28, 49
+
+```{r}
+litter <- matrix(c(102, 91, 71, 17, 28, 49), ncol = 3, byrow = T)
+litter
+litter.chi <- chisq.test(litter)
+litter.es <- assocstats(litter)
+litter.chi; litter.es
+samplesize = sum(litter)
+
+# data frame to matrix
+notlitter <- c(102, 91, 71)
+didlitter <- c(17, 28, 49)
+DF <- data.frame(notlitter, didlitter)
+DF <- data.matrix(DF, rownames.force = NA) # convert the data frame into a matrix 
+litter.chi <- chisq.test(DF)
+litter.es <- assocstats(DF)
+litter.chi; litter.es
+```
+
+The output contains a Pearson Chi-Square 
+
+
+
+
+
+
+##DONE!##
+E-mail your knit HTML file that you completed with your partner. Make sure to include your names.
+
+
+##COMMENTS##

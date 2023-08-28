@@ -1,0 +1,138 @@
+---
+title: "Creating Plots"
+#author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+#output: kjhslides::kjh_slides_reader
+#editor_options: 
+#  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Creating Plots
+
+## Load our libraries
+
+-   `here` will help keep folders organized
+
+-   [`tidyverse`](https://www.tidyverse.org/packages/) is an ecosystem that will load other relevant libraries
+
+    -   `readr` for reading data files
+
+    -   `dplyr` for manipulating data files
+
+    -   `ggplot` for and creating plots
+
+    -   `magrittr` for piping or chaining code commands
+
+
+``` R
+library(here)
+library(tidyverse)
+library(magrittr)
+```
+
+```{r}
+library(here)
+library(tidyverse)
+library(magrittr)
+```
+
+
+# Getting Data
+
+We will most certainly need data. If you want explore and find some interesting data sets, check out the data archive at the [tidytuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data) github page. They have all data sets corresponding to Tuesday projects dating back to 2018.
+
+# Tidy Data
+
+Speaking of all things tidy, the `ggplot` library can work with data files of different forms but it's particularly designed for tidy data in a long format. You can certainly work with wide-format data but you'll struggle.
+
+## What is *tidy data*?
+
+kjh image img/03_ggplot_tidy_data_only.png
+
+-   A `Variable` is in a *column*
+-   A `Case`/data observation is in a *row*
+-   A `Cell` contains an observation for a particular variable\
+-   Arranged in long format
+
+## Long Format
+
+`Long-format` data frames arrange repeated measurements (e.g., month sales data, daily hours slept, etc.) are on their own rows. For example, the `sales` variable will assume position in a column and the sales corresponding each month will appear on a row. This format results in some data redundancies but each variable assumes only a single column position. Because measurements may occur once or multiple times, they will take positions on rows.
+
+`Wide-format` data frames arrange repeated measurements (e.g., month sales data, daily hours slept, etc.) on separate columns. For example, rather than one variable representing `sales`, each of the 12 month will assume position as its own column (e.g., `sales_jan`, `sales_feb`, etc.).
+
+image would be useful here.
+
+## Untidy data is common for obvious reasons
+
+Here are data presented in wide-format. Notice how rows can contain redundant data. There is a lot of ink used to show nothing new.
+
+```{r }
+library(palmerpenguins)
+penguins %>% # or also |> 
+  dplyr::group_by(species, island, year) %>% 
+  dplyr::summarize(bill = round(
+    mean(bill_length_mm, na.rm = TRUE), 2)
+    ) %>% 
+  knitr::kable()
+```
+
+Compare that example with the same data in wide-format, which is likely much easier to read. It also take up less real estate; there are fewer places to look. This looking takes effort, time, and can lead to confusion, something we will address with graphical visualizations.
+
+Tabular data are also visualizations. Tables make for efficient comparisons of exact values, which are often difficult to extract from a plot.
+
+-   **example here - side by side?????**
+
+```{r }
+penguins %>% # or also |> 
+  dplyr::group_by(species, island, year) %>%
+  dplyr::summarize(bill = round(mean(bill_length_mm, na.rm = TRUE), 2)) %>%
+  tidyr::pivot_wider(names_from = year, values_from = bill) %>%
+  knitr::kable()
+```
+
+## Problems associated with wide data
+
+-   😠 More than one header row
+
+-   😡 Mixed data types in some columns (extra cleaning)
+
+-   💀 Color and typography used to encode variables and their values
+
+If you want to learn more, check out \[Broman KW, Woo KH (2018) "[Data organization in spreadsheets](doi:10.1080/00031305.2017.1375989)." *The American Statistician* 78:2--10\]
+
+## Rearranging data
+
+If your data are not in long format, you will want to arrange it as such so that `ggplot` can process it easily.
+
+The `tidyr` library will be helpful in such instances.
+
+-   `tidyr::pivot_longer()` for moving from wide to long
+-   `tidyr::pivot_wider()` for moving from long to wide
+
+### Rearrange from wide to long using `tidyr::pivot_longer()`
+
+-   Arrange columns `A:C` into a single new column variable, `new_var`
+-   The columns will pivot to rows; the file may not be less wide but 3 times as long
+
+```{r pivot-long}
+#edu |> 
+#  pivot_longer(elem4:coll4, names_to = "education")
+```
+
+### Rearrange from wide to long using `tidyr::pivot_longer()`
+
+Decide on a name for the value column
+
+```{r 03-make-a-graph-5 }
+#edu |> 
+#  pivot_longer(elem4:coll4, 
+#               names_to = "education", 
+#               values_to = "n")
+```

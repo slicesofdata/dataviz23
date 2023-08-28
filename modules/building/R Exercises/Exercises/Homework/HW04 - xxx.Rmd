@@ -1,0 +1,245 @@
+---
+title: "Homework 04"
+author: "replace with your names"
+date: "replace with the date"
+output: html_document
+---
+
+#
+
+```{r}
+# BayesianFirstAid
+library("BayesFactor")
+```
+## Alpha cutoffs for the z-test ##
+Use qnorm() to calculate the z score(s) that would be appropriate to use as alpha cutoff scores for NHST. By default, qnorm() calculates the area in the lower tail. Use the argument lower.tail = FALSE after the sd arguemtn to obtain the area in the upper tail. 
+
+EX: qnorm(x, mean = 0, sd = 1, lower.tail = FALSE) 
+
+Calculate the cutoff as if you were conducting a:
+- one-tailed test on the lower tail; alpha = .01
+- one-tailed test on the upper tail; alpha = .05
+- two-tailed test; alpha = .05
+- two-tailed test; alpha = .01
+
+
+```{r}
+qnorm(.01, mean = 0, sd = 1)
+qnorm(.05, mean = 0, sd = 1, lower.tail = FALSE)
+qnorm(.025, mean = 0, sd = 1); qnorm(.025, mean = 0, sd = 1, lower.tail = FALSE)
+qnorm(.005, mean = 0, sd = 1); qnorm(.005, mean = 0, sd = 1, lower.tail = FALSE)
+```
+
+
+## Before you begin ##
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply type either your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message. After adding that code, you must make sure that it will execute. So remember to run your code by highlighting it and pressing the RUN button or pressing CONTROL+ENTER. 
+
+If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish.
+
+## 1. Installing libraries using RStudio ##
+
+Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you check the box to Install Dependecies. Do not install with code.
+
+Install the following package(s):
+- lawstat
+
+## 2. Loading libraries ##
+Use the library() function to load the following libraries: lawstat, lattice, moments 
+**ANSWER:** 
+```{r}
+library("lawstat")
+library("lattice")
+library("moments")
+```
+
+## 3. Checking your working directory ##
+Always make sure that your working directory is correct. 
+```{r}
+getwd()
+```
+
+## Part 1 ##
+
+## The logic of NHST ##
+Without getting into the flawed logic of hypothesis testing, in null-hypothesis significance testing (NHST), the logic follows that you collect data and then compare the data to a distribution that has some mean value, mu, and some standard deviation, sigma. We know that scores typically cluster around some center point and then disperse above and below that center point. We also know that the likelihood of scores occurring further from the mean center point are generally less likely to occur than those closer to the mean. Thus, if you know the shape of the null distribution, you determine how likely you would obtain a sample with a mean of any particular value (think back to IQ scores and the pnorm() function). For now, you can consider the mean of the null distribution is 0 an the standard deviation is 0 and that if follows a normal distribution. If the mean of the data you collect falls outside of some acceptable range that you build around the mean, you would conclude that the data you obtained may (with some likelihood) not be similar to the population to which you comparing your data. The logic here is similar to how you might decide that a score is extreme, or an outlier (e.g., 3 sd from the mean perhaps). 
+
+But what is an acceptable range of values to determine is extreme or not extreme enough from the population mean? Some people use cutoff scores that correspond to the tails of the null distribution. If the null distribution follows a normal curve, then we can approximate with the empirical rule. In fact, two conventional cutoff points correspond to the point in the distribution that leaves either 5% or 1% in the tails. Thus, you can determine with score leaves 2.5% (1%) in the lower tail of the distribution and 2.5% (1%) in the upper tail. The qnorm() function will allow us to pass a probability as an argument and it will return the cutoff score for us.
+```{r}
+# .04 (5%) in both tails; 2.5 in the lower, 2.5 in the upper
+qnorm(.025, mean = 0, sd = 1)
+
+# .01 (1%) in both tails; .5 in the lower, .5 in the upper
+qnorm(.005, mean = 0, sd = 1)
+
+# we could also do this for IQ scores if we wanted to find cutoff scores that were actual IQ scores
+qnorm(.025, mean = 100, sd = 15)
+```
+
+Based on the empirical rule, we know that about 95% of the scores will fall between -2 and 2 standard deviations from the mean. Using qnorm() we can see that exactly 5% of the scores fall between -1.959964 and 1.959964. Also, 99% of the scores of a normal distribution will fall between -2.575829 and 2.575829. 
+
+If you obtain a sample mean that falls beyond those cutoffs, people interpret that as evidence that your sample (and its mean) must be different from that of a population mean because the likelihood of obtaining such extreme scores would be less than 5%. However, 5% is still likely, so you could claim that you have evidence for differences that are a matter of error. Perhaps your sample was biased, your measurement device was faulty, etc. So, you need to embrace the likelihood of making incorrect conclusions about your data. These cutoff scores are determined by your alpha level, which represents your level of acceptable risk of making an error by concluding your data are different from the population when in fact they are not. If the real world, this is like claiming that 5C students weigh more or less than the poplulation in general when in fact they have the same weights. Again, your conclusions are limited to samples and your samples may be biased in some way. 
+
+## Part 2 ##
+
+## Describing populations ##
+Populations have parameters. Two of those parameters are the mean (mu) and the standard deviaiton (sigma). The standard deviation reflects the average devaition of all scores from mu. 
+
+## Describing samples ##
+Sample have statistics. Two of those statistics are the mean (x-bar) and the corrected standard deviation (S). The standard deviation reflects the average devaition of all scores from x-bar.
+
+## Describing sampling distributions ##
+One concept of NHST is the sampling distribution. If you collect data from many samples (e.g., 100), calculate the sample mean for each sample, and then plot each sample mean in a frequency distribution, you will create a distribution of sample means. This is a sampling distribution of means, or a sampling distribution for short. 
+
+Like a populations and a samples, sampling distributions have means and standard deviations. However, the mean of a sampling distribution reflects the mean of all sample means and the standard deviation of a sampling distribution reflects the average deviation of the sample means from the mean of those means. This standard deviation has a special name called the "standard error of the mean". Because samples are never as extreme as the individual scores that comprise that sample, their means are more likely closer to the center point, or the mean of that sampling distribution. And the larger your sample, the more close to center the scores will be.
+
+## mean, standard deviation, variance ##
+The standard error of the mean (SEM) = S/(sqrt(n))
+
+```{r}
+60 / (sqrt(50))
+```
+## Central-limit theorem ##
+
+## Asking how deviant a sample score is from a mean value ##
+A. In order to help determine if a score was deemed an outlier, we compared a single score in a population to its mean and asked how many standard deviations (sigma) that score was from mu. We did so using the z-score formula. 
+
+B. We also applied the same logic for sample scores compared to sample means. 
+
+## Comparing a sample mean to a population mean when the population parameters are known ##
+In most cases, however, we are not interested in individual scores being the same or different from some value, but rather we are interested in how samples are the same or different from populations or other samples. 
+
+The z-test is an inferential test that we use to determine if a *sample mean* is different from a *population mean* when we:
+- know the population mean 
+- know the population standard deviation 
+- know the distribution is normal in shape
+
+For this exercise, we will create a data set to simulate a population of IQ scores with a mean = 100 and sd = 15. Let's make the sample very large, say 100K people. We can use the rnorm() function to create a random (r) set of data that follows a normal (norm) curve and place all the data in the object iq.
+```{r}
+iq <- rnorm(n=5000, mean = 100, sd = 15)
+```
+Notice that because iq is simply a vector variable and not a variable in a data frame, we don't need to specify the data frame before the $ and the variable after it. 
+
+We can examine the distribution to see if it shares the characteristics of that we expect.
+```{r}
+# Is the mean about 100? 
+mean(iq, na.rm = TRUE)
+
+# Is the sd about 15?
+sd(iq, na.rm = TRUE)
+
+# Is the distribution roughly symmetrical? Load lattice if you have not done so.
+library("lattice")
+histogram(~iq)
+
+# Is skewness about 0? Load moments if you have not doen so.
+skewness(iq, na.rm = TRUE)
+```
+
+Based on the above details, we see that the characteristics are about what we expect. However, we can also do a test to see if the distribution is normal in shape. We can use the shapriro.test() function from the lawstat library to do this. The Shapiro-Wilk test of normality compares the shape of the IQ data to that of a normal distribution. If the IQ data has a shape that is different from a nomal distribution, the *p*-value for the test will be less than our cutoff score (e.g., alpha level) indicating that the shape of the IQ data are very different from what we would except for a normal distribution. Let's use alpha = .05. If the *p*-value is greater than .05, then the shape of the IQ data is within our range of acceptable values. 
+```{r}
+library("lawstat")
+shapiro.test(iq)
+```
+
+OK great, we know that our population follows a normal curve and we know the mean and the standard devation, we can compare a sample of scores to that population using a z-test. But we need a sample first. Let's assume that we take a sample of 15 from students at the 5C's and record their IQs. They have a mean = 115 and a standard deviation = 20. We wish do determine whether our sample is more smart, less smart, or equally as smart as the general population. 
+
+The z test will tell you how far away the sample mean is from our population mean in terms of sigma units. We could simply calculate our z-test by creating a formula. ztest formula: (x - mu)/sigma
+
+```{r}
+# Calculate 
+(115 - 100)/15
+
+# We can also calculate by assigning the z-test value to an object and then seeing the result.
+ztest <- (115 - 100)/15
+
+# and take a look
+ztest
+```
+
+But we only know what the z-test value is. We don't know how likely it is. Instead, we can calculate the probability using pnorm() because we already know it this for use and will return the *p*-value associated with the likelihood of obtaining a sample with a mean = 100 if the sample was taken from a population with a mean = 100 and sd = 15. Let's assign this calculation to a new object, called ztest2. 
+```{r}
+ztest2 <- pnorm(115, mean = 100, sd = 15)
+
+# and take a look 
+ztest2
+```
+However, because pnorm() provides the probability of scoring less than a particular value, the *p*-value of .84 doesn't really help you. You need to look at the likelihood of scoring GREATER than 115. If we set the lower.tail argument in pnorm() to FALSE that will give us the upper tail.
+
+```{r}
+ztestupper <- pnorm(115, mean = 100, sd = 15, lower.tail = FALSE)
+ztestupper
+```
+We can see that the *p*-value is .15 and this is not lower than our alpha level of .05. Thus, we cannot claim that our sample of 15 5C students are smarter than the population in general because an IQ of 115 is not very deviant from the population mean. 
+
+Follow the logic from above and test whether a sample of 25 students with an mean IQ = 132 with a standard devation = 17 is statistically different from a mean = 100 and sd = 15. 
+**ANSWER**
+```{r}
+```
+
+And do this again for a sample of 35 students with a mean of 132 and standard deviation of 17.
+**ANSWER**
+```{r}
+```
+## . Power ##
+
+## Sampling distributions of means#
+We will create a simple code script for taking many samples of size, n, from a vector and calculating the mean for each sample, s, then placing each in mean into an object called results. 
+
+A. Create a random distirubiton using rnorm() by specifying arguments and then plot a density plot of all 100k values. You will not write code there. Just follow along.
+
+```{r}
+iq <- rnorm(n=100000, mean = 100, sd = 15)
+iq.density <- density(iq)
+plot(iq.density, main="Density plot for IQ", ylim=c(0,.2)) 
+```
+
+Now we will take 1000 samples of size 10 and plot a distribution of sample means (e.g., sampling distribution of means).
+```{r}
+# 1: create an object to contain all of the results; set it to 0 ###
+mydatatable <- numeric(0) 
+
+# 2: set the sample size for each sample ###
+n <- 10
+
+# 3: create an object to hold the numeric mean from each sample; set it to 0 ###
+allmeans <- numeric(0)
+
+# 4: create a "for loop" that generates 1 to 1000 samples; 
+# commands inside {} are repeated for each sample loops  
+for (samples in 1:1000) {
+  s <- sample(iq, n, replace=T) # create a sample and put in the object named, s
+  allmeans <- rbind(allmeans, mean(s)) # each sample mean is added to the object named, allmeans
+}	#close the for loop
+
+# Get some descriptive statistics
+mean(allmeans) # 5: calculate a mean for all sample means
+sd(allmeans)   # 6: calculate the standard deviation for all sample means (not individual samples)
+
+# Now we will overlay a density plot of different colors conditional on sample size
+lines(density(allmeans), lwd=2, col = ifelse(n==5,"red", ifelse(n==10,"orange", ifelse(n==30,"green", ifelse(n==50,"blue", "black")))))
+```
+
+Now we will take 1000 samples of size 10 and plot a distribution of sample means (e.g., sampling distribution of means).
+
+Now let's do the same for n = 30.
+```{r}
+mydatatable <- numeric(0) 
+n <- 30
+allmeans <- numeric(0)
+for (samples in 1:1000) {
+  s <- sample(iq, n, replace=T) # create a sample and put in the object named, s
+  allmeans <- rbind(allmeans, mean(s)) # each sample mean is added to the object named, allmeans
+}	#close the for loop
+
+mean(allmeans) # 5: calculate a mean for all sample means
+sd(allmeans)   # 6: calculate the standard deviation for all sample means (not individual samples)
+
+lines(density(allmeans), lwd=2, col = ifelse(n==5,"red", ifelse(n==10,"orange", ifelse(n==30,"green", ifelse(n==50,"blue", "black")))))
+```
+### Now save your file and press the knit button to create your HTML file. I hope you had fun! ###
+
+#### Other: You can see what version of R you are using and to see the libraries/packages used ####
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+Sys.time()
+```

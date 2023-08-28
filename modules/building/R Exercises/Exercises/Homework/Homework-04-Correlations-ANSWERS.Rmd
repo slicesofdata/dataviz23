@@ -1,0 +1,349 @@
+---
+title: "HW04 - Correlations"
+author: "replace with your names"
+date: "replace with the date"
+output: 
+  html_document:
+    toc: true # this will create a table of contents of hyperlinks (change true to omit)
+    toc_depth: 2
+---
+
+#Part A
+## 0. Before you begin 
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or provide written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the **ANSWER** line. After adding your code, you must make sure that it will execute. So remember to run your code by highlighting it and pressing the RUN button or pressing PC: `CONTROL+ENTER`; Mac: `COMMAND+ENTER`. 
+
+If your code does not execute, then `R Markdown` won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish.
+
+## 1. Downloading the source files 
+
+1.1. Run the code below to download the some libraries needed for this assignment. By using `include=FALSE, cache=FALSE` in the r code header, we will make sure that any error messages do not appear in the HTML file you create.
+
+```{r include=FALSE, cache=FALSE}
+#source("https://dl.dropboxusercontent.com/u/6036547/109_2016_f.txt?raw=1")
+```
+
+
+1.2. Key functions used for this assignment. Functions from libraries that are not built into the base `R` version will use specific calls which are preceded by the library name and two colons [e.g., `library::function()`]: 
+
+- `cor()` for computing the correlation between two variables
+- `cor.test()` for computing the correlation between two variables and showing significance 
+- `cov()` for computing the covariance of two variables
+- `lattice::histogram()` for plotting nicer histograms
+- `lattice::xyplot()` for showing the data in a histogram
+- `library()` for loading libraries that are not in the base version of `R`
+- `mean()` for the mean of a variable
+- `moments::kurtosis()` for the kurtosis of a variable 
+- `moments::skewness()` for the skewness of a variable 
+- `read.csv()` for reading a csv file into a data frame
+- `sqrt()` for computing the square root
+- `var()` for computing the variance of a variable
+- `View()` for viewing the data.frame
+- `with()` for selecting the data frame on which to perform other operations 
+
+
+## 2. Loading libraries
+Use the `library()` function to load the following libraries: moments, lattice, psych
+
+**ANSWER:** 
+```{r, message = FALSE, warning = FALSE}
+library(moments)
+library(lattice)
+library(psych)
+```
+
+
+## 3. Checking your working directory 
+Use `getwd()` to make sure that your working directory points to Psyc109 on your desktop. If the directory is not correct, set it using `setwd()`. See previous homework for more details using `setwd()`.
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+getwd()
+#
+setwd("C:/Users/lklap/Dropbox/Exercises")
+
+# I've tried to make downloading files easier for you. In the lines below, remove the # and execute both lines of code. They should download the data needed for the homework and save them to your Psyc109 folder. If they do not download (you get an error), you will have to download them from Sakai manually as you have done previously. After executing those lines, add the # back in to comment out those lines because you won't need to download the files again. 
+
+#download.ClassData("IceCream.csv")
+#download.ClassData("Book.csv")
+```
+
+
+#Part B
+## 1. Pearson's *r* Correlation
+Pearson's *r* describes the magnitude of a linear relationship between two variables. More precisely,
+the usual measure of a correlation describes the relationship between two equal interval
+numeric variables. This part will examine how to use the Pearson *r* correlation.
+
+## 2. Assumptions of bivariate linear correlation using Pearson *r*
+
+First, let's take a look at the assumptions of correlations the Pearson *r* correlation coefficient: 
+
+  1. Our two variables should be measured at the interval or ratio level (i.e., they are continuous).
+
+  2. There needs to be a linear relationship between the two variables.
+
+  3. There should be no significant outliers. 
+
+  4. Your variables should each be approximately normally distributed.
+
+
+## 3. Reading in a data file ##
+3.1. Read a data file and assign its contents to a data frame object named `ICECREAM`. We could name this object any name we want (e.g., bananasundae, ketchup, or ice). In other words, the object name does not need to match the name of the file. In this case, however, "ICECREAM" seems appropriate as a name.
+
+Ex: `dataframe <- read.csv("filename.csv")`
+
+
+**ANSWER:**
+
+```{r}
+setwd("C:/Users/lklap/Dropbox/Exercises")
+ICECREAM <- read.csv("IceCream.csv")
+```
+
+3.2. Use `str()` to examine the structure of your dataframe and its contents as you have in earlier assignments. Pay attention to the names and spelling of the variables.  
+
+**ANSWER:**
+```{r}
+#Check the variable names
+str(ICECREAM)
+```
+
+You could also look at the first several rows of the dataframe using `head()` to make sure the data look correct.
+
+```{r}
+head(ICECREAM)
+```
+
+3.3. As you can probably guess from the name, the dataframe you just loaded contains information about temperature and amount of icecream sold. There is also an Id variable, which corresponds to the id number of the experimental unit. I advise that you always create an Id variable so that you can keep track of your participants and because that variable will be useful for identifying specific data points. If you wanted, you could also add a dummy variable to the dataframe called `All` if you wish to create a constant for all cases/rows in your data.
+
+For example:
+```{r}
+ICECREAM$All <- 1 # add a new column/variabel named All to the ICRECREAM dataframe and assign all rows/cases a constant of 1.
+```
+
+3.4. Use the appropriate functions from the moments library to calculate the `skewness` and `kurtosis` of both variables. Consider whether the variables appear to be distributed normally according to conventions mentioned in class. 
+
+```{r}
+with(ICECREAM, moments::skewness(Temp))
+with(ICECREAM, moments::kurtosis(Temp))
+```
+
+Now do this for `IceCreamSold`.
+
+**ANSWER:**
+```{r}
+with(ICECREAM, moments::skewness(IceCreamSold))
+with(ICECREAM, moments::kurtosis(IceCreamSold))
+```
+
+3.5. The assumptions of a correlation require that our variables be distributed normally. We can check this assumption both graphically and statistically. Use the `histogram` function from the `lattice` library to create a distribution for both variables. You can use the default distribution (a percentage breakdown) rather than one using the frequency counts. For practice, consider modifying the main and `xlab` (x-axis label) arguments that you modified in the previous homework so that the labels are labeled clearly. You could also use the `qqplot()` (quantile-quantile) and `qqline()` functions, but for simplicity we won't do so here. 
+
+```{r}
+with(ICECREAM, lattice::histogram(~Temp, 
+          main = "Histogram of Temperature", 
+          xlab = "Temperature in Celcius"))
+```
+
+Now do this for `IceCreamSold`.
+
+**ANSWER:**
+```{r}
+with(ICECREAM, lattice::histogram(~IceCreamSold, 
+          main = "Histogram of Temperature", 
+          xlab = "Temperature in Celcius"))
+```
+
+##4. Scatterplots
+4.1. A scatterplot is one of the best ways to visualize the nature of a relationship between two variables. Scatterplots plot pairs of x and y variable scores as point coordinates corresponding to the x and y axes. When using the `lattice` library, you will need to specify the dataframe object that contains your data as well as the variables and then write the formula for the plot: 
+
+Ex. `y ~ x` ; y (weight) plotted as a function of x (height). 
+
+Or you may want to plot x (height) as a function of y (weight) as: `x ~ y` 
+
+Ex: `with(dataframe, lattice::xyplot(y ~ x))` 
+
+As you did with the histogram plots above, use `with()` along with the `lattice::xyplot()` to plot `IceCreamSold` as a function of `Temp` from the `ICECREAM` dataframe. Also, make sure to add labels to your scatterplot that are specific. Refer to previous homeworks if you forget how. The temperature is in Celsius and icecream sales are in thousands of dollars. To make the code legible, we will make each argument in `lattice::xyplot()` on its own line of code; each line after the first needs to be indented so that `R` knows all the lines of code go together. 
+
+**ANSWER:**
+```{r}
+with(ICECREAM, lattice::xyplot(IceCreamSold ~ Temp,
+       main = "Ice Cream Sales as a function of Temperature", 
+       xlab = "Temperature in Celcius", 
+       ylab = "Sales in Thousands of Dollars"))
+```
+
+4.2. Based on the scatterplot, do the data appear to follow a linear pattern? Curvilinear? 
+
+**ANSWER:** Looks fairly linear; more linear than curvilinear
+
+4.3. If you wanted to add a regression line, you could add the following argument to `xyplot()`, `type = c("p", "r")`.
+
+Ex: `with(dataframe, lattice::xyplot(y ~ x, type = c("p", "r")))` 
+
+Just make sure to include a comma between arguments. 
+ 
+```{r}
+with(ICECREAM, lattice::xyplot(IceCreamSold ~ Temp, type = c("p", "r"),
+       main = "Ice Cream Sales as a function of Temperature", 
+       xlab = "Temperature in Celcius", 
+       ylab = "Sales in Thousands of Dollars"))
+```
+
+Describe the type of relationship between the data. Do you think there is no linear correlation, a positive correlation, or a negative correlation?
+
+**ANSWER:** The correlation appears to be positive. As temperature increases, ice cream sales increase.
+
+
+
+## 5. Evaluating the magnitude of the Pearson *r* correlation coefficient
+The scatterplot provides useful visual information, but it does not provide the magnitude of the correlation. 
+
+5.1. Pearson's *r* correlation coefficient is statistical measure the represents the linear relationship between two numeric variables.  The numerator represents shared variance (covariace) between the variables and the denominator represents independent variance for the variables. 
+
+An abbreviated form for hand calculation is: r = `SPxy/sqrt(SSx * SSy)`
+
+5.2. Let's see the components of the formula. You can calculate Pearson's *r* by dividing the covariance of the two variables you are interested in (In this case Temperature and Ice Cream sold) by the two standard deviations of the variables. For example:
+
+```{r}
+#Calculate the covariance of the two variables (or sum of cross products)
+spxy <- with(ICECREAM, cov(Temp, IceCreamSold))
+
+#Then you need to calculate the standard deviations for both variables
+xvar <- with(ICECREAM, var(IceCreamSold))
+yvar <- with(ICECREAM, var(Temp)) 
+
+#Now that you have these two components, you can then divide the covariance by square root of the variances:
+rxy <- spxy/sqrt(xvar * yvar)
+
+#look at the r value
+rxy
+```
+
+5.3. However, there is a simple way that combines all those components. Use `cor()` to avoid all of those steps. We will calculate the magnitude of Pearson's *r* correlation coefficient using `cor()` and assign that value to an object named `r`. Then we will square it in order to obtain the coefficient of determination, which provides a measure of the variance in one variable that is determined by (explained by/accounted for by) another variable.  In this case, `r^2` (r-squared) will provide the proportion of variance in `IceCreamSold` that can be accounted for by `Temp` (or the proportion of variance in Temp that can be accounted for by IceCreamSold).  
+Ex: `with(dataframe, cor(x, y))`
+
+```{r}
+# assign the r value to a an obect named r
+r <- with(ICECREAM, cor(Temp, IceCreamSold))
+
+# square r and assign it to an object named r2
+r2 <- r^2
+
+# display both
+r; r2 
+```
+
+
+5.4. Correlation Functions
+
+Use `cor.test()` to obtain the r score and the exact *p*-value associated with obtaining a correlation of that size or larger if, under H0, the variables were not related and therefore the correlation was 0. When you want to determine the likelihood of obtaining a correlation of some value or stonger (the p-value) when your sample size is a given size, you should use this test. Remember, the larger the sample size, they are more likely to 
+
+Ex: `with(dataframe, cor.test(x, y))`
+
+Now, use that example to write the code to perform a test of Pearson's *r* for the linear relationship between `Temp` and `IceCreamSold`. 
+
+**ANSWER**
+```{r}
+with(ICECREAM, cor.test(Temp, IceCreamSold))
+```
+
+5.5. Examing the output from `cor.test()`, you will see the variables named at the top of the output. There is also a t value, df, and p-value on the second line. The p-value tells you the likelihood of you obtaining a correlation of a certain magnitude under the assumption of the null hypothesis (*r* = 0). By NHST interpretation, in order to determine whether the correlation is "significant" and H0 is not a reasonable assumption for the data, you will compare that *p*-value to your chose alpha level. If your *p*-value is less than or equal to alpha, you can use that information to make a decision about H0 (e.g., Accept or Reject it as reasonable). 
+
+People often state that a correlation is "significant" if the *p*-value is equal to or less than the alpha leve. In other words, that sized correlation would be unlikely to occur from your sampel data if the variables in the populations were not correlated (e.g., *r* = 0). Larger correlations (especially those with large sample sizes) would be rare to choose at random from a population of *r* values that follow a normal distribution having a mean = 0. As you know about NHST logic, if there is no correlation between populations then samples that are large should rarely be correlated at a magnitute very different from 0. However, smaller sample sizes will less likely represent the true population values and thus will accidentally produce a correlation different from 0. In other words, smaller samples will produce Type I errors more often than large samples will.
+
+Because samples are snapshots of populations, the data obtained from them are not precise. Rather, there is some uncertaintly. The next line of the output provides a 95% confidence interval in which you would expect the correlation of the data in the population. The lower-bound and upper-bound correlations provide a range in which you would expect the real correlation to be. 
+
+Finally, the last line of the output displays the correlation value, which you should notice is the same value obtained from using  `cor()`.
+
+
+##6. Try it yourself!
+6.1. Load the "Book.csv" file from your working directory into an object named `BOOK` and look at its structure.
+
+**ANSWER:**
+``` {r}
+# Load the csv data file
+setwd("C:/Users/lklap/Dropbox/Exercises")
+BOOK <- read.csv("Book.csv")
+```
+
+
+6.2. Now examine the names of the variables, mean, skewness, and kurtosis of the relevant variables. You can also look at the median if you wanted.
+
+**ANSWER:**
+```{r}
+# Names 
+str(BOOK); names(BOOK)
+
+# Mean
+with(BOOK, mean(Books)); with(BOOK, mean(Attend)); with(BOOK, mean(Grade))
+                                                         
+# Median
+with(BOOK, median(Books)); with(BOOK, median(Attend)); with(BOOK, median(Grade))
+
+# Skewness
+with(BOOK, moments::skewness(Books))
+with(BOOK, moments::skewness(Attend))
+with(BOOK, moments::skewness(Grade))
+
+# kurtosis
+with(BOOK, moments::kurtosis(Books))
+with(BOOK, moments::kurtosis(Attend)) 
+with(BOOK, moments::kurtosis(Grade))
+```
+
+Not required: You can also obtain a lot of this information using `psych::describe()` or `psych::describeBy()` if you want your data separated by groups. 
+```{r}
+with(BOOK, psych::describe(Books))
+with(BOOK, psych::describe(Attend))
+with(BOOK, psych::describe(Grade))
+
+# look at descriprtive stats for Grade but for each level of Books (there are 4 levels).
+with(BOOK, psych::describeBy(Grade, Books))
+```
+
+
+6.3. Plot out a scatterplot using `lattice::xyplot()` to see if there appears to be a linear relationship between the two variables of your choice. Using `with()` to select your dataframe will be helpful (see examples above). 
+
+**ANSWER:**
+```{r}
+with(BOOK, xyplot(Grade ~ Attend, 
+       main = "Grades as a Function of Attendance", 
+       xlab = "Attendance", 
+       ylab = "Grades"))
+
+# if you want to add the line of best fit
+with(BOOK, xyplot(Grade ~ Attend, type = c("p","r"),
+       main = "Grades as a Function of Attendance", 
+       xlab = "Attendance", 
+       ylab = "Grades"))
+```
+
+6.4. Choose an alpha level for your correlation test. Then use `cor()` and `cor.test()` to obtain the correlation. Descrbe describe the correlation, its strength, and whether it is "significant" by providing information from the output to support your decision.  
+
+**ANSWER:**
+```{r}
+with(BOOK, cor(Grade, Attend))
+
+with(BOOK, cor.test(Grade, Attend))
+```
+
+The Pearson correlation between Grade and Attendance is .48.
+
+
+6.5. What is your alpha level and the *p*-value for the correlation? Is the correlation statistically significant?
+**ANSWER:**
+
+My alpha level is .05. The *p*-value for the correlation is .002. Because the probability that the sample of 40 people (df = 38) will be correlated with *r* = .48. The probability of obtaining a correlation of at least .48 for the sample if the populations data were not correlated is .002. Therefore, attendance is significantly correlated with grades because *p*-value is less than alpha. 
+
+6.6. What is the coefficient of determination? Describe what that means.
+
+**CODED ANSWER:**
+```{r}
+.48^2.
+```
+
+**WRITTEN ANSWER:**
+The coefficient of determination is .23, which means that class attendance accounts for 23% of the variability in grades. 
+
+
+### Now save your file and press the knit HTML button on the toolbar to create your HTML file. Upload the file to the dropbox.

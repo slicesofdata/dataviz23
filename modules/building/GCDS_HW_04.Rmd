@@ -1,0 +1,232 @@
+---
+title: 'GCDS Homework #04'
+author: "KEY"
+date: "Due: 09-29-2022"
+output:
+  #word_document:
+  #  toc: yes
+  #  number_sections: yes
+  html_document:
+    toc: yes
+    number_sections: yes
+    code_folding: show # vs. hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+########################################################################
+# Don't forget to run this
+########################################################################
+rm(list = ls(all.names = TRUE))      # remove objects in R
+
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out before knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+For this homework, you will save the `R Markdown` homework document and save it to "GCDS/r" on your computer. Rename as **"GCDS_HW_04_yourname"**. When you open it, add your name to the author part of the YAML code. The homework will need to be submitted as a `knit` HTML file. Feel free to work with a partner but understand that the work submitted has to be your own.
+
+
+This homework assignment is focused on 5 of the 6 main verb functions from `dplyr` for data manipulation:
+
+- `select()`: for selecting variables
+- `mutate()`: for creating/modifying/converting variables
+- `filter()`: for filtering cases/rows
+- `group_by()`: for grouping by variable levels
+- `summarize()` or `summarise()`: for summarizing statistics
+
+`arrange()` is for arranging the data frame by variable(s) but this won't affect summarizing so, we won't make a big deal about that now.
+
+
+*NOTE: This homework will serve to prepare you to deal with some data used later in the class. These questions are designed specifically to help you practice using functions but also to help you work through steps you will apply to later projects using almost identical data.*
+
+
+**Questions:**
+
+
+If you collaborated with any peers, add their names here: 
+
+
+# **Load libraries**
+
+Load the necessary libraries to read in and manipulate your data frame. Only two are needed.
+
+```{r}
+library(readr)
+library(dplyr)
+```
+
+# **Read Data**
+
+Read "GCDS_Games_Survey_choice.csv" from Slack #data, save, and read in data file and assign to object named `GAME_DAT_choice`.
+
+```{r}
+
+
+```
+
+# **Cleaning Data**
+
+Your task is to create a data frame object that subsets the data in a particular way so that you can save the data frame as a csv file in "...GCDS/data". I've providing some scaffolding along the way for students who might benefit from it.
+
+
+## Subset the full data frame
+
+Subset your data to include variables: `most pleasurable`, `gender`, `play frequency`, and 5 (or all if you wish) game *categories*.
+
+```{r}
+
+
+```
+
+
+I'll provide some help here to reduce head scratching later with dealing with variables containing spaces. This was part of the bonus for HW #3.
+
+```{r}
+GAME_DAT_choice <- GAME_DAT_choice %>%
+  rename_with(., ~ (gsub(" ", "_", .x, fixed = T))) %>%
+  rename_with(., ~ (gsub("category-", "", .x, fixed = T)))
+```
+
+If you wanted to clean up the long names of the category variables in a similar way, that's fine too. 
+
+
+## Filter `NA`s for `play_frequency`.
+
+Because some respondents did not answer the question `play_frequency`, there are `NA`s. Before you change that variable in a next step, you'll have to filter all the data to remove those with `NA`. There are a couple things to remember when using `filter()`. Only `TRUE` cases from a function are included and returned in the subsetted data frame. For example, if you filter by `gender == "Female"`, only `Female` cases will be included; all cases that are `FALSE` to your query will be excluded. There will be many `NA` but don't worry.
+
+To deal with `NA`s, you can use `is.na()` to return `TRUE` or `FALSE` for the cases that are, or are not, `NA`. Remember, however, that by using the operator `!` you are telling R to negate the function. As a result, if you want cases for `play_frequency` that are NOT `NA`, you can use `!` to negate `is.na()`. By doing so, `TRUE`s are now the cases that are NOT `NA`. 
+
+- `filter(., is.na(myvariable)` vs. `filter(., !is.na(myvariable)`
+
+```{r}
+
+
+```
+
+
+## Converting to factors
+
+Convert all variables to factors except for the game categories. 
+
+For `play frequency`, there is an order to the levels. You can check what the levels are by passing that variable to `unique()` in order to obtain all of the unique cases. Use that information to order create a vector that orders the frequency of game play. Order does not matter for the other variables.
+
+- `unique(DATAFRAME$my_variable)`
+
+If you wanted to change a variable so that you change the order of levels (think mutate), you can set the `levels` argument of `factor()`. You will need to do this for other projects so you can practice. 
+
+You haven't done this before, so here is an example:
+
+- `factor(factor_variable, levels = c('first', 'second', 'third', etc.), ordered = T)`.
+
+```{r}
+
+
+```
+
+## Dealing with `NA`s
+
+For the game "category" variables, only `0`s (no) and `1`s (yes) are valid responses. A value of `99` represents an error of sorts and thus is out of range for the data. If you obtain means including those values, your means would be way off. Because you'll need to deal with this issue for your class project, this makes for a good homework item.
+
+You'll need to convert any variables starting with "category" that have case values equal to `99` to `NA` values. `dplyr` has a function for converting elements of a vector variable to `NA`. We have not used this yet, so you might need some help. The function is called `na_if()` and you need to pass two arguments. You should read it as "make variable NA if value is ...). See `?na_if`.
+
+- `x`: the vector variable you wish to change
+- `y`: the value you want to replace with `NA`
+
+Unless you want to apply this step for all 5 category variables, consider using functions that allow you perform operations across variables starting with or containing patterns in their names.  However, you wish to accomplish your goal, here are two examples to move you along.
+
+*To change a single variable:*
+
+- `my_var = na_if(my_var, val_to_replace))`
+
+*To change multiple variables:*
+
+- pass `.fns = ~na_if(.x, val_to_replace)` to the function that will allow you to perform the conversion on many variables (hint: we've used the function often in class). 
+
+```{r}
+
+```
+
+# **Saving a subsetted data frame**
+
+Write/Save this new data data frame as a `.csv` file named `"GAME_DAT_HW04.csv"` to `"...GCDS/data"`.  
+
+```{r}
+
+
+```
+
+
+# **Summarizing data**
+
+## Summarize overall
+
+Obtain a summary of means for "educational", "economic", "fantasy", "humor", "political", "word_game", "math", "party_game" categories. Hint: Remember, you have `NA`s, so you'll need to deal with them somehow. I recommend using across and passing `~mean(na.omit(.x))` to `.fns`.
+
+```{r}
+
+
+```
+
+In ANOVA language, you might think of these means as Grand Means, representing the mean of all data that are not accounted for by a predictor variable.
+
+
+## Summarize by group
+
+Obtain a summary of means for the same variables that group the means by: `"most_pleasurable"`.
+
+```{r}
+
+
+```
+
+You can think of these means as those that now take into account a predictor. Although we are not model testing yet, you could compare these means to the previous ones and ask yourself whether the means based on the grouping variable appear different from the overall mean. To the extent that they differ, using `most_pleasurable` as a predictor might account for differences in the data.  
+
+Now, obtain a summary of means for the same variables that group the data by: `"gender"`
+
+```{r}
+
+
+
+```
+
+
+Now obtain a summary of means for the same two game category variables that are grouped by any two combinations of your factors.
+
+```{r}
+
+```
+
+# **BONUS CHALLENGE**
+
+Obtain a summary of means across all game categories that group the data by any factor.
+
+```{r}
+
+```
+
+
+**Upload Submission**: Make sure you have named your file correctly, knit it to html (click icon in RStudio) and upload file [here](https://claremontmckenna.app.box.com/f/80863fd8e0f44ec7a95882d9dda8bb91).
+
+```{r}
+message(paste0("knit by ", usr_time))
+```

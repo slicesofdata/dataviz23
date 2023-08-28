@@ -1,0 +1,531 @@
+---
+title: "Homework 9"
+author: "Lukas"
+date: "April 16, 2016"
+output: html_document
+---
+
+---
+title: "Homework 08: Comparing Multiple Sample Means Anova"
+author: "partner names"
+date: "add date"
+output: html_document
+---
+
+##Part A##
+#General Questions#
+
+1. **QUESTION:** Describe the purpose of a factorial between-subjects ANOVA.
+
+*ANSWER:* 
+
+
+2. **QUESTION:** Describe the difference between a one-way between-subjects ANOVA and a Factorial between-subjects ANOVA.
+
+*ANSWER:* 
+
+
+3. **QUESTION:** Describe how a main effect for a factorial ANOVA is similar to examining difference among groups for a single-factory ANOVA.   
+
+*ANSWER:* 
+
+
+4. **QUESTION:** Describe how you can use simple-effects analysis to interpret interactions.
+
+*ANSWER:* 
+
+
+##Part B##
+
+##Before you begin##
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+##1.0. Installing and using libraries in RStudio##
+
+1.1. Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you *check the box to Install Dependencies*. Do not install with code.
+
+Install the package:  
+
+1.2. Key functions used for this assignment, some old, some new: 
+
+- aov() for calculating an ANOVA; built-in stats library
+- by() for applying a function to a data frame split out by levels of a factor; built-in base library 
+- bartlett.test() for viewing homogeneity of variance; built-in stats library
+- count() for viewing the frequency of each factor; plyr library
+- densityplot() for creating density plot graphs; lattice library
+- describeBy() for descriptive stats for groups; psych library
+- histogram() for histograms; lattice library
+- leveneTest() for viewing homogeneity of variance; car library
+- pairwise.t.test() for examining pairwise comparisons with Bonferroni correction; built-in stats library
+- shapiro.test() for testing normality; built-in stats library
+- summary.lm() for extracting r-squared; built-in stats library
+- TukeyHSD() for analyzing the differences between groups; built-in stats library
+- replication()
+
+
+## 2.0. Loading libraries ##
+If you know what libraries you will use for your code, you can load them now. Use the library() function to load the following libraries: lattice, plyr, psych, and car. A summary of the functions and the libraries is listed above.
+
+*ANSWER:* 
+```{r, message = FALSE, warning = FALSE}
+library(plyr)
+library(car)
+library(lattice)
+library(psych)
+
+
+```
+
+##Part C##
+##1.0. Overview of a between-groups ANOVA##
+
+1.1. As mentioned in the last homework, The statistical procedure for testing variation among the means of more than two groups is called the *analysis of variance*, abbreviated as *ANOVA*. The null hypothesis in an analysis of variance is that the several populations being compared all have the same mean. Last homework we learned that a *one-way between-subjects ANOVA* is used When there are multiple levels of one IV and the levels are based on independent groups (e.g., different demographics, random assignment, etc).This homework we will learn about *Factorial ANOVAs*. A *Factorial ANOVA* measures whether a combination of independent variables differs among the dependent variable. The term "way" is often used to describe the number of independent variables measured by an *ANOVA test*. For example, *one-way ANOVA* measures the effect of one independent variable on a dependent variable, and *two-way ANOVA* measures the effect of two independent variables on the dependent variable.
+
+For a *Factorial ANOVA* you must have at least two grouping variables(e.g. Factors) and one continuous variable for the dependent variable. 
+
+
+1.2. Data for the *two-way between-subjects ANOVA* are grouped on some classification factor, or variable similar to a one-way ANOVA, so that group means can be created based on that classification. 
+
+For example, a data frame may look like this:
+
+- ID   Student   Gender   Happiness
+- 1    Yes       Male       6
+- 2    Yes       Female     5
+- 3    Yes       Female     6
+- 4    Yes       Male       7
+- 5    No        Female     8
+- 6    No        Male       8
+- 7    No        Female     9
+- 8    No        Female     10
+
+
+Here we could test if there is a difference in happiness scores depending on gender and if the participants is a student.
+
+Using some real data, we can read in the class survey data frame. Based on some questions in the survey, we will analyze different DVs by comparing levels of different IVs. 
+
+Read in the Survey data set and assign the contents to a data frame called SURVEY:
+```{r}
+SURVEY <- read.csv("SurveyNames.csv")
+
+```
+
+
+##2.0. Examining & Converting Data## 
+
+2.1. As always, examine the str() of the data frame to see the classification of variables in the SURVEY data frame. 
+
+```{r}
+str(SURVEY)   #or View(SURVEY)
+```
+
+
+
+2.2. After bringing in the survey data we should convert Gender and Voting to factors for our analysis because they are not integers. Just as a refresher:
+
+For Gender:
+Values are either 0 (men) or 1 (women).
+
+For Voting("Do you plan on voting in the 2016 election"):
+Values are either 0 (No) or 1 (Yes).
+
+
+You may notice that voting has 3 levels but for the purpose of the factorial ANOVA we are converting individuals who responded "Do not know" to "No".
+
+Remember that in order to add the variable to your existing data frame, you have to specify the data frame too. 
+
+Ex. : dataframename$newvariable <- factor(oldvariable, levels, labels)
+
+
+```{r}
+SURVEY$Gender.fact <- factor(SURVEY$Gender, 
+                        levels = c(0, 1), 
+                        labels = c("Male", "Female"))
+
+
+SURVEY$VotingR <- recode(SURVEY$Voting, " 1 = 1; 2 = 2; 3 = 1")
+
+SURVEY$Voting.fact <- factor(SURVEY$VotingR, 
+                         levels = c(1, 2), 
+                         labels = c("No", "Yes"))
+
+
+
+```
+
+
+Check to make sure they were converted correctly and count() the variables to know the sample size of each group:
+
+```{r}
+str(SURVEY)
+
+count(SURVEY$Gender.fact)
+
+count(SURVEY$Voting.fact)
+
+```
+
+
+The count() reveals that we have adequate sample sizes across the groups to conduct an ANOVA. Yet, for a factorial ANOVA we should check the count of each cell. We can do that by using the replications() function
+
+```{r}
+
+replications(Snack~Gender.fact*Voting.fact, data=SURVEY)
+
+```
+
+The replication() function allows us to see that we have low sample sizes for the "No" collumn of voting.fact. Normally you would want a higher sample size of atleast 10 per cell but more would be better. 
+
+#3.0. Examine Assumptions of the factorial ANOVA###
+
+3.1. Assumptions of a factorial ANOVA are very similar to a one-way between-subjects ANOVA except you must also check for multicollinearity. 
+
+  1. DV is interval/ratio in measurement scale.
+  2. The populations have the same variance; homogeneity of variance.
+  3. The populations are distributed normally.
+  4. Since the factorial ANOVA includes two or more independent variables it is important   that the factorial ANOVA model contains little or no Multicollinearity. 
+
+
+3.2. Testing the Assumptions
+
+3.2.1. Looking at your data is always good before doing statistical testing. Examine the descriptive statistics for the groups in order to determine what the sample means and variances are. One really useful way to do this is to use the describeBy() function from the psych library. This function takes two main arguments: the DV and the factor IV. Examine amount of exercise for people who have different music genre preferences.
+
+- describeBY(DV, IV)
+
+For our Dependent Variable we will use the variable *Snack* which lets us know on average, how many times a day they snack. 
+
+```{r}
+describeBy(SURVEY$Snack, SURVEY$Gender.fact)
+
+describeBy(SURVEY$Snack, SURVEY$Voting.fact)
+```
+
+You can see that there are 2 groups for each, which are nicely labeled. If we didn't add the labels above, the output would be more difficult to interpret, so always create labels first. The sample sizes for gender is fairly even but there is a disparity for Voting. The distributions are also slightly skewed for males and for both groups in Voting. In order to compare means appropriately for the ANOVA, you need to check assumptions.
+
+3.2.2. Normality can be examined visually of course with a histogram or density plot. Remember that the lattice library makes creating graphs for levels of a factor very easy to do. Use those from the lattice library. The density plot provides more detail about shape. The | tells R to plot the DV separately for each level of IV. 
+
+- densityplot(~ DV | IV) 
+
+Adding a *layout* argument helps plots the graphs on top of each other which is useful for comparing the means of the distributions.
+
+```{r}
+densityplot(~ SURVEY$Snack | SURVEY$Gender.fact, layout=c(1,3))
+
+densityplot(~ SURVEY$Snack | SURVEY$Voting.fact, layout=c(1,3))
+
+```
+
+Looking at the data visually shows that for the Voting.fact and Snack density plot it appears as if there are outliers which are skewing the data set. To try and fix this we are going to remove all outliers.
+
+```{r}
+
+remove_outliers <- function(x, na.rm = TRUE, ...) {
+  qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
+  H <- 1.5 * IQR(x, na.rm = na.rm)
+  y <- x
+  y[x < (qnt[1] - H)] <- NA
+  y[x > (qnt[2] + H)] <- NA
+  y
+}
+
+SURVEY$SnackN <- remove_outliers(SURVEY$Snack)
+
+densityplot(~ SURVEY$SnackN | SURVEY$Gender.fact, layout=c(1,3))
+
+densityplot(~ SURVEY$SnackN | SURVEY$Voting.fact, layout=c(1,3))
+
+```
+
+
+That looks much better!!!!!
+
+
+Besides looking at the data visually and guessing about normality, the shapiro.test() will test for normality. However, the function does not have a built-in way to test normality for the subgroups or levels of a factor. However, the by() function will serve as a *helper function* (it helps you perform computations for another function) to allow you to conduct the test at each level of your factor. Because the levels have labels, the output will include their names; another reason why adding level labels is helpful.
+
+- by(DV, IV, shapiro.test)
+
+```{r}
+by(SURVEY$SnackN, SURVEY$Gender.fact, shapiro.test)
+
+by(SURVEY$SnackN, SURVEY$Voting.fact, shapiro.test)
+```
+
+Again, having non-normal distributions is almost preordained with small sample sizes. When you have sample sizes of about 30 or more and you still have normality issues, you may have to transform your data before conducting an ANOVA test. Although it appears that we have violated the assumption of normality for the Snack data for Voting.fact and Gender.fact, we will continue with our analysis for illustration purposes only. 
+
+
+
+3.2.3. Homogeneity of Variance
+
+For an *ANOVA*, one assumption is the *homogeneity of variance* (HOV) assumption. That is, in an *ANOVA* we assume that variances of the groups are equal. Let's test for homogeneity of variance. The function for the Bartlett test will not properly handle a factorial design, and it won't warn you about it either. It'll give you an answer, but that answer will be wrong. A work-around is to create a factor that identifies every one of the design cells individually. 
+
+```{r}
+
+SURVEY$cells = factor(paste(SURVEY$Gender.fact, SURVEY$Voting.fact, sep="."))
+summary(SURVEY$cells)
+```
+
+ The paste() functions "pastes" together strings allowing us to create factors for each of the cells and use Bartlett test of homogeneity of variances on each cell. 
+ 
+```{r}
+bartlett.test(SnackN ~ cells, data=SURVEY)
+```
+
+
+If you examine the *p*-value, you will see that it is larger than an alpha = .05, so we do not appears to violate homogeneity of variance. However, the Levene's Test would be more appropriate than the Bartlett test because it is not as sensitive to departures from normality as is the Bartlett's test. For this analysis we can use the the leveneTest() to test for normality. Luckily, the leveneTest can test the whole factorial ANOVA for normality. 
+
+- leveneTest(DV ` IV * IV, data = )
+
+```{r}
+leveneTest(SnackN ~ Gender.fact * Voting.fact, data= SURVEY)
+```
+
+The leveneTest() reveals that we have not violated assumptions of normallity with our Factorial Anova. 
+
+
+
+##4.0. Conducting the ANOVA test##
+
+4.1. For another quick review, The ANOVA stands for *Analysis of Variance*, which is a test of the ratio of variance between groups (e.g., between-groups variability = sample means deviated from a grand mean) to variance within groups (e.g., within-groups variability = how people within samples deviate from their respective sample means). The difference between the one-way ANOVA we ran earlier and the factorial Anova is the number of IV's. For a factorial ANOVA we have two independent variables and a continuous dependent variable. 
+
+The ANOVA test provides an *F* ratio: 
+
+-  *F* = between-groups variance  /  within-groups variance 
+  
+  And because you know that the unbiased variance = SS/df...
+  
+-  *F* = between groups SS/df  /  within groups SS/df 
+  
+
+
+4.2. Creating the ANOVA
+
+The aov() function follows the same format as the one-way ANOVA
+
+-  aov(DV ~ IV*IV)
+
+
+Specify the linear model by setting the DV and the IV and assign the result to an object named EXERCISE.aov. The aov is a useful reminder of the aov() function so you know which test you ran. However, you could name the object anything you wanted.
+
+```{r}
+SURVEY.aov = aov(SnackN ~ Gender.fact * Voting.fact, data=SURVEY)
+
+```
+
+Use the anova() function on the model you created in order to examine the ouput.
+
+```{r}
+anova(SURVEY.aov)
+```
+
+
+4.3. The output of the anova() function displays 4 rows (e.g.Gender, Voting, an Interaction term , and residuals) and 5 columns of values (e.g., degrees of freedom, Sums of Squares, Mean Squares, F-value, and p-value. For illustration purposes only, the description below also describes how the values in the output are used to calculate the F-value. 
+
+
+The two independent variables both have their own between groups degrees of freedom which represents the sum of squared deviations around the mean for each variables (e.g. Gender and Voting). The Sum of squares for the interaction term is the sum of squared deviations that represented the unique components of cell scores around the grand mean. 
+
+A main effect is the effect of an independent variable on a dependent variable averaging across the levels of any other independent variables. Here we examine the main effects of Gender.fact in that specific row and the main effect of voting.fact in that specific row. We previously explained how to calculate the sum of squares for the independent variables and will now explain how to calculate the interaction. 
+
+When the effect of one factor depends on the level of the other factor it is referred to as an interaction. To calculate the interaction you take the sums of squares for between groups and removing the main effects estimates. We can think of each cell as consisting of three factors -- main effects for A, main effects for B and the interaction between A and B. If we want to know only about the interaction, then we must remove the main effects from our estimates. We will not have you manually calculate the interaction because you will never have to calculate it by hand but it is important to know how it is obtained. 
+
+
+4.4. When reporting the Factorial ANOVA, you need so specify the *F* value along with degrees of freedom for each independent variable.
+
+-  *F*(between-groups df, within-groups df) = F, *p*-value. 
+
+so in this case:
+  
+-  Gender.fact *F*(1, 50) = 2.700, *p* > .05.
+-  Voting.fact *F*(1, 50) = 1.098, *p* > .05.
+-  Interaction *F*(1, 50) = 1.098, *p* > .05.
+
+## 6. Post-hoc tests
+
+6.1. Although we did not achieve significance we will run a Post-hoc test to examine how it is presented for a Factorial ANOVA. For a Factorial ANOVA we will use TukeyHSD. Unfortunately we cannot use the pairwise.t() function because we have multiple independent variables. 
+
+6.2. TukeyHSD (Tukey Honest Significant Differences):
+
+```{r}
+TukeyHSD(SURVEY.aov)
+```
+
+
+
+
+## 7. Effect Size
+
+calculate an effect size after conducting an appropriate statistical test for significance. This post will look at effect size with ANOVA, which is not the same as other tests (like a *t*-test). When using effect size with ANOVA, we use a measure of *r*-squared, which reflects the ratio of variability that the model explains out of all the variability that exists. This measure is sometimes also referred to as *Eta squared*. 
+
+
+To easily calcualte *r*-squared use summary.lm() and extract the r.squared value.
+```{r}
+r <- summary.lm(SURVEY.aov)$r.squared
+round(r, 4)
+```
+
+
+In this example, there was no difference between Gender and snacking nor Voting and snacking. It makes sense to have a small effect size. 
+
+
+##8.0. Graphing##
+
+
+**Question**
+- What does the point on the box plot represent?
+Answer: 
+
+
+To examine why we took the outliers out lets plot a boxplot with the old Snack data:
+
+```{r}
+ boxplot(Snack ~ Gender.fact * Voting.fact, data=SURVEY, ylab="Average Snacking", main="Boxplots of Snacking Data")
+ 
+```
+
+
+Notice that you cannot see anything because of the extreme scores we will not plot with the cleaned data. 
+
+```{r}
+ boxplot(SnackN ~ Gender.fact * Voting.fact, data=SURVEY, ylab="Average Snacking", main="Boxplots of Snacking Data")
+ 
+```
+
+
+##Part D##
+##Do it yourself!##
+
+One question asked on the survey is "What color is the dress?" and hours a day on social media . Consider the case for which you want to determine whether there was a difference in what color the dress was, Gender, and hours spent on social media. The variable names in the SURVEY data frame are *Dress*, *Gender.fact*  and *SocialMedia*.
+
+Dress:
+1 - White and Gold
+2 - Blue and Black
+3 - Don't know what you are talking about
+
+
+Gender.fact:
+
+0 - Male
+1 - Female
+
+1. **QUESTION:** Convert Dress to a factor, but before doing so make sure to remove the individual who selected 3 (Hint: Might help to make a subset if you remember how). 
+
+*CODED ANSWER:*
+```{r}
+SURVEY$DressR <- recode(SURVEY$Dress, " 1 = 1; 2 = 2; 3 = NA")
+
+Removed <- subset(SURVEY, 
+                    complete.cases(SURVEY), 
+                    select = c(DressR, Gender.fact, SocialMedia))
+```
+
+2. **QUESTION:** Make sure the two IV's are factors and assign levels to each.
+
+*CODED ANSWER:*
+```{r}
+str(Removed)
+
+Removed$Dress.fact <- factor(Removed$DressR, 
+                         levels = c(1, 2), 
+                         labels = c("WhiteGold", "BlueBlack"))
+
+```
+
+
+3. **QUESTION:** Plot out each of the independent variables. 
+
+*CODED ANSWER:*
+```{r}
+densityplot(~ Removed$SocialMedia| Removed$Gender.fact, layout=c(1,3))
+
+densityplot(~ Removed$SocialMedia| Removed$Dress.fact, layout=c(1,3))
+
+```
+
+
+
+4. **QUESTION:** Based on how the plots look, you might expect there to be differences in normality for each group as well as with variance across the groups. Test for that. 
+
+*CODED ANSWER:*
+```{r}
+
+
+```
+
+
+5. **QUESTION:** You might also wonder if the groups had similar variances. Test for the assumption of homogeneity of variance with Bartletts Test
+
+*CODED ANSWER*:
+```{r}
+
+Removed$cells = factor(paste(Removed$Gender.fact, Removed$Dress.fact, sep="."))
+summary(Removed$cells)
+
+bartlett.test(SocialMedia ~ cells, data=Removed)
+
+```
+
+
+6. **QUESTION:** Create the ANOVA model using the aov() function and name the model something:
+
+*CODED ANSWER:*
+```{r}
+Removed.aov = aov(SocialMedia ~ Gender.fact * Dress.fact, data=Removed)
+
+```
+
+
+7. **QUESTION:** Examine the model ouput to determine whether your ANOVA test reveals differences between groups.
+
+*CODED ANSWER:*
+```{r}
+
+summary(Removed.aov)
+```
+
+
+6. **QUESTION:** What is the F-value for the main effect of Gender
+
+*ANSWER:*
+
+
+
+7. **QUESTION:** What is the F-value for the main effect of Dress
+
+*ANSWER:*
+
+
+
+8. **QUESTION:** Were the groups significantly different? Explain how you made that decision. 
+
+*ANSWER:*
+
+
+
+9. **QUESTION:** Run a post-hoc test to determine which factors are significantly different and the direction. For example, use the Tukey HSD test to compare all groups.
+
+*CODED ANSWER:*
+```{r}
+
+
+
+```
+
+
+10. **QUESTION:** Now that you have your data, you might want to share a graph. Create a boxplot.
+
+*CODED ANSWER:*
+```{r}
+
+
+
+```
+
+
+
+11. **QUESTION:** What is the effect size for the ANOVA model
+
+*CODED ANSWER:*
+```{r}
+
+
+
+```

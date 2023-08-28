@@ -1,0 +1,80 @@
+---
+title: "divergent association test"
+author: "gcook"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list = ls(all.names = TRUE))
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out before knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+
+```{r}
+# libraries and functions
+library(dplyr)
+library(caret)
+library(magrittr)
+library(dplyr)
+```
+
+```{r}
+#"C:\Users\gcook\Sync\Courses\GCDS\data\DAT_12_01.csv"
+DAT <- readr::read_csv(paste(data_dir, "DAT_12_01.csv", sep = "/"), skip = 0) %>%
+  select(., c(ins1, words)) %>%
+  mutate(., all_words = words) %>%
+  filter(., row_number() >2) %>%
+  mutate(., id = as.numeric(ins1)) %>%
+  select(., id, all_words)
+
+write.csv(DAT, paste(data_dir, "DAT.csv", sep = "/"), row.names = F)
+
+
+
+DAT_words <- DAT %>%
+  group_by(., id) %>%
+  mutate(., 
+         word1 = "",
+         word2 = "",
+         word3 = "",
+         word4 = "",
+         word5 = "",
+         word6 = "",
+         word7 = "",
+         word8 = "",
+         word9 = "",
+         word10 = "",
+         )
+DAT_words[,3:12] <- stringr::str_split_fixed(DAT_words$all_words, pattern = " ", 10) #%>%
+DAT_words %>% view()
+DAT_words <- DAT_words %>%
+  tidyr::pivot_longer(., 
+                      cols = starts_with("word"), 
+                      names_to = "word_num",
+                      values_to = "word"
+                      ) 
+DAT_words$word_num <- as.numeric(gsub("word", "", DAT_words$word_num))
+DAT_words %>% view()
+write.csv(DAT_words, paste(data_dir, "DAT_words.csv", sep = "/"), row.names = F)
+```
+

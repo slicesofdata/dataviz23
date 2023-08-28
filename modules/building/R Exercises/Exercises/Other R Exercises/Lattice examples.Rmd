@@ -1,0 +1,132 @@
+---
+title: "Lattice examples"
+output: html_document
+---
+
+## Overview of Lattice
+
+Specify a formula of the variable(s) to display and any conditioning variables. For example ~x|A means display numeric variable x for each level of factor A. y~x | A*B means display the relationship between numeric variables y and x separately for every combination of factor A and B levels. ~x means display numeric variable x alone.
+graph_type	description	formula examples
+barchart	bar chart	x~A or A~x
+bwplot	boxplot	x~A or A~x
+cloud	3D scatterplot	z~x*y|A
+contourplot	3D contour plot	z~x*y
+densityplot	kernal density plot	~x|A*B
+dotplot	dotplot	~x|A
+histogram	histogram	~x
+levelplot	3D level plot	z~y*x
+parallel	parallel coordinates plot	data frame
+splom	scatterplot matrix	data frame
+stripplot	strip plots	A~x or x~A
+xyplot	scatterplot	y~x|A
+wireframe	3D wireframe graph	z~y*x
+
+Examples using the car data (mileage, weight, number of gears, number of cylinders, etc.) from the mtcars data frame.
+
+# Lattice Examples 
+```{r}
+library(lattice) 
+attach(mtcars)
+str(mtcars); dim(mtcars)
+head(mtcars)
+
+```
+# create factors with value labels 
+
+```{r}
+# for number of gears
+gear.f<-factor(gear,levels=c(3,4,5),
+  	labels=c("3gears","4gears","5gears")) 
+
+# for number of cylinders
+cyl.f <-factor(cyl,levels=c(4,6,8),
+   labels=c("4cyl","6cyl","8cyl")) 
+```
+
+# histogram
+
+```{r}
+# plotting frequencies
+histogram(~mpg, type="count",
+  	main="Histogram (Frequency)", 
+  	xlab="Miles per Gallon")
+
+# plotting density
+histogram(~mpg, type="density",
+  	main="Histogram (Density)", 
+  	xlab="Miles per Gallon")
+```  	
+
+# kernel density plot 
+
+```{r}
+densityplot(~mpg, 
+  	main="Density Plot", 
+  	xlab="Miles per Gallon")
+```
+
+# kernel density plots by factor level 
+
+```{r}
+densityplot(~mpg|cyl.f, 
+   main="Density Plot by Number of Cylinders",
+   xlab="Miles per Gallon")
+```
+
+# kernel density plots by factor level (alternate layout) 
+
+```{r}
+densityplot(~mpg|cyl.f, 
+   main="Density Plot by Numer of Cylinders",
+   xlab="Miles per Gallon", 
+   layout=c(1,3))
+```
+
+# boxplots for each combination of two factors 
+
+```{r}
+bwplot(cyl.f~mpg | gear.f,
+   ylab="Cylinders", xlab="Miles per Gallon", 
+   main="Mileage by Cylinders and Gears", 
+   layout=(c(1,3)))
+```
+
+# scatterplots for each level of a factor 
+
+```{r}
+# plot mpg as a function of weight for levels of cylinder
+xyplot(mpg~wt | cyl.f, 
+   main="Scatterplots by Cylinders and Gears", 
+   ylab="Miles per Gallon", xlab="Car Weight")
+```
+
+# scatterplots for each combination of two factors 
+
+```{r}
+# plot mpg as a function of weight for levels of cylinder and levels of gear
+xyplot(mpg~wt | cyl.f * gear.f, 
+  	main="Scatterplots by Cylinders and Gears", 
+   ylab="Miles per Gallon", xlab="Car Weight")
+```
+
+# 3d scatterplot by factor level 
+
+```{r}
+cloud(mpg~wt * qsec | cyl.f, 
+  	main="3D Scatterplot by Cylinders") 
+```
+
+# dotplot for each combination of two factors 
+
+```{r}
+dotplot(cyl.f ~ mpg | gear.f, 
+   main="Dotplot Plot by Number of Gears and Cylinders",
+   xlab="Miles Per Gallon")
+```
+
+# scatterplot matrix 
+
+```{r}
+splom(mtcars[c(1,3,4,5,6)], 
+  	main="MTCARS Data")
+```

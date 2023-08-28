@@ -1,0 +1,35 @@
+---
+title: "Tools for Data Visualization"
+editor: visual
+---
+
+::: {#hero-heading}
+:::
+
+## **Websites**
+
+### *Practice Coding in R on Posit Cloud*
+
+-   <https://posit.cloud/learn/primers/>
+
+### *Color Codes*
+
+-   HTML colors: <https://htmlcolorcodes.com/>
+
+### *Visualize a palette for different types of colorblindness*
+
+-   Viz Palette <https://projects.susielu.com/viz-palette>
+
+### *What do your photos/images look like to others?*
+
+-   Coblis colorblindness imulator: <https://www.color-blindness.com/coblis-color-blindness-simulator/>
+-   Pilestone Colorblindness Simulator: <https://pilestone.com/pages/color-blindness-simulator-1>
+-   Vischeck <http://www.vischeck.com/vischeck/vischeckImage.php>
+
+## **Books**
+
+-   Claus Wilke, *Fundamentals of Data Visualization* <https://clauswilke.com/dataviz/>
+
+-   <https://www.bigbookofr.com/data-visualization.html>
+
+-   <https://handsondataviz.org/>

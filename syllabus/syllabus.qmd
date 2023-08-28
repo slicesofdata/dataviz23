@@ -1,15 +1,13 @@
 ---
-title: "Syllabus"
+title: "**Syllabus**"
 editor: visual
 format:
   html:
     theme: cosmo
     css: css/styles.scss
-    fontcolor: black
+    #fontcolor: white
     toc: true
 ---
-
-# PSYC 167: Data Visualization
 
 ::: callout-important
 ## Under construction
@@ -19,22 +17,39 @@ This syllabus is under construction until Fall 2023
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
 library(magrittr)
+source(here::here("R/_common.R"))
 
-# this is a test
+
+
 knitr::kable(
-    data.frame(
-      Semester = c("Fall 2023"),
-      Section = c("PSYC 167, Sect-01"),
-      Day_Time = c("Tuesday 2:45 - 05:30PM (Pacific)"),
-      Location = c("Location: Roberts South, 104"),
-      Office_Hours = c("(zoom link posted on ...)"),
-      Instructor = c("Gabriel I. Cook"),
-      Contact = c("Email: gcook@cmc.edu (*please put ''PSYC 167' in subject line)*"),
-      Credit = c("3 hours; 3 credits")
-    ) %>%
-      dplyr::rename_with(~ gsub("_", " ", .x), contains("_")) %>% 
-      t() 
-  )
+  data.frame(
+    Semester     = the_semester,
+    Section      = the_section,
+    Day_Time     = the_day_time,
+    Location     = the_location,
+    Office_Hours = the_office_hours,
+    Instructor   = the_instructor,
+    Contact      = the_contact,
+    Credit       = the_credit
+  ) %>%
+    dplyr::rename_with(~ gsub("_", " ", .x), contains("_")) %>% 
+    t() 
+)
+# this is a test
+#knitr::kable(
+#    data.frame(
+#      Semester = c("Fall 2023"),
+#      Section = c("PSYC 167, Sect-01"),
+#      Day_Time = c("Tuesday 2:45 - 05:30PM (Pacific)"),
+#      Location = c("Location: Roberts South, 104"),
+#      Office_Hours = c("(zoom link posted on ...)"),
+#      Instructor = c("Gabriel I. Cook"),
+#      Contact = c("Email: gcook@cmc.edu (*please put ''PSYC 167' in subject line)*"),
+#      Credit = c("3 hours; 3 credits")
+#    ) %>%
+#      dplyr::rename_with(~ gsub("_", " ", .x), contains("_")) %>% 
+#      t() 
+#  )
 
 # Instructor: [Gabriel I. Cook](https://www.cmc.edu/academic/faculty/profile/gabriel-i-cook)
 # Email: gcook\@cmc.edu (*please put ''PSYC 167' in subject line)*

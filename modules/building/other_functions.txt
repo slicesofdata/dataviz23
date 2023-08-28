@@ -1,0 +1,6 @@
+#####################################################################
+# should fix error in file(out, 'wt'): Cannot .... error
+# creates new temp dir
+fix_file_out_error <- function() { dir.create(tempdir())}
+
+#####################################################################

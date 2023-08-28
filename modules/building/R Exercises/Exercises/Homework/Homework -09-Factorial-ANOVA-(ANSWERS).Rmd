@@ -1,0 +1,369 @@
+---
+title: "Homework 09: Between-Subjects ANOVA"
+author: "your name here"
+date: "add date"
+output: 
+ html_document:
+   toc: true # this will create a table of contents of hyperlinks (change to false to omit)
+   toc_depth: 2
+---
+
+#Part A
+##Before you begin
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the *ANSWER* message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+1.0. Installing and using libraries in RStudio
+
+1.1. Run the code below to download some libraries needed for this assignment. By using `include=FALSE, cache=FALSE` in the `R` code header, we will make sure that any error messages do not appear in the HTML file you create.
+
+```{r include=FALSE, cache=FALSE}
+#source("https://dl.dropboxusercontent.com/u/6036547/109_2016_f.txt?raw=1")
+```
+Set your working directory if you have issues with knitting your file.
+```{r}
+setwd("C:/Users/lklap/Dropbox/Exercises")
+```
+
+If you know what libraries you will use for your code, you can load them now. Use the `library()` function to load the following libraries: `lattice`, `plyr`, `psych`, `ggplot2`, and `car`. A summary of the functions and the libraries is listed above. Download any libaries needed.
+
+*ANSWER:* 
+```{r, message = FALSE, warning = FALSE}
+library(plyr)
+library(car)
+library(lattice)
+library(psych)
+library(ggplot2)
+```
+
+
+1.2. Key functions used for this assignment, some old, some new: 
+
+- `aov()` for calculating an ANOVA
+- `by()` for applying a function to a data frame split out by levels of a factor
+- `bartlett.test()` for viewing homogeneity of variance
+- `car::leveneTest()` for viewing homogeneity of variance
+- `ggplot2::ggplot()` for creating graphs
+- `lattice::densityplot()` for creating density plot graphs
+- `lattice::histogram()` for histograms
+- `pairwise.t.test()` for examining pairwise comparisons with Bonferroni correction; built in stats library
+- `plyr::count()` for viewing the frequency of each factor
+- `psych::describeBy()` for descriptive stats for groups
+- `shapiro.test()` for testing normality
+- `summary.lm()` for extracting r-squared
+- `TukeyHSD()` for analyzing the differences between groups
+
+
+#Part B
+##1.0. Overview of a Factorial ANOVA for independent groups (between-subjects)
+
+1.1. The typical statistical procedure for testing variation among the means of more than two groups with categorical predictors/factors is called the *analysis of variance* (ANOVA). The null hypothesis for an ANOVA is typically that the populations being compared all have the same mean. A *one-way between-subjects ANOVA* (for independent groups) is used when there are multiple levels of one factor and the levels are based on independent groups (e.g., different demographics, random assignment, etc). The focus of this exercise is on *Factorial ANOVAs*. A *Factorial ANOVA* statistically tests how combination of factors (more thamn one) influences the dependent variable. Thus, a *Factorial ANOVA* must have at least two grouping factors and one numeric continuous variable for the DV.  The influence that a single factor has on a DV is described as a "main effect" whereas a combined effect of more than one factor is described as an "interaction".  
+  When researchers discuss single-factor and multiple-factor designs, they often use the term "way" to describe the number of factors measured by an *ANOVA*.  For example, *one-way ANOVA* measures the effect of one factor on a DV, whereas a *two-way ANOVA* measures the effect of two factors on the DV, and so forth for more factors.
+
+
+1.2. Data for the *two-way independent groups factorial ANOVA* are grouped on some classification factor so that group means can be created based on that classification. In this example, however, there are only two levels of the independent variables shown below (e.g., Birth Status: Only child vs. Sibling; Occupation: Teacher vs. Student). The design is a 2 x 2 between-subjects design because both independent variables are between-subjects; there are also 2 x 2 = 4 groups of different respondents. The dependent variable is happiness on an interval scale (e.g., 1=very unhappy, 10 = very happy).  
+
+For example, a data frame may look like this:
+
+- *ID Birth Status   Occupation  Happiness*
+- 1    Only Child      Teacher        6
+- 2    Only Child      Student        5
+- 3    Only Child      Student        6
+- 4    Only Child      Teacher        7
+- 5    Sibling         Student        8
+- 6    Sibling         Teacher        8
+- 7    Sibling         Student        9
+- 8    Sibling         Teacher        10
+
+Given variables in this example, you could test whether happiness scores differ: 
+- between levels of Occupation: Teacher and Students (*test for main effect*)
+- between levels of Birth Status: those who are an only child versus those who has siblings (*test for main effect*)
+- as a function of the specific combination of occupations and birth status IVs (*test for main interaction*)
+
+You can create a data frame with those data if you wish, but understanding factorial ANOVAs with multiple examples is very helpful, so consider data from a 3 x 2 between-subjects design, which is more complicated than the 2 x 2 design because there are more than two levels of one of the factors. Such an example will provide further with poct-hoc tests (or planned comparisons). 
+
+Using some real advertising data, an advertizing agency might want to determine if people inquire about different ads based on the day of the week the ad was run and the type of ad. Read in the Newspaper data and assign the contents to a data frame called `NEWS`.  
+
+```{r}
+setwd("C:/Users/lklap/Dropbox/Exercises")
+NEWS <- read.csv("Newspaper.csv")
+```
+
+##2.0. Examining the data frame and Converting Data
+
+2.1. As always, examine the `str()` of the data frame to see the classification of variables in the `NEWS` data frame. The data should contain two factors, `Day` and `Genre`, as well as and a dependent variable, `Impact`.  The dependent variable represents the number of people who inquired about the advertisement. Make sure that `Day` and `Genre` are indicated as factors. Tip: As long as your level names/labels are strings (not numeric values), `read.csv()` will treat these as "factors" by default. If you have numeric levels only, the variables will be treated as numbers and you will need to convert them into factors (see previous exercises).
+
+```{r}
+str(NEWS)
+```
+
+2.2. Because `Day` and `Genre` are factors already, you can continue examining the data. Use `count()` to determine whether an adequate sample sizes across the groups to conduct an ANOVA. Yet, for a factorial ANOVA we should check the count of each cell. We can do that by using `psych::describeBy()` by making a simple modification using `list()` to create a list of your factors. Doing this will create a list of descriptive statistics for each group in the design. This function takes two main arguments: the DV and the factor IV, but now there are two factors, so those need to be put in a list. Examine the sample sizes for each group. Note, there will be very small sample sizes.
+
+- Ex. `with(dataframe, psych::describeBy(dv, list(factor1, factor2)))`
+
+```{r}
+with(NEWS, psych::describeBy(Impact, list(Genre,Day)))
+```
+
+##3.0. Examine Assumptions of the factorial ANOVA
+
+3.1. Assumptions of a factorial ANOVA are very similar to a one-way between-subject's ANOVA
+
+  1. DV is interval/ratio in measurement scale.
+  2. The groups have the same variance in the dependent variable; homogeneity of variance.
+  3. The dependent variable is distributed normally.
+
+3.2. Testing the Assumptions
+
+3.2.1. Looking at your data is always good before doing statistical testing. Examine the sample means and variances. The output from `psych::describeBy())` will contain those values. 
+
+
+3.2.2. Normality can be examined visually with a histogram or density plot. Remember that `lattice` makes creating graphs for levels of a factor very easy to do. The density plot provides more detail about shape. The `|` tells `R` to plot the DV separately for each level of IV. 
+
+- One factor at a time:  `with(data frame, lattice::densityplot(~ DV | IV))` 
+
+- Two factors combined (per cell):  `with(data frame, lattice::densityplot(~ DV | IV1 * IV2))` The `*` will allow for the *interaction* of the factors for creating the plots.
+
+```{r}
+with(NEWS, lattice::densityplot(~Impact | Genre * Day))
+```
+
+Looking at the data visually shows some differences across the groups.  Besides looking at the data visually and guessing about normality, the `shapiro.test()` will test for normality. However, the function does not have a built-in way to test normality for the subgroups or levels of a factor. However, `by()` will serve as a *helper function* (it helps you perform computations for another function) to allow you to conduct the test at each level of your factor. Because the levels have labels, the output will include their names; another reason why adding level labels is helpful. As with the descriptive statistics, `list()` will allow for grouping the factors together. 
+
+- One factor at a time:  `with(data frame, by(DV, IV, shapiro.test))`
+
+- Two factors combined (per cell): `with(data frame, by(DV, list(IV1*IV2), shapiro.test))`
+
+```{r}
+with(NEWS, by(Impact, list(Genre, Day), shapiro.test))
+```
+
+The test will output the Shapiro test for each group in factorial design. Again, having non-normal distributions is almost preordained with small sample sizes, but this does not appear to be the case with these data. When you have sample sizes of about 30 or more and you still have normality issues, you may have to transform your data before conducting an ANOVA test. Since it appears that we have not violated the assumption of normality we will continue with our analysis.
+
+
+3.2.3. Homogeneity of Variance
+
+For an *ANOVA*, one assumption is the *homogeneity of variance* (HOV) assumption. That is, in an *ANOVA* we assume that variances of the groups are equal. Let's test for homogeneity of variance using the Levene's Test. 
+
+- Ex. `with(data set, car::leveneTest(DV ~ IV1 * IV2))`
+
+```{r}
+with(NEWS, car::leveneTest(Impact ~ Day * Genre))
+```
+
+Based on the *p*-value, the `leveneTest()` reveals that we have not violated assumptions of homogeneity with our Factorial ANOVA. 
+
+
+##4.0. Specify the ANOVA Model and Conducting the ANOVA test
+
+4.1. For another quick review, The ANOVA stands for *Analysis of Variance*, which is a test of the ratio of variance between groups (e.g., between-groups variability = sample means deviated from a grand mean) to variance within groups (e.g., within-groups variability = how people within samples deviate from their respective sample means). The difference between the one-way ANOVA we ran earlier and the factorial ANOVA is the number of IV's. For a factorial ANOVA we have two independent variables and a continuous dependent variable. 
+
+The ANOVA test provides an *F* ratio: 
+
+-  *F* = model (between-groups variance)  /  residual (within-groups variance)
+  
+  And because you know that the unbiased variance = SS/df...
+  
+-  *F* = between groups SS/df  /  within groups SS/df 
+  
+
+
+4.2. Creating the ANOVA
+
+`aov()` follows the same format as the single-factor ANOVA for independent groups with the exception of using the `*` to create the interaction between the factors.
+
+- Ex. `with(data frame, aov(DV ~ IV1 * IV2))`
+
+
+Specify the linear model by setting the DV and the IV and assign the result to an object named `NEWS.aov`. The aov is a useful reminder of the `aov()` function so you know which test you ran. However, you could name the object anything you wanted.
+
+```{r}
+NEWS.aov = with(NEWS, aov(Impact ~ Day * Genre))
+```
+
+4.3. Examine the model output and parameters. When you are looking for an interaction, you will need to examine your model by looking at the Type III sums of squares. The Type II sums of squares are used by default, but that represents a more powerful way to analyze data when you are not interested in testing for an interaction. In order the obtain the Type III SS, use `car::Anova()` and specify the "type" argument as "III".
+
+```{r}
+Anova(NEWS.aov, type = "III")
+```
+
+4.4. The output of `car::Anova()` displays 4 rows (e.g. Day, Genre, an Interaction term , and residuals) and 5 columns of values (e.g., variable names, sums of squares, degrees of freedom, *F*-value, and *p*-value). For illustration purposes only, the description below also describes how the values in the output are used to calculate the *F*-value. 
+
+The two independent variables both have their own between groups degrees of freedom which represents the sum of squared deviations around the mean for each variable (e.g. Day and Genre). The Sum of squares for the interaction term is the sum of squared deviations that represented the unique components of cell scores around the grand mean. 
+
+A *main effect* is the effect of an independent variable on a dependent variable averaging across the levels of any other independent variables. Here we examine the main effects of Day in that specific row and the main effect of Genre in that specific row. We previously explained how to calculate the sum of squares for the independent variables and will now explain how to calculate the interaction. 
+
+When the effect of one factor depends on the level of the other factor it is referred to as an *interaction*. To calculate the interaction, you take the sums of squares for between groups and removing the main effects estimates. We can think of each cell as consisting of three factors -- main effects for A, main effects for B and the interaction between A and B. If we want to know only about the interaction, then we must remove the main effects from our estimates. We will not have you manually calculate the interaction because you will never have to calculate it by hand but it is important to know how it is obtained. 
+
+
+4.4. When reporting the Factorial ANOVA, you need so specify the *F* value along with degrees of freedom  for each independent variable.
+
+- *F*(model df, residual df) = F, *p*-value. 
+
+so in this case:
+  
+-  Day         *F*(2, 24) = 0.97, *p* > .05.
+-  Genre       *F*(1, 24) = 6.06, *p* < .05.
+-  Interaction *F*(2, 24) = 2.59, *p* > .05.
+
+Please make note of this output in your knit HTML file so that you report statistics appropriately.
+
+
+## 6. Post-hoc tests (if appropriate)
+
+6.1. If there were statisical differences for a factor with more than 2 levels, you would need to determine which groups actually differed. If that were the case, you could run post-hoc tests as you would for the single-factor ANOVA. For a Factorial ANOVA we will use `TukeyHSD()`. Unfortunately we cannot use `pairwise.t()` because we have multiple independent variables. 
+
+6.2. TukeyHSD (Tukey Honestly Significant Differences):
+
+- Ex. `TukeyHSD(model)`
+
+```{r}
+TukeyHSD(NEWS.aov)
+```
+
+The output will be bulky when there are multiple factors. The TukeyHSD test output displays comparisons for:
+
+- levels of each factor
+- levels of each factor paired with the levels of other factors
+
+Because the interest is with the levels of the factor with more than 2 levels (e.g., Day), you can see each level of `Day` (e.g., Monday, Wednesday, Friday) paired with each other level. In order to determine which levels are different from others, simply look at the *p*-value for the pair (last column) and compare that to your desired alpha level for each comparison. 
+
+
+
+##7.0. Graphing
+
+```{r}
+ggplot2::ggplot(NEWS, aes(x = Day, y = Impact)) +
+        geom_boxplot(aes(fill = Genre), width = 0.8) + theme_bw()
+
+ggplot2::ggplot(NEWS) + 
+        geom_bar(aes(Day, Impact, fill = Genre), position = "dodge", stat = "summary", fun.y = "mean")
+```
+
+
+#Part C
+##Do it yourself!
+
+A group of researchers asked individuals who perceived color of the infamous dress (remember that blue/black vs. white/gold dress) differently and had used different preferred electronic platforms (e.g., computer vs. phone) to determine if those individuals differed in the number of hours spent on social media that week; perhaps they spent different amounts of time searching for an answer to the dress color issue. The factors and levels are below.
+
+Perceived Dress Color:
+
+1 - White and Gold
+
+2 - Blue and Black
+
+
+Electronic Platform:
+
+1 - Computer
+2 - Phone
+
+1. **QUESTION:**  Download and read in the `Dress.csv` data set and then examine if `Dress` and `Electronic` are factors.
+
+*CODED ANSWER:*
+```{r}
+setwd("C:/Users/lklap/Dropbox/Exercises")
+DRESS <- read.csv("Dress.csv")
+str(DRESS)
+```
+
+2. **QUESTION:** Because they are not factors, create factors and assign levels and labels to each level. See previous exercises for help.
+
+*CODED ANSWER:*
+```{r}
+DRESS$Dress.fact <- with(DRESS, factor(Dress, 
+                       levels = c(1, 2), 
+                       labels = c("White-Gold", "Black-Blue")))
+
+DRESS$Electronic.fact <- with(DRESS, factor(Electronic, 
+                       levels = c(1, 2), 
+                       labels = c("Computer", "Phone")))
+```
+
+
+3. **QUESTION:** Examine the descriptive statistics for the 4 groups in the factorial design.  
+
+*CODED ANSWER:*
+```{r}
+with(DRESS, psych::describeBy(SocialMedia, list(Electronic.fact, Dress.fact)))
+```
+
+
+4. **QUESTION:** Plot a density plot for each of the 4 groups in the factorial design.  
+
+*CODED ANSWER:*
+```{r}
+with(DRESS, lattice::densityplot(~SocialMedia | Dress.fact * Electronic.fact))
+```
+
+
+5. **QUESTION:** Based on how the plots look, you might expect there to be differences in normality for each group. Test for that. 
+
+*CODED ANSWER:*
+```{r}
+with(DRESS, by(SocialMedia, list(Dress.fact, Electronic.fact), shapiro.test))
+```
+
+
+6. **QUESTION:** You might also wonder if the groups had similar variances. Test for the assumption of homogeneity of variance.
+
+*CODED ANSWER*:
+```{r}
+with(DRESS, car::leveneTest(SocialMedia ~ Dress.fact * Electronic.fact))
+```
+
+
+7. **QUESTION:** Create the ANOVA model using `aov()` and name the model something:
+
+*CODED ANSWER:*
+```{r}
+DRESS.aov = with(DRESS, aov(SocialMedia ~ Dress.fact * Electronic.fact))
+```
+
+
+8. **QUESTION:** Examine the model output to determine whether your ANOVA test reveals differences between groups. Make sure to use the sums of squares that allows you to examine for an interaction. 
+
+*CODED ANSWER:*
+```{r}
+car::Anova(DRESS.aov, type = "III")
+```
+
+
+9. **QUESTION:** What is the *F*-value and *p*-value for the main effect of Dress?
+
+*ANSWER:*
+
+*F*(1, 49) = .03, *p* = .86
+
+10. **QUESTION:** What is the *F*-value and *p*-value for the main effect of Electronic?
+
+*ANSWER:*
+
+*F*(1, 49) = .89, *p* = .35
+
+11.  **QUESTION:** What is the *F*-value and *p*-value for the interection test?
+
+*ANSWER:*
+
+*F*(1, 49) = .13, *p* = .72
+
+
+12. **QUESTION:** Were the groups significantly different? Explain how you made that decision. 
+
+*ANSWER:* No. Examining the *p*-values, there were no main effects nor an interaction.
+
+
+
+13. **QUESTION:** Make a plot of the data (bar or box).
+
+*CODED ANSWER:*
+```{r}
+ggplot2::ggplot(DRESS) + 
+        geom_bar(aes(Electronic.fact, SocialMedia, fill = Dress.fact), position = "dodge", stat = "summary", fun.y = "mean")
+
+ggplot2::ggplot(DRESS, aes(x = Dress.fact, y = SocialMedia)) +
+        geom_boxplot(aes(fill = Electronic.fact), width = 0.8) + theme_bw()
+
+```
+
+

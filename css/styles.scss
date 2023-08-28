@@ -1,15 +1,44 @@
 /*-- scss:defaults --*/
+.quarto-title-block .quarto-title-banner {
+  background-image: url(images/dataviz_hex_plus_course.jpg);
+  background-size: 300px;
+  background-position: left;
+  background-repeat: no-repeat;
+  padding-left: 10px;
+  background-origin: content-box;
+}
+
+//https://stackoverflow.com/questions/74401855/change-slide-background-using-css-with-quarto-reveal-js
+
 
 // Colors
+$orange: #ffa500;
 $purewhite: #ffffff;
 $off_white: #FDFBF7;
 $green_yellow: #cbff30;
 $teal: #096980;         // ~ atoll
+$magenta: #FF00FF;
 $cerise: #d91fb5;       // ~ Cerise
 $gray: #64605f;
-$light-gray: #949799;
+$light_gray: #949799;
 $black: #000000;
+$black90: #1a1a1a;
+$black95: #0d0d0d;
 $dark: #373338;
+
+// merbivore similar
+$magenta_merb: #AD2EA4;
+$orange_merb: #FC6F09;
+$teal_merb: #1EDAFB; 
+$lime_merb: #8DFF0A;
+$orange_faded_merb: #FDC251;
+$dark_merb: #161616;
+$green_merb: #58C554;
+$red_merb: #990000;
+
+
+
+
 //$blue2:  #27b2ef;
 
 //$navbar_bg: $teal;
@@ -25,15 +54,16 @@ $dark: #373338;
 // Base document colors
 $navbar-bg: $teal;         // navbar
 $navbar-fg: $off_white;     // navbar font color/fg elements
-$navbar-hl: $green_yellow; // highlight color when hovering over navbar links;
-$body-bg: $off_white;      // page background
-$body-color: $dark; //light-gray;  // page text
-$footer-bg: $cerise;       // footer
-$link-color: $teal;        // hyperlinks
+$navbar-hl: $lime_merb; // highlight color when hovering over navbar links;
+$body-bg: $black95;      // page background
+$body-color: $off_white; //light-gray;  // page text
+$footer-bg: $magenta;       // footer
+$link-color: $lime_merb; //green_yellow;//$green_yellow;        // hyperlinks
 
 // Inline code
-$code-bg: $off_white;   // inline code background color
-$code-color: $teal;     // inline code text color
+$code-bg: $black;   // inline code background color
+$code-color: $teal_merb; // #ff66d9; //$orange; //  #$magenta;     // inline code text color
 
 // Code blocks
-$code-block-bg: $off_white; // code block background color
+$code-block-bg: $black90; // code block background color
+

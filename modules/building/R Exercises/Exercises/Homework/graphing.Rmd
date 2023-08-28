@@ -1,0 +1,33 @@
+---
+title: "Graphing"
+author: "gcook"
+date: "February 19, 2016"
+output: html_document
+---
+
+Some examples at:
+http://www.r-bloggers.com/conditioning-and-grouping-with-lattice-graphics/
+
+
+```{r}
+health < read.csv("c:/users/gcook/desktop/Psyc109/cdc.csv")
+str(health)
+
+library("lattice")
+
+xyplot(age ~ weight, 
+       data = health,
+       type = "l")
+
+graph1 <- xyplot(weight ~ age | gender, 
+                 data = health,
+                 type = c("p", "r"))
+
+graph2 <- xyplot(height ~ age | gender, 
+                 data = health,
+                 type = c("p", "r"))
+
+#arrange plots in a grid for a single plot
+library("gridExtra")
+grid.arrange(graph1, graph2, ncol = 2)
+```

@@ -1,0 +1,574 @@
+---
+title: "R, RStudio, R Markdown"
+#author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+#date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:               
+    toc: yes                   # include a table of contents
+    number_sections: yes       # enumerate sections flagged with #
+    code_folding: hide         # allow option to show/hide code
+
+#editor_options: 
+#  chunk_output_type: console
+
+
+
+---
+
+# R, RStudio, R Markdown
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Reading Files
+
+## Load our libraries
+
+-   `here` will help keep folders organized
+
+-   [`tidyverse`](https://www.tidyverse.org/packages/) is an ecosystem that will load other relevant libraries
+
+    -   `readr` for reading data files
+
+    -   `dplyr` for manipulating data files
+
+    -   `ggplot` for and creating plots
+
+    -   `magrittr` for piping or chaining code commands
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+rm(list = ls(all.names = TRUE))   # remove objects in R
+
+```
+
+# **Class Directory Set Up**
+
+Before doing anything involving code, we will set up our systems so that they are structured the same. 
+
+1. Create a folder/directory on your computer someplace and name it **"GCDS"** (uppercase).   
+2. Inside that folder/directory, create two other directories, one named **"r"** and one named **"data"** (lowercase)
+3. Go to **RStudio -> Tools -> Global Options** and set the *default working directory* to where you created "GCDS". Browse, select and set. You might need to close `RStudio` and restart it to fully adopt the settings.
+
+
+The location of where you create the "GCDS" directory matters less than remembering where you create it because all your key files for this class will be saved in these two directories. Every time you access a code file (e.g., `.R` or `.Rmd`), you will save it in `"GCDS/r"` and data will be saved in `"GCDS/data".`
+
+Now you can open any `.Rmd` files provided for the first day. If you used `RStudio` to open any files I provided you for class, close them out completely, make sure they are saved in the above referenced directories, and then reopen from within their respective directories.
+
+
+# **R Coding Style Guide**
+
+Hadley Wickham, the developer of many `R` libraries, including the main graphics package, `ggplot` and its current form,`ggplot2`, as well as the main data manipulation package, `dplyr`, has provided recommendations for `R` coding styles. Having a common coding style generally makes reading code easier across individuals. You can find the style guide available at [https://style.tidyverse.org/](https://style.tidyverse.org/). In particular, check the section on [syntax](https://style.tidyverse.org/syntax.html) as that will be your focus.
+
+
+# **Setting Up RStudio**
+
+You will use `RStudio` for most coding for this course. In order to simplify troubleshooting and errors, we will customize some settings together. 
+
+- Getting on the same `RStudio` page
+- Global Options
+- Other Settings
+
+
+# **Understanding R Markdown**
+
+For this class, we will create `R` scripts, which end with file extension `.R` and `R Markdown` files which end with file extension `.Rmd`. We will use `R Markdown` for creating HTML outputs to show work. `R Markdown` is also useful in order to create reports that involve italics, bolding font, inserting tables, etc. 
+
+## **R Markdown: Code Execution**
+
+This exercise is created with `R Markdown` code. `R Markdown` is a version of Markdown, which is a markup language for creating formatted text output using a plain-text. You are likely familiar with the most famous markup language, HTML (Hypertext Markup Language), which makes websites readable for us all.
+
+Within this `RMarkdown` file, the code is written between particular tick marks ``` and curly braces and {r}. These special character combinations simply allow RStudio to know what is R code (e.g., the lowercase r) and what is written text. 
+
+In `RStudio`, you can modify the code block/chunk by clicking the gear to make changes. You can specify whether the code shows the output only, shows the code and the output, whether the code is executed but not shown, or whether the code is not run at all. You can also toggle one and off options to display warnings, message, and other details. You can also review other options if you wish. You'll notice that `warnings` and `messages` will make your output ugly so hiding them is often ideal.  
+
+This exercise serves as a tutorial with the goal of familiarizing you with using `R` and `RMarkdown`. The output will be a nice HTML file containing your results. Within the code blocks, to execute code you would put your cursor on the line and press the RUN button (see top right) or press `CONTROL+ENTER` for PC or `COMMAND+ENTER` for Mac.
+
+
+## **R Markdown: Cheat Sheet**
+
+There are many ways to customize an `R Markdown` file. You will need to insert `R` code, write text descriptions, create plots and tables, etc. In some instances you would want to include your `R` code or hide it from the output in their certain ways for doing that in the `R Markdown` language. Some of these ways are created automatically for you in `RStudio` when you initiate new `R Markdown` file.  others can be be found in this 
+[R Markdown cheat sheet](https://www.dataquest.io/blog/r-markdown-guide-cheatsheet/). 
+`RStudio` also has various cheat sheets which you can find [here](https://www.rstudio.com/resources/cheatsheets/).
+You can also read more in [FODS CH2](https://www.markhuberdatascience.org/_files/ugd/c2b9b6_543ea42a1ea64e32b4440b34ffd71635.pdf)
+
+## **R Markdown: The Definitive Guide**
+
+Xie, Allaire, and Grolemund have an advanced guide for all the things you can do with `R Markdown`. It's called [R Markdown: The Definitive Guide] ([https://bookdown.org/yihui/rmarkdown/output-formats.html)
+
+## **Some things you can do with RMarkdown**
+
+Wrap text in * to make text italics 
+
+Italicize *this*
+
+Wrap text in ** to make text bold 
+
+Bold **this**
+
+Embed `R` code inside test using ``r `` 
+
+For example, the average mpg for cars in the mtcars data set is `r mean(mtcars$mpg)` thought that should be rounded  `r round(mean(mtcars$mpg), 1)` to be more clear.
+
+Embed `R` code blocks using ````{r}`
+
+Automatically enumerate text sections flagged using # 
+
+Example:
+
+*# Main Section*
+
+*## 2nd Level*
+
+*### 3rd Level*
+
+
+# **R Function Libraries/Packages**
+
+Libraries, or packages, represent a collection of functions used to perform different operations in `R`. Some of the libraries are built into the base version of `R` whereas others are external and must be accessed or downloaded. These libraries are created and built by users of `R` in order to make their lives easier. The benefit for the rest of us is to utilize those resources that are shared by their creators. For example, in order to use `R Markdown` in our `RStudio`, we will need to install the `rmarkdown` library.
+
+There are different ways of installing these libraries. One of those ways is to install them directly from `RStudio` by accessing the *Tools* menu option, clicking on *Install Packages*, and by typing the name of the desired library. The library will then be installed for you to access within `R`. Another way to install packages is by using a procedure that someone code that executes the procedure. Of course, this means you have to type the code but coding is not a bad thing. In fact, type code is what makes what you do reproducible in many ways. When your memory fails for doing x, y, and z in order y, z, x, code won't be confused. 
+
+In `R` and many languages, these coded procedures are called functions. The function for installing packages is aptly named `install.packages()`. For this function will specify the name of the library/package within the parentheses. 
+
+`install.packages("rmarkdown")`
+
+You can also install multiple libraries using `install.packages()` by combining them into a vector or a list using `c()`; the c stands for *combine*. For example, 
+
+`install.packages(c("rmarkdown", "rstudioapi"))`
+
+Try it out:
+
+```{r}
+#This code is commented out so it doesn't run. You may have difficulty with knitting the file if you include it.
+
+#install.packages("rmarkdown")
+
+#install.packages(c("rmarkdown", "rstudioapi"),
+#                 repos = "https://cloud.r-project.org")
+```
+
+Once libraries have been installed, you can access their various functions but that step will come later. Although the order of installation for libraries does not matter, the order in which you access libraries can matter. Keep an eye to for warnings in the `R console`.
+
+
+
+# **Some Custom Code for Class + Sourcing R Code From a Website**
+
+Let's side-step a bit. There or a set of libraries that we will be using to carry out various data-exploration tasks. Rather than having you install them all, you can access `R` code saved on [pastebin.com](https://pastebin.com). The code will read in a set of packages, check whether your version of or has them installed, and install them if they are missing. However, in order to read `R` code from an Internet connection, we will use a function called `source()` and specify the URL from which to access that code. Because `source()` will read `R` code and content from a file or a connection, this function will also come in handy when you have `R` code files saved on your computer. We will use this approach when demonstrating how to keep main files clean and tidy. 
+
+You can see the code on pastebin.com by clicking [here](https://pastebin.com/raw/8mXH02yg). You will see a variety of function libraries that we will use for the course that are not part of base `R`. We can be thankful for the creators of them but installing them may take quite a while.
+
+For this course, we will reference [this file](https://pastebin.com/b63hB7Hj) which you can see uses `source()` to call the content show above. There are alternative approaches (e.g., github) but learning them is not essential for this course which is the reason to take this simpler approach. One reason for referencing this remote `R` code from pastebin.com is to ensure everyone is installing the same libraries and loading the same functions without error. Also, if I wish to add libraries or functions throughout the course, I can edit this code without requiring you to change your code. As such, the following line of code will be included in all of your `R` work; you will see code at the top of this raw `.Rmd` file. There may also be other `R` files that we will source in the same way.
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+# getting raw R code
+source("https://pastebin.com/raw/b63hB7Hj")
+```
+
+
+
+# **Some things about the R Language**
+
+## **`R` is an Interpreted Language**
+
+`R` is an interpreted language. This means that code or programs you write may be executed by the `R` interpreter in real time. The code you write does not need to be compiled prior to being executed. Rather, the `R` interpreter translates your code in real time if it understands what your code. If the `R` interpreter doesn't understand the code, it will be unable to translate and you will receive some error.
+
+## **Functions**
+The code you write for the interpreter will involve referencing functions. You have used a function already when installing libraries (e.g., `install.packages()`. A `function` is nothing more than a set of statements organized together to perform some desired operation. In `R`, a function is an object. This means the `R` interpreter passes control to the function, along with any arguments that are necessary for the function to perform that operation and return the result of that operation. 
+
+## **A Function Example**
+
+For example, reading a file into `R` involves using a function that performs that operation. For these functions to read a file containing data, you will need to specify the required and/or optional `arguments` for given `parameters` of the function. One such function is `read.table()` and another is `read.csv()`, the latter of which is only a special case of the former. For this function to read a file, you would need to specify the `file` argument (and file path if the file is not in your working directory) argument at very least so that `R` knows what file to read. Specifically, `read.csv()` reads a file with columns delimited by a comma; `read.csv(file = "my_file_to_read.txt")` or `read.csv(file = "projects\data\my_file_to_read.txt")`. Note **csv** is an acronym for **c**omma-**s**eparated **v**alues. The default separation parameter for `sep` in `read.csv()` is the comma so you do not need to specify it. 
+
+An alternative to `read.csv()` is `read.table()`, which is a more flexible function because it allows you to specify the separation character contained in the file. By default `sep` is set to `""`, which you will see is an *empty string* (e.g., there is no character between the quotes).  To read a csv file with `read.table()`, you would specify the separation argument `sep` with the character specifying the separation between columns. In this case, that character is a comma (e.g., `sep = ","`); `read.table(file = my_file_to_read, sep = ",")`. If the file was separated by tabs rather than commas, you would specify the `sep` argument with the code for a tab (e.g., "\t"); `read.table(file = my_file_to_read, sep = "\t")`
+will files that are delimited by a character . Although you will certainly see other code importing files with `read.csv()` and `read.table()`, we will use the `readr` library functions for importing and exporting files.
+
+## **File Paths for Collaboration**
+
+If you are collaborating with folks some of whom are using pcs and others who are using macs, you may wish to review the function named `file.path()` which takes two arguments, one argument for the file path and another argument for the file name.  To file our more about that function, query it in your command console by typing `?file.path`.
+
+```{r eval=FALSE, include=FALSE}
+?file.path
+```
+
+
+# **Getting Help**
+
+
+## **Internal Help**
+
+You will certainly run into problems coding. When you don't speak the language perfectly, `R` will let you know there are errors. So, how do you find help in `R`? 
+
+To ask `R` about what a function does, you can use `?` paired with the function. In the **Help** window, you will see information about the package the function is from, how it is used, how to use it by specifying *arguments* (more on this later), and usually some examples of how it is used.  
+
+`?install.packages`
+
+```{r eval=FALSE, include=FALSE}
+?install.packages
+```
+
+Alternatively, you can use the `help()` function:
+
+- `help("install.packages")`
+- `help("install.packages", package = "utils")`
+
+
+Similar methods:
+
+```{r eval=FALSE, include=FALSE}
+# these methods are all equivalent ways of getting help
+help("install.packages")
+#?install.packages
+#?utils::install.packages
+
+#?aes
+#?ggplot2::aes
+help("aes")
+help("aes", package = "ggplot2") 
+```
+
+You can also simply type a query into the search bar in the `RStudio` Help menu. 
+
+## **External Help**
+
+Sometimes you need to find help outside of the `R` environment. In this case, just use Google. Type in your query by including the letter R to narrow the search results and you will see a lot that pops up. [https://stackoverflow.com](https://stackoverflow.com) will likely be returned in your search results with questions that people have posted to the website for help from others. This is a community of coders helping coders. You can create an account if you wish, but reading questions and answers to those questions is free. Perhaps in years from now, you can answer questions for others.
+
+
+For example, if you know you are using the `dplyr` library and you are using a function called `starts_with()`, you can search Google for "dplyr starts_with r"
+[and this is what you will see](https://www.google.com/search?q=dplyr+starts_with+r)
+
+
+
+# **Reading/Importing Data Files**
+
+As noted in [FODS CH9](https://www.markhuberdatascience.org/_files/ugd/c2b9b6_543ea42a1ea64e32b4440b34ffd71635.pdf), `base R` functions for reading/importing and writing/exporting data can be slow and may cause issues on different operating systems. By contrast, `readr` functions operate independently of the OS. As a result, we will generally use the `readr` equivalent to `read.csv` files is `readr::read_csv()` (note the library reference and function name).
+
+If you query `R` using `?readr::read_csv` or `read_csv` having already loaded  the `readr` library using `library(readr)`, you will see how to use the function.
+
+```{r eval=FALSE, include=FALSE}
+?readr::read_csv
+```
+
+In order to read a data file, you will need to specify at very least `file`, which could be a physical file or a remote file. We will address a few ways.
+
+-  `file`: a path to a file, a connection, or literal data (either a single string or a raw vector)
+-  `delim = " "`: the delimiter used to separate values; this is `","` for `.csv` files
+-  `col_names = !append`: the names of columns/variables
+
+Some examples:
+
+- Reading a `.csv` file on a website
+- Reading a locale `.csv` file
+- Reading raw data that is comma-separated
+
+## **Reading a `.csv` File Stored on a Website**
+
+For example, although the `mtcars` data is also a built-in data set in `R`, if it were a read actual `.csv` file save on some website, you can pass the URL path as the `file`. This file does exist on the `tidyverse` github for `readr`. 
+
+
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
+```
+
+Because `file` if the first argument of the function, you don't need to reference it specifically. Doing so just eliminates ambiguity for more complicated function calls. You will come across a lot of examples of code that do NOT reference the arguments by name.
+
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
+```
+
+By default, `readr::read_csv()` tries to guess whether column/variable names are present. If you know they exist, you can set `col_names = TRUE`. 
+
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = T)
+```
+
+If the names are present and you set  `col_names = FALSE`, you will get a mess because `readr` will assume the header row is data just as the rest of the file.
+ 
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = F)
+```
+
+As you can see, the column names are all prefixed with "X" and the first row is now the name of the headers. `names()` or `colnames()` will return the column names, so we can apply it and see what happens. We will wrap  `readr::read_csv()` in `names()`. See how this is a problem. You can use `colnames()` to test this too.
+
+```{r}
+names(
+  readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = T)
+  )
+```
+
+## **Reading a `.csv` File Stored Locally on your Computer**
+
+If a file actually existed on your computer, the file would not be a URL but rather the path location to where the file is stored.
+
+To demonstrate, we can use `list.file()` to list the files stored someplace. For all of you, `R.home()` will return the location of where you installed `R` so I know for sure this directory exists if you are using `RStudio`. We will search for a file matching the pattern "mtcars.csv" searching all directories, no matter how deep, and grabbing the full name and path to that file.
+
+```{r}
+my_local_csv <- list.files(
+  path = .libPaths(),
+  pattern = "mtcars.csv", 
+  recursive = TRUE, 
+  full.names = TRUE)[1]
+
+
+# if the above function returns NA for some reason, we need to add the file
+# Note: this solution will not work if you have not set up your GCDS directories
+if (is.na(my_local_csv)) {
+  x = mtcars
+  readr::write_csv(x, paste0(.libPaths(), "/mtcars.csv"))
+  my_local_csv <- paste0(.libPaths(),"/mtcars.csv")
+}
+
+```
+
+Having stored the file named as `my_local_csv`, we can see where it is by using `print()`. or simply my_local_csv.
+
+```{r}
+print(my_local_csv)
+```
+
+And now we can read the locale file as before except we are not passing the string name but rather an object (e.g., `my_local_csv`) holding the file path and file name. Voilà.
+
+```{r}
+readr::read_csv(my_local_csv)
+```
+
+
+## **Reading Raw Data that is Comma-Separated**
+
+We will file use `readr::read_csv()` to read [this](("https://pastebin.com/raw/khbhMBLy")) remote file. 
+
+```{r}
+readr::read_csv("https://pastebin.com/raw/khbhMBLy")
+```
+
+If there were only data in the file and no names, the file might look like that below. We can imitate this by skipping the first row (containing names) using `skip = `. 
+
+
+```{r}
+readr::read_csv("https://pastebin.com/raw/khbhMBLy", skip = 1)
+```
+
+She how the first row is assumed to be names. Setting `col_names = F` will fix the problem. Putting the arguments on separate rows of `R` code might improve code legibility.
+
+```{r}
+readr::read_csv("https://pastebin.com/raw/khbhMBLy", 
+                skip = 1,
+                col_names = F)
+```
+
+But we have no column names now. Setting `col_names = ` some names will fix that. Use `c()` to combine 4 names, e.g.,  `col_names = c("name1", "name2", "name3", "name4")`.
+
+```{r}
+readr::read_csv("https://pastebin.com/raw/khbhMBLy", 
+                skip = 1,
+                col_names = c("year", "name", "percent", "sex"))
+```
+
+
+##  **Data from a Library/Package**
+
+As mentioned earlier, `mtcars` is a data set on cars which is also part of `R`, meaning you do not need to read it from anyplace. `R` does this automatically
+
+```{r}
+print(mtcars)
+
+# or 
+mtcars
+```
+
+And the column names...
+
+```{r}
+names(mtcars)
+```
+
+
+# **Assigning a Data Frame to an Object** 
+
+Unfortunately, once you read data into `R` what you see is only the returned content from the functions. This approach will not really allow you to perform other operations on the data frame itself very easily because you would have to read the file over and over every time you wished to perform a different operation. 
+
+## **Assign the Data to an Object**
+
+You'll want to take the data frame object that is returned by the `read.csv()` function and assign it to an object of a given name. Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let's assign it to `BABIES` standing for `data frame` and let's make it ALL CAPS. 
+
+## Using built-in `read.csv()` and `read.table()`:
+
+```{r}
+BABIES <- read.csv("https://pastebin.com/raw/khbhMBLy")
+
+# or 
+BABIES <- read.table("https://pastebin.com/raw/khbhMBLy",
+                     sep = ",")
+```
+
+## Using `read_csv()` from `readr`:
+
+```{r}
+BABIES2 <- readr::read_csv("https://pastebin.com/raw/khbhMBLy")
+
+print(BABIES2)
+```
+
+## **Data as a Data Frame**
+
+You should be an object named `BABIES` that contains the data frame with baby names. If you want to see that it actually is a data frame object, you can pass the `BABIES` object into the `is.data.frame()` function. If this is a data frame, the function will return `TRUE` and  `FALSE` if it is not.
+
+
+```{r}
+is.data.frame(BABIES)
+
+
+is.data.frame(BABIES2)  # tibbles are also data frames
+```
+
+## **Are they both `tibbles`?**
+
+```{r}
+tibble::is_tibble(BABIES)
+
+
+tibble::is_tibble(BABIES2)
+```
+
+Now the you have the data frame, you can examine some of its contents, for example, the first 6 rows using the `head()` function.
+
+```{r}
+head(BABIES)    # hmm, something seems off.
+```
+
+
+Because header rows at the top of the `.csv` file, specify that they exist by passing `TRUE` to the  `header` argument of the function (e.g., `header = TRUE` or `header = T`). 
+
+```{r}
+BABIES <- read.table("https://pastebin.com/raw/khbhMBLy", 
+                     sep = ",", 
+                     header = TRUE)
+
+head(BABIES)    # Perfect!
+```
+
+
+
+# **Writing/Exporting Data Files**
+
+Data frames can be written or saved as `.csv` files using `readr::write_csv()`, as r data files using `readr::write_rds()`, as Excel `.csv` files using `readr::write_excel_csv()`, as well as other formats. 
+
+If you query `R` using `?readr::write_excel_csv` or `write_excel_csv` having already loaded  `readr` using `library(readr)`, you will see the arguments 
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+?readr::write_csv
+```
+
+OK, let's just load the library using `library()`.
+
+```{r}
+library(readr)
+```
+
+When writing a file using `write_csv()` we need to specify the data and a file name. By default, `.Rmd` files will assume the directory from which they are opened. Because this file was saved in, and opened from, "GCDS/r", then that will be the working directory R Markdown will want to create this file in.
+
+
+```{r message=FALSE, warning=FALSE}
+write_csv(x = mtcars,
+          file = "my_mtcars.csv")
+```
+
+If you do not want the file to write to that location, you will need to specify the directory specifically by changing `file` to include a directory path. Because "data" is a sub-directory of "GCDS" which will be used for data, we can reference the `"data"` followed by `"/"` to indicate a directory separation. This way, we can save a data file to "GCDS/data".
+
+In the top of this file after the YAML code, an object is created called `proj_dir` which holds the path to the "GCDS" directory *if and only if* you have saved this `.Rmd` file in "GCDS/r" as described. This code was included so that the path could easily be referenced when needed as the working directory set in `RStudio` will differ from the working directory for an opened file. This line of code and the one above it will reduce this working directory confusion and is a tip I would recommend for your own coding. Ask me for help if you want.
+
+Anyway, see, that `proj_dir` is just the path. It does not include a file name or sub-directory. 
+
+```{r}
+proj_dir
+```
+
+Because the path is just a string object, you can concatenate it with another string object using a function called `paste()`, which just takes the string object passed and pastes them together. Here is a silly example that passes two strings (as arguments) to `paste()`. You will see that a single string is returned. 
+
+```{r}
+
+```
+
+But wait, why is there a space between them? Is it because there is a space between the two arguments? Let's remove the space after the comma and see. 
+
+```{r}
+paste("string1","string2")
+```
+
+Nope! Still there. If you check `?paste`, you will see that the `sep` parameter passes a space, `" "`, as the default argument; `sep = " "`. If you don't change the argument, you'll get a space separating the strings. What if we change it to something like `"+++"`?
+
+```{r}
+paste("string1", "string2", sep = "+++")
+```
+
+OK, that's different. This shows you how passing the argument changes the returned object, but it is not what you want. You want that space *removed*. So, just pass `sep = ""` without the space. 
+
+```{r}
+paste("string1", "string2", sep = "")
+```
+
+OK all closed up. The ultimate goal, however, is to use `paste()` to concatenate the file path (e.g., `prod_dir`) and the file name (e.g., `"name.csv"`). Because the path is already an object, we can pass that along with file name as a string to `paste()` and remove the space between them.
+
+```{r}
+paste(proj_dir, "my_mtcars.csv", sep = "")
+```
+
+There is still a problem. The path returned above does not reference the "data" directory and this date frame is definitely data. Remember `"/"` references a directory and you want your file to be save *in* that "data" directory.  
+
+```{r}
+paste(proj_dir, "data/my_mtcars.csv", sep = "")
+```
+
+There is one final problem. Note that the path contains `"GCDS/data"` and "data" is a sub-directory of "GCDS". We need one more `"/"` in the right spot. 
+
+
+```{r}
+paste(proj_dir, "/data/my_mtcars.csv", sep = "")
+```
+
+OK, ready to go. In the `write_csv()` function, pass that entire line of code as the arguemnt to the `file` parameter. 
+
+
+```{r}
+write_csv(x = mtcars,
+          file = paste(proj_dir, "/data/my_mtcars.csv", sep = "")
+          )
+```
+
+
+# **Looking at the `head()` and `tail()` of a Data Frame**
+
+To see the head of the data frame, we can use the `head()` function. Let's wrap the `read.csv()` function in the `head()` function. Also, notice the `header` names at the top.
+
+```{r}
+head(BABIES)
+
+head(mtcars)
+```
+
+And the tail...
+
+```{r}
+tail(BABIES)
+
+tail(mtcars, n = 8)   # 8 rows
+```
+
+
+# **Reading Large Files Using `fread()` from `data.table`**
+
+Now, sometimes you might work with very large files over 1 GB in size. If so, `read.csv()` and `read.table()` will be extremely slow. You'll want another function. One of the fastest is `fread()` that is part of a library that's not built into base R. The library is `data.table`. 
+
+
+

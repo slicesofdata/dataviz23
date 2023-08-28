@@ -5,27 +5,54 @@ project:
     port: 167
     browser: true
     navigate: true
-  render:
+  render: 
     - "*.qmd"
     - "!omit/"
     - "!examples/"
+    - "!exercises"
+    - "!content_"
+    - "!syllabus/building/"
+    - "!syllabus/syllabus2.qmd"
+    - "!modules/module_starter_page.qmd"
+    - "!modules/intro_to_ggplot.qmd"
+    
+    #- "!modules/hello.qmd"
+    - "!modules/building"
+#    - "!modules/" # Note regarding !, if try to render with an ignore, will get ERROR: TypeError: Cannot convert undefined or null to object 
+#    - "!slides/"
+    
 
 website:
-  title: "PSYC167"
+  title: "**PSYC167**"
   navbar:
     left:
-      - text: "Home"
+      - text: "**Home**"
         file: index.qmd
-      - text: "Syllabus"
+      - text: "**Syllabus**"
         file: syllabus/syllabus.qmd
       #- text: "Textbook"
       #  href: https://psyteachr.github.io/ads-v2
-      - text: "Modules"
+      - text: "**Modules**"
         file: modules/index.qmd
+
+#      - text: "Content"
+#        file: modules/index.qmd
+      #- text: "**Slides**"
+        #file: slides/index.qmd
+      #  menu:
+      #    - text: Topic 1
+      #      href: slides/sample_pres.qmd
+      #    - text: Topic 2
+      #      href: slides/sample_pres.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
-      - text: "Exercises"
+      - text: "**Exercises**"
         file: exercises #/index.qmd
+      - text: "**Readings**"
+        href: resources/dataviz_readings.qmd
+      - text: "**DataViz Tools**"
+        href: resources/dataviz_tools.qmd
+        
 
     right:
       - icon: github
@@ -43,18 +70,27 @@ website:
       align: left
       contents:
         - syllabus/syllabus.qmd
-        - auto: "modules"
+        - auto: modules
         #- compendium
-    - title: "Modules"
+
+    - title: "Modules zzzzz"
       style: "floating"
       collapse-level: 2
       align: left
       contents: modules
-    - title: "Exercises"
+
+#    - title: "Exercises"
+#      style: "floating"
+#      collapse-level: 2
+#      align: left
+
+    - title: "Slides"
       style: "floating"
       collapse-level: 2
       align: left
-      contents: exercises
+#
+#      contents: compendium      
+#      contents: exercises
  #   - title: "Compendium"
 #      style: "floating"
 #      collapse-level: 2
@@ -71,6 +107,8 @@ format:
     fontsize: 1.2rem
 #    linkcolor: "#096980"
 #    monofont: courier new
+
+#css: css/styles.scss
 
 editor: source
 

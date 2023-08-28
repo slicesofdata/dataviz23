@@ -1,0 +1,446 @@
+---
+title: "GCDS: Unsupervised ML - k-means Clustering"
+#date: "`r Sys.Date()`"
+output: 
+  html_document:               
+    toc: yes                   # include a table of contents
+    number_sections: yes       # enumerate sections flagged with #
+    code_folding: show         # allow option to show/hide code
+    toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out before knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+
+# **Libraries**
+
+```{r message=FALSE, warning=FALSE}
+library(magrittr)
+library(factoextra)
+#library(dendextend)
+#library(colorspace) # get nicer colors
+library(ggplot2)
+library(GGally)
+library(corrplot)
+library(dplyr)
+```
+
+# **Data Frame Objects**
+
+```{r message=FALSE, warning=FALSE}
+example1 <- data.frame(x = c(1,2,3,4,5), y = c(1,2,3,4,5))
+example2 <- data.frame(x = c(1,2,3,4,5), y = c(1,2,4,4,3))
+
+# Wine quality data
+WINE <- readr::read_csv(paste(data_dir, "winequality.csv", sep = "/"))
+
+# the classic iris data set
+IRIS <- datasets::iris
+
+```
+
+# **Clustering**
+
+Cluster analysis is a class of methods for grouping population members into homogeneous subsets (e.g., classes or clusters) when the groups are not known in advance. Clustering is an unsupervised machine learning approach insofar as the clustering is unknown to the scientist and will be created. 
+
+Computes the distance between cases (e.g., rows) according to a determined distance metric in order to build a similarity or dissimilarity matrix of those distances. Cases that are similar, or in proximity based on the distance, will be grouped in the same cluster. Members of a given cluster should therefore be similar to other members of the same cluster and different from members in other clusters. 
+
+# **K-means Clustering**
+
+A popular clustering method, sometimes also known as disjoint clustering. Specify the number of clusters in advance and algorithmically assign the cases to the clusters. A problem is with determining the correct number of clusters in order classify correctly. Determining the  optimal number of clusters may be through trial and error. 
+
+For kmeans, clusters are defined such that the total intra-cluster variation (known as total within-cluster variation) is minimized. Although there are several k-means algorithms available, the standard algorithm defines the total within-cluster variation as the sum of squared distances (Euclidean) between items and the corresponding centroid, or cluster center based on the mean.
+
+The k-means process:
+
+1. Specify *k* - the number of clusters to create from the data
+
+2. Select at random  *k* items from the data to use as center of the initial clusters
+
+3. Assign each item to their closest centroid, based on the  distance (e.g., Euclidean) between the item and the centroid.
+
+4. For each *k* cluster, recompute the cluster centroid by calculating the new mean value of all the data points in the cluster.
+
+5. Iteratively minimize the total within sum of square. Repeat Step 3 and Step 4, until the centroids do not change or the maximum number of iterations is reached (R uses 10 as the default value for the maximum number of iterations).
+
+
+The biggest disadvantage with k-means clustering is that it requires us to pre-specify the number of clusters (k). Hierarchical clustering is an alternative approach which does not require you to choose the number of clusters. Another disadvantage of the k-means approach is its sensitivity to outliers in the data. In other words, you might wish to use a clustering method that is not reliant on the mean. Also, different clustering results can occur if you change the ordering of the data. Note, the independence assumption for regression (autocorrelation) can also change based how your data are sorted because the Durbin-Watson statistics is an autocorrelation of a series; something to think about.  
+
+
+## *General Concept*
+
+You can see that the variables in the data are `r names(WINE)`. Each was rated/measured on different dimensions. A question is whether the wines can be classified or categorized based on these properties. For example, wines that are above average on Dimension A but are below the average Dimensions B:Z could be grouped into a category that is different from other wines that are below average on Dimension A and above average on Dimensions B:Z. In other words, the wines are more similar to other wines in that group but different from wines in another group. 
+
+
+## *Data Preparation*
+
+In order to perform clustering, however, we must first do some preparation. We will `scale()` the data so that variables are on the same scale. Doing so also allows us to easily identify wines that are above and below a mean based on their sign. We will remove any observations with `NA` and any categorical variables in the data set.
+
+Clean up data. Omit any NA and then scale to have a mean of 0 and standard deviation of 1.
+
+```{r message=FALSE, warning=FALSE}
+WINE <- na.omit(WINE)
+
+WINE_z <- WINE %>%
+  mutate(., across(.cols = where(is.numeric), 
+                   .fns = ~as.numeric(scale(.x)), 
+                   .names = "{.col}")) 
+
+view(WINE_z)
+
+#str(WINE_z)
+```
+
+## *Examining Relationships Among Variables*
+
+There are many measurement variables in the data set and we can examine the relationship among them using a correlation matrix or pairs plot.
+
+```{r message=FALSE, warning=FALSE}
+WINE_z %>%
+  dplyr::select(., -color) %>%
+  cor(.) %>%
+  corrplot::corrplot(.)
+```
+
+The default plot illustrates correlation values by color and circle size. Labels are also in red. You can change some characteristics of the plot by changing various arguments. The correlogram reveals that there are some relationship between variables and these change from pair to pair. Given there are relationships, this means that wines measurements are moving in either the same or opposite directions. Thus, wines may group differently based on their measurements. 
+
+```{r message=FALSE, warning=FALSE}
+WINE_z %>%
+  dplyr::select(., -color) %>%
+  cor(.) %>%
+  corrplot::corrplot(.,    # a correlation matrix
+#         method = "ellipse", # a method for producing the correlation plot 
+         method = "number",
+         type = "full",    # a plot style (also "upper" and "lower")
+         diag = TRUE,      # if TRUE (default), adds the diagonal
+         tl.col = "black", # label color (default is red)
+         bg = "white",     # background color
+         title = "",       # a main title
+         col = NULL)       # a color palette
+```
+
+If you want to examine pairs plots using `GGally::ggpairs()`, you may find graphical rendering problems because there are some many variables. If you wish to examine the data in this way, select a subset of variables of interest for separate plots. These too will take a moment to render.
+
+```{r message=FALSE, warning=FALSE}
+#WINE_z %>%
+#  dplyr::select(., -color) %>%
+#  dplyr::select(., 1:4) %>%
+#  GGally::ggpairs(.)
+```
+
+## *Determining the Optimal Number of Clusters*
+
+Although k-means clustering is unsupervised, it still requires the scientist to specify the number of clusters to be created. But an important question is: How do you determine the correct number of expected clusters?
+
+There are different methods.
+
+One solution is to compute k-means clustering using different values of clusters k. Next, the `wss` (within sum of square) is drawn according to the number of clusters. The location of a bend (knee) in the plot is generally considered as an indicator of the appropriate number of clusters.
+
+Use `factoextra::fviz_nbclust()` to obtain a convenient solution to estimate the optimal number of clusters.
+
+Using the total within sums of squares (e.g., `wss`) method, the `wss` will be plotted as a function of number of clusters one could extract. This plot will help you narrow the search space for determining the optimal number of clusters as this is only determined by, or suggested by, the machine algorithm. Sometimes the appropriate clusters will be informed by expertise, so clustering in this case is part experience, part math, and part art. The k-means algorithm determines clusters based on mean centers of the the clusters by minimizing the distance of cluster members from cluster centers. Other methods may be appropriate, for example, approaches based on median distances or other distance metrics.
+
+The plot may take a moment to render after running the algorithm. Bigger data, longer run time. 
+
+Note: If you receive an error like `"Error in .Call.graphics(C_palette2, .Call(C_palette2, NULL)) : invalid graphics state"`, execute `dev.off()` to clear your plot device. 
+
+```{r message=FALSE, warning=FALSE}
+(WINE_opt_wss <- WINE_z %>%
+  dplyr::select(., -color) %>%
+  factoextra::fviz_nbclust(., kmeans, method = "wss"))
+```
+
+The plot represents the variance within the clusters. Notice that when k = 1, there is a lot of variability. This indicates that a single cluster may not provide a good representation of the data, at least for grouping based on similarity. From 1 to 2 clusters, variability drops substantially, a slight drop from 2 to 3 clusters, and a drop is present after which the bend (or 'elbow') at k = 4 to 5 suggests that creating another cluster does not reduce the `wss` much at all. This suggests that 3 for sure or 4 clusters may be useful.
+
+Using the `gap_stat` method will involve bootstrapping procedures so this will run for quite some time. Do not execute unless you need to get a coffee. This methods suggests that 4 clusters could be best. Essentially, the gap statistic represents a comparison of the total intra-cluster variation for different values of *k* with their expected values for a distribution without clustering. More on the gap statistic can be found in Tibsharani, Walther, & Hastie (2001). https://hastie.su.domains/Papers/gap.pdf
+
+```{r}
+#(WINE_opt_gap <- WINE_z %>%
+#  dplyr::select(., -color) %>%
+#  factoextra::fviz_nbclust(., kmeans, method = "gap_stat"))
+```
+
+## *Clustering using the k-means Algorithm*
+
+Using `kmeans()`, we can specify the data frame, the centers, the maximum number of iterations to run, as well as the number of starting centers. 
+
+- `x`: numeric matrix, numeric data frame or a numeric vector
+
+`centers`: Possible values are the number of clusters (k) or a set of initial (distinct) cluster centers. If a number, a random set of (distinct) rows in x is chosen as the initial centers.
+
+- `iter.max`: The maximum number of iterations allowed. Default value is 10.
+
+- `algorithm`: The algorithm used to create the clusters.
+
+- `nstart`: The number of random starting partitions when centers is a number. Trying nstart > 1 is often recommended.
+
+OK, so if 3 clusters is appropriate, we can run the `kmeans()` function by passing 
+`centers = 3` and another model using `centers = 4` in order to create 3- and 4- clusters. Each run will assign each row to a cluster number. For now, just assume the default arguments for parameters, though of course clusters may differ based on changing them.
+
+By default, we will accept the *Hartigan-Wong algorithm*. You can see in the R documentation that H-W computes the center of gravity of data as well as the distances of data from/to this center point. It then sorts the data set in any order. The *k* cluster prototypes are determined by using the formula (1 + (i - 1)n/k), where *i* = cluster index and *n* = number of observations (or rows). This algorithm leads to increase in the computational cost due to complexity of sorting, O(n log(n)); see also Celebi et al. (2013).
+
+See: Hartigan, J.A. & Wong, W.A., (1979). Algorithm AS 136: A K-means clustering algorithm, J of the Royal Statistical Society, C 28 (1): 100-108.
+
+```{r message=FALSE, warning=FALSE}
+WINE_km3 <- WINE_z %>%
+  dplyr::select(., -color) %>%
+  kmeans(., centers = 3, nstart = 25)
+
+WINE_km4 <- WINE_z %>%
+  dplyr::select(., -color) %>%
+  kmeans(., centers = 4, nstart = 25)
+
+WINE_km6 <- WINE_z %>%
+  dplyr::select(., -color) %>%
+  kmeans(., centers = 6, nstart = 25)
+```
+
+Looking at the `names()` of the object, you see different information. `cluster` will provide the numeric assignment of the cluster based on the algorithm. `centers` will provide means for measures for each cluster. `size` and error measures are also provided.
+
+Some key items returned from `kmeans()` include:
+
+1. `cluster`: a vector of integers (from 1:k) indicating the cluster to which each point is allocated.
+
+2. `centers`: a matrix of cluster centers.
+    withinss: vector of within-cluster sum of squares, one component per cluster.
+
+3. `tot.withinss`: total within-cluster sum of squares. That is, sum(withinss).
+
+4. `size`: the number of points in each cluster.
+
+
+```{r message=FALSE, warning=FALSE}
+names(WINE_km3)
+```
+
+Add the clusters extracted to the `WINE_z` data frame.
+
+```{r message=FALSE, warning=FALSE}
+view(WINE_z)
+WINE_z$cluster3 <- WINE_km3$cluster
+WINE_z$cluster4 <- WINE_km4$cluster
+WINE_z$cluster6 <- WINE_km6$cluster
+```
+
+## *Describing the Clusters based on Measurements*
+
+Looking at the grouping of each cluster, we can see the means (or dispersion) of the measurement variables for each cluster. Note that `kmeans()` will return an object containing the means for all measurements. You could obtain the same information and your own measures if you group by cluster and summarize using `dplyr`.
+
+```{r message=FALSE, warning=FALSE}
+view(as.data.frame(WINE_km3$centers), filter = "none")
+
+view(as.data.frame(WINE_km4$centers), filter = "none")
+
+WINE_z %>%
+  group_by(., cluster3) %>%
+  arrange(., cluster3) %>%
+  summarise(., across(where(is.numeric), ~mean(.x, na.rm = TRUE))) %>%
+  view(.)
+```
+
+
+## *Visualizing the Clusters*
+
+A visual representation of the clusters is useful to see. A problem with rendering the clusters based on multivariate data is that the plot would need to be n-dimensional or in order to plot on a scatterplot, we need to specify the variables for both x and y, which is only two. 
+
+A common solution to deal with multivariate data is to reduce the number of dimensions from n to 2 by applying a dimensionality reduction algorithm. A common approach is known as Principal Component Analysis, or PCA, which examines for principle 
+
+PCA can take the n variables and reduce them to the first two principle component variables which represent the original variables. Having those two variables, then a dimension reduced scatterplot can be used to visualize the data using `factoextra:: fviz_cluster()`
+
+In order to create the plot, we need to pair the kmeans object with the data frame but remove any variables in the data frame that are not the measurement variables. 
+
+### *3-cluster plot*
+
+```{r message=FALSE, warning=FALSE}
+WINE_km3 %>%
+  factoextra::fviz_cluster(
+  object = ., 
+  data = dplyr::select(WINE_z, -c(color, cluster3, cluster4)),
+  ellipse.type = "norm"
+  )
+
+# we can change some arguments as well
+WINE_km3 %>%
+  factoextra::fviz_cluster(
+  object = ., 
+  data = dplyr::select(WINE_z, -c(color, cluster3, cluster4)),
+  ellipse.type = "convex",
+  palette = "jco",
+  ggtheme = theme_minimal()
+  ) 
+
+WINE_km6 %>%
+  factoextra::fviz_cluster(
+  object = ., 
+  data = dplyr::select(WINE_z, -c(color, cluster3, 
+                                  cluster4, cluster6)),
+  ellipse.type = "convex",
+  palette = "jco",
+  ggtheme = theme_minimal()
+  )
+
+```
+
+### *4-cluster plot*
+
+```{r message=FALSE, warning=FALSE}
+WINE_km4 %>%
+  factoextra::fviz_cluster(
+  object = ., 
+  data = dplyr::select(WINE_z, -c(color, cluster3, cluster4)),
+  ellipse.type = "convex",
+  palette = "jco",
+  ggtheme = theme_minimal()
+  ) 
+```
+
+
+
+# **Using Iris Data** 
+
+If you like flowers, `iris` data are for you. Clean up the data, scale, and select measurement variables. Then, examine the plot to help determine the number of clusters that could be good.
+
+```{r message=FALSE, warning=FALSE}
+IRIS <- IRIS %>%
+  na.omit(.) %>%
+  mutate(., across(.cols = 1:4, 
+                   .fns = ~as.numeric(scale(.x)), 
+                   .names = "{.col}_z")) %>%
+  dplyr::select(., c(Species, contains("_z")))
+
+view(IRIS)
+
+factoextra::fviz_nbclust(IRIS[2:5], kmeans, method = "wss")
+
+factoextra::fviz_nbclust(IRIS[2:5], kmeans, method = "gap_stat")
+```
+
+
+
+## *Creating the Clusters*
+
+Create 2 clusters or 3. Because there are 3 species, let's just use 3 for now and see if the measurement variables actually group in such a way that members of each species group in the same cluster.
+
+```{r message=FALSE, warning=FALSE}
+iris_clusters <- kmeans(x = IRIS[,2:5], 
+                        centers = 3, 
+                        algorithm = "Hartigan-Wong"
+                        )
+
+iris_clusters
+```
+
+Add the cluster number to the Iris data frame as column variable named `Cluster`.
+
+```{r message=FALSE, warning=FALSE}
+IRIS$Cluster <- as.factor(iris_clusters$cluster)
+
+#IRIS
+```
+
+Examine the structure of the object returned from the `kmeans()` function.
+
+```{r message=FALSE, warning=FALSE}
+str(iris_clusters)
+```
+
+Examine the cluster size for each k cluster.
+
+```{r message=FALSE, warning=FALSE}
+iris_clusters$size
+```
+
+## *Visualizing k-means clusters*
+
+```{r message=FALSE, warning=FALSE}
+factoextra::fviz_cluster(object = iris_clusters, 
+                         data = IRIS[, 2:5], 
+                         ellipse.type = "norm"
+                         ) 
+
+# Modify the color palette from the default 
+factoextra::fviz_cluster(object = iris_clusters, 
+                         data = IRIS[, 2:5], 
+                         ellipse.type = "norm",
+                         palette = "Set2", 
+#                         ggtheme = theme_minimal()
+                         ) + see::theme_modern()
+
+
+# Plot points only
+factoextra::fviz_cluster(object = iris_clusters, 
+                         data = IRIS[, 2:5], 
+                         ellipse.type = "norm",
+                         geom = "point"
+                         )
+
+# Plot rownames text only
+factoextra::fviz_cluster(object = iris_clusters, 
+                         data = IRIS[, 2:5], 
+                         ellipse.type = "norm",
+                         geom = "text"
+                         )
+
+```
+
+Plotting variables with cluster labels.
+
+```{r}
+p1 <- ggplot(IRIS, aes(Petal.Length_z, Petal.Width_z, 
+                 color = Cluster)) + 
+  geom_point(position = "jitter", alpha = .5) + 
+  ggtitle("Iris cluster Plot") + see::theme_modern()
+
+p2 <- ggplot(IRIS, aes(Petal.Length_z, Petal.Width_z, 
+                 color = Species)) + 
+  geom_point(position = "jitter", alpha = .5) + 
+  ggtitle("Iris Species Plot") + see::theme_modern()
+
+
+gridExtra::grid.arrange(p1, p2)
+```
+
+## *Plotting a Matrix of Clustering Relative to Species*
+
+Using `table()`, create a table of Species (columns) and Cluster Number (rows).  
+
+```{r}
+table(IRIS$Cluster, IRIS$Species)
+```
+
+Although the clusters are not classifying the iris rows, most of the species are falling into relative categories. If the clustering is for example creating clusters based on the species, we can think about this classification in terms of accuracy and evaluate a confusion matrix (note: this is not the same a true classificaiton methods).
+ 
+
+```{r}
+IRIS.table <- table(IRIS$Cluster, IRIS$Species)
+
+rownames(IRIS.table) <- c("setosa", "versicolor", "virginica")
+
+IRIS_cm <- caret::confusionMatrix(IRIS.table)
+
+IRIS_cm
+```
+

@@ -1,0 +1,1184 @@
+---
+title: "Linear Models Homework"
+author: "replace with partner names"
+date: "replace with date"
+output: html_document
+df_print: !expr function(x) flextable::df_printer(x)
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 0, digits = 5)
+```
+
+https://www.r-bloggers.com/2018/03/regression-analysis-essentials-for-machine-learning/
+
+read this!!!!! --- > http://www.sthda.com/english/articles/40-regression-analysis/165-linear-regression-essentials-in-r/
+
+Getting Best Subset Models
+
+```{r}
+view(swiss)
+models <- leaps::regsubsets(Fertility~., data = swiss, nvmax = 5)
+models
+summary(models)
+
+#Model selection criteria: Adjusted R2, Cp and BIC
+# The summary() function returns some metrics - Adjusted R2, Cp and BIC (see Chapter @ref(regression-model-accuracy-metrics)) - allowing us to identify the best overall model, where best is defined as the model that maximize the adjusted R2 and minimize the prediction error (RSS, cp and BIC).
+
+#The adjusted R2 represents the proportion of variation, in the outcome, that are explained by the variation in predictors values. the higher the adjusted R2, the better the model.
+
+#The best model, according to each of these metrics, can be extracted as follow:
+
+tbl_best_metric_model <- function(models) {
+  res.sum <- summary(models)
+  best_metrics = data.frame(
+    Adj.R2 = which.max(res.sum$adjr2),
+    CP     = which.min(res.sum$cp),
+    BIC    = which.min(res.sum$bic)
+  ) 
+  
+  return(
+    data.frame(Metric = names(best_metrics), Values = as.numeric(best_metrics)) %>%
+    flextable::flextable()
+  )
+}
+best_metric_model(models)
+
+#K-fold cross-validation
+
+#The k-fold Cross-validation consists of first dividing the data into k subsets, also known as k-fold, where k is generally set to 5 or 10. Each subset (10%) serves successively as test data set and the remaining subset (90%) as training data. The average cross-validation error is computed as the model prediction error.
+
+#The k-fold cross-validation can be easily computed using the function train() [caret package] (Chapter @ref(cross-validation)).
+
+#Here, we’ll follow the procedure below:
+
+#    1. Extract the different model formulas from the models object
+#    2. Train a linear model on the formula using k-fold cross-validation (with k= 5) and compute the prediction error of each model
+
+#We start by defining two helper functions:
+
+#    1. get_model_formula(), allowing to access easily the formula of the models returned by the function regsubsets(). Copy and paste the following code in your R console:
+
+
+
+
+# data: data used to fit regsubsets
+# outcome: outcome variable
+get_model_formula <- function(
+  id,      # id: model id
+  object,  # object: regsubsets object
+  outcome  # data: data used to fit regsubsets
+  ){
+  # get models data
+  models <- summary(object)$which[id,-1]
+  # Get outcome variable
+  #form <- as.formula(object$call[[2]])
+  #outcome <- all.vars(form)[1]
+  # Get model predictors
+  predictors = names(which(models == TRUE))
+  predictors = paste(predictors, collapse = "+")
+  # Build model formula
+  as.formula(paste0(outcome, "~", predictors))
+}
+
+#For example to have the best 3-variable model formula, type this:
+
+get_model_formula(id = 3, object = models, outcome = "Fertility")
+
+
+# 2. get_cv_error(), to get the cross-validation (CV) error for a given model:
+
+get_cv_error <- function(
+  model.formula, 
+  data
+  ){
+  set.seed(1)
+  train.control = caret::trainControl(method = "cv", number = 5)
+  cv            = caret::train(model.formula, 
+                               data = data, 
+                               method = "lm",
+                               trControl = train.control)
+  cv$results$RMSE
+}
+
+#Finally, use the above defined helper functions to compute the prediction error of the different best models returned by the regsubsets() function:
+# Compute cross-validation error
+model.ids <- 1:5
+cv.errors <- purrr::map(model.ids, 
+                 get_model_formula, 
+                 models, "Fertility"
+                 ) %>%
+  purrr::map(get_cv_error, 
+      data = swiss) %>%
+  unlist()
+#cv.errors
+
+# Select the model that minimize the CV error
+best_model_num <- which.min(cv.errors)
+  
+
+#It can be seen that the model with 4 variables is the best model. It has the lower prediction error. The regression coefficients of this model can be extracted as follow:
+
+best_model_coef <- coef(models, best_model_num)
+
+
+tbl_best_kfold_model <- function(best_model_coef, title = "", footer = "") {
+  return(
+  data.frame(Parameters = names(best_model_coef), 
+           Coefficients = as.numeric(best_model_coef)) %>% 
+  flextable::qflextable() %>% 
+    flextable::add_header_lines(title) %>%
+    flextable::add_footer_lines(footer)
+  )
+}
+
+tbl_best_kfold_model(best_model_coef, 
+                     title = "The Best Model\nPredicting Fertility",
+                     footer = "k-fold method")
+
+
+```
+
+https://www.tidymodels.org/learn/statistics/k-means/
+
+```{r}
+# Data in two numeric vectors
+women_weight <- c(38.9, 61.2, 73.3, 21.8, 63.4, 64.6, 48.4, 48.8, 48.5)
+men_weight   <- c(67.8, 60, 63.4, 76, 89.4, 73.3, 67.3, 61.3, 62.4) 
+# Create a data frame
+my_data <- data.frame( 
+                group = rep(c("Woman", "Man"), each = 9),
+                weight = c(women_weight,  men_weight)
+                )
+broom::tidy(t.test(wt ~ am, mtcars)) #%>% data.frame() %>% t()
+
+
+
+
+q = broom::tidy(t.test(weight ~ group, data = my_data, var.equal = TRUE))
+
+do_ttest <- function(data, y, x, caption = "", font = "Calibri",
+                     title = "", footer = "") {
+  
+  library(magrittr)
+  table = data %>%
+    #dplyr::select(.data[[x]]) %>%
+    dplyr::group_by(.data[[x]]) %>%
+      dplyr::summarise(
+      n = dplyr::n(),
+      mean  = mean(.data[[y]], na.rm = T),
+      sem   = sd(.data[[y]], na.rm = T)/sqrt(dplyr::n())
+    )
+  
+  res.ftest = var.test(as.formula(data[[y]] ~ data[[x]]), data = data)
+#  res.ftest = var.test(as.formula(
+ #   deparse(substitute(y)) ~  deparse(substitute(x))), data = data)
+
+  test = broom::tidy(t.test(data[[y]] ~ data[[x]], data = data, var.equal = TRUE)) 
+  #%>%  huxtable::as_huxtable()
+  
+  t1 = test %>% as.data.frame()
+  t2 = t1 %>% t() %>% as.data.frame()
+  test.table = data.frame(Item = names(t1), Value = t2$V1) %>% 
+    flextable::qflextable() %>% 
+    flextable::set_caption(., caption) %>%
+    flextable::add_header_lines(title) %>%
+    flextable::add_footer_lines(footer)
+#    flextable::font(., fontname = font, part = "header") %>%
+ #   flextable::font(., fontname = font, part = "body") %>%
+#    flextable::font(., fontname = font, part = "footer")
+
+  plot = ggpubr::ggboxplot(
+    data, x = x, y = y, 
+    color = x, 
+    palette = c("#00AFBB", "#E7B800"),
+    ylab = "Weight", xlab = "Groups"
+  )
+  
+  return(list(table      = table, 
+              plot       = plot,
+              res.ftest  = res.ftest,
+              test       = test,
+              test.table = test.table
+              )
+         )
+  # https://davidgohel.github.io/flextable/reference/df_printer.html
+}
+do_ttest(my_data, y = "weight", x = "group", 
+         caption = "", title = "title",
+         footer = "footer")
+
+#  %>% huxtable::as_huxtable()
+
+# Plot weight by group and color by group
+plot = ggpubr::ggboxplot(
+  my_data, 
+  x = "group", 
+  y = "weight", 
+  color = "group", 
+  palette = c("#00AFBB", "#E7B800"),
+  ylab = "Weight", xlab = "Groups"
+  )
+
+
+# Create basic ggplot graph:
+ggplot2::ggplot(data = my_data,
+                ggplot2::aes(x = group, y = weight, fill = group)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::xlab("Month") +
+  ggplot2::ylab("Weight") +
+  ggplot2::labs(title = "cl_site") + 
+  ggplot2::theme_classic() +
+  ggplot2::theme(legend.position = c(0.175, 0.78)) +
+  ggplot2::theme(
+    #panel.grid   = ggplot2::element_blank(),
+    plot.title   = ggplot2::element_text(size = 13),
+    axis.ticks.length = ggplot2::unit(-0.05, "in"),
+    #axis.text.y  = ggplot2::element_text(
+    #  margin=ggplot2::unit(c(0.3,0.3,0.3,0.3), "cm")),
+    #axis.text.x  = ggplot2::element_text(
+    #  margin=ggplot2::unit(c(0.3,0.3,0.3,0.3), "cm")),
+    axis.ticks.x = ggplot2::element_blank(),
+    aspect.ratio = 1,
+    legend.background = ggplot2::element_rect(color = "black", fill = "white")
+  )
+
+  #ggplot2::boxplot_framework(upper_limit = 70)
+
+
+```
+
+
+```{r}
+library(tidyverse)
+library(caret)
+# set the theme for plots
+ggplot2::theme_set(ggplot2::theme_bw())
+
+# Load the data
+data("marketing", package = "datarium")
+# Inspect the data
+dplyr::sample_n(marketing, 3)
+
+# Split the data into training and test set
+set.seed(123)
+training.samples <- marketing$sales %>%
+  caret::createDataPartition(p = 0.8, list = FALSE)
+train.data  <- marketing[ training.samples, ]
+test.data   <- marketing[-training.samples, ]
+
+# Build the model
+?gtsummary::tbl_regression
+gtsummary::tbl_regression(lm(sales ~ youtube, data = train.data)) %>%
+  gtsummary::add_n() %>% 
+  #gtsummary::add_glance_table() %>%
+  gtsummary::add_significance_stars() #%>%
+  gtsummary::tbl_summary()
+#gtsummary::add_q()
+
+gtsummary::tbl_regression(lm(sales ~ facebook, data = train.data))
+gtsummary::tbl_regression(lm(sales ~ newspaper, data = train.data))
+
+model <- lm(sales ~., data = train.data)
+gtsummary::tbl_regression(model)
+# Summarize the model
+summary(model)
+# Make predictions
+predictions <- model %>% predict(test.data)
+# Model performance
+# (a) Prediction error, RMSE
+RMSE(predictions, test.data$sales)
+# (b) R-square
+R2(predictions, test.data$sales)
+
+
+model <- lm(sales ~ youtube, data = train.data)
+summary(model)$coef
+
+newdata <- data.frame(youtube = c(0,  1000))
+model %>% predict(newdata)
+
+```
+
+multiple
+
+Multiple linear regression is an extension of simple linear regression for predicting an outcome variable (y) on the basis of multiple distinct predictor variables (x).
+
+For example, with three predictor variables (x), the prediction of y is expressed by the following equation: y = b0 + b1*x1 + b2*x2 + b3*x3
+
+The regression beta coefficients measure the association between each predictor variable and the outcome. “b_j” can be interpreted as the average effect on y of a one unit increase in “x_j”, holding all other predictors fixed.
+
+In this section, we’ll build a multiple regression model to predict sales based on the budget invested in three advertising medias: youtube, facebook and newspaper. The formula is as follow: sales = b0 + b1*youtube + b2*facebook + b3*newspaper
+
+You can compute the multiple regression model coefficients in R as follow:
+
+```{r}
+model <- lm(sales ~ youtube + facebook + newspaper, 
+            data = train.data)
+summary(model)$coef
+
+# Note that, if you have many predictor variables in your data, you can simply include all the available variables in the model using ~.:
+
+model <- lm(sales ~., data = train.data)
+summary(model)$coef
+
+
+# New advertising budgets
+newdata <- data.frame(
+  youtube = 2000, facebook = 1000,
+  newspaper = 1000
+)
+# Predict sales values
+model %>% predict(newdata)
+
+```
+Interpretation
+
+Before using a model for predictions, you need to assess the statistical significance of the model. This can be easily checked by displaying the statistical summary of the model.
+Model summary
+
+Display the statistical summary of the model as follow:
+
+
+```{r}
+summary(model)
+```
+The summary outputs shows 6 components, including:
+
+    Call. Shows the function call used to compute the regression model.
+    Residuals. Provide a quick view of the distribution of the residuals, which by definition have a mean zero. Therefore, the median should not be far from zero, and the minimum and maximum should be roughly equal in absolute value.
+    Coefficients. Shows the regression beta coefficients and their statistical significance. Predictor variables, that are significantly associated to the outcome variable, are marked by stars.
+    Residual standard error (RSE), R-squared (R2) and the F-statistic are metrics that are used to check how well the model fits to our data.
+
+
+Coefficients significance
+
+To see which predictor variables are significant, you can examine the coefficients table, which shows the estimate of regression beta coefficients and the associated t-statistic p-values.
+
+```{r}
+summary(model)$coef
+```
+
+For a given the predictor, the t-statistic evaluates whether or not there is significant association between the predictor and the outcome variable, that is whether the beta coefficient of the predictor is significantly different from zero.
+
+It can be seen that, changing in youtube and facebook advertising budget are significantly associated to changes in sales while changes in newspaper budget is not significantly associated with sales.
+
+For a given predictor variable, the coefficient (b) can be interpreted as the average effect on y of a one unit increase in predictor, holding all other predictors fixed.
+
+For example, for a fixed amount of youtube and newspaper advertising budget, spending an additional 1 000 dollars on facebook advertising leads to an increase in sales by approximately 0.1885*1000 = 189 sale units, on average.
+
+The youtube coefficient suggests that for every 1 000 dollars increase in youtube advertising budget, holding all other predictors constant, we can expect an increase of 0.045*1000 = 45 sales units, on average.
+
+We found that newspaper is not significant in the multiple regression model. This means that, for a fixed amount of youtube and newspaper advertising budget, changes in the newspaper advertising budget will not significantly affect sales units.
+
+As the newspaper variable is not significant, it is possible to remove it from the model:
+
+
+```{r}
+model <- lm(sales ~ youtube + facebook, data = train.data)
+summary(model)
+
+gtsummary::tbl_regression(model)
+```
+
+
+
+
+
+Ordinary Least Squares (OLS) regression is a linear model that seeks to find a set of coefficients for a line/hyper-plane that minimise the sum of the squared errors.
+
+```{r}
+#datasets::longley
+data(longley)
+# fit model
+fit <- lm(Employed~., longley)
+# summarize the fit
+summary(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+
+```
+
+Stepwize Linear Regression
+
+Stepwise Linear Regression is a method that makes use of linear regression to discover which subset of attributes in the dataset result in the best performing model. It is step-wise because each iteration of the method makes a change to the set of attributes and creates a model to evaluate the performance of the set.
+
+```{r}
+data(longley)
+# fit model
+base <- lm(Employed~., longley)
+# summarize the fit
+summary(base)
+# perform step-wise feature selection
+fit <- step(base)
+# summarize the selected model
+summary(fit)
+# make predictions
+predictions <- predict(fit, longley)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+
+Principal Component Regression
+
+Principal Component Regression (PCR) creates a linear regression model using the outputs of a Principal Component Analysis (PCA) to estimate the coefficients of the model. PCR is useful when the data has highly correlated predictors.
+
+```{r}
+#library(pls)
+# load data
+data(longley)
+# fit model
+fit <- pls::pcr(Employed~., data=longley, validation="CV")
+# summarize the fit
+summary(fit)
+# make predictions
+predictions <- predict(fit, longley, ncomp=6)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+
+Partial Least Squares Regression
+
+Partial Least Squares (PLS) Regression creates a linear model of the data in a transformed projection of problem space. Like PCR, PLS is appropriate for data with highly-correlated predictors.
+
+```{r}
+data(longley)
+# fit model
+fit <- pls::plsr(Employed~., data=longley, validation="CV")
+# summarize the fit
+summary(fit)
+# make predictions
+predictions <- predict(fit, longley, ncomp=6)
+# summarize accuracy
+mse <- mean((longley$Employed - predictions)^2)
+print(mse)
+```
+
+
+
+
+https://towardsdatascience.com/machine-learning-with-r-a-complete-guide-to-linear-regression-6fad412f778
+
+
+```{r}
+# Generate synthetic data with a clear linear relationship
+x <- seq(from = 1, to = 300)
+y <- rnorm(n = 300, mean = x + 2, sd = 25)
+
+# Convert to dataframe
+simple_lr_data <- data.frame(x, y)
+
+# Visualize as scatter plot
+ggplot2::ggplot(data = simple_lr_data, 
+                ggplot2::aes(x = x, y = y)) +
+  ggplot2::geom_point(size = 3, color = "#0099f9") +
+  ggplot2::theme_classic() +
+  ggplot2::labs(
+    title = "Dataset for simple linear regression",
+    subtitle = "A clear linear relationship is visible"
+  )
+
+
+```
+The coefficients for Beta0 and Beta1 are obtained first, and then wrapped into a simple_lr_predict() function that implements the line equation.
+
+The predictions can then be obtained by applying the simple_lr_predict() function to the vector X – they should all line on a single straight line. Finally, input data and predictions are visualized with the ggplot2package:
+
+```{r}
+# Calculate coefficients
+b1 <- (sum((x - mean(x)) * (y - mean(y)))) / (sum((x - mean(x))^2))
+b0 <- mean(y) - b1 * mean(x)
+
+# Define function for generating predictions
+simple_lr_predict <- function(x) {
+  return(b0 + b1 * x)
+}
+
+# Apply simple_lr_predict() to input data
+simple_lr_predictions <- sapply(x, simple_lr_predict)
+simple_lr_data$yhat <- simple_lr_predictions
+
+# Visualize input data and the best fit line
+ggplot2::ggplot(data = simple_lr_data, 
+                ggplot2::aes(x = x, y = y)) +
+  ggplot2::geom_point(size = 3, color = "#0099f9") +
+  ggplot2::geom_line(aes(x = x, y = yhat), size = 2) +
+  ggplot2::theme_classic() +
+  ggplot2::labs(
+    title = "Applying simple linear regression to data",
+    subtitle = "Black line = best fit line"
+  )
+```
+
+```{r}
+library(reshape)
+
+# Load in th dataset
+#df <- read.csv("Fish.csv")
+df <- mtcars
+
+# Remove target variable
+temp_df <- subset(df, select = -c(wt))
+melt_df <- melt(temp_df)
+head(melt_df)
+
+# Draw boxplot
+boxplot(data = melt_df, value ~ variable)
+```
+A degree of skew seems to be present in all input variables, and the first three contain a couple of outliers. We’ll keep this article strictly machine learning based, so we won’t do any data preparation and cleaning.
+
+Train/test split is the obvious next step once you’re done with preparation. The caTools package is the perfect candidate for the job.
+
+You can train the model on the training set after the split. R has the lm function built-in, and it is used to train linear models. Inside the lm function, you’ll need to write the target variable on the left and input features on the right, separated by the ~ sign. If you put a dot instead of feature names, it means you want to train the model on all features.
+
+After the model is trained, you can call the summary() function to see how well it performed on the training set. Here’s a code snippet for everything discussed so far:
+
+
+
+
+```{r}
+library()
+set.seed(42)
+
+# Train/Test split in 70:30 ratio
+sample_split <- caTools::sample.split(Y = df$wt, SplitRatio = 0.7)
+
+train_set <- subset(x = df, sample_split == TRUE)
+test_set <- subset(x = df, sample_split == FALSE)
+
+head(train_set)
+head(test_set)
+# Fit the model and obtain summary
+model <- lm(wt ~ ., data = train_set)
+summary(model)
+
+
+
+# Get residuals
+lm_residuals <- as.data.frame(residuals(model))
+
+# Visualize residuals
+ggplot2::ggplot(lm_residuals, ggplot2::aes(residuals(model))) +
+  ggplot2::geom_histogram(fill = "#0099f9", color = "black") +
+  ggplot2::theme_classic() +
+  ggplot2::labs(title = "Residuals plot")
+
+```
+
+As you can see, there’s a bit of skew present due to a large error on the far right.
+
+And now it’s time to make predictions on the test set. You can use the predict() function to apply the model to the test set. As an additional step, you can combine actual values and predictions into a single data frame, just so the evaluation becomes easier. Here’s how:
+
+```{r}
+eval = predict(model)
+eval$
+# Get residuals
+lm_residuals <- as.data.frame(residuals(model))
+
+
+```
+
+If you want a more concrete way of evaluating your regression models, look no further than RMSE (Root Mean Squared Error). This metric will inform you how wrong your model is on average. In this case, it reports back the average number of weight units the model is wrong:
+
+```{r}
+# Evaluate model
+
+mse  <- mean((eval$Y - eval$Yhat)^2)
+rmse <- sqrt(mse)
+```
+
+
+
+
+
+
+
+https://www.upgrad.com/blog/types-of-regression-models-in-machine-learning/
+
+Table of Contents
+
+    Introduction
+    What is Regression Analysis?
+    Types of Regression Analysis Techniques
+        1. Linear Regression
+        2. Logistic Regression
+        3. Ridge Regression
+        4. Lasso Regression
+        5. Polynomial Regression
+        6. Bayesian Linear Regression
+    Conclusion
+        What are the different types of regression?
+        What is regression? What are the types of regressions?
+        When should I use regression analysis?
+        
+        
+https://www.geeksforgeeks.org/machine-learning-with-r/
+
+Supervised learning
+
+Supervised learning, as the name indicates, has the presence of a supervisor as a teacher. Basically supervised learning is when we teach or train the machine using data that is well labeled. Which means some data is already tagged with the correct answer. After that, the machine is provided with a new set of examples(data) so that the supervised learning algorithm analyses the training data(set of training examples) and produces a correct outcome from labeled data. 
+
+For instance, suppose you are given a basket filled with different kinds of fruits. Now the first step is to train the machine with all different fruits one by one like this: 
+
+    If the shape of the object is rounded and has a depression at the top, is red in color, then it will be labeled as –Apple.
+    If the shape of the object is a long curving cylinder having Green-Yellow color, then it will be labeled as –Banana. 
+     
+
+Now suppose after training the data, you have given a new separate fruit, say Banana from the basket, and asked to identify it. 
+
+Since the machine has already learned the things from previous data and this time has to use it wisely. It will first classify the fruit with its shape and color and would confirm the fruit name as BANANA and put it in the Banana category. Thus the machine learns the things from training data(basket containing fruits) and then applies the knowledge to test data(new fruit). 
+
+Supervised learning is classified into two categories of algorithms: 
+ 
+
+    Classification: A classification problem is when the output variable is a category, such as “Red” or “blue” or “disease” and “no disease”.
+    Regression: A regression problem is when the output variable is a real value, such as “dollars” or “weight”.
+
+Supervised learning deals with or learns with “labeled” data. This implies that some data is already tagged with the correct answer.
+
+Types:-
+
+    Regression
+    Logistic Regression
+    Classification
+    Naive Bayes Classifiers
+    K-NN (k nearest neighbors)
+    Decision Trees
+    Support Vector Machine
+    
+Advantages:-
+
+    Supervised learning allows collecting data and produces data output from previous experiences.
+    Helps to optimize performance criteria with the help of experience.
+    Supervised machine learning helps to solve various types of real-world computation problems.
+
+Disadvantages:-
+
+    Classifying big data can be challenging.
+    Training for supervised learning needs a lot of computation time. So, it requires a lot of time.
+Unsupervised learning
+
+Unsupervised learning is the training of a machine using information that is neither classified nor labeled and allowing the algorithm to act on that information without guidance. Here the task of the machine is to group unsorted information according to similarities, patterns, and differences without any prior training of data. 
+
+Unlike supervised learning, no teacher is provided that means no training will be given to the machine. Therefore the machine is restricted to find the hidden structure in unlabeled data by itself. 
+For instance, suppose it is given an image having both dogs and cats which it has never seen. 
+
+Thus the machine has no idea about the features of dogs and cats so we can’t categorize it as ‘dogs and cats ‘. But it can categorize them according to their similarities, patterns, and differences, i.e., we can easily categorize the above picture into two parts. The first may contain all pics having dogs in them and the second part may contain all pics having cats in them. Here you didn’t learn anything before, which means no training data or examples. 
+
+ It allows the model to work on its own to discover patterns and information that was previously undetected. It mainly deals with unlabelled data.
+
+Unsupervised learning is classified into two categories of algorithms: 
+ 
+
+    Clustering: A clustering problem is where you want to discover the inherent groupings in the data, such as grouping customers by purchasing behavior.
+    Association: An association rule learning problem is where you want to discover rules that describe large portions of your data, such as people that buy X also tend to buy Y.
+    
+Types of Unsupervised Learning:-
+
+Clustering
+
+    Exclusive (partitioning)
+    Agglomerative
+    Overlapping
+    Probabilistic
+
+Clustering Types:-
+
+    Hierarchical clustering
+    K-means clustering
+    Principal Component Analysis
+    Singular Value Decomposition
+    Independent Component Analysis
+
+##Part A##
+#General Questions#
+
+1. **QUESTION:** Describe the purpose of using bivariate-linear regression. Include in your answer the type of data needed for linear regression analyses.
+
+**ANSWER:**
+
+
+
+
+2. **QUESTION:** Identify the two coefficient values that are needed for a regression analysis and describe what they are.
+
+**ANSWER:**
+
+
+
+
+3. **QUESTION:** The regression model is compared to another model, a simpler one. Identify what that model is and describe what the error in that model represents.  
+
+**ANSWER:**
+
+
+
+4. **QUESTION:** If the SStotal is 2000 and the SSresidual are 1000. What is the proportion of variance in the criterion is accounted for by the predictor? 
+
+**ANSWER:**
+
+
+
+
+##Part B##
+
+##Before you begin##
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the ANSWER message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+Besides lecture notes, some videos help with understanding R output. I recommend watching:
+- https://www.youtube.com/watch?v=eTZ4VUZHzxw
+- https://www.youtube.com/watch?v=q1RD5ECsSB0
+
+**REMOVE http://www.montana.edu/screel/Webpages/conservation%20biology/Interpreting%20Regression%20Coefficients.html#/10**
+
+##1. Installing and using libraries in RStudio##
+
+1.1. Use the RStudio interface to install packages/libraries. Go to the Tools option and select Install Packages. Type the package name(s) correctly using the proper letter casing. Also, make sure that you check the box to Install Dependencies. Do not install with code.
+
+- car
+- lattice
+- QuantPsyc
+- Mac users, most of you should already have XQuartz installed from the first R class, but please make sure that you have it downloaded and installed in your Applications folder. See the original download instruction file if you need help.  
+- Did you still have problems with the ncvTest() or durbinWatsonTest() functions from the car library from the last exercise? If so, the errors did not resolve themselves by installing a new version of R (3.2.3), so do the following. Remove the # from the code block below and execute the code. After doing so, add back the # so the code won't execute when you knit your file. Please let me know if this solved your error with the ncvTest() and/or durbinWatsonTest() functions. 
+
+```{r, echo=FALSE}
+#install.packages("nlme", repos="http://cran.r-project.org")
+```
+
+
+
+1.2. New functions used for this assignment: 
+
+- durbinWatsonTest() for testing assumptions; car library 
+- lm() for evaluating linear models; built-in library
+- lm.beta() for calculating standarized regression coefficients; QuantPsyc library
+- ncvTest() for testing assumptions; car library 
+- par() for changing graphing parameters; built-in library
+- plot() for examining lm regression plots; built-in library
+- round() for rounding values; built-in library
+- summary() for obtaining a summary of the model components
+- shapiro.test() for testing normality; built-in stats library
+- sqrt() for transforming data; built-in library
+
+
+## 2. Loading libraries ##
+Use the library() function to load the following libraries: car, lattice, QuantPsyc
+
+**ANSWER:** 
+```{r, message = FALSE, warning = FALSE}
+
+```
+
+## 3. Checking your working directory ##
+Always make sure that your working directory points to Psyc109 on your desktop. 
+```{r}
+#getwd()
+#setwd("C:/users/gcook/desktop/Psyc109/")
+
+```
+
+##Part B##
+##1. General Linear Regression##
+
+1.1. Linear regression is an approach for modeling the linear relationship between a criterion y and one or more predictor/explanatory variables (or independent variables). 
+
+1.2. There are two common forms of *linear regression*:
+
+1.2.1. *Simple-linear regression* is used when the goal is to use one predictor variable in the linear regression equation to predict a criterion variable (Ex: formula: criterion  ~ predictor). This will produce a linear model of your criterion as-a-function-of your predictor. 
+
+1.2.2. *Multiple-linear regression* is used to indicate there is more than one predictor in the linear regression equation (Ex: formula: criterion ~ predictor1 + predictor2 + predictor3).
+
+Both of these forms of regression analysis have assumptions that should be met in order to interpret the data. The assumptions are addressed in sections below.
+
+
+##2. Simple (bivariate) Linear Regression##
+
+2.1. Understanding Simple Bivariate Linear Regression.
+
+For a simple-linear regression there is:
+
+  - One predictor in the equation
+  
+  - An unstandardized regression coefficient that represents 
+    the marginal relationship between the criterion and the 
+    predictor variable
+    
+  - The standardized regression coefficient equals is the correlation value
+    
+2.2. Reading in the data
+
+One of the first steps in completing a simple linear regression is to plot your data on a scatter plot. For that we are going to need to bring some data into our workspace. We will read in a data file named "Album Sales.csv" and assign it to a data frame object named ALBUM. Examine the structure once you are done. 
+
+```{r}
+ALBUM <- read.csv("Album Sales.csv") # Read in csv file and assign as data frame object
+str(ALBUM) 
+```
+
+
+As usual, the first thing to do with any new data set is to view the data frame. You will notice that the str() of the data frame indicates that there are 200 observations of data (rows) and 3 variables (columns). The varibles/columns are:
+
+- *Id* represents the unique Id for a rock band album 
+- *Sales* represents album sales (in thousands of pounds)
+- *Ads* represents the amount of money spent on the advertising budget (in thousands of pounds)
+- *Airplay* represents the number of times an album is played on the radio during the week prior to release
+- *Attract* represents the attractiveness of the band members [on a scale from 0 (not attractive at all to 10 (most attractive as possible)]
+
+
+```{r}
+View(ALBUM)
+```
+
+
+
+##3. Producing a correlation matrix## 
+
+3.1. As we have done before, you can specify all of the variable pairs you want to correlate, but if there are multiple pairs, there is an easier way than doing this repeatedly for each x-y pair. You can simply use the cor() function on the ALBUM object itself (e.g., cor(ALBUM)) rather than specify the variable names as you have done before (e.g., cor(ALBUM$sales, ALBUM$Ads)).
+
+```{r}
+cor(ALBUM)
+```
+
+3.2. However, the decimal points in the correlation matrix are a little busy. We can use the built-in round() function to round the results by specifying the number of decimals to round to. With R, you can nest functions inside functions, so we will nest cor() inside round() in order to round the correlation values for all the variable pairs. Remember, cor() using Pearson's r by default.
+
+```{r}
+round(cor(ALBUM), 3)  # rounding makes it easier to look at
+
+round(cor(ALBUM[, -1]), 3)  # because ID is meaningless for our correlations, we can remove column 1 from the ALBUM object because ID is the third column in the ALBUM data frame
+```
+
+
+##4. Define a simple linear model##
+
+4.1. We will define a linear model using the built-in lm() function by specifying arguments of the function. The general form of the regression model is as follows:
+
+Regression model: Y-hat = b0 + b1X
+
+
+Or in R, this is:
+
+mymodel <- lm(formula = criterion ~ predictor,
+              data = mydataframe, 
+              na.action = some action)*
+
+- *mymodel* is an object that contains information about the linear model; summary() will be useful for inspecting the model
+- *criterion* is the predicted variable 
+- *predictor(s)* are the variable used to predict scores on the criterion
+- *data* is the name of the data frame object
+- *na.action* (optional) allows you to specify a complete data set if you wish to drop out anyone with missing values; this in an alternative to subetting when using regression models
+
+
+4.2. You can specify the predictor and the criterion, "y as a function of x", as well as the data frame. 
+
+```{r}
+# Using the dataframe$variable approach
+ALBUM.model <- lm(formula = ALBUM$Sales ~ ALBUM$Ads)
+
+# Specifying the data object makes things easier
+ALBUM.model <- lm(formula = Sales ~ Ads, data = ALBUM)
+
+# If there are missing values, we can remove them (good idea to add this)
+ALBUM.model <- lm(formula = Sales ~ Ads, data = ALBUM, na.action = na.exclude)
+```
+
+
+##5. Examining and interpreting the simple bivariate linear model##
+
+5.1. If you only wanted to examine the y-intercept (b0) and the regression coefficient (b1), you can simply ask to see them by calling the model object.
+
+```{r}
+ALBUM.model  # Displays only the coefficients from the model
+```
+
+Or you can summarize other details of the linear model by using the built-in summary() function. 
+
+```{r}
+summary(ALBUM.model)  # provides other model elements
+```
+
+5.2. Interpreting Overall Model Fit
+
+5.2.1. The *Multiple R-squared* represents the proportion of variance in the criterion that is accounter for by the predictor. The square root of this is Pearson's correlation coefficient. Because there is only one predictor, this multiple R-squared is really just r squared. Because the estimates are based on samples, they are not perfect for making inferences about the populations you really care about. The adjusted R-squared is adjusted for shrinkage, or loss of predictive power that occurs when using sample data to predict population data; the more error in the regression model (e.g., residuals), the more the adjusted R-squared will differ from the unadjusted R-squared. 
+
+5.2.2. The *F-statistic* represents the ANOVA test value (F value) for the ratio test of the model. A statistically significant result indicates that the regression model explains the data better than model based on the mean of album sales (mean-based model). People often compare the *p*-value to alpha to decide if the regression model fits the data better than the mean-based model. This ANOVA test only tells you whether the overall model fits the data; it does not examine the components of the model (e.g., b0, b1, etc.).
+
+5.3. Interpreting Specific Model Parameters (coefficents part of the output table)
+
+The coeffiencts report is displayed in 2 rows and 4 columns. 
+
+5.3.1. The *Estimate* column displays the two estimated coeffient values y-intercept (b0) and the regression coefficient (b1). The *Std. Error* column displays the error in estimating the coefficients. This error indicates the amount of error in coefficients; small error is good and would indicate that b0 and b1 would not vary as much from sample to sample. The *t-value* column displays the value of the *t*-statistic, which simply tests whether the coeffienct differs from 0 (H0: t = 0), which can be inferred also from examining the *Pr(>|t|)* column which provides the *p*-value for the *t*-test.
+
+   5.3.1.1 The first row corresponds to the y-intercept (b0). The y-intercept predicts the 
+   number of sales when NO money (e.g., X = 0) is spent on advertisements. A *p*-value less than 
+   or equal to alpha may indicate that the y-intercept differs from 0. Mathematically, b0 can be 
+   less than 0. 
+
+   5.3.1.2. The second row corresponds to the regression coefficient/slope (b1). This 
+   represents the increase or decrease (depending on whether the correlation is positive or 
+   negative) in the number of album sales for each unit change in money spent on advertising. 
+   A *p*-value equal to or less than alpha means the slope differs from 0. When there are 
+   multiple predictor variables, there will be slopes corresponding the each predictor and 
+   the criterion. 
+   
+
+##6. Examine Model Assumptions##
+
+6.1. Model assumptions can and should be inspected both visually and statistically. Passing the model to the built-in plot() function will return a set of plots for inspecting the model assumptions. Other specialized functions from other libraries can also help inspect a model.
+
+*Assumptions and things to look for:*
+
+6.1.1. The predictor(s) must be either quantitative or categorical (2 categories); the criterion must be quantitative and continuous. The criterion should also be unbounded or unconstrained; for example if a scale that ranges from 1 to 9 is used to measure the criterion and if responses only fall between say 3 and 7, the data are constrained (bounded). An obvious solution is to check the range for the criterion using the built-in range() function. 
+
+```{r}
+range(ALBUM$Sales)
+```
+
+
+6.1.2. Predictors should not be restricted and not have variances that are near 0. Range restriction in general is often problematic with regression (leading to attenuated correlations and reduce predictive ability). We can check variance. It's often good to determine if your data range is similar to previous research. If you have a much smaller range, you should investigate reasons why. Otherwise, your correlations and regression coefficients may not map on well with previous research.
+
+```{r}
+mean(ALBUM$Ads, na.rm = TRUE)
+range(ALBUM$Ads)
+var(ALBUM$Ads, na.rm = TRUE) # does not look near 0
+sd(ALBUM$Ads, na.rm = TRUE)  # does not look near 0, so we have variability
+
+library(lattice)  # we need this for histogram()
+histogram(~ ALBUM$Ads)  # notice that the predictor is skewed positively
+```
+
+
+The predictor (advertisements) appears to be skewed positively. We can test whether the shape statistically differs from a normal distribution by using the Shapiro-Wilk test. The shapiro.test() function is part of the built-in stats library so you don't need to load anything special. The D'Agostino test will test for skewness only, not normality, but is part of the moments library so you would need to load it if you wanted to test skewness specifically. The Shapiro-Wilk test value is W (kind of like the z-test value is Z). In order to determine if the distribution is not normal in shape, people often compare the *p*-value that corresponds to Shapiro-Wilk test value (W) to your desired alpha. In this example, we can see that our distribution of money spent on advertisements is not normal if alpha = .05. 
+
+
+```{r}
+shapiro.test(ALBUM$Ads)
+```
+
+When you have skewness, you should deal address that problem. You can mathematically transform your data from raw values to another metric. However, you need to be careful when interpreting statistics using transformed data because you are no longer dealing with actual raw data. Although we will not deal with transformations much in this class, you can find some discussions online, for example at https://en.wikipedia.org/wiki/Power_transform and http://pareonline.net/getvn.asp?v=8&n=6
+
+For example, we can create a new variable in our data frame that represents the square root of the Ads variable. We will use the built-in sqrt() function. There are other transformations that can fix your data if this one doesn't work. We won't get into all of them here.
+
+```{r}
+ALBUM$Ads.sqrt <- sqrt(ALBUM$Ads)
+str(ALBUM)  # check the structure to make sure the variable is there.
+
+histogram(~ ALBUM$Ads.sqrt)  # looks better than before
+qqnorm(ALBUM$Ads.sqrt); qqline(ALBUM$Ads.sqrt)  # the tails of the distribution don't hug the identity line; could be a problem.
+
+shapiro.test(ALBUM$Ads.sqrt) # but these transformed data still have a distribution different from normal, see p-value
+```
+
+
+6.1.3. Using the plot() function on the model object that you created will produce model plots for examining the assumptions of the model. You can view each plot separately or produce a 2x2 chart that displays them together. However, grouping the plots will reduce their size for visual inspection. 
+
+```{r}
+par(mfrow = c(2,2))  # adjust the plots in order to plot the 4 graphs on one chart with 2 rows, 2 columns.
+plot(ALBUM.model)
+par(mfrow = c(1,1))  # return to 1 row, 1 column
+```
+
+
+6.1.4. The relationship between the criterion and the predictor(s) is linear rather than curvilinear. Plot #1 is the residual plot for which errors (y-axis)) plotted as a function of predicted/fitted values (x-axis); a straight horizontal line on this plot would indicate that the linearity assumption is met; ff a curvilinear model is better than a linear model, then the errors would not be distributed normally, but instead be greater in some parts of the plot than in others. 
+
+
+6.1.5 Homoscedasticity of the residuals. The variance in the residuals, or error in prediction, should be the same across the values of the prectors. Homoscedasticity is also referred to as constant variance. Non-constant variance in the residuals is referred to as heteroscedasticity. We can examine homoscedasticity visually and statistically.
+
+Plot #1 can also provide information about the variance in the residuals across levels of the predictor. Based on this example, you can see that there is more variability of the residuals (y-axis) on the left side of the plot than at the right side; thus the variability in residuals does not seem to be constant. If the variance is not constant, then we may have issues with residuals not being distributed normally (see next assumption).
+
+If we want to statisically test for constant variance, we can use the ncvTest() function from the car library (install if you haven't yet). The ncv stands for non-constant variance. We want constant variance. The ncvTest() function provides a Chi-Square test value and a corresponding *p*-value for the test. If p is less than or equal to alpha, you have evidence that that you have non-constant variance, or heteroscedasticity. Unfortunately, we have heteroscedasticity. 
+
+```{r}
+library(car)
+ncvTest(ALBUM.model) # the p-value is much lower than .05
+```
+
+
+6.1.6. Residuals (prediction errors) are distributed normally. If errors are random and the size of the prediction error does not depend on whether the score on the predictor is low or high, then those errors should be distributed normally. Plot #2 will provide detail about the normality of the residuals. Plot #2 is a quantile-quantile plot used to determine normality of errors; if points fall along the identity line, the errors are normally distributed. In this example, you can see that points on the ends of the distribution do not quite fall along the identify line. We could also test this assumption by using the sharipo.test() function on the residuals themselves. 
+
+We can take a look at a histogram or because the residuals are actually stored as part of the information returned from running the lm() function, we can extract those residuals from the model object. Lukily, they are named appropriately as residuals. Remember, the model was ALBUM.model; the residuals do not depart from a normal distribution. 
+
+```{r}
+histogram(~ ALBUM.model$residuals) # take a look; looks fairly normal to the eye
+
+shapiro.test(ALBUM.model$residuals) # test for normality; p > alpha so the residuals do not depart far enough from normality to say we have violated this assumption.
+```
+
+
+6.1.7. No multicolinearity; predictors should not be strongly correlated with each other. When you have more than one predictor, you have to examine for multicolinearity. collinearity will mask the true relationship among variables. Having multicolinearity makes the beta values (y-intercept and slope) unreliable and untrustworthy when making inferences from samples to populations. Generally speaking, there will be more error in beta values for greater amounts of multicolinearity. There are other influences too, but we won't address them here. You should just know to determine if you meet this assumption. Because we only have one predictor in this example, we do not have to test for this assumption. 
+
+If you had multiple predictors, you would want to test for multicollinearity. One easy way to test this is to examine Variance Inflation Factors (VIFs) using the vif() function from the car library. The function returns a VIF value for each predictor. If the square root of the VIF is greater than 2, this predictor would be eliminated from your model. 
+
+An example if you have multiple predictors:
+```{r}
+# vif(mymodel) # variance inflation factors for the model
+# sqrt(vif(mymodel)) # the square root of them
+```
+
+6.1.7. Independence of errors. For any two obervations in the data, the errors are not related. This is usually not a problem as long as your sample is selected at random and you don't allow people to participate in your study, allow them to talk to other participants, etc. in ways that affect how two people (or objects) respond. This independence assumption can be tested using the Durbin-Watson test using the durbinWatsonTest() function in the car library. The Durbin-Watson test will produce a D-W statistic value that will be large if independence is violated (and you have dependence). Compare p to alpha. In this example, we do not see violations of independence, which is good.
+
+```{r}
+durbinWatsonTest(ALBUM.model)
+```
+
+
+
+##7. Determining Outliers##
+
+When building a linear model, it is always important to determine if there are any outliers in your data. Any interpretation of your regression model is useful to the extent that you don't have any outliers in your data set that inlfuence your correlation or the predictive power either by making it stronger than it actually is or weakening it. 
+
+7.1. Cook's Distance measure is easy to use and actually tests how each data point affect your regression model by providing a Cook's distance value. It combines the information of leverage (how a point changes your slope) and residual of the observation (the prediction error). If a data point influences your model, it will let you know. We can flag data points as outliers (which would would want to remove) if they have large Cook's D values. 
+
+7.2. We will be using Cook's distance to determine the influence that a data point has on your linear model. Cook and Weisberg (1982) suggest that Cook's D values > 1 are outliers. The code for doing so is a little complicated, but it will plot Cook's D values for the model as a function of rows in the data frame and it flag the cases/rows with the highest Cook's D values. Just because they are flagged, this does not mean you need to remove these rows from the data frame.  
+
+
+```{r}
+plot(ALBUM.model, which = 4, cook.levels = cutoff) # check to see if D values are greater than 1
+```
+
+
+7.3. BONUS: The influencePlot() function from the car library can be useful to flag individual influence points. The plot displays *hat values* or *leverage* points. The size of the circle in the plot is related to the amount that the data point influences (or has leverage on your model). If you specify the id.method argument as "noteworthy" you can find out which row in your data frame is of concern because the row number will appear by a circle. You do not want to include data points that influence your model. You can remove them from your data set by creating a subset data frame to manipulate.    
+
+Leverage or hat values near 0 indicate little or no influence on your model, whereas those near 1 indicate complete influence. Belsley et al. (1980) suggest that values greater than 2 times the average are typically problematic. 
+
+```{r}
+influencePlot(ALBUM.model, 
+              id.method = "noteworthy", 
+              main = "Influence Plot", 
+              sub = "Circle size is proportial to Cook's Distance")
+```
+
+
+In this graph the x-axis refers to the data point while the y-axis refers to cook's distance, telling us how influential each data point is. It may appear data points 6 and 7 are the most influential but the y-axis is very small with the highest data point being slightly above .6 cooks distance. We can determine that our original data set did not have any extremely influence single data points. If any data points are above a 1 on Cook's distance, it is up to you to remove them using previous methods of removing outliers. 
+
+
+##8. Multiple Linear Regression##
+
+Multiple regression focuses on using more than one predictor to predict a criterion. Because predictors need to be correlated with the criterion to be useful, examining the correlations of the variables is useful. 
+
+```{r}
+round(cor(ALBUM[, -1]), 3)  # remove column 1 of ALBUM because ID is the first column in the data frame
+```
+
+8.1. **QUESTION:** What is the correlation value between Sales and Airplay?
+
+*ANSWER:* 
+
+
+8.2. **QUESTION:** Use the cor.test() function to test whether the correlation between Sales and Airplay is statistically different from 0; use alpha = .05. Provide the *p*-value in your answer. 
+
+*ANSWER:* 
+
+
+8.3. **QUESTION:** Use the cor.test() function to examine the correlations between the 3 predictors. Are any pairs of predictors correlated significantly?; use alpha = .05?
+
+*ANSWER:*
+
+```{r}
+ 
+```
+
+You might have notice that two predictors are correlated significantly. In order to determine if a predictor is problematic to your regression model, you would want to check for multicollinearity. 
+
+##9. Define a multiple-regression model##
+
+9.1. There are different types of models to create, but the focus will be on simple additive models. Taking a *hierarchical regression* approach, create the model by entering predictors in the order of importance or theoretical contribution. 
+
+mymodel <- lm(formula = criterion ~ predictor1 + predictor3 + predictor3, 
+              data = mydataframe, 
+              na.action = some action)
+              
+
+9.2. Specify the multiple-regression model using multiple predictors. Use the lm() function to build a linear model to predict album sales from Ads, Airplay, and Attraction of band members and name the regression model ALBUM.model2 so that you can distinguish this from the bivariate model.
+
+```{r}
+
+```
+
+9.3. **QUESTION:** Calculate Cook's D for the model to determine if there are any outliers that will influence model. Replace mymodel in the code below with the model object you just created. 
+
+```{r}
+plot(mymodel, which = 4, cook.levels = cutoff) 
+```
+
+
+9.4. Obtain a summary of the model using the summary() function.
+
+```{r}
+ 
+```
+
+**QUESTION:** Use the F-statisic and the *p*-value to help determine whether the model is statistically better than a mean-based model. Be careful with reading the scientific notation.
+
+*ANSWER:*  
+
+
+
+**QUESTION:** What proportion of the variance in Sales does the model account for? Is this greater than was accounted for by the simple model?
+
+*ANSWER:*  
+
+
+
+**QUESTION:** Are the regression coefficients (bs, slopes) for the 3 predictors significantly different from a slope of 0?
+
+*ANSWER:*  
+
+
+
+**QUESTION:** Which predictor has the steepest standardized slope value? 
+
+*ANSWER:*  
+
+
+
+9.5. Standardized beta coefficients adjust the slope estimate as a function of the standard error of the estimate. This is one way to compare the regression coefficients of different predictors. The lm.beta() function from the QuantPsyc library will standarize the values in order to compare them easily. Here is an example:
+
+```{r}
+library(QuantPsyc)
+ALBUM.model2.betas <- lm.beta(ALBUM.model2)  # assign the standardized betas to an object 
+ALBUM.model2.betas # take a look at the object to compare the betas
+```
+
+**QUESTION:** Now that the slopes have been standarized, you can examine the change in the criterion for each standard deviation change in each predictor. Which predictor has the steepest standardized slope value (biggest bang for your buck)? 
+
+*ANSWER:*  
+
+
+
+9.6. Use the plot() function to generate the diagnostic plots for examining the model. 
+
+```{r}
+
+```
+
+
+
+**QUESTION:** Based on that plot, does the model appear to be a linear model? Explain how you arrived at that decision. 
+
+
+
+
+9.7. **QUESTION:**  Use the appropriate function to test for the homoscedasticity/constant variance assumption. Is the assumption met? Why or why not?
+
+```{r}
+
+```
+
+
+9.8. **QUESTION:** Use the appropriate function to test to determine whether the residuals of the model are distributed normally.
+
+```{r}
+
+```
+
+9.9. **QUESTION:**  Use the appropriate function to test for independence of errors. Is the assumption met? Why or why not?
+
+```{r}
+
+```

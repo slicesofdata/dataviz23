@@ -1,0 +1,35 @@
+---
+title: "slide page"
+author: "Gabriel Cook"
+date: "`r Sys.Date()`"
+format:
+  html:
+    theme: cosmo
+    css: css/styles.scss
+    fontcolor: black
+    toc: true
+#output: kjhslides::kjh_local_slides_reader
+editor_options: 
+  chunk_output_type: console
+---
+
+## Loading Libraries
+
+We need a few libraries for file management, data frame manipulation, and plotting.
+
+```{r packages, include=T}
+#library(flipbookr)
+library(here)
+library(tidyverse)
+```
+
+## New
+
+Notes
+
+## Code
+
+``` R
+{r}
+2 + 3
+```

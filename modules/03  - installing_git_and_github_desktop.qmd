@@ -1,0 +1,40 @@
+---
+title: "**Installing Git & GitHub Desktop**"
+author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+#order: 3
+
+---
+
+```{r, include = FALSE}
+#knitr::opts_chunk$set(
+#  collapse = TRUE,
+#  comment = "#>"
+#)
+```
+
+## **Read**
+
+Read the intro to R and RStudio chapter from the textbook.
+
+<https://psyteachr.github.io/ads-v2/01-intro.html>
+
+
+
+## **Do**
+
+- Create a GitHub account
+- Install Git
+- Configure Git with RStudio
+
+## Additional resources
+
+### Github
+
+We will be use of Github to backup, store, and share your code with me and your collaborators. 
+
+We will troubleshoot Github challenges  both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it's rather advanced. 
+
+<https://happygitwithr.com> (updated reguarly)
+

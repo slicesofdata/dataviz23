@@ -1,0 +1,739 @@
+---
+title: "Stroop Data"
+author: "gcook"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+getwd()
+here::here()
+?here::i_am
+#n = c("0dat1", "0dat2")
+#lapply(n[!n %in% dir()], dir.create)
+
+#path.expand("~/foo")
+mkdir()
+
+```
+
+
+```{r}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out before knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+```{r}
+# Class Groups
+groups <- data.frame(group = c("Catherine", "Ming", "Rebecca",
+                               "Janey", "Maria Jose", "Jenna",
+                               "Natasha", "Brian", "Kayleah",
+                               "Other"),
+                     low  = c(1001,	1101,	1201,	1301,	1401,
+                              1501,	1701,	1801,	1901, 2001),
+                     high = c(1006,	1106,	1206,	1306,	1406,
+                              1506,	1706,	1806,	1906, 2004)
+)
+
+
+cog_groups <- data.frame(
+  names = c("Rachel", "Ishaaq", "Lucy", "Rebecca", "Rhen", "Huei",
+            "Lucas", "Jose", "Minh", "Michael", "Dash", "Lauren",
+            "Aleeza", "Hope", "Sharon", "Anna", "Paige"),
+  id = c(20269796,50440843,30367485,30373052,50446251,50446612,30373683,30373400,50451542,
+         50451808,10358535,30367966,30383701,10370387,50459376,30373511,10362933)
+)
+
+cog_rename <- data.frame(
+  old = c(2001, 2002, 2003, 2004), 
+  new = c(30373511, 10370387, 30367485, 50451542))
+
+```
+
+
+```{r}
+# Read all the data files
+file_paths <- c("GCDS_GeneralSurveyOct11.csv")
+
+
+# a list with them all
+dat_list <- vector(mode = 'list', length = length(file_paths))
+
+# assign names to list
+names(dat_list) <- file_paths #c("GENERAL") #, "A", "B", "C", "E")
+
+GENERAL <- readr::read_csv(
+    paste(data_dir, file_paths[1], sep = "/"))#[-c(1:2),]
+
+GENERAL.num    <- readr::read_csv(paste(data_dir, "GCDS22_11-15_numeric.csv", sep = "/"))
+GENERAL.choice <- readr::read_csv(paste(data_dir, "GCDS22_11-15_choice.csv", sep = "/"))
+
+# get the question labels
+questions.labels <- GENERAL[1,]   # assign row 1 to an object
+
+#view(questions.labels)  # what were the actual questions?
+
+# make new vars
+cleaned_variables <- questions.labels %>%
+  gsub("Enter the code provided to you. If you do not remember it, reach out to your leader before you continue.", "code", .) %>%
+  gsub("\\?", "", .) %>%
+  gsub("Do you tend to like games that are designed to include elements of: - ", "like games of ", .) %>% 
+  gsub("Games involve different types of game play or rules that make them different from one another. Tell us whether you like each of the following types of game play. If you do not know what a form of game play is based on the label, select \"Not familiar with\". - ", "MECH_", .) %>%
+  gsub("Games follow different themes. Tell us whether you like or dislike games involving or are about: - ", "CAT_", .) %>%
+  gsub("I enjoy a challenge/achieving the goals of a game.", "enjoy_challenge", .) %>%
+  gsub("I enjoy discovering the breadth of a game.", "enjoy_discovering", .) %>%
+  gsub("I enjoy fellowship and relationships with others that comes from a game.", "enjoy_fellowship", .) %>%
+  gsub("I enjoy competing with others and defeating them.", "enjoy_competing", .) %>%
+  gsub("Which of the following do you find most pleasurable about playing board games", "most_pleasurable", .) %>%
+  gsub("Tell us whether you find these characteristics about games to be pleasurable. - ", "pleasurable_", .) %>%
+  gsub("Would you describe yourself as someone who likes to play board games", "gamer", .) %>%
+  gsub("When you play a board game, what is the approximate duration of your preferred game play \\(e.g., 0:15 = 15 minutes\\)", "game_dur", .) %>%
+  gsub("For a typical year, approximately how frequently would you play board games", "play_frequency", .) %>%
+  gsub("In which year were you born", "dob", .) %>%
+  gsub("With which gender do you identify", "gender", .) %>%
+  gsub("For the imaginary world that games take me; imagining being someplace else or being someplace else.", "play_for_imaginary", .) %>%
+  gsub("For the dramatic unfolding of a sequence of events:", "play_for_drama", .) %>%
+  gsub("For the challenge:", "play_for_challenge", .) %>%
+  gsub("For friendship, cooperation, and community:", "play_for_community", .) %>%
+  gsub("To discover new things about game play:", "play_for_discovery", .) %>%
+  gsub("To express myself and to create things:", "play_for_creating", .) %>%
+  gsub("To leave the real world and escape into a new world with new rules and meaning:", "play_for_expression", .) %>%
+  gsub("&", "and", .) %>% 
+  gsub(",|'|\\(|\\)", "", .) %>%
+  gsub("/|-", "_", .) %>%
+  gsub(" ", "_", .) %>%
+  tolower(.)
+
+names(GENERAL.num) <- cleaned_variables
+names(GENERAL.choice) <- cleaned_variables
+
+GENERAL.num <- GENERAL.num %>%   
+  filter(., 
+         !row_number() %in% c(1,2),
+         code != "99999"
+         ) %>%
+  select(., -c(start_date:user_language, id))
+
+GENERAL.choice <- GENERAL.choice %>%   
+  filter(., 
+         !row_number() %in% c(1,2),
+         code != "99999"
+         ) %>%
+  select(., -c(start_date:user_language, id))
+
+view(GENERAL.choice, filter = "none")
+  
+
+VARS <- readr::read_csv(
+    paste(data_dir, file_paths[1], sep = "/"))[c(1),]
+
+VARS <- VARS %>% 
+  select(., -c("id")) %>%
+  rename(., id = code) %>% 
+  select(., -c(1:17)) #%>%
+
+names(VARS) <- tools::toTitleCase(tolower(names(VARS)))
+view(VARS)
+
+write.csv(VARS, paste(data_dir, "General_Survey_var_names.csv", 
+                      sep = "/"), row.names = F)
+#TACO <- readr::read_csv(paste(data_dir, file_paths[1], sep = "/"))[-2,]
+#LL <- readr::read_csv(paste(data_dir, file_paths[1], sep = "/"))[-2,]
+#CONDNAMES <- readr::read_csv(paste(data_dir, file_paths[1], sep = "/"))[-2,]
+#CHRONO <- readr::read_csv(paste(data_dir, file_paths[1], sep = "/"))[-2,]
+
+# read and assign to list
+#for (path in file_paths) {
+#  print(path)
+  #dat_list[path] ''
+  #dat_list[[path]] 
+  
+#  GENERAL <- readr::read_csv(
+#    paste(data_dir, path, sep = "/"))[-2,]
+#}
+
+#GENERAL    <- as.data.frame(dat_list[file_paths[1]])
+#GENERAL
+#TACO      <- dat_list[file_paths[2]]
+#LL        <- dat_list[file_paths[3]]
+#CODENAMES <- dat_list[file_paths[4]]
+#CHRONO    <- dat_list[file_paths[5]]
+
+GENERAL <- GENERAL %>% 
+  select(., -c("id")) %>%
+  select(., -c(1:17)) %>% 
+  rename(., id = code) %>%
+  filter(., id != 99999) 
+
+#names(GENERAL)
+view(GENERAL)
+
+GENERAL <- GENERAL %>%
+  mutate(., across(everything(), as.numeric)) %>%
+  mutate(., FREQUENCY = ifelse(is.na(FREQUENCY), 1, FREQUENCY)) 
+
+GENERAL <- GENERAL %>%
+  #mutate(., across(everything(), ~na_if(., 99))) %>%
+  mutate(., across(starts_with("Pleasure_"),  
+                  ~case_when(.x == 1 ~ "Yes", 
+                             .x == 0 ~ "No"))
+         ) 
+#GENERAL %>% view()
+names(GENERAL) <- tools::toTitleCase(tolower(names(GENERAL)))
+
+head(GENERAL)
+write.csv(GENERAL, 
+          paste(data_dir, "General_Survey.csv", sep = "/"),
+          row.names = F)
+  #mutate(., code = as.numeric(code))  %>%
+  #mutate(., across(starts_with("Design_"), as.numeric)) #%>%
+  #mutate(., across(starts_with("MECH_"), as.numeric)) #%>%
+  #mutate(., across(starts_with("CAT_"), as.numeric)) #%>%
+  #mutate(., code = as.numeric(code))  %>%
+
+
+view(GENERAL)
+
+```
+
+
+# **Stroop Tasks**
+
+```{r}
+file_path <- paste(
+  proj_dir,"stroopboth/data/gcds_data", 
+  sep = "/")
+
+#length(list.files(file_path))
+file_path <- "C:/Users/gcook/Sync/Courses/GCDS/stroop/data/data"
+
+STROOP <- pavlovia_Merge(file_path, pattern_filter = "complete")
+
+view(STROOP)
+
+STROOP <- STROOP %>%
+  select(., c(starts_with("task"), "class")) %>%
+  select(., -c("Task_start_key_resp.keys",
+               "Task_start_key_resp.rt" )) %>%
+  rename_with(., ~ (gsub("task_", "", .x, fixed = T))) %>%
+  rename_with(., ~ (gsub("subid", "id", .x, fixed = T))) %>%
+  group_by(id, block) %>% mutate(trial = row_number()) %>%
+  relocate(., trial, .after = block) %>%
+  relocate(., date, .before = id) %>%
+  rename(., valence = class) %>%
+  mutate(., valence = ifelse(valence == "", NA, valence)) %>%
+#    valence == "" ~ NA
+#  )) %>%
+  relocate(., valence, .after = font) %>%
+  select(., -exp) %>%
+  mutate(., course = case_when(
+    id < 1999 ~ "GCDS",
+    id > 1999 ~ "COG",
+    #id == NA ~ ""
+  )) %>%
+  mutate(., rt = rt * 1000) %>%
+  mutate(., cnt = 1)
+
+# rename cog team
+STROOP$id <- with(STROOP, ifelse(id == cog_rename[1,1], cog_rename[1,2], id))
+STROOP$id <- with(STROOP, ifelse(id == cog_rename[2,1], cog_rename[2,2], id))
+STROOP$id <- with(STROOP, ifelse(id == cog_rename[3,1], cog_rename[3,2], id))
+STROOP$id <- with(STROOP, ifelse(id == cog_rename[4,1], cog_rename[4,2], id))
+
+view(STROOP)
+
+#names(STROOP)
+STROOP %>%
+  group_by(., id, date) %>%
+  summarise(., cnt = sum(cnt)) %>%
+  arrange(., id, date) %>%
+  select(., id, date) %>%
+  filter(., id < 1999) #%>%
+  #select(., id) %>% as.vector()
+
+STROOP %>%
+  filter(., id != 0) %>%
+  #filter(., course == "GCDS") %>%
+  #select(., -c(course)) %>%
+  write.csv(., 
+            paste(data_dir, "gcds_stroop_project_data.csv", 
+                  sep = "/"), row.names = F)
+
+
+STROOP <- readr::read_csv(
+  paste(data_dir, "gcds_stroop_project_data.csv", sep = "/"))
+
+view(head(STROOP))
+
+STROOP %>%
+  filter(., id < 9999) %>%
+  arrange(., id) %>%
+  group_by(., id) %>%
+  summarize(., trials = sum(cnt))
+
+sort(unique(STROOP$id))
+
+view(STROOP)
+
+data.frame(a = c(99,2,3,99), b = c(1,99,NA,1), c = c(NA, NA, 1,2)) %>%
+  mutate(., across(.cols = everything(),
+                   .fns = ~ifelse(.x == 99, 1, 0),
+                   .names = "{col}_99")
+         ) %>% 
+  summarise(., across(.cols = ends_with("99"),
+                      .fns = ~sum(na.omit(.x))))
+  
+
+  mutate(., across(everything(), ~is.na(.x))) %>% view()
+
+  summarise_all(mean)
+
+  summarise(., across(everything()), tally)
+
+na
+```
+
+
+## **Trial Counts**
+
+```{r}
+TRIALS.Stroop <- STROOP %>%
+  group_by(., id, block) %>%
+  summarise(., trial = max(trial)) %>%
+  tidyr::pivot_wider(names_from = block, 
+                     values_from = trial) %>%
+  relocate(., practice, .after = id)
+
+
+TRIALS.Stroop %>% view(., show = 10)
+
+names(STROOP)
+```
+
+# Mutate vars
+
+```{r}
+STROOP <- STROOP %>% 
+  mutate(., trialtype = case_when(
+    word == "blue" & font == "blue" ~ "Congruent",
+    word == "blue" & font != "blue" ~ "Incongruent",
+    word == "green" & font == "green" ~ "Congruent",
+    word == "green" & font != "green" ~ "Incongruent",
+    word == "orange" & font == "orange" ~ "Congruent",
+    word == "orange" & font != "orange" ~ "Incongruent",
+    word == "yellow" & font == "yellow" ~ "Congruent",
+    word == "yellow" & font != "yellow" ~ "Incongruent")
+    ) %>%
+  mutate(., congruent = # for models
+           ifelse(trialtype == "Congruent", 0, 1)) %>%
+  mutate(., 
+    error = case_when(
+    font == "blue"   & resp == "d" ~ 0,
+    font == "blue"   & resp != "d" ~ 1,
+    font == "green"  & resp == "f" ~ 0,
+    font == "green"  & resp != "f" ~ 1,
+    font == "orange" & resp == "j" ~ 0,
+    font == "orange" & resp != "j" ~ 1,
+    font == "yellow" & resp == "k" ~ 0,
+    font == "yellow" & resp != "k" ~ 1)
+  ) %>%
+  mutate(., 
+    error_color = case_when(
+    word == "blue"   & font != "blue"   & resp == "d" ~ 1,
+    word == "green"  & font != "green"  & resp == "f" ~ 1,
+    word == "orange" & font != "orange" & resp == "j" ~ 1,
+    word == "yellow" & font != "yellow" & resp == "k" ~ 1
+    ),
+    error_color = ifelse(error_color, 1, 0) # make 0 if NA
+  ) #%>% 
+  #mutate(., rt = na_if(error, 1)) # make NA if they are in error
+
+
+#str(STROOP)
+#view(STROOP)
+```
+
+# Split the tasks
+
+```{r}
+COLOR_STROOP <- STROOP %>%
+  filter(., block == "stroop")
+
+EMOT_STROOP <- STROOP %>%
+  filter(., block == "emotional")
+
+#view(EMOT_STROOP)
+```
+
+
+```{r}
+#max(COLOR_STROOP$rt)
+COLOR_STROOP %>%
+  filter(., rt < 6000) %>%
+  ggplot(.) +
+  geom_density(mapping = aes(rt, fill = trialtype), 
+                 alpha = .3
+                 ) 
+#+
+#  scale_color_manual(c("green", "yellow"))
+
+EMOT_STROOP %>%
+  filter(., rt < 2500) %>%
+  ggplot(.) +
+  geom_density(mapping = aes(rt, fill = valence), 
+                 alpha = .1
+                 )
+```
+
+# Average
+
+```{r}
+COLOR_STROOP_AVG <- COLOR_STROOP %>%
+  filter(., rt < 6000) %>%
+  group_by(., id, trialtype) %>%
+  summarise(., rt = median(rt, na.rm = T))
+
+COLOR_STROOP_AVG_ERROR <- COLOR_STROOP %>% 
+  #filter(., rt < 6000) %>%
+  group_by(., id, trialtype) %>%
+  summarise(., error = 100*mean(error, na.rm = T))
+
+COLOR_STROOP_AVG <- merge(COLOR_STROOP_AVG, COLOR_STROOP_AVG_ERROR)
+
+# average
+COLOR_GRAND_AVG <- COLOR_STROOP_AVG %>%
+  #filter(., rt < 6000) %>%
+  group_by(., trialtype) %>%
+  summarise(., rt = mean(rt, na.rm = T))
+
+#COLOR_STROOP_AVG <- COLOR_STROOP_AVG %>% 
+#  group_by(id) %>% mutate(idnum = row_number())
+
+# Some plots
+```
+
+# Completed
+
+```{r}
+COMPLETED <- merge(cog_groups, COLOR_STROOP_AVG)
+unique(cog_groups$names)[unique(cog_groups$names) %in% unique(COMPLETED$names) == F]
+
+#view(COLOR_STROOP)
+```
+
+# Error Plots
+
+```{r}
+#COLOR_STROOP %>%
+  
+```
+
+```{r}
+
+quick_data <- data.frame(A = c("Male", "Male", "Female", "Female"),
+          B = c(1, 0, 1, 0),
+          C = c(1, 5, 6, 3),
+          D = c(3, 6, 7, 8)
+)
+quick_data <- quick_data %>%
+  mutate(., 
+         a = as.factor(A),
+         b = as.factor(B),
+         a = factor(a, levels = c("Male", "Female"), ordered = T)
+         )
+quick_data
+quick_data %>%
+  mutate(., across(c("B"), .fns = ~na_if(.x, 0)))
+
+quick_data %>%
+  mutate(., across(c("B"), .fns = ~na_if(.x, 0)))
+
+quick_data %>%
+  #group_by(., A, B) %>%
+  group_by(., A) %>%
+  group_by(., B) %>%
+  summarise(., across(c("C"), .fns = ~mean(na.omit(.x))))
+
+COLOR_STROOP_AVG_WIDE <- COLOR_STROOP_AVG %>%
+  select(, -c(error)) %>%
+  tidyr::pivot_wider(., 
+                     names_from = trialtype,
+                     values_from = rt,
+                     ) %>% 
+  mutate(., SIE = round(Incongruent - Congruent, 4)) %>%
+  mutate(., across(where(is.numeric), as.integer)) %>%
+  arrange(., SIE) #
+
+COLOR_STROOP_AVG_ERROR_WIDE <- COLOR_STROOP_AVG %>%
+  select(, -c(rt)) %>%
+  tidyr::pivot_wider(., 
+                     names_from = trialtype,
+                     values_from = error,
+                     ) %>% 
+  mutate(., sie = round(Incongruent - Congruent, 4)) %>%
+  mutate(., across(where(is.numeric), as.integer)) %>%
+  mutate(, 
+         Err_Congruent = paste0(Congruent, "%"),
+         Err_Incongruent = paste0(Incongruent, "%"),
+         Err_SIE = paste0(sie, "%"),
+         ) %>%
+  select(., c(id, Err_Congruent, Err_Incongruent, Err_SIE))
+
+COLOR_STROOP_AVG_WIDE <- merge(COLOR_STROOP_AVG_WIDE, COLOR_STROOP_AVG_ERROR_WIDE)
+COLOR_STROOP_AVG_WIDE %>%
+  arrange(., SIE) %>%
+  filter(., id > 2000) %>% htmlTable::htmlTableWidget()
+
+EMOT_STROOP_AVG <- EMOT_STROOP %>%
+  group_by(., id, valence) %>%
+  summarise(., rt = median(rt, na.rm = T))
+
+EMOT_STROOP_GRAND <- EMOT_STROOP_AVG %>% 
+  group_by(., valence) %>%
+  summarize(., rt = mean(rt, na.rm = T))
+
+EMOT_STROOP_AVG %>%
+  filter(., id > 1999) %>%
+  ggplot(data = ., aes(x = valence, y = rt)) + 
+  geom_jitter(aes(x = valence,
+                  y = rt, 
+                  color = factor(id)), 
+             size = 3,
+             alpha = .5,
+             width = .2) +
+  stat_summary(fun.data = "mean_cl_boot", 
+               colour = "black", 
+               size = 1, alpha = .3) +
+  xlab("Trial Type") + 
+  ylab("Response Time (correct trials)") +
+  see::theme_modern()
+
+
+# Color Stroop overall
+COLOR_STROOP_AVG %>%
+  filter(., id > 2000) %>%
+  mutate(., id = as.factor(id)) %>%
+  ggplot(., aes(x = trialtype, y = rt)) +
+  geom_jitter(aes(color = id), width = .2) +
+  stat_summary(fun.data = "mean_cl_boot", 
+               colour = "black", 
+               size = 1, alpha = .3) +
+  #stat_summary(aes(x = trialtype, y = id), fun = mean, geom = "line") +
+  xlab("Trial Type") + 
+  ylab("Response Time (correct trials)") +
+  see::theme_modern()
+
+#
+COLOR_STROOP_AVG_WIDE %>% view(show = 40)
+
+sort(unique(COLOR_STROOP_AVG_WIDE$id))
+
+COLOR_STROOP_AVG_WIDE %>%
+  filter(., id > 1999) %>%
+  arrange(., sie) %>% 
+  mutate(., id = factor(id)) %>%
+  #mutate(., id = factor(id, levels = sort(unique(id)), ordered = T)) #%>%
+  ggplot(.,) +
+  geom_col(aes(x = factor(id),y = sie)) +
+  coord_flip()
+  
+# by individual ID
+
+COLOR_STROOP %>%
+  filter(., course == "COG") %>%
+  filter(., rt < 6*1000) %>%
+  filter(., error == 0) %>%
+  ggplot(data = ., 
+         mapping = aes(x = trialtype, y = rt)) +
+  #geom_boxplot() + #aes(fill = trialtype)) +
+  geom_jitter(aes(x = trialtype, 
+                 y = rt, color = trialtype),
+               width = .1) +
+  facet_wrap(~id)
+    
+    
+    
+```
+
+
+
+# **Complete Rates For Group**
+
+```{r}
+return_values_in_between <- function(vec, A, B) {
+  vec[A <= vec & vec <= B]
+}
+
+# get the completed ids to date
+stroop_completed_ids    <- sort(unique(STROOP$id))
+general_completed_ids   <- sort(unique(GENERAL$id))
+taco_completed_ids      <- sort(unique(0))
+ll_completed_ids        <- sort(unique(0))
+codenames_completed_ids <- sort(unique(0))
+chrono_completed_ids    <- sort(unique(0))
+
+# GENERAL 
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(general_complete = list(
+    .GlobalEnv$general_completed_ids[
+      .GlobalEnv$general_completed_ids >= low & 
+      .GlobalEnv$general_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., general_complete = unlist(
+    lapply(general_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         general_comp_rate = paste0(100*(general_complete/4), "%"))
+
+#STROOP
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(stroop_complete = list(
+    .GlobalEnv$stroop_completed_ids[
+      .GlobalEnv$stroop_completed_ids >= low & 
+      .GlobalEnv$stroop_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., stroop_complete = unlist(
+    lapply(stroop_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         stroop_comp_rate = paste0(100*(stroop_complete/4), "%"))
+
+# TACO
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(taco_complete = list(
+    .GlobalEnv$taco_completed_ids[
+      .GlobalEnv$taco_completed_ids >= low & 
+      .GlobalEnv$taco_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., taco_complete = unlist(
+    lapply(taco_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         taco_comp_rate = paste0(100*(taco_complete/4), "%"))
+
+# Love Letter 
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(ll_complete = list(
+    .GlobalEnv$ll_completed_ids[
+      .GlobalEnv$ll_completed_ids >= low & 
+      .GlobalEnv$ll_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., ll_complete = unlist(
+    lapply(ll_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         ll_comp_rate = paste0(100*(ll_complete/4), "%"))
+
+# codenames
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(codenames_complete = list(
+    .GlobalEnv$codenames_completed_ids[
+      .GlobalEnv$codenames_completed_ids >= low & 
+      .GlobalEnv$codenames_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., codenames_complete = unlist(
+    lapply(codenames_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         codenames_comp_rate = paste0(100*(codenames_complete/4), "%"))
+
+# Chronology
+groups <- groups %>%
+  rowwise() %>% 
+  mutate(chrono_complete = list(
+    .GlobalEnv$chrono_completed_ids[
+      .GlobalEnv$chrono_completed_ids >= low & 
+      .GlobalEnv$chrono_completed_ids <= high])) %>%
+  ungroup() %>%
+  mutate(., chrono_complete = unlist(
+    lapply(chrono_complete, 
+           FUN = function(x) {length(x)}))) %>% 
+  mutate(., 
+         chrono_comp_rate = paste0(100*(chrono_complete/4), "%"))
+
+
+##################################################################
+# adjust when other data are downloaded
+# general = y
+# Stroop = y
+# Task 2 = n
+# Task 3 = n
+# taco = n
+# ll = n
+# codenames = n
+# chronology = n 
+running_task_count = 2 * 4
+##################################################################
+groups <- groups %>%
+  #rowwise()
+  mutate(., tot_comp_rate = general_complete + stroop_complete +
+           ll_complete + codenames_complete + chrono_complete) %>%
+  mutate(., tot_comp_rate = 
+           paste0(100 * (tot_comp_rate/running_task_count),"%")) %>%
+  relocate(., tot_comp_rate, .after = high)
+
+groups %>% select(., -c(low, high)) %>% view(groups, filter = "none")
+
+```
+
+
+# **Are there duplicates?**
+
+```{r}
+
+```
+
+
+
+ 
+
+```{r}
+
+view(STROOP)
+```
+
+There are 
+
+
+
+
+
+
+
+
+
+# **Unsupervised Learning**
+
+Calculate all individual data by color, trial, for both task, pivot each wider and cluster to see any groups
+
+```{r}
+
+```
+

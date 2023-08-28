@@ -1,0 +1,296 @@
+---
+title: "Logistic Regression"
+author: "gcook"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+file_url <- "https://www.kaggle.com/c/titanic/data?select=train.csv"
+read.csv(file_url)
+Titanic
+```
+
+See some notes at: https://medium.com/@conankoh/interpreting-results-from-logistic-regression-in-r-using-titanic-dataset-bb9f9a1f644c
+
+
+# **Libraries**
+
+```{r}
+library(dplyr)
+library(performance)
+library(parameters)
+library(caret)
+library(ResourceSelection)
+
+#disable scientific notation for model summary
+options(scipen=999)
+```
+
+# **Univariate Analysis with Categorical Predictor**
+
+```{r}
+model <- glm(binary ~ num1, data = DATA, family = binomial)
+summary(model)
+
+
+exp(coefficients(model))
+exp(confint(model))
+```
+
+# **Univariate Analysis with a Continuous Predictor**
+
+```{r}
+model <- glm(Survived ~ Age, data = titanic, family = binomial)
+summary(model)
+```
+
+Exponentiate
+
+```{r}
+exp(coefficients(model))
+exp(confint(model))
+```
+
+
+# **Multivariable Logistic Regression**
+
+The table below shows the result of the univariate analysis for some of the variables in the dataset. Based on the dataset, the following predictors are significant (p value < 0.05) : Sex, Age, number of parents/ children aboard the Titanic and Passenger fare. We will use these variables in multivariable logistic regression. This method of selecting variables for multivariable model is known as forward selection.
+
+```{r}
+# table
+```
+
+Model
+
+```{r}
+model <- glm(Survived ~ Sex + Age + Parch + Fare, 
+             data = titanic, family = binomial)
+
+summary(model)
+```
+
+Interpretation of the model: All predictors remain significant after adjusting for other factors.
+
+Exponentiate
+
+```{r}
+exp(coefficients(model))
+exp(confint(model))
+```
+
+
+Interpretation: Taking sex as an example, after adjusting for all the confounders (Age, number of parents/ children aboard the Titanic and Passenger fare), the odd ratio is 0.0832, with 95% CI being 0.0558 and 0.122. This means that the odds of surviving for males is 91.7% less likely as compared to females. Looking at Passenger fare, after adjusting for all the confounders (Age, number of parents/ children aboard the Titanic and Passenger fare), the odd ratio is 1.02, with 95% CI being 1.01 to 1.02. This means that the odds of surviving increases by about 2% for every 1 unit increase of Passenger fare.
+
+There are also some concepts related to logistic regression that I would also like to explain on
+
+AIC (Akaike Information Criterion): This metric explains that relative quality of the model and depends on two factors: the number of predictors in the model and the likelihood that the model can reproduce the data. The lower the AIC value, the better is the model. Comparing the model with only sex as the predictor and the multivariable model, the AIC are 921.8 and 717.4. This means that the multivariable model is a better model as compared to the former.
+
+Power of the model: Comparing the model with only sex as the predictor and the multivariable model, it can be seen that the 95% CI for sex in the multivariable model (95% CI: 0.0558 to 0.122) is wider than the univariate model (95% CI: 0.0580 to 0.112). From here, it can be seen that adding more predictors to the model widens the 95% CI and if there is too many predictors, the power of the model to detect significant difference may be reduced.
+
+Hosmer-Lemeshow Goodness of fit test: This metrics examines how well the model fit the data. Using the code below:
+
+```{r}
+
+survived_1 <- titanic %>% 
+  filter(., !is.na(Sex) & !is.na(Age) & 
+           !is.na(Parch) & !is.na(Fare))
+
+hoslem.test(survived_1$Survived, fitted(model))
+```
+
+Interpretation: The p-value is 0.1185, suggesting that there is no significant evidence to show that the model is a poor fit to the data. (survived_1 is created so as to drop all the passengers with missing data, as the test could not be performed if there is missing data).
+
+In this article, I have looked at how to obtain odd ratios and 95% confidence interval from logistic regression, as well as concepts such as AIC, power of the model and goodness of fit 
+
+
+
+
+
+
+
+
+```{r}
+#load dataset
+data <- ISLR::Default
+
+#view summary of dataset & total observations
+summary(data)
+nrow(data)
+```
+
+
+Step 2: Create Training and Test Samples
+
+```{r}
+#CREAT TRAINING AND TESTING SAMPLES
+#make this example reproducible
+set.seed(1)
+
+#Use 70% of dataset as training set and remaining 30% as testing set
+sample <- sample(c(TRUE, FALSE), nrow(data), 
+                 replace = TRUE, prob = c(0.7, 0.3))
+train <- data[sample, ]
+test <- data[!sample, ]
+```
+
+Step 3: Fit the Logistic Regression Model
+
+```{r}
+#FIT THE LOGISTIC REGRESSION MODEL
+model <- glm(default ~ student + balance + income,
+             family = "binomial", 
+             data = train)
+
+summary(model)
+
+performance::performance(model)
+
+parameters::parameters(model)
+```
+
+The coefficients in the output indicate the average change in log odds of defaulting. For example, a one unit increase in balance is associated with an average increase of 0.005988 in the log odds of defaulting.
+
+The p-values in the output also give us an idea of how effective each predictor variable is at predicting the probability of default:
+
+    P-value of student status: 0.0843
+    P-value of balance: <0.0000
+    P-value of income: 0.4304
+
+We can see that balance and student status seem to be important predictors since they have low p-values while income is not nearly as important.
+
+
+# **Model Fit**
+
+There is no such R2 value for logistic regression. Instead, we can compute a metric known as McFadden’s R2, which ranges from 0 to just under 1. Values close to 0 indicate that the model has no predictive power. In practice, values over 0.40 indicate that a model fits the data very well.
+
+We can compute McFadden’s R2 for our model using the pR2 function from the pscl package:
+
+
+```{r}
+pscl::pR2(model)["McFadden"]
+```
+
+For more on R2 for logistic, see https://www.graphpad.com/guides/prism/latest/curve-fitting/reg_mult_logistic_gof_pseudo_r_squared.htm.
+
+LRT (likelihood ratio test) statistic = Deviance(simpler model) - Deviance(more complex model)
+
+
+
+# **Variable Importance**
+
+We can also compute the importance of each predictor variable in the model by using the varImp function from the caret package:
+
+```{r}
+caret::varImp(model)
+```
+
+Higher values indicate more importance. These results match up nicely with the p-values from the model. Balance is by far the most important predictor variable, followed by student status and then income.
+
+
+# **VIF Values**
+
+We can also calculate the VIF values of each variable in the model to see if multicollinearity is a problem:
+
+```{r}
+#calculate VIF values for each predictor variable in our model
+car::vif(model)
+```
+
+
+Step 4: Use the Model to Make Predictions
+
+Once we’ve fit the logistic regression model, we can then use it to make predictions about whether or not an individual will default based on their student status, balance, and income:
+
+```{r}
+#define two individuals
+new <- data.frame(balance = 1400, 
+                  income  = 2000, 
+                  student = c("Yes", "No"))
+
+#predict probability of defaulting
+predict(model, new, type = "response")
+```
+
+The probability of an individual with a balance of $1,400, an income of $2,000, and a student status of “Yes” has a probability of defaulting of .0273. Conversely, an individual with the same balance and income but with a student status of “No” has a probability of defaulting of 0.0439. 
+
+We can use the following code to calculate the probability of default for every individual in our test dataset:
+
+```{r}
+#calculate probability of default for each individual in test dataset
+predicted <- predict(model, test, type = "response")
+predicted
+```
+
+Step 5: Model Diagnostics
+
+Choosing a cutoff value
+
+In reality, you will only be able to pick one cutoff value for your model. How do you determine which cutoff to use? It depends on your specific scenario. If false negatives are worse than false positives, then choose a cutoff with high sensitivity (a value higher on the Y axis of the ROC graph). Alternatively, if false positives are worse, then pick a cutoff with high specificity (values to the left in the ROC graph).
+
+Lastly, we can analyze how well our model performs on the test dataset.
+
+By default, any individual in the test dataset with a probability of default greater than 0.5 will be predicted to default. However, we can find the optimal probability to use to maximize the accuracy of our model by using the `optimalCutoff()` function from the InformationValue package:
+
+```{r}
+library(InformationValue)
+
+#convert defaults from "Yes" and "No" to 1's and 0's
+test$default <- ifelse(test$default == "Yes", 1, 0)
+
+# find optimal cutoff probability to use to maximize accuracy
+?InformationValue::optimalCutoff
+InformationValue::optimalCutoff(actuals = test$default, 
+                                predictedScores = predicted)
+
+optimal <- InformationValue::optimalCutoff(test$default, predicted)
+optimal
+```
+
+This tells us that the optimal probability cutoff to use is 0.5451712. Thus, any individual with a probability of defaulting of 0.5451712 or higher will be predicted to default, whereas any individual with a probability less than this number will be predicted to not default.
+
+Using this threshold, we can create a confusion matrix which shows our predictions compared to the actual defaults:
+
+```{r}
+?InformationValue::confusionMatrix
+InformationValue::confusionMatrix(actuals = test$default,
+                                  predictedScores = predicted)
+```
+
+
+We can also calculate the sensitivity (also known as the “true positive rate”) and specificity (also known as the “true negative rate”) along with the total misclassification error (which tells us the percentage of total incorrect classifications):
+
+```{r}
+#calculate sensitivity
+sensitivity(test$default, predicted)
+
+#[1] 0.3786408
+
+#calculate specificity
+specificity(test$default, predicted)
+
+#[1] 0.9928401
+
+#calculate total misclassification error rate
+misClassError(test$default, predicted, threshold = optimal)
+
+#[1] 0.027
+```
+
+The total misclassification error rate is 2.7% for this model. In general, the lower this rate the better the model is able to predict outcomes, so this particular model turns out to be very good at predicting whether an individual will default or not.
+
+Lastly, we can plot the ROC (Receiver Operating Characteristic) Curve which displays the percentage of *true positives* predicted by the model as the prediction probability cutoff is lowered from 1 to 0. The higher the AUC (area under the curve), the more accurately our model is able to predict outcomes:
+
+```{r}
+#plot the ROC curve
+plotROC(test$default, predicted)
+```
+
+
+
+
+

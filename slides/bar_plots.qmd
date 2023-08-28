@@ -1,0 +1,266 @@
+---
+title: "Data Visualizations using `ggplot`"
+format: revealjs
+slide-number: c/t #h/v
+css: ["css/styles.css"]
+#theme: simple
+echo: true  # for code echo
+---
+
+# Reveal.js slide examples
+
+## Fragments
+
+::: fragment
+Fade in
+:::
+
+::: {.fragment .fade-out}
+Fade out
+:::
+
+::: {.fragment .highlight-red}
+Highlight red
+:::
+
+::: {.fragment .fade-in-then-out}
+Fade in, then out
+:::
+
+# New Section
+
+## Fragments, nesting
+
+::: {.fragment .fade-in}
+::: {.fragment .highlight-red}
+::: {.fragment .semi-fade-out}
+Fade in \> Turn red \> Semi fade out
+:::
+:::
+:::
+
+# Fragments
+
+## Fragments, spans
+
+::: incremental
+Highlight [this important]{.fragment .highlight-red} part.
+
+[Fade]{.fragment .fade-in} in that.
+:::
+
+
+# The Grammar of Graphics + `ggplot` 
+
+
+
+## Plot Elements
+
+::: incremental
+-   a geometric object, `geom_*()`
+
+-   a *statistic*, `stat_*()`
+
+-   a *coordinate* system, `coord_*()`
+
+-   a *theme*, `coord_*()`
+
+-   a *facet*, `facet_*()`
+
+-   *labels*, `labs(), lable_*()`
+
+-   a *facet* legend or guide, `guide_*()`
+
+-   a *scale*, `scale_*()`
+
+-   annotations, `annotation_*()`
+:::
+
+## Example Geoms (e.g., `geom_*`)
+
+::: incremental
+-   `geom_histogram()` & `geom_density()`
+-   `geom_bar()`
+-   `geom_col()`
+-   `geom_line()`
+-   `geom_boxplot()`
+-   `geom_point()` for scatteplots
+-   Statistic
+:::
+
+## Load the library
+
+``` r
+library(ggplot)
+```
+
+## Create the plot object
+
+``` r
+#
+```
+
+
+# Addins
+
+# `ggplot` addins
+
+-   `ggAssist`
+-   `ggThemeAssist`
+
+# Silly output from `ggThemeAssist` addin
+
+``` r
+# library(ggplot2)
+
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point() + 
+  theme(axis.line = element_line(linetype = "solid"),
+    axis.ticks = element_line(linetype = "twodash"),
+    panel.grid.major = element_line(colour = "hotpink4",
+        linetype = "dashed"), panel.grid.minor = element_line(colour = "honeydew4",
+        linetype = "dashed"), axis.text.x = element_text(family = "AvantGarde"),
+    axis.text.y = element_text(family = "AvantGarde",
+        size = 15), panel.background = element_rect(fill = NA),
+    plot.background = element_rect(colour = "aquamarine2",
+        linetype = "solid")
+    )
+```
+
+## Add layers
+
+``` r
+library(ggplot)
+```
+
+
+
+## Bar plots with `geom_bar()`
+
+-   are this
+-   are that
+
+
+# Col plots with `geom_col()`
+
+-   are this
+-   are that
+
+# Point/Scatter plots with `geom_point()`
+
+-   are this
+-   are that
+
+# Line plots with `geom_line()`
+
+-   are this
+-   are that
+
+
+# Histogram with `geom_histogram()`
+
+-   are this
+-   are that
+
+
+# Density plots with `geom_density()`
+
+-   are this
+-   are that
+
+
+
+
+
+
+
+
+# Plotting small multiples
+
+## `facet_wrap()` and `facet_grid()`
+
+-   identify the grouping variable(s)
+
+-   `facet_wrap()` for a single grouping by row or col
+
+    -   `facet_wrap(facets = ~my_grouping_variable)`
+
+-   `facet_grid()` for two groupsing vars, row *and* col
+
+    -   `facet_grid(facets = my_grouping_variableA ~ my_grouping_variableB)`
+
+**Note:** The `~` does not precede the first grouping var in `facet_grid()`.
+
+# `facet_wrap()`
+
+## [H]{style="color:green"}orizontal or [V]{style="color:green"}ertical Orientation
+
+-   `dir = 'h'` [ (default)]{style="color:gray"}
+
+-   `dir = 'v'` (vertical/cols)
+
+## Legend label Position Orientation
+
+-   `strip.position = 'top'`
+
+-   `strip.position = 'bottom'`
+
+-   `strip.position = 'left'`
+
+-   `strip.position = 'right'`
+
+# `facet_grid()`
+
+## [x]{style="color:green"} or [y]{style="color:green"} legend position
+
+-   `switch = 'x'` or `switch = 'y'`
+
+``` r
+library(ggplot2)
+ggplot(mtcars, aes(x=mpg,y=wt)) +   
+  geom_point() +
+  facet_grid(facets = ~cyl,
+             switch = 'x'
+             )
+```
+
+
+# `facet_grid()`
+
+By default, `facet_grid()` plots only the levels of the grouping variable.
+
+``` r
+`plot + facet_grid(facets = ~the_grouping_var)`
+```
+
+To add the marginal data, pass `margins = TRUE`
+
+``` r
+ggplot(mtcars,aes(x=mpg,y=wt)) + 
+  geom_point() +
+  facet_grid(facets = ~cyl,
+             margins = TRUE
+             )
+
+#plot + facet_grid(facets = ~the_grouping_var,
+#                  margins = TRUE
+#                  )
+```
+
+**Note**: the marginal setting is not available in `facet_wrap()`, so if you want it, use `facet_grid()` with only a single variable after the `~`.
+
+# `facet_grid()`
+
+By default, the labels for a `facet_grid()` included the values corresponding to the factor levels by
+
+-   `labeller = label_value` (default)
+
+To add the value and the variable
+
+-   `labeller = label_both`
+
+# Changing x, y, and legend labels
+
+-   use `labs()`, `xlab()`, `ylab()`, and `ggtitle()`
+
+-   plot + ggtitle(facets = ~cyl, label = 'my label', subtitle='my subtitle')

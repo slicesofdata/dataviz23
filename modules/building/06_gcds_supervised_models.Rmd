@@ -1,0 +1,589 @@
+---
+title: "GCDS: Model Basics"
+author: ""
+#date: "`r format(Sys.time(), '%d %B, %Y')`"   # date
+output: 
+  html_document:               
+    toc: yes                   # include a table of contents
+    number_sections: yes       # enumerate sections flagged with #
+    code_folding: hide         # allow option to show/hide code
+    toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include = FALSE)
+```
+
+```{r}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out before knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+```{r}
+#https://easystats.github.io/modelbased/
+```
+
+# **Libraries**
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(parameters)
+library(performance)
+#library(modelbased)
+library(see)
+library(tidyr)
+```
+
+# **Data**
+
+From Slack #data, save "STROOP_agg.csv" to "GCDS/data". If you are not saving data files to the data directory, you likely have files of all sorts saved in different places. Disorganization will at some point get the best of you. When you submit your project code, you'll need to make sure files are organized nicely. 
+
+```{r}
+suppressMessages(source(paste(r_dir, "aggregate_STROOP.R", sep =  "/")))
+
+STROOP_agg <- readr::read_csv(paste(data_dir, "STROOP_agg.csv", sep = "/"))
+
+head(STROOP_agg)
+```
+
+# **Pivot Data Frame to Wide**
+
+We will use `tidyr::pivot_wider()` to pivot the data frame. Select only your needed columns, then pivot by selecting `names_from` to pivot on and create variable names and to take `values_from` a different variable to insert in the cells of the created variables. If you have other variables in the data frame, you may need to specify the `id_cols` for how to pivot.
+
+```{r}
+head(STROOP_agg)
+
+STROOP_WIDE <- STROOP_agg %>%
+  select(., id, trialtype, rt) %>%
+  tidyr::pivot_wider(., id_cols = NULL, # the default
+    names_from  = trialtype,
+    values_from = rt
+  ) 
+
+head(STROOP_WIDE)
+```
+
+
+If you have other columns in the data frame, specify columns.
+
+```{r}
+STROOP_WIDE <- STROOP_agg %>%
+  tidyr::pivot_wider(., id_cols = id,  # override the default; 
+                        names_from  = trialtype,
+                        values_from = rt
+  ) 
+
+head(STROOP_WIDE)
+```
+
+## *Standardize the Variables*
+
+Add a some new variables to make ids odd/even using modular arithmetic and center variables (standardize) using `scale()`.
+
+```{r}
+STROOP_WIDE <- STROOP_WIDE %>%
+  mutate(., odd = ifelse(id %% 2, 1, 0),
+         
+         across(.cols = c(congruent, incongruent), 
+                .fns = ~as.numeric(scale(.x)), 
+                .names = "{.col}_z")
+         )
+
+head(STROOP_WIDE)
+```
+
+
+# **Fitting a Linear Model Visually**
+
+## *Using `"loess"` Default*
+
+```{r}
+STROOP_WIDE %>%
+  ggplot(data = ., aes(x = congruent, y = incongruent)) +
+  geom_point() +
+  geom_smooth() +
+  see::theme_modern()
+```
+
+## *Using `"lm"`*
+
+```{r}
+STROOP_WIDE %>%
+  ggplot(data = ., aes(x = congruent, y = incongruent)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  see::theme_modern()
+```
+
+
+```{r}
+STROOP_WIDE %>%
+  ggplot(data = ., aes(x = congruent_z, y = incongruent_z)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  see::theme_modern()
+```
+
+
+## *Correlation Matrix*
+
+If the function looks linear, obtain the correlation (or a matrix) to determine *Pearson's r*, the default for `cor()` as indicated by `method = "peason"`. This provides details of the strength of the relationship. Squaring `r` will provide the coefficient of determination, or explained variance.
+
+```{r}
+stroop_cor <- STROOP_WIDE %>%
+  select(., -id) %>%
+  cor(., method = "pearson")
+
+stroop_cor
+```
+
+
+# **Fitting a Linear Model Statistically**
+
+1. We will define a linear model using the base R `lm()` function by specifying the formula for fitting a line through x and y points. The general form for the regression model is as follows:
+
+Regression model: 
+
+- predicted `y` value = `intercept` + (`slope` * value of `X`)
+
+Or in R, this is:
+
+`mymodel <- lm(formula = outcome ~ predictor, data = mydataframe, na.action = some action)`
+
+Where:
+- `mymodel` is an object that contains information about the linear model; summary() will be useful for inspecting the model
+- `criterion` is the predicted variable
+- `predictor(s)` are the variables used to predict scores on the criterion outcome
+- `data` is the name of the data frame object
+- `na.action` (optional) allows you to specify a complete data set if you wish to drop out anyone with missing values; this in an alternative to subsetting when using regression models
+
+`mymodel <- lm(formula = y ~ x, data = DATA, na.action = na.exclude)`
+
+
+
+## *Model: Simple/Bivariate Linear Regression*
+
+Predicting y from x1 (continuous) predictor:
+
+`lm(y ~ x1, data = data frame)`
+
+```{r}
+mod_stroop <- STROOP_WIDE %>%
+  lm(incongruent_z ~ congruent_z, data = .)
+```
+
+### *Interpreting the Overall Model Fit*
+
+For model details, pass model to `summary()`
+
+```{r}
+summary(mod_stroop)
+
+mod_stroop$coefficients
+
+mod_stroop$residuals
+
+mod_stroop$fitted.values
+```
+
+#### *R-squared*
+
+Multiple R-squared represents the proportion of variance in the criterion that is accounted for by the predictor(s). The square root of this is Pearson’s correlation coefficient. Because there is only one predictor, this multiple R-squared is really just r squared. Because the estimates are based on samples, they are not perfect for making inferences about the populations you really care about. The adjusted R-squared is adjusted for shrinkage, or loss of predictive power that occurs when using sample data to predict population data; the more error in the regression model (e.g., residuals), the more the adjusted R-squared will differ from the unadjusted R-squared.
+
+#### *F-statistic*
+
+The F-statistic represents the ANOVA test value (F value) for the ratio test of the model. A statistically significant result indicates that the regression model explains the data better than a model based on the mean of album sales (mean-based model). People often compare the p-value to alpha to decide if the regression model fits the data better than the mean-based model. This ANOVA test only tells you whether the overall model fits the data; it does not examine the components of the model (e.g., b0, b1, etc.).
+
+#### *Model Parameters/Coefficients*
+
+Interpreting Specific Model Parameters (coefficients part of the output table)
+
+The coefficients report is displayed in 2 rows and 4 columns. The `Estimate` column displays the two estimated coefficient values y-intercept (b0) and the regression coefficient (b1). The `Std. Error` column displays the error in estimating the coefficients. This error indicates the amount of error in coefficients; small error is good and would indicate that b0 and b1 would not vary as much from sample to sample. The `t-value` column displays the value of the t-statistic, which simply tests whether the coefficient differs from 0 (H0: t = 0), which can be inferred also from examining the `Pr(>|t|)` column which provides the p-value for the t-test.
+
+The *first row* corresponds to the **intercept* (b0). The y-intercept predicts the value of `y` when `X = 0` (e.g., X = 0). A p-value less than or equal to alpha may indicate that the y-intercept differs from 0. Mathematically, b0 can be less than 0. This is the response time on incongruent trials with congruent trials are 0. Of course, you cannot have response times of 0 but also because the response times are centered with a mean of 0, this represents the value of value of y when x = 0. 
+
+The *second row* corresponds to the **regression coefficient/slope** (b1). This represents the increase or decrease (depending on whether the correlation is positive or negative) in response times to incongruent trials for each unit change in response times for the congruent trials. A p-value equal to or less than alpha means the slope differs from 0. When there are multiple predictor variables, there will be slopes corresponding the each predictor and the criterion.
+
+
+Model parameters can also be checked using the `parameters::model_parameters()` function, which will provide them in a cleaner table and adjust for scientific notation as well as provide confidence intervals bounded around the estimates, which `summary()` does not provide.
+
+```{r}
+parameters::model_parameters(mod_stroop)
+```
+
+Additional Metrics:
+
+Using `r2()` and `model_performance()`, you can see the model performance metrics, including AIC and BIC metrics.
+
+*AIC (Akaike’s Information Criterion)* is a metric for model accuracy. The lower the AIC values, the better the model (useful when comparing models). AICc is a version of AIC correcting for small sample sizes. 
+
+*BIC (Bayesian Information Criterion)* is a variant of AIC with a stronger penalty for including additional variables to the model.
+
+*Root Mean Squared Error (RMSE)* represents the average error performed by the model in predicting the outcome for an observation. RMSE is the square root of the mean squared error (MSE). The lower the RMSE, the better the model.
+
+```{r}
+performance::r2(mod_stroop)
+
+performance::model_performance(mod_stroop)
+```
+
+
+### *Examining Model Assumptions*
+
+You should generally examine model assumptions prior to interpreting the model because if the assumptions are violated, the model is invalid. In other words, you don't want to use a model to predict data when the model is not working in the ways it was designed.
+
+The predictor(s) must be either quantitative or categorical (2 categories); the outcome variable must be quantitative and continuous. It should also be unbounded or unconstrained; for example if a scale that ranges from 1 to 9 is used to measure the criterion and if responses only fall between say 3 and 7, the data are constrained (bounded). An obvious solution is to check the range for the criterion using the built-in `range()` function.
+
+Variance Concerns. Predictors should not be restricted and not have variances that are near 0. Range restriction in general is often problematic with regression (leading to attenuated correlations and reduce predictive ability). If you have a much smaller range, you should investigate reasons why. 
+
+Passing the model to the `plot()` function will produce model plots for examining the assumptions of the model. You can view each plot separately or produce a 2x2 chart that displays them together. Because there will be 4 plots, you will need to the some graphical parameters first by making a 2 columns and 2 rows using `par(mfrow = c(2,2))`. However, grouping the plots will reduce their size for visual inspection. 
+
+
+```{r}
+par(mfrow = c(2,2))
+plot(mod_stroop)
+```
+
+Similarly, `performance::check_model()` will produce a similar plot set without using additional code. This function will also adjust the plots to include depending on your model so that you don't always need to specify them. However, to check the assumptions individually, you will specify them with their unique functions. 
+
+- `check_heteroscedasticity()`
+- `check_normality()`
+- `check_outliers()`
+- `check_collinearity()`
+
+```{r}
+performance::check_model(mod_stroop)
+
+performance::check_normality(mod_stroop)
+performance::check_heteroscedasticity(mod_stroop)
+performance::check_outliers(mod_stroop)
+#performance::check_collinearity(mod_stroop)
+```
+
+#### *Linear Relationship between x and y*
+
+The relationship between the criterion and the predictor(s) is *linear* rather than *nonlinear*. Plot #1 is the residual plot for which errors (y-axis)) plotted as a function of predicted/fitted values (x-axis); a straight horizontal line on this plot would indicate that the linearity assumption is met; a curvilinear model is better than a linear model, then the errors would not be distributed normally, but instead be greater in some parts of the plot than in others.
+
+#### *Homoscedasticity of the Residuals*
+
+The variance in the residuals, or error in prediction, should be the same across the values of the predictors. Homoscedasticity is also referred to as constant variance. Non-constant variance in the residuals is referred to as heteroscedasticity. We can examine homoscedasticity visually and statistically. If your variance in the residuals is across the range of the predictor, this means your model is predicting `y` better or worse depending on the value of `x`. Keep in mind that the model is a general fit and used to predict all y values from x, so if your model predicts `y` well on the lower end of the range of `x` but poorly on the higher end of `x`, your general model is going to be erroneous for some prediction. Maybe you need a different model.
+
+
+Plot #1 can also provide information about the variance in the residuals across levels of the predictor. Based on this example, you can see that there is more variability of the residuals (y-axis) on the left side of the plot than at the right side; thus the variability in residuals does not seem to be constant. If the variance is not constant, then we may have issues with residuals not being distributed normally (see next assumption).
+
+If we want to statistically test for constant variance, we can pass the model to the `car::ncvTest()` function (install `car` if not installed). The ncv stands for non-constant variance. We want constant variance. The `ncvTest()` function provides a Chi-Square test value and a corresponding p-value for the test. If p is less than or equal to alpha, you have evidence that that you have non-constant variance, or heteroscedasticity. 
+
+
+```{r}
+car::ncvTest(mod_stroop)
+
+performance::check_heteroscedasticity(mod_stroop)
+```
+
+#### *Residuals (prediction errors) are distributed normally*
+
+If model errors are random and the size of the prediction error does not depend on whether the score on the predictor is low or high, then those errors should be distributed normally. Plot #2 will provide detail about the *normality of the residuals*. Plot #2 is a *quantile-quantile plot* used to determine normality of errors; if points fall along the identity line, the errors are distributed normally. We could also test this assumption by using the `sharipo.test()` function on the model residuals themselves. The residuals are stored in a vector of the model (e.g., `mymodel$res`), which you can pass to `shapiro.test()`.
+
+```{r}
+shapiro.test(mod_stroop$residuals)
+
+performance::check_normality(mod_stroop) # note, uses a different metric (check docs)
+```
+
+
+#### *No multicolinearity*
+
+Predictors should not be strongly correlated with each other. After all, predictors are added to a model in order to predict y based on independent rather than dependent information. When you have more than one predictor, you have to examine for multicolinearity. Why? Collinearity will mask the true relationship among variables. Having multicolinearity makes the beta values (y-intercept and slope coefficients) unreliable and untrustworthy when making inferences from samples to populations. Generally speaking, there will be more error in beta values for greater amounts of multicollinearity. There are other influences too, but we won’t address them here. You should just know to determine if you meet this assumption. Because we only have one predictor in this example, we do not have to test for this assumption.
+
+If you had multiple predictors, you would want to test for multicollinearity. One easy way to test this is to examine Variance Inflation Factors (VIFs) using the `car::vif()` function from the car library. The function returns a VIF value for each predictor. If the square root of the VIF is greater than 2, this predictor would be eliminated from your model. There are other rules of thumb that you can examine.
+
+If you have multiple predictors:
+
+```{r}
+# car::vif(mymodel) # variance inflation factors for the model
+# sqrt(car::vif(mymodel)) # the square root of them
+```
+
+
+#### *Independence of Errors*
+
+For any two observations in the data, the errors should not be related. This is usually not a problem as long as your sample is selected at random and you don’t allow people to participate in your study, allow them to talk to other participants, etc. in ways that affect how two people (or objects) respond. This independence assumption can be tested using the Durbin-Watson test using the `car::durbinWatsonTest()`.  The Durbin-Watson test will produce a D-W statistic value that will be large if independence is violated (and you have dependence). Compare *p* to alpha. 
+
+```{r}
+car::durbinWatsonTest(mod_stroop)
+```
+
+## *Model : Multiple Linear Regression*
+
+Predicting y from x1 (continuous) and x2 (categorical) predictors: `lm(y ~ x1 + x2, data = data frame)`
+
+```{r}
+mod_stroop2 <- lm(incongruent_z ~ congruent_z + odd, data = STROOP_WIDE)
+
+performance::check_model(mod_stroop2)
+performance::model_performance(mod_stroop2)
+```
+
+
+## *Linear Model Using `lm()`*
+
+- `rt ~ trialtype as congruent or incongruent`
+
+```{r}
+head(STROOP_agg)
+
+lm_stroop <- STROOP_agg %>%
+  lm(rt ~ trialtype, data = .)
+
+#performance::r2(lm_stroop)
+parameters::model_parameters(lm_stroop)
+performance::model_performance(lm_stroop)
+```
+
+
+## *Analysis of Variance (ANOVA) Model Using `aov()`*
+
+- `rt ~ trialtype as a factor`
+
+```{r}
+STROOP_agg %>%
+  ggplot(data = ., aes(trialtype, rt)) +
+  geom_boxplot(fill = "grey") +
+  geom_jitter(aes(color = trialtype), width = .15) + 
+  see::theme_modern() + stat_summary(shape = 1) 
+```
+
+```{r}
+aov_stroop <- STROOP_agg %>%
+  mutate(., trialtype = factor(trialtype)) %>%
+  lm(rt ~ trialtype, data = .)
+```
+
+Using `aov()`:
+
+```{r}
+aov_trialtype <- STROOP_agg %>%
+  mutate(., trialtype = factor(trialtype)) %>%
+  aov(rt ~ trialtype, data = .)
+
+car::Anova(aov_trialtype)
+performance::check_model(aov_trialtype)
+parameters::model_parameters(aov_trialtype)
+performance::model_performance(aov_trialtype)
+```
+
+
+Using `lm()` but congruent as baseline.
+
+- `rt ~ incongruent` 0 = baseline, 1 = incongruent
+
+```{r}
+lm_incongruent <- STROOP_agg %>%
+  lm(rt ~ incongruent, data = .)
+
+performance::check_model(lm_incongruent)
+car::Anova(lm_incongruent)
+parameters::model_parameters(lm_incongruent)
+performance::model_performance(lm_incongruent)
+```
+
+```{r}
+aov_incongruent <- STROOP_agg %>%
+  aov(rt ~ incongruent, data = .)
+
+plot(aov_incongruent)
+
+performance::check_model(aov_incongruent)
+car::Anova(aov_incongruent)
+parameters::model_parameters(aov_incongruent)
+performance::model_performance(aov_incongruent)
+#coefficients(aov_incongruent)
+??model_compare
+
+compare_performance(lm_stroop, 
+                    aov_trialtype,
+                    lm_incongruent, aov_incongruent)
+
+```
+
+# *Adding Predicted and Residuals to the Data Frame*
+
+Using the `modelr` library, you can easily add model residuals and predicted values to the data frame producing the model.
+
+In some instances, when cases are dropped from the model (e.g., `NA` values), the starting data frame may not be the same as the model data frame. Grabbing the modeled data frame, however, is easy because it can be extracted from the model itself using the the `$` operator. If your model object is `lm_stroop`, tehn `lm_stroop$model` will return the model. Let's make an object holding the modelled data and name it `stroop_mod_dat`. 
+
+Using `add_predictions()` and `add_residuals()`, we can add them to `stroop_mod_dat`. We will also add an `id` variable based on the rows in the data frame. 
+
+Let's step through how we could do this. There are a few ways we can do it, so this example represents one way. 
+
+- *First*, remember that `dim()` will return a vector contaning the length of the dimensions of a data frame. There are two elements, the first for the length of rows and the second for the columns. We want the rows, so we can extract the first element `dim(stroop_mod_dat)[1]`. 
+
+-  *Second*, because each respondent has 2 rows of data, we want to make sure to assign the same `id` value for consecutive rows of congruent and incongruent data. Thus, we need to cut the row length in half by dividing by 2 or multiplying by .5; `dim(stroop_mod_dat)[1]/2`.
+
+- *Third*, we want to make a sequence of numbers from 1 to half the full length or the reduced length referenced in the point above. Remember that `seq()` will allows us to make a sequence of values from one number to another number, which in our case is have the row length. Make sure to treat the length as a single value by wrapping in in parentheses or otherwise the operations will not be performed in the order to want them to be performed. For example, compare `seq(1 : (dim(stroop_mod_dat)[1]/2))` with `seq(1 : dim(stroop_mod_dat)[1]/2)`. We want `seq(1 : (dim(stroop_mod_dat)[1]/2) )`.
+
+- *Fourth*, remember that `rep()` will replicate a vector some numer of times. Because we have congruent and incongruent trials, we want two replications, so `rep( seq(1 : (dim(stroop_mod_dat)[1]/2)), times = 2)`.
+
+- *Fifth*, using `sort()` we can sort the vector in numerical order so that every two rows get the same `id`. We can now add 
+`sort( rep( seq(1 : (dim(stroop_mod_dat)[1]/2)), times = 2))` to mutate a new variable.
+
+
+```{r}
+stroop_mod_dat <- lm_stroop$model
+
+stroop_mod_dat <- stroop_mod_dat %>%
+  mutate(., id = sort( rep( seq(1 : (dim(stroop_mod_dat)[1]/2)), times = 2)))
+
+```
+
+
+We can also make a function to do this, though it would need to be flexible to adjust for the levels of a specified variable.
+
+```{r}
+add_res_pred_to_model = function(model = NULL, 
+                                 id_by = NULL, 
+                                 #data = NULL, 
+                                 drop_id = F) {
+  # best is passes a model
+  if (is.null(model) & is.null(data)) {
+    message("'model' and 'data' are NULL. One needs to be specified.")
+  } else {
+  # if the model is specified  
+  if (!is.null(model)) { 
+    m = model$model 
+    m = m %>% 
+      modelr::add_residuals(model) %>%  # add resid 
+      modelr::add_predictions(model)    # add predicted
+    }
+  
+  #if (!is.null(data)) m = data
+  
+  m = arrange(m, m[[id_by]])
+  groups = length(unique(m[, id_by]))
+  m = m %>% 
+    mutate(., id = rep(seq(1:(dim(m)[1]/groups)), groups)) %>%
+    arrange(., id) # resort
+  if (drop_id) m = select(m, -id)
+  return(m)
+  }
+}
+
+
+stroop_mod_dat <- add_res_pred_to_model(model = lm_stroop, id_by = "trialtype") 
+```
+
+
+
+
+
+A little exerci
+
+```{r}
+STROOP
+STROOP_agg
+stroop_mod_dat$id2 = STROOP_agg$id
+head(stroop_mod_dat)
+
+stroop_mod_error <- lm(error ~ trialtype, data = STROOP_agg)
+stroop_mod_error_dat <- add_res_pred_to_model(stroop_mod_error, "trialtype")
+stroop_mod_error_dat$id2 <- STROOP_agg$id
+
+stroop_mod_error_dat %>% 
+  ggplot(.) +
+  geom_density(aes(x = error, color = trialtype)) +
+  see::theme_modern()
+
+stroop_mod_error_dat %>%
+  ggplot(., aes(group = id)) +
+    geom_jitter(aes(trialtype, error), width = 0) +
+    see::theme_modern()
+
+error_p <- stroop_mod_error_dat %>% 
+  ggplot(., aes(group = id)) +
+  geom_point(aes(trialtype, error)) +
+  geom_point(aes(trialtype, pred), size = 2, shape = 1, color = "green") + #, width = .2, alpha = .5, color = "red") +
+  geom_text(aes(x = trialtype, y = error, label = id2), nudge_x = c(-.15, .13), color = "black") +
+  geom_line(aes(trialtype, error), color = "red", alpha = .4) +
+  geom_line(aes(trialtype, pred), color = "green", alpha = 1) +
+  geom_line(aes(1.5, pred), color = "black", alpha = 1) +
+  #stat_summary(aes(trialtype, pred), geom = "pointrange") +
+  #geom_text(aes(x = 1.5, y = pred), label = mean(pred)) color = "black") +
+  see::theme_modern()
+  
+  
+rt_p <- ggplot(stroop_mod_dat, aes(group = id)) +
+  geom_jitter(aes(trialtype, rt), width = 0) +
+  geom_point(aes(trialtype, pred), size = 2, shape = 1, color = "green") + #, width = .2, alpha = .5, color = "red") +
+  geom_text(aes(x = trialtype, y = rt, label = id2), nudge_x = c(-.15, .13), color = "black") +
+  geom_line(aes(trialtype, rt), color = "red", alpha = .4) +
+  geom_line(aes(trialtype, pred), color = "green", alpha = 1) +
+  geom_line(aes(1.5, pred), color = "black", alpha = 1) +
+  #stat_summary(aes(trialtype, pred), geom = "pointrange") +
+  #geom_text(aes(x = 1.5, y = pred), label = mean(pred)) color = "black") +
+  see::theme_modern()
+
+rt_p
+error_p
+
+?geom_text #geom_text(aes(x = trialtype, y = pred, label = id), color = "red")
+
+
+  annotate("text", x = 1.5, y = 500, label = "my plot", color = "black")
+
+  geom_text(mapping = aes(id, pred))
+?geom_text
+
+#%>%
+  group_by(., trialtype) %>% 
+  summarize(., 
+            resid_mn = mean(resid*resid),
+            resid_sd = sd(resid)
+            )
+  
+plot_resid <- function(data, x = "trialtype", color = "red", width = .3) {
+  ggplot(data, aes(x = data[[x]])) +
+    geom_ref_line(h = 0) +
+    geom_jitter(aes(y = resid), color = color, width = width) +
+    xlab(x)
+}
+plot_resid(stroop_mod_dat, "trialtype")
+
+add_residuals(sim1_loess, var = "resid_loess") %>%
+  add_predictions(sim1_loess, var = "pred_loess")
+
+library(modelr)
+lm_stroop
+?modelr::add_predictions
+modelr::add_predictions
+
+
+grid_loess <- lm_stroop %>%
+  add_predictions(sim1_loess)
+
+lm_stroop <- ''
+lm_stroop %>%
+#%>%
+  add_predictions(sim1_lm) %>%
+  add_residuals(sim1_loess, var = "resid_loess") %>%
+  add_predictions(sim1_loess, var = "pred_loess")
+```
+
+
+

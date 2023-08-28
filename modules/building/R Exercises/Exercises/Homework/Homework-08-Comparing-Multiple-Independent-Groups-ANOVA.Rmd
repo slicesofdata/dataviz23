@@ -1,0 +1,472 @@
+---
+title: "Homework 08: Comparing Multiple Sample Means - Anova"
+author: "partner names"
+date: "add date"
+output: 
+ html_document:
+   toc: true # this will create a table of contents of hyperlinks (change to false to omit)
+   toc_depth: 2
+---
+
+
+#Part A
+###Before you begin
+
+This homework exercise involves having you answer some questions, write some code, and create a nice HTML file with your results. When asked different questions, simply either type your coded or written responses after the ANSWER message. When asked to write code to complete sections, type your code in the empty code blocks that follow the *ANSWER* message (between the back ticks). After adding that code, you must make sure that it will execute. So remember to read the content and run each line of your code as you write it so that you know it executes correctly. If your code does not execute, then RMarkdown won't know what you are telling it to do and your HTML file will not be produced. Also, don't create your HTML file until you finish and know that all of your code works correctly.
+
+1.0. Installing and using libraries in RStudio
+
+1.1. Run the code below to download some libraries needed for this assignment. By using `include=FALSE, cache=FALSE` in the `R` code header, we will make sure that any error messages do not appear in the HTML file you create.
+
+```{r include=FALSE, cache=FALSE}
+source("https://dl.dropboxusercontent.com/u/6036547/109_2016_f.txt?raw=1")
+```
+
+If you know what libraries you will use for your code, you can load them now. Use `library()` to load the following libraries: `lattice`, `plyr`, `psych`, and `car`. A summary of the functions and the libraries is listed above.
+
+*ANSWER:* 
+```{r, message = FALSE, warning = FALSE}
+library(plyr)
+library(car)
+library(lattice)
+library(psych)
+
+#options(scipen = 999) #remove scientific notation if you want
+```
+
+1.2. Key functions used for this assignment, some old, some new: 
+
+- `aov()` for calculating an ANOVA; built-in stats library
+- `by()` for applying a function to a data frame split out by levels of a factor; built-in base library 
+- `car::leveneTest()` for viewing homogeneity of variance; `car` library
+- `bartlett.test()` for viewing homogeneity of variance; built-in stats library
+- `lattice::densityplot()` for creating  plot graphs; `lattice` library
+- `lattice::histogram()` for histograms; `lattice` library
+- `pairwise.t.test()` for examining pairwise comparisons with Bonferroni correction; built-in stats library
+- `plyr::count()` for viewing the frequency of each factor; `plyr` library
+- `psych::describeBy()` for descriptive stats for groups; `psych` library
+- `shapiro.test()` for testing normality; built-in stats library
+- `summary.lm()` for extracting r-squared; built-in stats library
+- `TukeyHSD()` for analyzing the differences between groups; built-in stats library
+
+#Part B
+##1. Overview of the one-way between-groups ANOVA (for independent groups)
+
+1.1. The statistical procedure for testing variation among the means of more than two groups is called the *analysis of variance*, abbreviated as *ANOVA*. The null hypothesis in an analysis of variance is that the several populations being compared all have the same means. Hypothesis testing in analysis of variance is about whether the means of the samples differ more than you would expect if the null hypothesis were true. This question about means is answered, surprisingly, by analyzing variances (hence the name analysis of variance). Among other reasons, you focus on variances because when you want to know how several means differ, you are asking about the variation among those means
+
+ANOVA is a commonly used statistical technique for investigating data by comparing more than two sample means. When there are multiple levels of one IV and the levels are based on independent groups (e.g., different demographics, random assignment, etc.), *one-way between-subjects ANOVA* is used. This is an extension of *independent-samples t-test* for instances where comparisons are made between more than two groups. There is also a *one-way within-subjects ANOVA* which corresponds to multiple repeated measures conditions for which there is one IV and the levels represent measurements of individuals more than once (e.g., measuring alertness in the morning, afternoon, and evening). This exercise is on the one-way between-subjects *ANOVA* only. 
+
+1.2. Data for the *one-way between-subjects ANOVA* are grouped on some classification factor, or variable (e.g., class rank) so that group means can be created based on that classification. 
+
+For example, a data frame may look like this:
+
+- ID...ClassRank....Happiness
+- 1....Freshman.....6
+- 2....Freshman.....5
+- 3....Sophomore....6
+- 4....Sophomore....7
+- 5....Junior.......8
+- 6....Junior.......8
+- 7....Senior.......9
+- 8....Senior.......10
+
+
+1.3. Using some real data, we can read in some data based on startup businesses. Based on startup costs for different businesses, we will analyze different DVs by comparing levels of different IVs. 
+
+Read in "Jobs.csv" data file from Sakai and assign the contents to a data frame called `JOBS`:
+
+```{r}
+#setwd("c:/users/gcook/desktop/Psyc109") #set working directory if necessary
+
+head(JOBS)
+```
+
+
+##2. Examining Data
+
+2.1. As always, examine the `str()` of the data frame to see the classification of variables in the `JOBS` data frame. 
+
+```{r}
+str(JOBS) #or View(JOBS)
+```
+
+You will notice that the variables are listed as int, or integers but they should not really reflect numerical values. The integers are just placeholders for different groups (e.g., men, women). For example, check out `Shop`. R will read in a data file in a way that it thinks is appropriate. However, sometimes you will need to change the scaling of the variable so that you can perform certain test. Because these variables refer to categories/nominal variables, they are also known as factors. We need to modify them for the *ANOVA* test. Using `factor()` we will convert them to factors because they are certainly not integers. 
+
+Knowing the sample size of each of the groups is important for many reasons. For instance, you wouldn't want to run an *ANOVA* when you have really small sample sizes. You can count the samples sizes, but it's much easier to create a frequency table of the variable using `plyr::count()` from the `plyr` library so that you know the sample size for each level of a variable. 
+
+- Ex: `with(dataframename, plyr::count(variablename)) )`
+
+Get a frequency count:
+```{r}
+# get a frequency count to see how many people are in each 
+with(JOBS, plyr::count(Shop))
+```
+
+The first column ("x") indicates the type of `Shop` and the second column is frequency count for each type/level of `Shop`.
+The levels of `Shop` are either 1 (Bakery), 2 (Pizzaria), or 3 (Shoes Store).
+
+
+2.2. Now that we know the levels and sample sizes, we can create the factors using `factor()`. If we add two arguments to the function (e.g., levels and labels) we can replace the numbers with names that correspond to the levels of the IV. We will add ".fact" to the new variable so that we know these are our new factors. Let's practice with a simple three-level example. Remember that in order to add the variable to your existing data frame, you have to specify the data frame too. You can also create your data file with the level names too rather than with numbers, but you might not always obtain data files that are in the format you need them to be in, so let's practice. 
+
+- Ex: `dataframename$newvariable <- with(dataframename, factor(oldvariable, levels, labels))`
+
+```{r}
+JOBS$Shop.fact <- with(JOBS, factor(Shop, 
+                       levels = c(1, 2, 3), 
+                       labels = c("Bakery", "Pizzaria", "Shoe Store")))
+```
+
+
+OK, now that you have some IVs with samples that aren't too small and you know what the levels of those IVs are, sized samples, proceed to comparing groups with an *ANOVA*. 
+
+
+##3. Examine the Assumptions for the one-way ANOVA for idependent groups (between-subjects)
+
+3.1. Assumptions of a *one-way between-subjects ANOVA* are the same as for a *independent-samples t-test* except that they apply to two or more groups, not just two groups.
+
+  1. DV is interval/ratio in measurement scale.
+  2. The populations have the same variance; homogeneity of variance.
+  3. The populations are distributed normally.
+  4. Each value is sampled independently from each other value. This assumption requires that each subject provide only one value. If an experimental unit provides two scores, then the values are not independent. 
+
+
+3.2. Testing the Assumptions
+
+3.2.1. Looking at your data is always good before doing statistical testing. Examine the descriptive statistics for the groups in order to determine what the sample means and variances are. One really useful way to do this is to use `psych::describeBy()` from the `psych` library. This function takes two main arguments: the DV and the factor IV. Examine amount of exercise for people who have different music genre preferences. We will describe the DV by the IV.
+
+- Ex: `with(dataframename, psych::describeBY(DV, IV))`
+
+```{r}
+with(JOBS, psych::describeBy(Startup, Shop.fact))
+```
+
+You can see that there are 3 Shop groups and because we added labels, the labels are also included. If we didn't add the labels above, the output would be more difficult to interpret, so always create labels first. The sample sizes are no greater than 17, the means are slightly different but between 72 and 92, and the standard deviations also differ slightly but not by much. All distributions also have a slight positive skew which is evidenced by the skew measure as well as the fact that the means are higher than the medians. In order to compare means appropriately for the *ANOVA*, you need to check assumptions.
+
+3.2.2. Normality can be examined visually of course with a histogram or  plot. Remember that the `lattice library` makes creating graphs for levels of a factor very easy to do. Use those from the `lattice library`. The  density plot provides more detail about shape. The | tells `R` to plot the DV separately for each level of IV. 
+
+- Ex: `with(dataframename, lattice::densityplot(~ DV | IV))` 
+
+```{r}
+with(JOBS, lattice::densityplot(~ Startup | Shop.fact))
+```
+
+Adding a "layout" argument helps plots the graphs on top of each other which is useful for comparing the means of the distributions.
+
+```{r}
+with(JOBS, lattice::densityplot(~ Startup | Shop.fact, layout = c(1,3)))
+```
+
+Besides looking at the data visually, the `shapiro.test()` will test for normality. However, the function does not have a built-in way to test normality for the subgroups or levels of a factor. However, `by()` will serve as a helper function to allow you to conduct the statistical test at each level of your factor.
+
+- Ex: `with(dataframename, by(DV, IV, shapiro.test))`
+
+```{r}
+with(JOBS, by(Startup, Shop.fact, shapiro.test))
+
+# to show you more of how the by() function works to repeat tasks, do the same using mean as the last argument
+with(JOBS, by(Startup, Shop.fact, mean))
+```
+
+Having non-normal distributions is almost preordained with small sample sizes. When you have sample sizes of about 30 or more and you still have normality issues, you may have to transform your data before conducting an *ANOVA* test. Or you might night be able to even do an *ANOVA*. Given the shapes of the distributions just examined (some being non-normal), you will consider whether the *ANOVA* is appropriate as a test.  
+
+Since it appears that we have not violated the assumption of normality we will continue with our analysis. 
+
+
+3.2.3. Homogeneity of Variance
+
+For an *ANOVA*, one assumption is the *homogeneity of variance* (HOV) assumption. That is, in an *ANOVA* we assume that variances of the groups are equal. Much like with the *t*-test, moderate deviations from equal variances do not seriously affect the results of the *ANOVA*. In other words, the *ANOVA* is robust to small deviations from the *HOV* assumption. We only need to be concerned about large deviations from this assumption. There are several ways to test this assumption; two of those are the Levene's test and the Bartlett test. The Bartlett test is a common test for the homogeneity of variances when the data are distributed normally. 
+
+If your distributions are normal, you can use the Bartlett's test for violations in the homogeneity of variance using `bartlett.test()`. This test uses two main arguments and follows in formula format, the DV as a function of the IV: 
+
+- Ex: `with(dataframename, bartlett.test(DV ~ IV))`
+  
+```{r}
+# Bartlett test
+with(JOBS, bartlett.test(Startup ~ Shop.fact))
+```
+
+If you examine the *p*-value, you will see that it is larger than an alpha = .05, so there appears to homogeneity of variance. However, because some of our levels of the IV has a very small sample size and because there was some positive skew to the distributions (see earlier description of the descriptive statistics), the Levene's Test would be more appropriate than the Bartlett test because it is not as sensitive to departures from normality as is the Bartlett's test. The Levene's test takes two arguments, the DV and the factor IV, but is not in the form of a formula:
+
+- `with(dataframename, car::leveneTest(DV, IV))`
+
+```{r}
+with(JOBS, car::leveneTest(Startup, Shop.fact))
+```
+
+If you notice from the title of the output, the default version of the Levene test is based on "medians" which is supposedly more robust and accurate than that based on the "mean". If you wanted to use means for the variance measure, you can simply use the *center* argument and set it equal to "mean". If the mean version makes more sense to you, use that one, but remember to use "center = mean" because by default "center = median". Understanding the nuances between these versions is not necessary at this point.
+
+```{r}
+with(JOBS, car::leveneTest(Startup, Shop.fact, center = mean))
+```
+
+Because the Levene's test is comparing the 3 groups, the test provides an *F*-value which ironically is an *ANOVA* value. One way to think about the Levene's test when there are more than 2 groups is that it's an *ANOVA* test on the variances rather than the means. The *p*-value can be used for interpretation. Both versions of the test reveal that the variances are not different (e.g., *p* > alpha), suggesting that we likely have not violated the homogeneity of variance assumption. 
+
+We can write the Levene's test result as:
+
+- Ex: *F*(2, 38) = .7532, *p* = .895.
+
+
+
+##4. Conducting the ANOVA test/examining model fit
+
+4.1. The ANOVA stands for *Analysis of Variance*, which is actually a test of the ratio of variance between groups (e.g., between-groups variability = sample means deviated from a grand mean) to variance within groups (e.g., within-groups variability = how people within samples deviate from their respective sample means). In order words, when an IV does not explain the data, the differences between the sample means will be about the same as the variability within the sample means. When the difference between groups is larger than the difference between people in groups, the *F* value will be larger and has a greater likelihood of suggesting that the sample means differ from one another. 
+
+The *ANOVA* test provides an *F* ratio: 
+
+-  *F* = between-groups variance (model)  /  within-groups variance (residual) 
+  
+  And because you know that the unbiased variance = SS/df...
+  
+-  *F* = SSm/dfm  /  SSr/dfr 
+  
+
+
+4.2. In order to obtain the *F* ratio value, SS, degrees of freedom, and the *p*-value, the `aov()` can be used for fitting *ANOVA* models for a categorical IV; `aov()` follows the same format as `lm()`for regression. 
+
+- Ex: `with(dataframename, aov(DV ~ IV))`
+
+
+Specify the linear model by setting the DV and the IV and assign the result to an object named `JOBS.aov`. The aov is a useful reminder of `aov()` so you know which test you ran. However, you could name the object anything you wanted.
+
+```{r}
+JOBS.aov <- with(JOBS, aov(Startup ~ Shop.fact)) 
+
+```
+
+Then use `anova()` on the model you created in order to examine the output.
+
+```{r}
+anova(JOBS.aov)
+```
+
+**BONUS:** If there is heterogeneity of variance and you want to use a Welch correction for multiple groups, you can use `oneway.test()` for ANOVA. Like with`aov()`, you specify the DV as a function of the IV. However, the output does not provide SS, so it's limited in this context. You can read up more on it if interested. 
+
+- Ex: `with(data frame, oneway.test(DV ~ IV))`
+
+
+4.3. The output of `anova()` displays 2 rows (e.g., between-groups and within-groups/residuals information) and 5 columns of values (e.g., degrees of freedom, Sums of Squares, Mean Squares, *F*-value, and *p*-value. For illustration purposes only, the description below also describes how the values in the output are used to calculate the *F*-value. 
+
+**Degrees of Freedom** 
+
+-  *Model/Between-groups df* (#groups - 1): 3 - 1 = 2
+
+-  *Residual/Within-groups df* (n - 1): 
+    1. Bakery: 13 - 1
+    2. Pizzaria: 11 - 1
+    3. Shoe Store: 10 - 1
+    -  Total: 12 + 10 + 9 = 31
+
+**Mean Squares of the model and the resdiuls**
+
+- Mean squares are simply SS/df (variances). Taken from the output,
+
+```{r}
+MSm <- 2053/2
+MSr <- 37963/31
+```
+
+**F-value and p-value**
+
+- And the *F* ratio is simply a ratio of the two MS (variances). 
+
+```{r}
+Fval <- MSm/MSr
+
+# examine the values 
+MSm; MSr; Fval
+```
+
+
+4.4. When reporting the between-subjects ANOVA, you need so specify the *F*-value along with degrees of freedom because there is a family of *F* values just like there is a family of *t* values and the calculated test is a test of the data fitting an *F* distribution of a certain combination of degrees of freedom for the groups and the error:
+
+- *F*(model df, residual df) = F, *p*-value. 
+  
+- *F*(2, 31) = .8382, *p* = .44.
+  
+
+##5. More on Understanding the Variance
+
+5.1 The Sum of Squares
+
+*ANOVA* is a method for testing differences among means by analyzing variance. *ANOVA* partitions the variability among all the values into one component that is due to variability among group means (due to the treatment) and another component that is due to variability within the groups (also called residual variation). Variability within groups (within the levels of the IV) is quantified as the sum of squares of the differences between each value in a sample and that sample mean. 
+
+
+5.2. The Mean Square
+
+Each SS is associated with a certain number of degrees of freedom (df, computed from number of subjects and number of groups), and the mean square (MS) is computed by dividing the SS by the appropriate number of df. These can be thought of as variances, SS/df. I'm sorry that someone created a new name for them. Just think about the MS as between-groups and within-groups variance estimates.
+
+The MS values obtained can be found in the *ANOVA* table that we previously ran earlier under the Mean Sq column. 
+
+5.3 The *F*-value
+
+The *F* ratio is the ratio of two variances, or well, MS values. If the null hypothesis is true, you expect *F* to have a value close to 1.0; the variances are the same and therefore the IV does not explain the data. The larger the *F* ratio, the greater the variation among group means relative to the error within groups. In other words the groups differ from one another more than the people within the groups differ from each other. 
+
+You'll see a large *F* ratio both when H0 of equal groups means does not really account for the data (the data are not sampled from populations with the same means) or when random sampling accidentally produced samples with means that are not equal even though they should be (if the H0 did account for the data). 
+
+
+5.4. The P value is determined from the *F* ratio and the two values for degrees of freedom shown in the ANOVA table. Luckily you do not need to look up any values in a table when running the analysis in R.
+
+
+##6. Post-hoc tests
+
+6.1. If you achieve significance in with your *ANOVA* you must run a post-hoc test to determine which levels of the factor are significantly different from other another. Post-hoc test correct for familywise error rate.  Two methods for post-hoc testing include using `TukeyHSD()` and `pairwise.t.test()`. 
+
+6.2. TukeyHSD (Tukey Honest Significant Differences) is a commonly used test to show which levels are significantly different from one another. You simply put the *ANOVA* model in the function.
+
+```{r}
+TukeyHSD(JOBS.aov)
+```
+
+As you can see this compares each of the groups to each other and shows you the differences as well as the *p*-value for each of the pairwise tests. In this case, there are no significant differences between startup costs for different type of shops because all of the *p*-values (p adj) are < .05 (alpha). 
+
+
+6.3. Unlike, TukeyHSD, `pairwise.t.test()` requires you to specify the DV and the IV and specify the adjustment of the p value. This pairwise comparison adjusts the *p*-value due to the familywise error rate. A common correction is *Bonferroni*.
+
+```{r}
+with(JOBS, pairwise.t.test(Startup, Shop.fact, p.adj = "bonf"))
+```
+
+Notice that the *p*-values are > .05 (alpha). In other words, both post-hoce approaches tell you the same story.
+
+
+
+##7. Effect Size for ANOVA 
+
+7.1. This post will look at effect size with *ANOVA*, which is not the same as other tests (like a *t*-test). When using effect size with *ANOVA*, we use a measure of *r*-squared, which reflects the ratio of variability that the model explains out of all the variability that exists in the dependent variable. In regression terminology, this was the coefficient of determination. This effect-size measure is sometimes also referred to as *Eta squared* in the context of ANOVA. 
+
+- *r*-squared is SS model / SS total. For our example we simply divide:
+
+```{r}
+r2 <- 2053 / (2053 + 37963)
+round(r2, 4) # if you don't like all the decimals
+```
+
+Or, because *r*-squared is based on the linear model, use `summary.lm()` and extract the r.squared value.
+```{r}
+r2 <- summary.lm(JOBS.aov)$r.squared
+round(r2, 4)
+```
+
+In this example, there was no difference between shop groups and startup costs, so having a small effect size makes a lot of sense. 
+
+*OPTIONAL:*
+7.2. Because ANOVA is a special case of regression for which the predictor is categorical rather than continuous, we can still create a linear model using `lm()`. And, because you know the `R` output for a linear model provides you with r-squared measures, you can also verify the that ANOVA and regession are the same. 
+
+Build a linear model and examine the estimates:
+```{r}
+JOBS.lm <- with(JOBS, lm(Startup ~ Shop.fact))
+summary(JOBS.lm)
+```
+Notice, that the (multiple) R-squared value in the output is the sames as that calculated above.
+
+*END OPTIONAL*
+
+
+##8. Graphing
+
+If you want to create a graph of the conditions, one way to do so is to create a simple box-and-whisker plot for the levels of the factor by using the lattice package. Plot the DV as a function of the IV. For box-and-whisker plots, use `lattice::bwplot()`. They are nice because they convey a lot of information. A good summary and illustration is [here](http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/)
+
+- The point on the box represents the median, not the mean. However, when distributions are not skewed the means and medians are the same. When they are skewed, the median is more informative anyway. Remember the median is the 50th percentile score which splits the distribution into two equal parts.  
+
+- The box boundaries indicate the 25th and 75th percentiles; thus only 25% of the scores fall below or above the box boundaries.
+
+- The whiskers provide information about the most extreme scores in the distribution; thus the whiskers represent the 25% between the box and the whisker. 
+
+- If there are dots that fall beyond the whiskers, they are treated as outliers, which makes identifying values easy. There are no outliers here, however. 
+
+```{r}
+# basic (not really pretty)
+with(JOBS, boxplot(Startup ~ Shop.fact))
+
+# lattice version
+with(JOBS, lattice::bwplot(Startup ~ Shop.fact))
+
+# lattice more fancy
+with(JOBS, lattice::bwplot(Startup ~ Shop.fact, 
+       ylab = "Startup Cost", 
+       xlab = "Shop Type",
+       col = "red",
+       fill = "yellow"))
+```
+
+#Part C
+##Do it yourself!
+
+You have been asked by archeologists to analyze data from four different excavation sites in New Mexico and have been given the depths at which significantly archaeological discoveries have been made. Using the data set, the archeologists want to know if there are any differences among the site locations at the depth that discoveries are made. 
+
+1. Download and read in the `Dig.csv` dataset. Then look at the `str()` of the data frame to see the names of the variables. 
+
+```{r}
+## Read in the data set
+
+```
+
+2. **QUESTION:** Use `plyr::count()` on the Site variable to determine your sample size and examine of the structure of your dataframe. 
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+
+3. **QUESTION:** You may have noticed that `Site` is an integer variable. Let's change that because it refers to different site locations in New Mexico. Using `factor()` make the `Site` variable into a `factor` with labels that reflect: 1 = Uxmal, 2 = Cholula, and 3 = Coba.
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+4. After you have done that use `psych::describeBy()` to grab descriptive statistics for each group.
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+
+5. **QUESTION:** Now that we have the groups separated into factors it is time to start looking at the depth variable. Using `lattice::densityplot` and `shapiro.test` check to see if depth is normally distributed for the different groups. (Hint: `by()` will help you conduct the test acorss the group levels of the IV)
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+6. Is the HOV assumption met?
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+*ANSWER:* Yes, the Levene's test shows that site locations likely have the same variances, *F*(2, 34) = .79, *p* = .46.
+
+
+7. **QUESTION:** Now create the ANOVA model using `aov()` and name the model something so that you can compare the groups and then examine the model output to determine whether your ANOVA test reveals differences between groups.
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+
+8. **QUESTION:** Remember, the F value represents the ratio of the MS of the model to the MS of the residuals.  This ratio helps you determing whether the model using the IV to predict your data is better than not using a predictor. The *p*-value provides a likelihood measure of the likelihood the the data under the null hypothesis (e.g., the predictor does not help/groups have the same means). Do the locations have statistically different depths?
+
+*ANSWER:* 
+
+
+
+
+9. **QUESTION:** The result of the ANOVA determines whether to run a post-hoc test. For practice, run a post-hoc test to determine which factors levels would be significantly different and the direction of that difference. For example, use the Tukey HSD test to make all pairwise comparisons. 
+
+*CODED ANSWER:*
+```{r}
+
+```
+
+
+10. **QUESTION:** Based off your findings which site(s) would you recommend the archeologists dig at? Why?
+
+
+
+###DONE!
+Upload your knit HTML file to Sakai's dropbox. Make sure to include your name(s).

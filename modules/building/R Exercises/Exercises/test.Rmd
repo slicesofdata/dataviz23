@@ -1,0 +1,23 @@
+---
+title: "Test"
+author: "Students"
+output: html_document
+---
+
+Type your R code between the back ticks (e.g., ```). Once completed with your assignment, click the **Knit** button on the toolbar to create your HTML document of both your R code chunks and the R output.
+
+```{r} 
+Sys.time()
+summary(cars)
+plot(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+summary(cars)
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+

@@ -1,0 +1,32 @@
+---
+title: "overlap of two dist"
+output: html_markdown
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+
+```{r}
+a <- rnorm(n = 100, mean = 10, sd = 1)
+b <- rnorm(n = 100, mean = 15, sd = 1)
+
+
+```
+
+```{r}
+overlap <- function(x, y) {
+  F.x <- ecdf(x); F.y <- ecdf(y)
+  z <- uniroot(
+    function(z) F.x(z) + F.y(z) - 1, 
+    interval <- c(min(c(x,y)), max(c(x,y))))
+  
+  return(list(Root = z, F.x = F.x, F.y = F.y))
+}
+```
+
+```{r}
+over <- overlap(a, b)
+
+```
+

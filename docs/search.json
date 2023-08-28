@@ -1,247 +1,590 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Nothing to see here"
-  },
-  {
-    "objectID": "exercises/index.html",
-    "href": "exercises/index.html",
-    "title": "Exercises",
-    "section": "",
-    "text": "Various tasks and exercises will be found here.\nThe exercise list will be updated as the semester progresses."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "PSYC167",
-    "section": "",
-    "text": "This is the course website for PSYC 167: Data Visualization, taught by Prof. Gabriel I. Cook; 1 credit\nDescription\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nSources\nThis course will use open-educational resources, typically licensed on creative commons."
-  },
-  {
-    "objectID": "index.html#psyc-167-data-visualization",
-    "href": "index.html#psyc-167-data-visualization",
-    "title": "PSYC167",
-    "section": "",
-    "text": "This is the course website for PSYC 167: Data Visualization, taught by Prof. Gabriel I. Cook; 1 credit\nDescription\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nSources\nThis course will use open-educational resources, typically licensed on creative commons."
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html",
-    "href": "modules/01 Introduction/index.html",
-    "title": "1 Introduction",
-    "section": "",
-    "text": "Welcome to the orientation learning module for PSYC 167. We have a lot of ground to cover this semester and in return you will have much to showcase for yourself.\nIf you are willing to embrace challenge and troubleshooting, you will walk away with:\nWarning: If you are not up for the challenge, you may feel overwhelmed, likely be miserable, and will want to give up. If that’s you, there are other courses that may be a better fit for you.\nWe will cover everything here and more on the first day of class. See you there."
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html#goals",
-    "href": "modules/01 Introduction/index.html#goals",
-    "title": "1 Introduction",
-    "section": "Goals",
-    "text": "Goals\n\nGeneral course orientation\nget you ready for the first week"
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html#read",
-    "href": "modules/01 Introduction/index.html#read",
-    "title": "1 Introduction",
-    "section": "Read",
-    "text": "Read\nRead the syllabus for this course."
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html#getting-started-goals",
-    "href": "modules/01 Introduction/index.html#getting-started-goals",
-    "title": "1 Introduction",
-    "section": "Getting started goals",
-    "text": "Getting started goals\nThere are many possibilities for technical difficulties as we get started. The computer room is equipped with the software that we need, however, I strongly encourage you to install the necessary software on your own computer.\nThroughout the semester we will be using software called R, Rstudio, quarto, and github. All of this software is free and open-source, and can be installed on windows, mac, or linux."
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html#week-1-assignment",
-    "href": "modules/01 Introduction/index.html#week-1-assignment",
-    "title": "1 Introduction",
-    "section": "Week 1 assignment",
-    "text": "Week 1 assignment\n\nenter here"
-  },
-  {
-    "objectID": "modules/01 Introduction/index.html#more-goals-for-week-1",
-    "href": "modules/01 Introduction/index.html#more-goals-for-week-1",
-    "title": "1 Introduction",
-    "section": "More Goals for Week 1",
-    "text": "More Goals for Week 1"
-  },
-  {
-    "objectID": "modules/02 Installing R and R Studio/index.html",
-    "href": "modules/02 Installing R and R Studio/index.html",
-    "title": "2 Installing R and RStudio",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/02 Installing R and R Studio/index.html#read",
-    "href": "modules/02 Installing R and R Studio/index.html#read",
-    "title": "2 Installing R and RStudio",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/02 Installing R and R Studio/index.html#do",
-    "href": "modules/02 Installing R and R Studio/index.html#do",
-    "title": "2 Installing R and RStudio",
-    "section": "Do",
-    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
-  },
-  {
-    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html",
-    "href": "modules/03 Installing Git and GitHub Desktop/index.html",
-    "title": "03 Git this and Git that",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#read",
-    "href": "modules/03 Installing Git and GitHub Desktop/index.html#read",
-    "title": "03 Git this and Git that",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#do",
-    "href": "modules/03 Installing Git and GitHub Desktop/index.html#do",
-    "title": "03 Git this and Git that",
-    "section": "Do",
-    "text": "Do\n\nCreate a GitHub account\nInstall Git\nConfigure Git with RStudio"
-  },
-  {
-    "objectID": "modules/03 Installing Git and GitHub Desktop/index.html#additional-resources",
-    "href": "modules/03 Installing Git and GitHub Desktop/index.html#additional-resources",
-    "title": "03 Git this and Git that",
-    "section": "Additional resources",
-    "text": "Additional resources\n\nGithub\nWe will be use of Github to backup, store, and share your code with me and your collaborators.\nWe will troubleshoot Github challenges both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it’s rather advanced.\nhttps://happygitwithr.com (updated reguarly)"
-  },
-  {
-    "objectID": "modules/04 Creating a Posit Account/index.html",
-    "href": "modules/04 Creating a Posit Account/index.html",
-    "title": "2 R, R studio, Quarto and Github",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/04 Creating a Posit Account/index.html#read",
-    "href": "modules/04 Creating a Posit Account/index.html#read",
-    "title": "2 R, R studio, Quarto and Github",
-    "section": "",
-    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
-  },
-  {
-    "objectID": "modules/04 Creating a Posit Account/index.html#additional-resources",
-    "href": "modules/04 Creating a Posit Account/index.html#additional-resources",
-    "title": "2 R, R studio, Quarto and Github",
-    "section": "Additional resources",
-    "text": "Additional resources\n\nQuarto\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nhttps://quarto.org\n\n\nGithub\nWe will be making use of Github to store and share your course blog and website.\nWe will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.\nhttps://happygitwithr.com"
-  },
-  {
-    "objectID": "modules/04 Creating a Posit Account/index.html#week-2-assignment-make-a-tip-sheet",
-    "href": "modules/04 Creating a Posit Account/index.html#week-2-assignment-make-a-tip-sheet",
-    "title": "2 R, R studio, Quarto and Github",
-    "section": "Week 2 Assignment: Make a tip sheet",
-    "text": "Week 2 Assignment: Make a tip sheet\nWe are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.\nThis week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In section 1.2, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”\nMaking a tip sheet for yourself is the assignment for this weeks blog post.\n\nInstructions\n\nMake a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.\nSubmit the URL to your tips post to the week 2 assignment on blackboard."
-  },
-  {
     "objectID": "modules/index.html",
     "href": "modules/index.html",
     "title": "Modules",
     "section": "",
-    "text": "This course consist of approximately 10 content modules. The goal of the course is introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).\nThe modules consists of content from chapters of various textbooks that are freely available:"
+    "text": "This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).\nThe modules consists of content from chapters of various textbooks that are freely available:"
   },
   {
     "objectID": "modules/index.html#module-structure",
     "href": "modules/index.html#module-structure",
     "title": "Modules",
     "section": "Module structure",
-    "text": "Module structure\nIn general, modules will contain a reading, additional resources, and a weekly assignment.\nThe modules will be updated across the semester as needed."
+    "text": "Module structure\nIn general, modules will contain a reading, additional resources, and a weekly assignment.\nThe modules will be updated across the semester as needed.\n\nmtcars\n\n                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb\nMazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2\nValiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1\nDuster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4\nMerc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2\nMerc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2\nMerc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4\nMerc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4\nMerc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3\nMerc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3\nMerc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3\nCadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4\nLincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4\nChrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4\nFiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1\nHonda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2\nToyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1\nToyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1\nDodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2\nAMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2\nCamaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4\nPontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2\nFiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1\nPorsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2\nLotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2\nFord Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4\nFerrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6\nMaserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8\nVolvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2\n\n\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+  },
+  {
+    "objectID": "modules/06  - geom_point.html",
+    "href": "modules/06  - geom_point.html",
+    "title": "Point Plots",
+    "section": "",
+    "text": "a\n\nlibrary(palmerpenguins)\n\nWarning: package 'palmerpenguins' was built under R version 4.3.1\n\n\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules/06  - geom_point.html#geom_point",
+    "href": "modules/06  - geom_point.html#geom_point",
+    "title": "Point Plots",
+    "section": "",
+    "text": "y\n\nlibrary(palmerpenguins)\n\nWarning: package 'palmerpenguins' was built under R version 4.3.1\n\n\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules/06  - geom_point.html#meet-the-penguins",
+    "href": "modules/06  - geom_point.html#meet-the-penguins",
+    "title": "Point Plots",
+    "section": "",
+    "text": "The penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules/04  - geom_bar.html",
+    "href": "modules/04  - geom_bar.html",
+    "title": "Bar Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules/04  - geom_bar.html#geom_bar",
+    "href": "modules/04  - geom_bar.html#geom_bar",
+    "title": "Bar Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules/04  - geom_bar.html#meet-the-penguins",
+    "href": "modules/04  - geom_bar.html#meet-the-penguins",
+    "title": "Bar Plots",
+    "section": "Meet the penguins",
+    "text": "Meet the penguins\n\nThe penguins data from the palmerpenguins package contains size measurements for r nrow(penguins) penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "index.html#psyc-167-data-visualization",
+    "href": "index.html#psyc-167-data-visualization",
+    "title": "**PSYC167**",
+    "section": "PSYC 167: Data Visualization",
+    "text": "PSYC 167: Data Visualization\nThis is the course website for PSYC 167: Data Visualization, taught by Prof. Gabriel I. Cook; 1 credit\nDescription\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nSources\nThis course will use open-educational resources, typically licensed on creative commons."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html",
+    "href": "modules/Intro_to__ggplot.html",
+    "title": "The Grammar of Graphics",
+    "section": "",
+    "text": "Code\nlibrary(magrittr)\nlibrary(dplyr)\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\nCode\nlibrary(ggplot2)\n\nquick_data &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 0, 1, 0, NA),\n  C = c(1, 5, 6, 3, NA)\n) \n\nquick_data %&gt;% \n  mutate(., J = case_when(A == \"Male\" ~ \"a\", TRUE ~ \"b\"))\n\n\n       A  B  C J\n1   Male  1  1 a\n2   Male  0  5 a\n3 Female  1  6 b\n4 Female  0  3 b\n5   &lt;NA&gt; NA NA b\n\n\nCode\nggplot(data = quick_data) +\n  geom_point(aes(B, C), color = \"blue\")\n\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nCode\nmydata &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 2, 10, 30, NA),\n  C = c(1, 5, 6, 3, NA)\n)  \n\n\nIntegrate the label changes for factors and levels:\nguides(fill = guide_legend(title = “my title”)) scale_fill_discrete(“Color 1”, “Color 2”) To plot means. stat_summary(fun = “mean”, geom = “col”)\ncompute mean and sd and then pass to geom_errorbar()"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#ggplot-plot-composition",
+    "href": "modules/Intro_to__ggplot.html#ggplot-plot-composition",
+    "title": "The Grammar of Graphics",
+    "section": "6.1 ggplot Plot Composition",
+    "text": "6.1 ggplot Plot Composition\n\nData containing numeric, character, factor variables to visualize\nLayers containing geometric elements and statistical transformations\nScales that map values in the data space to values in aesthetic space\nA Coordinate System for mapping coordinates to the plane of a graphic\nA facet for plotting subsets of data\nA theme controlling the niceties of the plot, like font, backround, etc.\n\nThe grammar does not:\n\nMake suggestions about what graphics to use\nDescribe interactivity with a graphic; ggplot2 graphics are static images\n\nNote: For interactive graphics, see GGobi, or similar libraries."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#initializing-the-plot-object",
+    "href": "modules/Intro_to__ggplot.html#initializing-the-plot-object",
+    "title": "The Grammar of Graphics",
+    "section": "6.2 Initializing the Plot Object",
+    "text": "6.2 Initializing the Plot Object\nWhat is a ?ggplot object? Review the docs first. Let’s apply the base layer using ggplot(). This function takes a data set and simply initializes the plot object so that you can build other on top of it. By default, data = NULL so, you will need to pass some data argument. There is also a mapping parameter for mapping the aesthetics of the plot, by default, mapping = aes(). If you don’t pass a data frame to data, what happens?\n\n\nCode\n#?ggplot\n\nggplot()"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#passing-the-data",
+    "href": "modules/Intro_to__ggplot.html#passing-the-data",
+    "title": "The Grammar of Graphics",
+    "section": "6.3 Passing the Data",
+    "text": "6.3 Passing the Data\nYou cannot have a plot without data, so we need to pass something to data.\n\n\nCode\nDATA &lt;- data.frame(\n  A = c(1, 2, 3, 4), \n  B = c(2, 5, 3, 8), \n  C = c(10, 15, 32, 28), \n  D = c(\"Task A\", \"Task A\", \"Task B\", \"Task B\"),\n  E = c(\"circle\", \"circle\", \"square\", \"square\")\n  )\n\n\n\n\nCode\nggplot(data = DATA)\n\n\n\n\n\nCode\n# or GAME_DAT_choice %&gt;% ggplot()\n\n\nOK, so still nothing. That’s because we haven’t told ggplot what visual properties or aesthetics to include. Importantly, we don’t have do this in a base layer. If we set data = DATA, the subsequent layers will inherit that data frame if you don’t pass the argument in a different layer. However, you are not limited to passing only one data set. You might wish to plot the aesthetics of one data frame in one layer and then add another layer of aesthetics taken from a different data frame. TLDR; you can pass data or not in the initialization of the base layer."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#scalingscale-transformation",
+    "href": "modules/Intro_to__ggplot.html#scalingscale-transformation",
+    "title": "The Grammar of Graphics",
+    "section": "6.4 Scaling/Scale Transformation",
+    "text": "6.4 Scaling/Scale Transformation\n\n\nCode\nprint(DATA)\n\n\n  A B  C      D      E\n1 1 2 10 Task A circle\n2 2 5 15 Task A circle\n3 3 3 32 Task B square\n4 4 8 28 Task B square\n\n\nLooking at the data, we have columns and rows. Looking at the data frame, you see the ‘identity’ of each case. Ease case is a numeric value, character, or factor. What you for each is there identity. Of course, we can change their identity in some way by transforming the values to z scores, log values, or each average them together to take their count and then plot those data. But those are not their true identity.\nIn order to take the data units in the data frame so that they can be represented as physical units on a plot (e.g., points, bars, lines, etc.), there needs to be some scaling transformation. The plot needs to understand how many pixels high and wide to create a plot and the plot needs to know the limits of the axes for example. Similarly, it needs to know what shapes to present, how many, etc. By default, the statistical transformation is an ‘identity’ transformation, of one that just takes the values and plots them as their appear in the data (their identity)."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#choosing-a-coordinate-system",
+    "href": "modules/Intro_to__ggplot.html#choosing-a-coordinate-system",
+    "title": "The Grammar of Graphics",
+    "section": "6.5 Choosing a Coordinate System",
+    "text": "6.5 Choosing a Coordinate System\nAll we have now is the base layer taking on some coordinates. For example, where are the points plotted on the plot? The system can follow the Cartesian coordinate system or a Polar coordinate system. An example of this will follow later. For now, the default is chosen for you."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#adding-aesthetic-mappings",
+    "href": "modules/Intro_to__ggplot.html#adding-aesthetic-mappings",
+    "title": "The Grammar of Graphics",
+    "section": "6.6 Adding Aesthetic Mappings",
+    "text": "6.6 Adding Aesthetic Mappings\nIf you wanted a plot geometry to inherit properties of the initialized base layer, you could pass aesthetics to the mapping argument, mapping = aes().\n\n\nCode\nggplot(data = DATA, mapping = aes())\n\n\n\n\n\nBut this doesn’t do anything because we haven’t added information to pass to the aesthetics in aes(). Looking at ?aes, we see that aes() maps how properties of the data connect to or map onto with the features of the graph (e.g., axis position, color, size, etc.). The aesthetics are the visual properties of the plots, so they are essential to map by passing arguments to aes(). But how many and what variables do we reference? Looking at ?aes, you see that x and y are needed.\nBecause we passed data = DATA in ggplot(), we can reference the variables by their column names without specifying the data frame. Choosing x = A and y = B will\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       )\n\n\n\n\n\nWe can see that the aesthetic layer now applied to the plot scales the data to present A along the x-axis with a range from lowest to highest value from that vector. Similarly, the mapping presents B along the y-axis with a range from lowest to highest value in the vector. Also, the aesthetics include the variable name as a the label for the x and y axes. Of course, these could be changed in a layer as well. More on that later.\nYou might have been tempted to pass the variable names a quoted strings (e.g., “A” and “B) but if you do that, you’ll get something different.\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = \"C\", y = \"B\")\n       )\n\n\n\n\n\nIf we want to plot the data as they are in the data frame, we would apply the ‘identity’ transformation. By identity, we just need to instruct ggplot to use the data values in the data set. If you wanted to plot the means, frequency count, or something else, we would need to tell ggplot how to transform the data."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#adding-plot-geometries",
+    "href": "modules/Intro_to__ggplot.html#adding-plot-geometries",
+    "title": "The Grammar of Graphics",
+    "section": "6.7 Adding Plot Geometries",
+    "text": "6.7 Adding Plot Geometries\nWe don’t yet have any geometries, or geoms, added. Geoms can take many forms, including, points, lines, bars, text, etc. If we want the values in A and B to be plotted as x and y coordinates representing points on the plot, we can add a point geometry using geom_point().\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point()\n\n\n\n\n\nThe points geometry has now been applied, which takes the aesthetic mapping and makes them into points.\nBut geometries also have aesthetics, or visual properties so for each geom, you can pass arguments to aes(). For example, the xy points have to take some shape, color, and size in order for them to be visible. By default, these have been determined or otherwise you wouldn’t see black circles of any size.\nChecking ?geom_point, you will see at the bottom of the arguments section, that by default inherit.aes = TRUE, which means the aesthetic mappings in geom_point() will be inherited by default. Similarly, data = NULL so the data and the aesthetic mapping from ggplot() don’t need to be specified as data = DATA and mapping = aes(x = A, y = B), unless of course we wanted to overwrite them. Though not inherited, other aesthetics have defaults for geom_point(). If we wanted to be verbose, we could include all of them and see how this plot compares with that above.\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5)\n\n\n\n\n\n\n6.7.1 How and Where to Map Aesthetics?\nYou might be wondering how you map these aesthetic properties so that when you attempt to do so, you don’t get a bunch of errors. There are two places you can map aesthetics:\nEither in the initialized plot object:\n\nggplot(data = data, mapping = aes(x, y)) + geom_point()\n\nOr in the geometry:\n\nggplot() +geom_point(data = data, mapping = aes(x, y))\n\nWe can map aesthetics in the initialize plot object by also assigning this to an object named map just so we can reference it as need. When we do this mapping…\n\n\nCode\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, C))\n\n\nThe aesthetics are inherited by the geometries that follow, which then do not require any mapping of their own…\n\n\nCode\nmap + \n  geom_point() + \n  geom_line()\n\n\n\n\n\nBut when aesthetics are NOT mapped in initialized plot…\n\n\nCode\nmap &lt;- ggplot() \n\n\nThere are no aesthetics to be inherited by the plot geometry functions because they are not passed to the ggplot() object. In this case they must be mapped as arguments the geometries themselves.\nPlot points…\n\n\nCode\nmap + \n  geom_point(data = DATA, \n             mapping = aes(A, C)) \n\n\n\n\n\nPlot a line…\n\n\nCode\nmap + \n  geom_line(data = DATA, \n            mapping = aes(x = A, y = B))\n\n\n\n\n\nIn a later section, we will differentiate between setting and mapping aesthetic attributes.\nAdd labels, a coordinate system, scaling, and a theme\nPretty much the same? For completeness, there are also x and y label layers and a coordinate system also applied by default. Let’s add them to the plot by adding layers.\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5,\n             color = \"black\") +\n  scale_x_continuous() +\n  scale_y_continuous() +\n  labs(title = \"\") +\n  xlab(\"A\") +\n  ylab(\"B\") +\n  coord_cartesian() +\n  theme()\n\n\n\n\n\nNotice the plot is the same. The take-home message is that each visualization uses a data set which will be used to provide some aesthetic mapping. That mapping takes some geometric form, or geom. The geom needs information about the data, the statistical transformation (or an its ‘identity’ in the data frame), some position in space, some size, and some color. Also the axes have labels and follow some rules about their scaling. All of this follows some coordinate system. A theme is also used to decorate the plot in different ways. The default is theme().\nChange the coordinate system, color, and labels\nIf we wanted to change the coordinate system, then the visualization would look much different. We can also change the color and label names. And because they are independent layers, we could add them in different orders.\n\n\nCode\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5,\n             color = \"blue\") +\n  coord_polar() +\n  xlab(\"A Variable\") +\n  ylab(\"B Variable\") +\n  scale_x_continuous() +\n  scale_y_continuous() +\n  theme_minimal()\n\n\n\n\n\nBut because those are defaults, we don’t need to code all those plot layers. We can simply add a geom_point() layer. And because we pass DATA as the first argument and the mapping next, we could be even less wordy.\n\n\nCode\nggplot(DATA, aes(x = A, y = B)) +\n  geom_point()"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#mapping-a-new-variable",
+    "href": "modules/Intro_to__ggplot.html#mapping-a-new-variable",
+    "title": "The Grammar of Graphics",
+    "section": "9.1 Mapping a new variable…",
+    "text": "9.1 Mapping a new variable…\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = D))"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#mapping-an-existing-variable",
+    "href": "modules/Intro_to__ggplot.html#mapping-an-existing-variable",
+    "title": "The Grammar of Graphics",
+    "section": "9.2 Mapping an existing variable…",
+    "text": "9.2 Mapping an existing variable…\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = A))\n\n\n\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = B))\n\n\n\n\n\nYou may have noticed that when mapped variables are numeric, the aesthetics are applied continuously and when they are categorical, they are applied discretely. Here is a good example of mapping variable A not as itself but by changing it to a factor() or a character vector.\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = as.factor(A)))\n\n\n\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = as.character(A)))"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#setting-and-mapping-combinations",
+    "href": "modules/Intro_to__ggplot.html#setting-and-mapping-combinations",
+    "title": "The Grammar of Graphics",
+    "section": "9.3 Setting and Mapping Combinations",
+    "text": "9.3 Setting and Mapping Combinations\nWe can also combine setting aesthetics and mapping them as long as mappings are inside aes() and settings are not.\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(color = \"green\", aes(shape = D))\n\n\n\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(color = \"blue\", aes(size = A))\n\n\n\n\n\nCode\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(shape = 21, aes(color = D))\n\n\n\n\n\nImportantly, just as you cannot pass constant values to aesthetics in aes(), you cannot pass a variable to an aesthetic in the geom function unless it is inside aes().\nFor example, passing color = A in this instance will throw an error.\nggplot(data = DATA, aes(x = A, y = B)) + geom_point(color = A))\nError: unexpected ')' in: \"ggplot(data = DATA, aes(x = A, y = B)) + geom_point(color = A))\"\nIn summary, when you want to set an aesthetic to a constant value, do so in the geometry function (e.g., geom_point()), otherwise, pass an aes() to the geometry function. Color options can be discovered using colors(). Linetype has fewer options. To make the color more or less transparent, adjust alpha (from 0 = invisible to 1).\n\n\nCode\nggplot(DATA, aes(x = A, y = B)) +\n  geom_point() +\n  geom_line(linetype = \"dashed\",\n            color = \"red\",\n            alpha = .3)"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#geom_histogram",
+    "href": "modules/Intro_to__ggplot.html#geom_histogram",
+    "title": "The Grammar of Graphics",
+    "section": "10.1 geom_histogram()",
+    "text": "10.1 geom_histogram()\n\n\nCode\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_histogram()\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\nCode\n# or less popular\nggplot(data = mtcars, \n       mapping = aes(y = mpg)) +\n  geom_histogram()\n\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#geom_density",
+    "href": "modules/Intro_to__ggplot.html#geom_density",
+    "title": "The Grammar of Graphics",
+    "section": "10.2 geom_density()",
+    "text": "10.2 geom_density()\nWhen you need a smoothed version of the histogram, geom_density() will produce a kernel density plot. In this case, we also add fill = cyl to fill the densities by color.\n\n\nCode\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_density(mapping = aes(fill = cyl), \n               alpha = .5)\n\n\nWarning: The following aesthetics were dropped during statistical transformation: fill\nℹ This can happen when ggplot fails to infer the correct grouping structure in\n  the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n  variable into a factor?\n\n\n\n\n\nWait, huh? But this does not fill the densities with a color corresponding to cyl. Does it need to be a different type?\n\n\nCode\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_density(mapping = aes(fill = as.factor(cyl)),\n               alpha = .5)\n\n\n\n\n\nOK better, except for cleaning up the legend."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#geom_bar",
+    "href": "modules/Intro_to__ggplot.html#geom_bar",
+    "title": "The Grammar of Graphics",
+    "section": "11.1 geom_bar()",
+    "text": "11.1 geom_bar()\nThere are times you want bar plots.\nTrying out geom_bar(), we need an either an x or a y aesthetic mapping but not both. When passing a variable to x, the bar will be vertical and when passing the variable to y, the bar will be horizontal. Because the mapping is inherited from ggplot(), you’ll throw an error like the following because both x and y will be inherited:\nError in f(): ! stat_count() can only have an x or y aesthetic.\nWe can change the mapping in the base ggplot() layer, which will plot bars corresponding to the unique levels of the variable passed to x at a height relative to the frequency of occurrence of those unique levels. To see what might be plotted from A, see DATA$A 1, 2, 3, 4.\nChecking ?geom_bar, you will notice that geom_bar() has a default stat = \"count\". This means that the default bar plot will plot the \"count\", or frequency of elements in a vector variable. When the count or frequency of a value is 1, the bar height will be 1 on the y axis and if an element appears 5 times in the vector, the bar height will be 5. For a horizontal bar, the bar length, rather than height, will be 5. Looking at DATA$A 1, 2, 3, 4, what might you expect the bar to look like?\n\n\nCode\n# setting x\nDATA %&gt;%\n  ggplot(., aes(x = A)) +\n  geom_bar()\n\n\n\n\n\nCode\n# setting y\nDATA %&gt;%\n  ggplot(., aes(y = A)) +\n  geom_bar()\n\n\n\n\n\nIf the aesthetics are mapped and inherited, you can still create a plot that accounts for both x and y variables. Passing stat = \"identity\" to geom_bar() will produce a bar plot that presents the value of y in the data frame (its identity) for each value of x.\nWhen passing, pay attention to which variables are inherited by both x and y as they will likely produce very different plots.\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = A, y = B)) +\n  geom_bar(stat = \"identity\")\n\n\n\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = B, y = A)) +\n  geom_bar(stat = \"identity\")\n\n\n\n\n\nBy default, the scale for x and y are continuous (see above). If you don’t like the fact that bars take positions for which there are no labels and that labels are where no bars are, convert B it to a factor.\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = as.factor(B), y = A)) +\n  geom_bar(stat = \"identity\")"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#geom_col",
+    "href": "modules/Intro_to__ggplot.html#geom_col",
+    "title": "The Grammar of Graphics",
+    "section": "11.2 geom_col()",
+    "text": "11.2 geom_col()\ngeom_bar(stat = \"identity\") is actually the same as another plot. A column plot using geom_col(). We need both x and y variables and when specified, the columns will plotted for each unique level of x at a height corresponding to the value of y. One way to think about geom_col() is that it plots columns at the same location as the points in geom_point().\n\n\nCode\nDATA %&gt;%\n  select(., c(\"A\", \"B\"))\n\n\n  A B\n1 1 2\n2 2 5\n3 3 3\n4 4 8\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = A, y = B)) +\n  geom_col()\n\n\n\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = A, y = C)) +\n  geom_col()\n\n\n\n\n\nIf your x axis (or y axis) is categorical/discrete rather than continuous.\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = D, y = A)) + \n  geom_col()\n\n\n\n\n\nCode\nDATA %&gt;%\n  ggplot(., aes(x = A, y = D)) + \n  geom_col()"
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#adding-layers-that-inherit-aesthetics",
+    "href": "modules/Intro_to__ggplot.html#adding-layers-that-inherit-aesthetics",
+    "title": "The Grammar of Graphics",
+    "section": "12.1 Adding layers that inherit aesthetics",
+    "text": "12.1 Adding layers that inherit aesthetics\nWhen aesthetics are mapped to the initialized ggplot() object, the x and y variables therein carry through to the geometries. This is not a problem when the geometries are using similar information as with geom_point(), geom_line(), and even geom_col().\n\n\nCode\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, C))\n\nmap + \n  geom_point() +\n  geom_line() +\n  geom_col()\n\n\n\n\n\nBut because geom_bar() takes only x or y, there will be a problem. Test it on your own."
+  },
+  {
+    "objectID": "modules/Intro_to__ggplot.html#adding-layers-that-do-not-that-inherit-aesthetics",
+    "href": "modules/Intro_to__ggplot.html#adding-layers-that-do-not-that-inherit-aesthetics",
+    "title": "The Grammar of Graphics",
+    "section": "12.2 Adding layers that do not that inherit aesthetics",
+    "text": "12.2 Adding layers that do not that inherit aesthetics\nWhen aesthetics are not inherited by the initial object, they can be set or mapped in their own geometry. This example does not even pass data = DATA. If it did and each geometry used DATA, then that doesn’t need passing. Only omitted characteristics need mapping.\n\n\nCode\nmap &lt;- ggplot()   \n\nmap + \n  geom_point(data = DATA, \n             mapping = aes(A, C)) +\n  geom_col(data = DATA, \n           mapping = aes(A, B),\n           fill = \"green\") +\n  geom_line(data = DATA, \n            mapping = aes(A, B), \n            linetype = \"dashed\",\n            color = \"red\", \n            size = 1, \n            alpha = .5)\n\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n\n\n\nBy specifying DATA and aes(A, B), all geometries using DATA with x = A and y = B will inherit them. Otherwise, pass the necessary arguments to the geometries.\n\n\nCode\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, B))\n\nmap + \n  geom_col(fill = \"green\") +            # set all columns to blue\n  geom_line(mapping = aes(y = C),      # a new mapping y = C for the line data\n            linetype = \"dashed\") +     # set the linetype\n            \n  geom_point(mapping = aes(color = B,  # map color to A (inherited as y)  \n                           size = A),  # map size to B (inherited as x)\n            alpha = .5                 # set alpha transparency\n            ) +\n  theme_classic()\n\n\n\n\n\nNow, this plot is certainly not the best and it certainly needs work. But the coding of the plot illustrates the flexibility of ggplot for adding plot geometry layers to a single plot, utilizing aesthetics inherited from an initialized object, mapping new aesthetics not inherited, setting aesthetic constants, and mapping variables to aesthetics.\n\n\nCode\n geom_point(aes(sugars, rating))\n\n\nmapping: x = ~sugars, y = ~rating \ngeom_point: na.rm = FALSE\nstat_identity: na.rm = FALSE\nposition_identity"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot_shorttest.html",
+    "href": "modules/Intro_to_ggplot_shorttest.html",
+    "title": "Intro to ggplot",
+    "section": "",
+    "text": "library(magrittr)\nlibrary(dplyr)\n#&gt; \n#&gt; Attaching package: 'dplyr'\n#&gt; The following objects are masked from 'package:stats':\n#&gt; \n#&gt;     filter, lag\n#&gt; The following objects are masked from 'package:base':\n#&gt; \n#&gt;     intersect, setdiff, setequal, union\nlibrary(ggplot2)\n\nquick_data &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 0, 1, 0, NA),\n  C = c(1, 5, 6, 3, NA)\n) \n\nquick_data %&gt;% \n  mutate(., J = case_when(A == \"Male\" ~ \"a\", TRUE ~ \"b\"))\n#&gt;        A  B  C J\n#&gt; 1   Male  1  1 a\n#&gt; 2   Male  0  5 a\n#&gt; 3 Female  1  6 b\n#&gt; 4 Female  0  3 b\n#&gt; 5   &lt;NA&gt; NA NA b"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot_shorttest.html#plot",
+    "href": "modules/Intro_to_ggplot_shorttest.html#plot",
+    "title": "Intro to ggplot",
+    "section": "plot",
+    "text": "plot\n\nggplot(data = quick_data) +\n  geom_point(aes(B, C), color = \"blue\")\n#&gt; Warning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\n\nmydata &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 2, 10, 30, NA),\n  C = c(1, 5, 6, 3, NA)\n)"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html",
+    "href": "modules/Intro_to_ggplot.html",
+    "title": "Intro to ggplot",
+    "section": "",
+    "text": "library(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(ggplot2)\n\nquick_data &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 0, 1, 0, NA),\n  C = c(1, 5, 6, 3, NA)\n) \n\nquick_data %&gt;% \n  mutate(., J = case_when(A == \"Male\" ~ \"a\", TRUE ~ \"b\"))\n\n       A  B  C J\n1   Male  1  1 a\n2   Male  0  5 a\n3 Female  1  6 b\n4 Female  0  3 b\n5   &lt;NA&gt; NA NA b\n\nggplot(data = quick_data) +\n  geom_point(aes(B, C), color = \"blue\")\n\nWarning: Removed 1 rows containing missing values (`geom_point()`).\n\n\n\n\nmydata &lt;- data.frame(\n  A = c(\"Male\", \"Male\", \"Female\", \"Female\", NA),\n  B = c(1, 2, 10, 30, NA),\n  C = c(1, 5, 6, 3, NA)\n)\nIntegrate the label changes for factors and levels:\nguides(fill = guide_legend(title = “my title”)) scale_fill_discrete(“Color 1”, “Color 2”) To plot means. stat_summary(fun = “mean”, geom = “col”)\ncompute mean and sd and then pass to geom_errorbar()"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#ggplot-plot-composition",
+    "href": "modules/Intro_to_ggplot.html#ggplot-plot-composition",
+    "title": "Intro to ggplot",
+    "section": "ggplot Plot Composition",
+    "text": "ggplot Plot Composition\n\nData containing numeric, character, factor variables to visualize\nLayers containing geometric elements and statistical transformations\nScales that map values in the data space to values in aesthetic space\nA Coordinate System for mapping coordinates to the plane of a graphic\nA facet for plotting subsets of data\nA theme controlling the niceties of the plot, like font, backround, etc.\n\nThe grammar does not:\n\nMake suggestions about what graphics to use\nDescribe interactivity with a graphic; ggplot2 graphics are static images\n\nNote: For interactive graphics, see GGobi, or similar libraries."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#initializing-the-plot-object",
+    "href": "modules/Intro_to_ggplot.html#initializing-the-plot-object",
+    "title": "Intro to ggplot",
+    "section": "Initializing the Plot Object",
+    "text": "Initializing the Plot Object\nWhat is a ?ggplot object? Review the docs first. Let’s apply the base layer using ggplot(). This function takes a data set and simply initializes the plot object so that you can build other on top of it. By default, data = NULL so, you will need to pass some data argument. There is also a mapping parameter for mapping the aesthetics of the plot, by default, mapping = aes(). If you don’t pass a data frame to data, what happens?\n\n#?ggplot\n\nggplot()"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#passing-the-data",
+    "href": "modules/Intro_to_ggplot.html#passing-the-data",
+    "title": "Intro to ggplot",
+    "section": "Passing the Data",
+    "text": "Passing the Data\nYou cannot have a plot without data, so we need to pass something to data.\n\nDATA &lt;- data.frame(\n  A = c(1, 2, 3, 4), \n  B = c(2, 5, 3, 8), \n  C = c(10, 15, 32, 28), \n  D = c(\"Task A\", \"Task A\", \"Task B\", \"Task B\"),\n  E = c(\"circle\", \"circle\", \"square\", \"square\")\n  )\n\n\nggplot(data = DATA)\n\n\n\n# or GAME_DAT_choice %&gt;% ggplot()\n\nOK, so still nothing. That’s because we haven’t told ggplot what visual properties or aesthetics to include. Importantly, we don’t have do this in a base layer. If we set data = DATA, the subsequent layers will inherit that data frame if you don’t pass the argument in a different layer. However, you are not limited to passing only one data set. You might wish to plot the aesthetics of one data frame in one layer and then add another layer of aesthetics taken from a different data frame. TLDR; you can pass data or not in the initialization of the base layer."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#scalingscale-transformation",
+    "href": "modules/Intro_to_ggplot.html#scalingscale-transformation",
+    "title": "Intro to ggplot",
+    "section": "Scaling/Scale Transformation",
+    "text": "Scaling/Scale Transformation\n\nprint(DATA)\n\n  A B  C      D      E\n1 1 2 10 Task A circle\n2 2 5 15 Task A circle\n3 3 3 32 Task B square\n4 4 8 28 Task B square\n\n\nLooking at the data, we have columns and rows. Looking at the data frame, you see the ‘identity’ of each case. Ease case is a numeric value, character, or factor. What you for each is there identity. Of course, we can change their identity in some way by transforming the values to z scores, log values, or each average them together to take their count and then plot those data. But those are not their true identity.\nIn order to take the data units in the data frame so that they can be represented as physical units on a plot (e.g., points, bars, lines, etc.), there needs to be some scaling transformation. The plot needs to understand how many pixels high and wide to create a plot and the plot needs to know the limits of the axes for example. Similarly, it needs to know what shapes to present, how many, etc. By default, the statistical transformation is an ‘identity’ transformation, of one that just takes the values and plots them as their appear in the data (their identity)."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#choosing-a-coordinate-system",
+    "href": "modules/Intro_to_ggplot.html#choosing-a-coordinate-system",
+    "title": "Intro to ggplot",
+    "section": "Choosing a Coordinate System",
+    "text": "Choosing a Coordinate System\nAll we have now is the base layer taking on some coordinates. For example, where are the points plotted on the plot? The system can follow the Cartesian coordinate system or a Polar coordinate system. An example of this will follow later. For now, the default is chosen for you."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#adding-aesthetic-mappings",
+    "href": "modules/Intro_to_ggplot.html#adding-aesthetic-mappings",
+    "title": "Intro to ggplot",
+    "section": "Adding Aesthetic Mappings",
+    "text": "Adding Aesthetic Mappings\nIf you wanted a plot geometry to inherit properties of the initialized base layer, you could pass aesthetics to the mapping argument, mapping = aes().\n\nggplot(data = DATA, mapping = aes())\n\n\n\n\nBut this doesn’t do anything because we haven’t added information to pass to the aesthetics in aes(). Looking at ?aes, we see that aes() maps how properties of the data connect to or map onto with the features of the graph (e.g., axis position, color, size, etc.). The aesthetics are the visual properties of the plots, so they are essential to map by passing arguments to aes(). But how many and what variables do we reference? Looking at ?aes, you see that x and y are needed.\nBecause we passed data = DATA in ggplot(), we can reference the variables by their column names without specifying the data frame. Choosing x = A and y = B will\n\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       )\n\n\n\n\nWe can see that the aesthetic layer now applied to the plot scales the data to present A along the x-axis with a range from lowest to highest value from that vector. Similarly, the mapping presents B along the y-axis with a range from lowest to highest value in the vector. Also, the aesthetics include the variable name as a the label for the x and y axes. Of course, these could be changed in a layer as well. More on that later.\nYou might have been tempted to pass the variable names a quoted strings (e.g., “A” and “B) but if you do that, you’ll get something different.\n\nggplot(data = DATA, \n       mapping = aes(x = \"C\", y = \"B\")\n       )\n\n\n\n\nIf we want to plot the data as they are in the data frame, we would apply the ‘identity’ transformation. By identity, we just need to instruct ggplot to use the data values in the data set. If you wanted to plot the means, frequency count, or something else, we would need to tell ggplot how to transform the data."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#adding-plot-geometries",
+    "href": "modules/Intro_to_ggplot.html#adding-plot-geometries",
+    "title": "Intro to ggplot",
+    "section": "Adding Plot Geometries",
+    "text": "Adding Plot Geometries\nWe don’t yet have any geometries, or geoms, added. Geoms can take many forms, including, points, lines, bars, text, etc. If we want the values in A and B to be plotted as x and y coordinates representing points on the plot, we can add a point geometry using geom_point().\n\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point()\n\n\n\n\nThe points geometry has now been applied, which takes the aesthetic mapping and makes them into points.\nBut geometries also have aesthetics, or visual properties so for each geom, you can pass arguments to aes(). For example, the xy points have to take some shape, color, and size in order for them to be visible. By default, these have been determined or otherwise you wouldn’t see black circles of any size.\nChecking ?geom_point, you will see at the bottom of the arguments section, that by default inherit.aes = TRUE, which means the aesthetic mappings in geom_point() will be inherited by default. Similarly, data = NULL so the data and the aesthetic mapping from ggplot() don’t need to be specified as data = DATA and mapping = aes(x = A, y = B), unless of course we wanted to overwrite them. Though not inherited, other aesthetics have defaults for geom_point(). If we wanted to be verbose, we could include all of them and see how this plot compares with that above.\n\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5)\n\n\n\n\n\nHow and Where to Map Aesthetics?\nYou might be wondering how you map these aesthetic properties so that when you attempt to do so, you don’t get a bunch of errors. There are two places you can map aesthetics:\nEither in the initialized plot object:\n\nggplot(data = data, mapping = aes(x, y)) + geom_point()\n\nOr in the geometry:\n\nggplot() +geom_point(data = data, mapping = aes(x, y))\n\nWe can map aesthetics in the initialize plot object by also assigning this to an object named map just so we can reference it as need. When we do this mapping…\n\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, C))\n\nThe aesthetics are inherited by the geometries that follow, which then do not require any mapping of their own…\n\nmap + \n  geom_point() + \n  geom_line()\n\n\n\n\nBut when aesthetics are NOT mapped in initialized plot…\n\nmap &lt;- ggplot() \n\nThere are no aesthetics to be inherited by the plot geometry functions because they are not passed to the ggplot() object. In this case they must be mapped as arguments the geometries themselves.\nPlot points…\n\nmap + \n  geom_point(data = DATA, \n             mapping = aes(A, C)) \n\n\n\n\nPlot a line…\n\nmap + \n  geom_line(data = DATA, \n            mapping = aes(x = A, y = B))\n\n\n\n\nIn a later section, we will differentiate between setting and mapping aesthetic attributes.\nAdd labels, a coordinate system, scaling, and a theme\nPretty much the same? For completeness, there are also x and y label layers and a coordinate system also applied by default. Let’s add them to the plot by adding layers.\n\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5,\n             color = \"black\") +\n  scale_x_continuous() +\n  scale_y_continuous() +\n  labs(title = \"\") +\n  xlab(\"A\") +\n  ylab(\"B\") +\n  coord_cartesian() +\n  theme()\n\n\n\n\nNotice the plot is the same. The take-home message is that each visualization uses a data set which will be used to provide some aesthetic mapping. That mapping takes some geometric form, or geom. The geom needs information about the data, the statistical transformation (or an its ‘identity’ in the data frame), some position in space, some size, and some color. Also the axes have labels and follow some rules about their scaling. All of this follows some coordinate system. A theme is also used to decorate the plot in different ways. The default is theme().\nChange the coordinate system, color, and labels\nIf we wanted to change the coordinate system, then the visualization would look much different. We can also change the color and label names. And because they are independent layers, we could add them in different orders.\n\nggplot(data = DATA, \n       mapping = aes(x = A, y = B)\n       ) +\n  geom_point(mapping = aes(x = A, y = B),   \n             data = NULL, \n             stat = \"identity\", \n             position = \"identity\", \n             size = 1.5,\n             color = \"blue\") +\n  coord_polar() +\n  xlab(\"A Variable\") +\n  ylab(\"B Variable\") +\n  scale_x_continuous() +\n  scale_y_continuous() +\n  theme_minimal()\n\n\n\n\nBut because those are defaults, we don’t need to code all those plot layers. We can simply add a geom_point() layer. And because we pass DATA as the first argument and the mapping next, we could be even less wordy.\n\nggplot(DATA, aes(x = A, y = B)) +\n  geom_point()"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#mapping-a-new-variable",
+    "href": "modules/Intro_to_ggplot.html#mapping-a-new-variable",
+    "title": "Intro to ggplot",
+    "section": "Mapping a new variable…",
+    "text": "Mapping a new variable…\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = D))"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#mapping-an-existing-variable",
+    "href": "modules/Intro_to_ggplot.html#mapping-an-existing-variable",
+    "title": "Intro to ggplot",
+    "section": "Mapping an existing variable…",
+    "text": "Mapping an existing variable…\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = A))\n\n\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = B))\n\n\n\n\nYou may have noticed that when mapped variables are numeric, the aesthetics are applied continuously and when they are categorical, they are applied discretely. Here is a good example of mapping variable A not as itself but by changing it to a factor() or a character vector.\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = as.factor(A)))\n\n\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(aes(color = as.character(A)))"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#setting-and-mapping-combinations",
+    "href": "modules/Intro_to_ggplot.html#setting-and-mapping-combinations",
+    "title": "Intro to ggplot",
+    "section": "Setting and Mapping Combinations",
+    "text": "Setting and Mapping Combinations\nWe can also combine setting aesthetics and mapping them as long as mappings are inside aes() and settings are not.\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(color = \"green\", aes(shape = D))\n\n\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(color = \"blue\", aes(size = A))\n\n\n\nggplot(data = DATA, aes(x = A, y = B)) + \n  geom_point(shape = 21, aes(color = D))\n\n\n\n\nImportantly, just as you cannot pass constant values to aesthetics in aes(), you cannot pass a variable to an aesthetic in the geom function unless it is inside aes().\nFor example, passing color = A in this instance will throw an error.\nggplot(data = DATA, aes(x = A, y = B)) + geom_point(color = A))\nError: unexpected ')' in: \"ggplot(data = DATA, aes(x = A, y = B)) + geom_point(color = A))\"\nIn summary, when you want to set an aesthetic to a constant value, do so in the geometry function (e.g., geom_point()), otherwise, pass an aes() to the geometry function. Color options can be discovered using colors(). Linetype has fewer options. To make the color more or less transparent, adjust alpha (from 0 = invisible to 1).\n\nggplot(DATA, aes(x = A, y = B)) +\n  geom_point() +\n  geom_line(linetype = \"dashed\",\n            color = \"red\",\n            alpha = .3)"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#geom_histogram",
+    "href": "modules/Intro_to_ggplot.html#geom_histogram",
+    "title": "Intro to ggplot",
+    "section": "geom_histogram()",
+    "text": "geom_histogram()\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n# or less popular\nggplot(data = mtcars, \n       mapping = aes(y = mpg)) +\n  geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#geom_density",
+    "href": "modules/Intro_to_ggplot.html#geom_density",
+    "title": "Intro to ggplot",
+    "section": "geom_density()",
+    "text": "geom_density()\nWhen you need a smoothed version of the histogram, geom_density() will produce a kernel density plot. In this case, we also add fill = cyl to fill the densities by color.\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_density(mapping = aes(fill = cyl), \n               alpha = .5)\n\nWarning: The following aesthetics were dropped during statistical transformation: fill\nℹ This can happen when ggplot fails to infer the correct grouping structure in\n  the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n  variable into a factor?\n\n\n\n\n\nWait, huh? But this does not fill the densities with a color corresponding to cyl. Does it need to be a different type?\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg)) +\n  geom_density(mapping = aes(fill = as.factor(cyl)),\n               alpha = .5)\n\n\n\n\nOK better, except for cleaning up the legend."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#geom_bar",
+    "href": "modules/Intro_to_ggplot.html#geom_bar",
+    "title": "Intro to ggplot",
+    "section": "geom_bar()",
+    "text": "geom_bar()\nThere are times you want bar plots.\nTrying out geom_bar(), we need an either an x or a y aesthetic mapping but not both. When passing a variable to x, the bar will be vertical and when passing the variable to y, the bar will be horizontal. Because the mapping is inherited from ggplot(), you’ll throw an error like the following because both x and y will be inherited:\nError in f(): ! stat_count() can only have an x or y aesthetic.\nWe can change the mapping in the base ggplot() layer, which will plot bars corresponding to the unique levels of the variable passed to x at a height relative to the frequency of occurrence of those unique levels. To see what might be plotted from A, see DATA$A 1, 2, 3, 4.\nChecking ?geom_bar, you will notice that geom_bar() has a default stat = \"count\". This means that the default bar plot will plot the \"count\", or frequency of elements in a vector variable. When the count or frequency of a value is 1, the bar height will be 1 on the y axis and if an element appears 5 times in the vector, the bar height will be 5. For a horizontal bar, the bar length, rather than height, will be 5. Looking at DATA$A 1, 2, 3, 4, what might you expect the bar to look like?\n\n# setting x\nDATA %&gt;%\n  ggplot(., aes(x = A)) +\n  geom_bar()\n\n\n\n# setting y\nDATA %&gt;%\n  ggplot(., aes(y = A)) +\n  geom_bar()\n\n\n\n\nIf the aesthetics are mapped and inherited, you can still create a plot that accounts for both x and y variables. Passing stat = \"identity\" to geom_bar() will produce a bar plot that presents the value of y in the data frame (its identity) for each value of x.\nWhen passing, pay attention to which variables are inherited by both x and y as they will likely produce very different plots.\n\nDATA %&gt;%\n  ggplot(., aes(x = A, y = B)) +\n  geom_bar(stat = \"identity\")\n\n\n\nDATA %&gt;%\n  ggplot(., aes(x = B, y = A)) +\n  geom_bar(stat = \"identity\")\n\n\n\n\nBy default, the scale for x and y are continuous (see above). If you don’t like the fact that bars take positions for which there are no labels and that labels are where no bars are, convert B it to a factor.\n\nDATA %&gt;%\n  ggplot(., aes(x = as.factor(B), y = A)) +\n  geom_bar(stat = \"identity\")"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#geom_col",
+    "href": "modules/Intro_to_ggplot.html#geom_col",
+    "title": "Intro to ggplot",
+    "section": "geom_col()",
+    "text": "geom_col()\ngeom_bar(stat = \"identity\") is actually the same as another plot. A column plot using geom_col(). We need both x and y variables and when specified, the columns will plotted for each unique level of x at a height corresponding to the value of y. One way to think about geom_col() is that it plots columns at the same location as the points in geom_point().\n\nDATA %&gt;%\n  select(., c(\"A\", \"B\"))\n\n  A B\n1 1 2\n2 2 5\n3 3 3\n4 4 8\n\nDATA %&gt;%\n  ggplot(., aes(x = A, y = B)) +\n  geom_col()\n\n\n\nDATA %&gt;%\n  ggplot(., aes(x = A, y = C)) +\n  geom_col()\n\n\n\n\nIf your x axis (or y axis) is categorical/discrete rather than continuous.\n\nDATA %&gt;%\n  ggplot(., aes(x = D, y = A)) + \n  geom_col()\n\n\n\nDATA %&gt;%\n  ggplot(., aes(x = A, y = D)) + \n  geom_col()"
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#adding-layers-that-inherit-aesthetics",
+    "href": "modules/Intro_to_ggplot.html#adding-layers-that-inherit-aesthetics",
+    "title": "Intro to ggplot",
+    "section": "Adding layers that inherit aesthetics",
+    "text": "Adding layers that inherit aesthetics\nWhen aesthetics are mapped to the initialized ggplot() object, the x and y variables therein carry through to the geometries. This is not a problem when the geometries are using similar information as with geom_point(), geom_line(), and even geom_col().\n\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, C))\n\nmap + \n  geom_point() +\n  geom_line() +\n  geom_col()\n\n\n\n\nBut because geom_bar() takes only x or y, there will be a problem. Test it on your own."
+  },
+  {
+    "objectID": "modules/Intro_to_ggplot.html#adding-layers-that-do-not-that-inherit-aesthetics",
+    "href": "modules/Intro_to_ggplot.html#adding-layers-that-do-not-that-inherit-aesthetics",
+    "title": "Intro to ggplot",
+    "section": "Adding layers that do not that inherit aesthetics",
+    "text": "Adding layers that do not that inherit aesthetics\nWhen aesthetics are not inherited by the initial object, they can be set or mapped in their own geometry. This example does not even pass data = DATA. If it did and each geometry used DATA, then that doesn’t need passing. Only omitted characteristics need mapping.\n\nmap &lt;- ggplot()   \n\nmap + \n  geom_point(data = DATA, \n             mapping = aes(A, C)) +\n  geom_col(data = DATA, \n           mapping = aes(A, B),\n           fill = \"green\") +\n  geom_line(data = DATA, \n            mapping = aes(A, B), \n            linetype = \"dashed\",\n            color = \"red\", \n            size = 1, \n            alpha = .5)\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n\n\n\nBy specifying DATA and aes(A, B), all geometries using DATA with x = A and y = B will inherit them. Otherwise, pass the necessary arguments to the geometries.\n\nmap &lt;- ggplot(data = DATA, \n              mapping = aes(A, B))\n\nmap + \n  geom_col(fill = \"green\") +            # set all columns to blue\n  geom_line(mapping = aes(y = C),      # a new mapping y = C for the line data\n            linetype = \"dashed\") +     # set the linetype\n            \n  geom_point(mapping = aes(color = B,  # map color to A (inherited as y)  \n                           size = A),  # map size to B (inherited as x)\n            alpha = .5                 # set alpha transparency\n            ) +\n  theme_classic()\n\n\n\n\nNow, this plot is certainly not the best and it certainly needs work. But the coding of the plot illustrates the flexibility of ggplot for adding plot geometry layers to a single plot, utilizing aesthetics inherited from an initialized object, mapping new aesthetics not inherited, setting aesthetic constants, and mapping variables to aesthetics.\n\n geom_point(aes(sugars, rating))\n\nmapping: x = ~sugars, y = ~rating \ngeom_point: na.rm = FALSE\nstat_identity: na.rm = FALSE\nposition_identity"
+  },
+  {
+    "objectID": "modules/08  - module_starter_page.html",
+    "href": "modules/08  - module_starter_page.html",
+    "title": "Module starter",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules/08  - module_starter_page.html#starter-file",
+    "href": "modules/08  - module_starter_page.html#starter-file",
+    "title": "Module starter",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules/08  - module_starter_page.html#meet-the-penguins",
+    "href": "modules/08  - module_starter_page.html#meet-the-penguins",
+    "title": "Module starter",
+    "section": "",
+    "text": "The penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules/project_management_with_here.html#the-here-library",
+    "href": "modules/project_management_with_here.html#the-here-library",
+    "title": "Project Management",
+    "section": "The here library",
+    "text": "The here library"
+  },
+  {
+    "objectID": "modules/02  - creating_a_posit_account.html",
+    "href": "modules/02  - creating_a_posit_account.html",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/02  - creating_a_posit_account.html#read",
+    "href": "modules/02  - creating_a_posit_account.html#read",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/02  - creating_a_posit_account.html#additional-resources",
+    "href": "modules/02  - creating_a_posit_account.html#additional-resources",
+    "title": "Creating a Posit Account",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nQuarto\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nhttps://quarto.org\n\n\nGithub\nWe will be making use of Github to store and share your course blog and website.\nWe will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.\nhttps://happygitwithr.com"
+  },
+  {
+    "objectID": "modules/02  - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "href": "modules/02  - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "title": "Creating a Posit Account",
+    "section": "Week 2 Assignment: Make a tip sheet",
+    "text": "Week 2 Assignment: Make a tip sheet\nWe are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.\nThis week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In section 1.2, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”\nMaking a tip sheet for yourself is the assignment for this weeks blog post.\n\nInstructions\n\nMake a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.\nSubmit the URL to your tips post to the week 2 assignment on blackboard."
+  },
+  {
+    "objectID": "modules/01  - installing_r_and_rtudio.html",
+    "href": "modules/01  - installing_r_and_rtudio.html",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01  - installing_r_and_rtudio.html#read",
+    "href": "modules/01  - installing_r_and_rtudio.html#read",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01  - installing_r_and_rtudio.html#do",
+    "href": "modules/01  - installing_r_and_rtudio.html#do",
+    "title": "Installing R & RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules/03  - installing_git_and_github_desktop.html",
+    "href": "modules/03  - installing_git_and_github_desktop.html",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03  - installing_git_and_github_desktop.html#read",
+    "href": "modules/03  - installing_git_and_github_desktop.html#read",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03  - installing_git_and_github_desktop.html#do",
+    "href": "modules/03  - installing_git_and_github_desktop.html#do",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Do",
+    "text": "Do\n\nCreate a GitHub account\nInstall Git\nConfigure Git with RStudio"
+  },
+  {
+    "objectID": "modules/03  - installing_git_and_github_desktop.html#additional-resources",
+    "href": "modules/03  - installing_git_and_github_desktop.html#additional-resources",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nGithub\nWe will be use of Github to backup, store, and share your code with me and your collaborators.\nWe will troubleshoot Github challenges both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it’s rather advanced.\nhttps://happygitwithr.com (updated reguarly)"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html",
+    "href": "modules/reading_managing_writing_data.html",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "",
+    "text": "here will help keep folders organized\ntidyverse is an ecosystem that will load other relevant libraries\n\nreadr for reading data files\ndplyrs for manipulating data files\nmagrittr for piping or chaining code commands"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#load-our-libraries",
+    "href": "modules/reading_managing_writing_data.html#load-our-libraries",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "",
+    "text": "here will help keep folders organized\ntidyverse is an ecosystem that will load other relevant libraries\n\nreadr for reading data files\ndplyrs for manipulating data files\nmagrittr for piping or chaining code commands"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#reading-a-.csv-file-stored-on-a-website",
+    "href": "modules/reading_managing_writing_data.html#reading-a-.csv-file-stored-on-a-website",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Reading a .csv File Stored on a Website",
+    "text": "Reading a .csv File Stored on a Website\nFor example, although the mtcars data is also a built-in data set in R, if it were a read actual .csv file save on some website, you can pass the URL path as the file. This file does exist on the tidyverse github for readr.\nreadr::read_csv(\"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\")\nBecause file if the first argument of the function, you don’t need to reference it specifically. Doing so just eliminates ambiguity for more complicated function calls. You will come across a lot of examples of code that do NOT reference the arguments by name.\nreadr::read_csv(\"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\")\nBy default, readr::read_csv() tries to guess whether column/variable names are present. If you know they exist, you can set col_names = TRUE.\nreadr::read_csv(\"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\", col_names = T)\nIf the names are present and you set col_names = FALSE, you will get a mess because readr will assume the header row is data just as the rest of the file.\nreadr::read_csv(\"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\", col_names = F)\nAs you can see, the column names are all prefixed with “X” and the first row is now the name of the headers. names() or colnames() will return the column names, so we can apply it and see what happens. We will wrap readr::read_csv() in names(). See how this is a problem. You can use colnames() to test this too.\nnames(\n  readr::read_csv(\"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\", col_names = T)\n  )"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#reading-a-.csv-file-stored-locally-on-your-computer",
+    "href": "modules/reading_managing_writing_data.html#reading-a-.csv-file-stored-locally-on-your-computer",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Reading a .csv File Stored Locally on your Computer",
+    "text": "Reading a .csv File Stored Locally on your Computer\nIf a file actually existed on your computer, the file would not be a URL but rather the path location to where the file is stored locally. In order to demonstrate this, we will assume there are no data files on your computer and will write one there so that you can access it. Let’s assign it to an object and save it.\nDF &lt;- readr::read_csv(\n  file = \"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\", \n  col_names = T)\nNow that the data frame is saved as an object, let’s write it out using readr:: write_csv(). We will specify the object to write, x , and the file which actually includes the file path + file name. If your file is large and you wanted to compress it on save, use readr::write_rds(). The here::here() function simplifies combining the file path and file name especially when dealing with sub-directories because it assumes the base path is the project directory. It then combines all the strings you pass as arguments to formatted everything as path. In other words, you don’t have to worry about pasting strings together using paste().\nhere::here()\n\nhere::here()\n#&gt; [1] \"C:/Users/gcook/Sync/git/dataviz23\"\n\nLet’s see how it works by passing two strings, \"data\" and \"mydatafile.csv\". Passing \"data\" alone will provide the path to the data sub-directory and combining the file name will provide the path to that file in the data directory.\nhere::here(\"data\")\n\nhere::here(\"data\", \"mydatafile.csv\")\n\nhere::here(\"data\")\n#&gt; [1] \"C:/Users/gcook/Sync/git/dataviz23/data\"\n\nhere::here(\"data\", \"mydatafile.csv\")\n#&gt; [1] \"C:/Users/gcook/Sync/git/dataviz23/data/mydatafile.csv\"\n\nTo write the file, specify the data frame to save, x, and pass the path to file.\nreadr::write_csv(\n  x = DF, \n  file = here::here(\"data\", \"mydatafile.csv\")\n  )\nOf course, you don’t need to assign it to an object in order to save it. You could assign read_csv() to file and the returned data frame will be the object to save. This approach does everything in one step but can be a little cumbersome for some people. Pick your poison.\nreadr::write_csv(\n  x = readr::read_csv(\n        file = \"https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv\", \n        col_names = T)\n  file = here::here(\"data\", \"mydatafile.csv\")\n  )\nAfter a successful write, the data frame will be saved as a file on your local system. You can read it from that location using the same path designated with here::here().\nreadr::read_csv(here::here(\"data\", \"mydatafile.csv\"))"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#reading-raw-data-files-that-are-comma-separated",
+    "href": "modules/reading_managing_writing_data.html#reading-raw-data-files-that-are-comma-separated",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Reading Raw Data Files that are Comma-Separated",
+    "text": "Reading Raw Data Files that are Comma-Separated\nIf you are not aware, data files can take many forms depending on how they are saved. Sometimes value content on rows are separated by commas, other times tabs, and other times even special characters or spaces. When they are commas-separated-values files, they are known as csv files, tab-separated as tsv, and so on. Other files will be Microsoft Excel formatted files (e.g., xls, or xlsx), SPSS data files (e.g., sav), and still others. To open special files, the haven library can serve you well.\nAnd if you have large files or simply want to read files in a blink of the eye, check out vroom. Vroom can read files over 25 times faster than readr can especially when dealing with lots of character type data files.\nNevertheless, use readr::read_csv() to read baby-names-2008.csv from a remote website.\n#readr::read_csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\")\nIf there were only data in the file and no names, the file might look like that below. We can imitate this by skipping the first row (containing names) using skip =.\nreadr::read_csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\", skip = 1)\nNotice how the first row is assumed to be the names. Setting col_names = F will fix the problem. Putting the arguments on separate rows of R code might improve code legibility.\nreadr::read_csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\", \n                skip = 1,\n                col_names = F)\nBut we have no column names now. Setting col_names = some names will fix that. Use c() to combine 4 names, e.g., col_names = c(\"name1\", \"name2\", \"name3\", \"name4\").\nreadr::read_csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\", \n                skip = 1,\n                col_names = c(\"year\", \"name\", \"percent\", \"sex\"))"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#reading-data-from-a-librarypackage",
+    "href": "modules/reading_managing_writing_data.html#reading-data-from-a-librarypackage",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Reading Data from a Library/Package",
+    "text": "Reading Data from a Library/Package\nAs mentioned earlier, mtcars is a data set on cars which is also part of R, meaning you do not need to read it from anyplace. R does this automatically. Because the file is long, we will get the head of the data frame using head() and then print() that subset.\n\nprint(head(mtcars))\n#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb\n#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\n#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\n#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\n#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\n#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\n#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n\n# or \nhead(mtcars)\n#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb\n#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\n#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\n#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\n#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\n#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\n#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n\nAnd the column names…\n\nnames(mtcars)\n#&gt;  [1] \"mpg\"  \"cyl\"  \"disp\" \"hp\"   \"drat\" \"wt\"   \"qsec\" \"vs\"   \"am\"   \"gear\"\n#&gt; [11] \"carb\""
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#assign-the-data-to-an-object",
+    "href": "modules/reading_managing_writing_data.html#assign-the-data-to-an-object",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Assign the Data to an Object",
+    "text": "Assign the Data to an Object\nYou’ll want to take the data frame object that is returned by the read.csv() function and assign it to an object of a given name. Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let’s assign it to BABIES standing for data frame and let’s make it ALL CAPS. You can name it something else and use different casing but to make data frames distinctly recognizable from other objects like functions, plots, etc., I usually use all caps. Appending _dat would also be another convention."
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#using-base-rs-built-in-read.csv-and-read.table",
+    "href": "modules/reading_managing_writing_data.html#using-base-rs-built-in-read.csv-and-read.table",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Using base R’s built-in read.csv() and read.table():",
+    "text": "Using base R’s built-in read.csv() and read.table():\n\nBABIES &lt;- read.csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\")\n\n# or \nBABIES &lt;- read.table(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\", \n                     sep = \",\")"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#using-read_csv-from-readr",
+    "href": "modules/reading_managing_writing_data.html#using-read_csv-from-readr",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Using read_csv() from readr:",
+    "text": "Using read_csv() from readr:\n\nBABIES2 &lt;- readr::read_csv(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\") \n#&gt; Rows: 2000 Columns: 4\n#&gt; ── Column specification ────────────────────────────────────────────────────────\n#&gt; Delimiter: \",\"\n#&gt; chr (2): name, sex\n#&gt; dbl (2): year, percent\n#&gt; \n#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.\n#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nprint(BABIES2)\n#&gt; # A tibble: 2,000 × 4\n#&gt;     year name        percent sex  \n#&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;\n#&gt;  1  2008 Jacob       0.0104  boy  \n#&gt;  2  2008 Michael     0.00944 boy  \n#&gt;  3  2008 Ethan       0.00930 boy  \n#&gt;  4  2008 Joshua      0.00880 boy  \n#&gt;  5  2008 Daniel      0.00870 boy  \n#&gt;  6  2008 Alexander   0.00857 boy  \n#&gt;  7  2008 Anthony     0.00844 boy  \n#&gt;  8  2008 William     0.00844 boy  \n#&gt;  9  2008 Christopher 0.00827 boy  \n#&gt; 10  2008 Matthew     0.00806 boy  \n#&gt; # ℹ 1,990 more rows"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#data-as-a-data-frame",
+    "href": "modules/reading_managing_writing_data.html#data-as-a-data-frame",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Data as a Data Frame",
+    "text": "Data as a Data Frame\nYou should be an object named BABIES that contains the data frame with baby names. If you want to see that it actually is a data frame object, you can pass the BABIES object into the is.data.frame() function. If this is a data frame, the function will return TRUE and FALSE if it is not.\nis.data.frame(BABIES)\n\n\nis.data.frame(BABIES2)  # tibbles are also data frames\n\nis.data.frame(BABIES)\n#&gt; [1] TRUE\n\n\nis.data.frame(BABIES2)  # tibbles are also data frames\n#&gt; [1] TRUE"
+  },
+  {
+    "objectID": "modules/reading_managing_writing_data.html#are-they-both-tibbles",
+    "href": "modules/reading_managing_writing_data.html#are-they-both-tibbles",
+    "title": "Reading, Managing, & Writing Data",
+    "section": "Are they both tibbles?",
+    "text": "Are they both tibbles?\ntibble::is_tibble(BABIES)\n\n\ntibble::is_tibble(BABIES2)\n\ntibble::is_tibble(BABIES)\n#&gt; [1] FALSE\n\n\ntibble::is_tibble(BABIES2)\n#&gt; [1] TRUE\n\nNow the you have the data frame, you can examine some of its contents, for example, the first 6 rows using the head() function.\n\nhead(BABIES)    # hmm, something seems off.\n#&gt;     V1      V2       V3  V4\n#&gt; 1 year    name  percent sex\n#&gt; 2 2008   Jacob 0.010355 boy\n#&gt; 3 2008 Michael 0.009437 boy\n#&gt; 4 2008   Ethan 0.009301 boy\n#&gt; 5 2008  Joshua 0.008799 boy\n#&gt; 6 2008  Daniel 0.008702 boy\n\nBecause header rows at the top of the .csv file, specify that they exist by passing TRUE to the header argument of the function (e.g., header = TRUE or header = T).\n\nBABIES &lt;- read.table(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/data/baby-names-2008.csv\", \n                     sep = \",\", \n                     header = TRUE)\n\nAnd view the head.s\n\nhead(BABIES)    # Perfect!\n#&gt;   year      name  percent sex\n#&gt; 1 2008     Jacob 0.010355 boy\n#&gt; 2 2008   Michael 0.009437 boy\n#&gt; 3 2008     Ethan 0.009301 boy\n#&gt; 4 2008    Joshua 0.008799 boy\n#&gt; 5 2008    Daniel 0.008702 boy\n#&gt; 6 2008 Alexander 0.008566 boy"
   },
   {
     "objectID": "syllabus/syllabus.html",
     "href": "syllabus/syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Under construction\n\n\n\nThis syllabus is under construction until Fall 2023\n\n\n\n\n\n\n\n\n\n\n\nSemester\nFall 2023\n\n\nSection\nPSYC 167, Sect-01\n\n\nDay Time\nTuesday 2:45 - 05:30PM (Pacific)\n\n\nLocation\nLocation: Roberts South, 104\n\n\nOffice Hours\n(zoom link posted on …)\n\n\nInstructor\nGabriel I. Cook\n\n\nContact\nEmail: gcook@cmc.edu (please put ‘’PSYC 167’ in subject line)\n\n\nCredit\n3 hours; 3 credits\n\n\n\n\n\n\n\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nPrerequisite: For data-science sequence or majors (level-A data-science course); recommended a course in Perception, Visual Attention, Cognitive Psychology, or Cognitive Science; or permission of instructor\n\n\n\nUnderstand various uses of visual variables to create data visualizations;\nUnderstand both advantages and disadvantages of using visual variables to create data visualizations;\nAnalyze, critique, and revise data visualizations;\nUnderstand the functionality of the ggplot2 library for creating data visualizations;\nPresent data with visual representations for your target audience, task, and data;\nIdentify appropriate data visualization techniques given particular requirements imposed by the data and/or audience; and\nApply appropriate design principles in the creation of presentations and visualizations\n\n\n\n\n\n\n\n“Courses should involve approximately equal workloads. Generally, students should expect to spend from 6 to 8 hours per week, over and above the time spent in classroom, on each course.” – CMC Faculty Handbook\nIf you do the math, including class time of 2½ hours, you should expect to allocate 8 ½ to 10 ½ hours per week for courses at CMC. “Per week” is a key phrase; courses are not designed for nondistributed cramming.\n\n\n\nThis course qualifies as a general education (GE) course in the social sciences and is also part of the psychology major. GE courses are not intended to be easy. Because they are often not part of one’s major, they can be often be more difficult because the content covered is likely unfamiliar to you.\n\n\n\n\nAll of the course materials will be available in a timely fashion on this course website and/or posted on blackboard.\nLink to the course website: https://slicesofdata.github.io/dataviz23\n\n\nComputer: current Mac (macOS) or PC (Windows or Linux) with high-speed internet connection, capable of running R and RStudio\n\n\n\nR and RStudio: Students will be required to use R and RStudio software. Note: Install Version will be provided. Before installing RStudio, you must also download and install the base R software at https://www.r-project.org/ that is appropriate for your computer’s operating system. RStudio can be downloaded for free at https://www.rstudio.com. You are expected to install R and RStudio on your personal computer by downloading the software from the links above. You will also have to install appropriate libraries throughout the course. Further instructions will be provided.\n\n\n\n\nWickham (2016). ggplot2: Elegant Graphics for Data Analysis (Use R) 2nd ed. Supplemental readings from other books and empirical journals.\nClause Wilkes\nKieran Healy\n“Applied Data Skills: Processing & Presenting Data” (2023) Emily Nordmann and Lisa DeBruine. https://psyteachr.github.io/ads-v2\n\nThese textbooks are free and open-source. For other free resources and tools, please see the compendium ” or if link doesn’t work, use comdendium/privacy.qmd).”\n\n\n\n\nStudents are expected to participate in all aspects of the class. This class involves developing topic knowledge and computer programming skills for visualizing data. The assumption is that students possess varying levels of skills related to programming. Class time will be spend engaging in a variety of tasks and activities, including lectures, group-work, applied coding activities, presentations, and discussions.\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n30-Jan-23\nIntroduction\n\n\n2\n30-Jan-23\nIntroduction\n\n\n3\n1-Feb-23\nIntroduction\n\n\n4\n6-Feb-23\nIntroduction\n\n\n5\n8-Feb-23\nIntroduction\n\n\n6\n13-Feb-23\nIntroduction\n\n\n7\n15-Feb-23\nIntroduction\n\n\n8\n20-Feb-23\nIntroduction\n\n\n9\n21-Feb-23\nIntroduction\n\n\n10\n22-Feb-23\nIntroduction\n\n\n11\n27-Feb-23\nIntroduction\n\n\n12\n1-Mar-23\nIntroduction\n\n\n13\n6-Mar-23\nIntroduction\n\n\n14\n8-Mar-23\nIntroduction\n\n\n15\n13-Mar-23\nIntroduction\n\n\n16\n15-Mar-23\nIntroduction\n\n\n\n\n\n\n\n\nThroughout this course you will learn how to analyse and communicate data using reproducible computational methods. These methods allow you to communicate information in many formats including websites, interactive web apps, slide decks, pdfs, word documents, books, web-books, and more. Students can use these very same methods to create their own personal websites, which can be used as a digital portfolio to showcase examples of their work and demonstrate their skills. To support digital portfolio development, students will learn to create a personal website and blog. Students will add content to their websites in the form of blogs and other weekly assignment content prompts. By the end of the course students will have created evidence of their learning process in the form of their course website and blog. Students can choose to share their coursework publicly or privately.\n\n\n\nThis is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.\n\n\n\n\n\n\n\nItem\nTotal Points\nInstance\n\n\n\n\nConceptual Assignment\n30\n?10\n\n\nCoding Assignment\n30\n?10\n\n\nMidterm Presentation\n20\n1\n\n\nFinal Project\n20\n1\n\n\n\n\n\nPercentage grades are converted to letter grades according to the following rubric.\n\n\n\n\n\nLetter\nPoint Range\n\n\n\n\nA\n94 - 100\n\n\nA-\n90 - 93.99\n\n\nB+\n87 - 89.99\n\n\nB\n84 - 86.99\n\n\nB-\n80 - 83.99\n\n\nC+\n77 - 79.99\n\n\nC\n74 - 76.99\n\n\nC-\n70 - 73.99\n\n\nD+\n67 - 69.99\n\n\nD\n64 - 66.99\n\n\nD-\n60 - 63.99\n\n\nF\n0 - 59.99\n\n\n\n\n\n\n\n\n\nStudents are expected to attend and participate in each class.\n\n\n\n\n\nDue dates are suggestions for completing coursework on a weekly basis. You may be able to work ahead, but you are not encouraged to fall behind.\nYou should email me if you have an exceptional circumstance preventing you from taking an assessment during an assessment week.\n\n\n\nThe syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.\n\n\n\nIn the event of an emergency, contact me as soon as possible. If you are missing an exam for religious reasons refer to the state law regarding non-attendance because of religious beliefs noted in the front matter of the Undergraduate Bulletin and Graduate Bulletin. These may be found on the Academic Calendars, Course Schedules, and Bulletins page of the Registrar’s website. See also the student bereavement policy at http://www.brooklyn.cuny.edu/web/about/initiatives/policies/bereavement.php.\n\n\n\n\nIn order to receive disability-related academic accommodations students must first be registered with the Center for Student Disability Services. Students who have a documented disability or suspect they may have a disability are invited to set up an appointment with the Director of the Center for Student Disability Services, at 718-951-5538. If you have already registered with the Center for Student Disability Services, please provide your professor with the course accommodation form and discuss your specific accommodation with him/her.\n\n\n\n\nI will regularly use e-mail and will use Canvas to send out announcements, changes in the syllabus, reminders about assessments or due dates etc. You are responsible for checking e-mail regularly to keep up-to-date with these announcements. I will use the e-mail address you have listed with the College. Therefore, please make sure that this is indeed the correct address.\nIf you have questions please email me:\n\nAlways add ’PSYC 167” to the subject line\nemail me at: gcook@cmc.edu\n\n\n\n\n\nThe faculty and administration of Claremont McKenna College support an environment free from cheating and plagiarism. Each student is responsible for being aware of what constitutes cheating and plagiarism and for avoiding both.\n\n\nEach student is responsible for understanding and acting in accordance with the College’s policy on Academic Integrity, described below.\n\n\n\nAlthough you may find yourself working on assignments with a partner or discussing them with classmates, all assignments should be your one original work. You are not to share materials with other students if that material has the potential of being copied, even if your intention is not to allow a classmate to copy your work. Any signs of academic dishonesty, even those raised by concerned peers, will be submitted to the Academic Standards Committee for review. Although I do not anticipate any events of academic dishonesty, any form of dishonestly of any form will not be tolerated. Many students are unclear of the definition of plagiarism so I have posted some CMC links to information that I believe will clarify the issue. In addition, any work completed for another course, past or present, may not be submitted for a grade for this course and would be a violation of integrity. http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp\n\n\nYour experience in this class is important to me. If you have already established accommodations with Disability & Accessibility Services at CMC, please communicate your approved accommodations to me during the first week of the semester so we can discuss your needs in this course ASAP. You can start this conversation by forwarding me your accommodation letter. If you have not yet established accommodations through Accessibility Services but have a temporary health condition or permanent disability (conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical or health), you are encouraged to contact Assistant Dean for Disability Services & Academic Success, Kari Rood, at AccessibilityServices@cmc.edu to ask questions and/or begin the process. General information and accommodations request information be found at the CMC DOS Accessibility Service’s website. Please note that arrangements must be made with advance notice in order to access the reasonable accommodations. You are able to request accommodations from CMC Accessibility Services at any point in the semester. Be mindful that this process may take some time to complete and accommodations are not retroactive. I would err on the side of caution and make sure your accommodations are sent to me even if you do not believe you need them as some students only learn they may need time after completing assessment. The Americans With Disabilities Act (ADA) and Section 504 of the Rehabilitation Act do not make accommodations retroactive. If you are approved for extra testing time for example, you must do so before an electronic assessment is posted in order for it to be integrated into the assessment. Claremont McKenna College values creating inclusive and accessible learning environments consistent with federal and state law. If you are not a CMC student, please connect with the Disability & Accessibility Services Coordinator on your campus regarding a similar process.\n\n\n\n\nRemember, you are responsible for not cheating or violating CMC’s Academic Integrity Policy. You are responsible for understanding that policy, and for conducting yourself in a manner such that you do not violate the policy.\nThe above link lists many examples of cheating and plagiarism that are not allowed. There are many more specific acts that you should NOT do. Here is an additional list of activities that will be sufficient cause for immediate failure in the course.\n\nDo not take pictures of exam or quiz questions and share them with other students\nDo not give other students answers during an exam or quiz, or any other assignment that is an individual assignment\nDo not copy work from another source and submit it as your own\nDo not copy and paste text from the internet and submit it as your own words\nDo not copy and paste text and slightly alter wording to pass the work off as your own\nDo not hire someone else to do the coursework for you\nDo not copy and paste text into a paraphrasing app, and then submit the output of the paraphrasing app as your own work\nDo not copy random words from the internet that have nothing to do with the assignment and submit them as your own work.\nDo not work on individual assignments with other students, share answers or other material, and then all hand in versions of the same thing that are slightly different.\nDo not plagiarize yourself by submitting work that you have previously completed in another class.\n\n\n\n\nIf a faculty member suspects a violation of academic integrity and, upon investigation, confirms that violation, or if the student admits the violation, the faculty member MUST report the violation. Students should be aware that faculty may use plagiarism detection software.\nThere is no excuse for cheating. Students who are caught cheating may receive a failing grade for the entire course. All students who violate the academic integrity will receive a Faculty Action Report, which will go on their personal file at the Academic Integrity Office.\n\n\n\n\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
+    "text": "Under construction\n\n\n\nThis syllabus is under construction until Fall 2023\nSemester\nFall 2023\n\n\nSection\nPSYC 167, Sect-01\n\n\nDay Time\nTuesday 2:45 - 05:30PM (Pacific)\n\n\nLocation\nLocation: Roberts South, 104\n\n\nOffice Hours\n(zoom link posted on …)\n\n\nInstructor\nGabriel I. Cook\n\n\nContact\nEmail: gcook@CMC.edu(please put ’PSYC 167 in subject line)\n\n\nCredit\n3 hours; 1 credits"
   },
   {
     "objectID": "syllabus/syllabus.html#course-description",
     "href": "syllabus/syllabus.html#course-description",
     "title": "Syllabus",
-    "section": "",
-    "text": "Data visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nPrerequisite: For data-science sequence or majors (level-A data-science course); recommended a course in Perception, Visual Attention, Cognitive Psychology, or Cognitive Science; or permission of instructor\n\n\n\nUnderstand various uses of visual variables to create data visualizations;\nUnderstand both advantages and disadvantages of using visual variables to create data visualizations;\nAnalyze, critique, and revise data visualizations;\nUnderstand the functionality of the ggplot2 library for creating data visualizations;\nPresent data with visual representations for your target audience, task, and data;\nIdentify appropriate data visualization techniques given particular requirements imposed by the data and/or audience; and\nApply appropriate design principles in the creation of presentations and visualizations"
+    "section": "Course Description",
+    "text": "Course Description\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nPrerequisite: For data-science sequence or majors (level-A data-science course); recommended a course in Perception, Visual Attention, Cognitive Psychology, or Cognitive Science; or permission of instructor\n\nCourse Specific Learning Goals\n\nUnderstand various uses of visual variables to create data visualizations;\nUnderstand both advantages and disadvantages of using visual variables to create data visualizations;\nAnalyze, critique, and revise data visualizations;\nUnderstand the functionality of the ggplot2 library for creating data visualizations;\nPresent data with visual representations for your target audience, task, and data;\nIdentify appropriate data visualization techniques given particular requirements imposed by the data and/or audience; and\nApply appropriate design principles in the creation of presentations and visualizations"
   },
   {
     "objectID": "syllabus/syllabus.html#courses-at-cmc",
     "href": "syllabus/syllabus.html#courses-at-cmc",
     "title": "Syllabus",
-    "section": "",
-    "text": "“Courses should involve approximately equal workloads. Generally, students should expect to spend from 6 to 8 hours per week, over and above the time spent in classroom, on each course.” – CMC Faculty Handbook\nIf you do the math, including class time of 2½ hours, you should expect to allocate 8 ½ to 10 ½ hours per week for courses at CMC. “Per week” is a key phrase; courses are not designed for nondistributed cramming.\n\n\n\nThis course qualifies as a general education (GE) course in the social sciences and is also part of the psychology major. GE courses are not intended to be easy. Because they are often not part of one’s major, they can be often be more difficult because the content covered is likely unfamiliar to you."
+    "section": "Courses at CMC",
+    "text": "Courses at CMC\n\nFaculty Handbook 5.4.2 Work Load in Classes\n“Courses should involve approximately equal workloads. Generally, students should expect to spend from 6 to 8 hours per week, over and above the time spent in classroom, on each course.” – CMC Faculty Handbook\nIf you do the math, including class time of 2½ hours, you should expect to allocate 8 ½ to 10 ½ hours per week for courses at CMC. “Per week” is a key phrase; courses are not designed for nondistributed cramming.\n\n\nGeneral Education Courses\nThis course qualifies as a general education (GE) course in the social sciences and is also part of the psychology major. GE courses are not intended to be easy. Because they are often not part of one’s major, they can be often be more difficult because the content covered is likely unfamiliar to you."
   },
   {
     "objectID": "syllabus/syllabus.html#course-materials-and-textbook",
     "href": "syllabus/syllabus.html#course-materials-and-textbook",
     "title": "Syllabus",
-    "section": "",
-    "text": "All of the course materials will be available in a timely fashion on this course website and/or posted on blackboard.\nLink to the course website: https://slicesofdata.github.io/dataviz23\n\n\nComputer: current Mac (macOS) or PC (Windows or Linux) with high-speed internet connection, capable of running R and RStudio\n\n\n\nR and RStudio: Students will be required to use R and RStudio software. Note: Install Version will be provided. Before installing RStudio, you must also download and install the base R software at https://www.r-project.org/ that is appropriate for your computer’s operating system. RStudio can be downloaded for free at https://www.rstudio.com. You are expected to install R and RStudio on your personal computer by downloading the software from the links above. You will also have to install appropriate libraries throughout the course. Further instructions will be provided.\n\n\n\n\nWickham (2016). ggplot2: Elegant Graphics for Data Analysis (Use R) 2nd ed. Supplemental readings from other books and empirical journals.\nClause Wilkes\nKieran Healy\n“Applied Data Skills: Processing & Presenting Data” (2023) Emily Nordmann and Lisa DeBruine. https://psyteachr.github.io/ads-v2\n\nThese textbooks are free and open-source. For other free resources and tools, please see the compendium ” or if link doesn’t work, use comdendium/privacy.qmd).”"
+    "section": "Course Materials and Textbook",
+    "text": "Course Materials and Textbook\nAll of the course materials will be available in a timely fashion on this course website and/or posted on blackboard.\nLink to the course website: https://slicesofdata.github.io/dataviz23\n\nRequired Equipment:\nComputer: current Mac (macOS) or PC (Windows or Linux) with high-speed internet connection, capable of running R and RStudio\n\n\nRequired Software:\nR and RStudio: Students will be required to use R and RStudio software. Note: Install Version will be provided. Before installing RStudio, you must also download and install the base R software at https://www.r-project.org/ that is appropriate for your computer’s operating system. RStudio can be downloaded for free at https://www.rstudio.com. You are expected to install R and RStudio on your personal computer by downloading the software from the links above. You will also have to install appropriate libraries throughout the course. Further instructions will be provided.\n\n\nReading Materials/Textbook(s)\n\nWickham (2016). ggplot2: Elegant Graphics for Data Analysis (Use R) 2nd ed. Supplemental readings from other books and empirical journals.\nClause Wilkes\nKieran Healy\n“Applied Data Skills: Processing & Presenting Data” (2023) Emily Nordmann and Lisa DeBruine. https://psyteachr.github.io/ads-v2\n\nThese textbooks are free and open-source. For other free resources and tools, please see the compendium ” or if link doesn’t work, use comdendium/privacy.qmd).”"
   },
   {
     "objectID": "syllabus/syllabus.html#course-structure",
     "href": "syllabus/syllabus.html#course-structure",
     "title": "Syllabus",
-    "section": "",
-    "text": "Students are expected to participate in all aspects of the class. This class involves developing topic knowledge and computer programming skills for visualizing data. The assumption is that students possess varying levels of skills related to programming. Class time will be spend engaging in a variety of tasks and activities, including lectures, group-work, applied coding activities, presentations, and discussions."
+    "section": "Course Structure",
+    "text": "Course Structure\nStudents are expected to participate in all aspects of the class. This class involves developing topic knowledge and computer programming skills for visualizing data. The assumption is that students possess varying levels of skills related to programming. Class time will be spend engaging in a variety of tasks and activities, including lectures, group-work, applied coding activities, presentations, and discussions."
   },
   {
     "objectID": "syllabus/syllabus.html#course-schedule",
     "href": "syllabus/syllabus.html#course-schedule",
     "title": "Syllabus",
-    "section": "",
-    "text": "Week\nDate\nTopic\n\n\n\n\n1\n30-Jan-23\nIntroduction\n\n\n2\n30-Jan-23\nIntroduction\n\n\n3\n1-Feb-23\nIntroduction\n\n\n4\n6-Feb-23\nIntroduction\n\n\n5\n8-Feb-23\nIntroduction\n\n\n6\n13-Feb-23\nIntroduction\n\n\n7\n15-Feb-23\nIntroduction\n\n\n8\n20-Feb-23\nIntroduction\n\n\n9\n21-Feb-23\nIntroduction\n\n\n10\n22-Feb-23\nIntroduction\n\n\n11\n27-Feb-23\nIntroduction\n\n\n12\n1-Mar-23\nIntroduction\n\n\n13\n6-Mar-23\nIntroduction\n\n\n14\n8-Mar-23\nIntroduction\n\n\n15\n13-Mar-23\nIntroduction\n\n\n16\n15-Mar-23\nIntroduction"
+    "section": "Course Schedule",
+    "text": "Course Schedule\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n30-Jan-23\nIntroduction\n\n\n2\n30-Jan-23\nIntroduction\n\n\n3\n1-Feb-23\nIntroduction\n\n\n4\n6-Feb-23\nIntroduction\n\n\n5\n8-Feb-23\nIntroduction\n\n\n6\n13-Feb-23\nIntroduction\n\n\n7\n15-Feb-23\nIntroduction\n\n\n8\n20-Feb-23\nIntroduction\n\n\n9\n21-Feb-23\nIntroduction\n\n\n10\n22-Feb-23\nIntroduction\n\n\n11\n27-Feb-23\nIntroduction\n\n\n12\n1-Mar-23\nIntroduction\n\n\n13\n6-Mar-23\nIntroduction\n\n\n14\n8-Mar-23\nIntroduction\n\n\n15\n13-Mar-23\nIntroduction\n\n\n16\n15-Mar-23\nIntroduction"
   },
   {
     "objectID": "syllabus/syllabus.html#portfolio-development",
     "href": "syllabus/syllabus.html#portfolio-development",
     "title": "Syllabus",
-    "section": "",
-    "text": "Throughout this course you will learn how to analyse and communicate data using reproducible computational methods. These methods allow you to communicate information in many formats including websites, interactive web apps, slide decks, pdfs, word documents, books, web-books, and more. Students can use these very same methods to create their own personal websites, which can be used as a digital portfolio to showcase examples of their work and demonstrate their skills. To support digital portfolio development, students will learn to create a personal website and blog. Students will add content to their websites in the form of blogs and other weekly assignment content prompts. By the end of the course students will have created evidence of their learning process in the form of their course website and blog. Students can choose to share their coursework publicly or privately."
+    "section": "Portfolio development",
+    "text": "Portfolio development\nThroughout this course you will learn how to analyse and communicate data using reproducible computational methods. These methods allow you to communicate information in many formats including websites, interactive web apps, slide decks, pdfs, word documents, books, web-books, and more. Students can use these very same methods to create their own personal websites, which can be used as a digital portfolio to showcase examples of their work and demonstrate their skills. To support digital portfolio development, students will learn to create a personal website and blog. Students will add content to their websites in the form of blogs and other weekly assignment content prompts. By the end of the course students will have created evidence of their learning process in the form of their course website and blog. Students can choose to share their coursework publicly or privately."
   },
   {
     "objectID": "syllabus/syllabus.html#assignments-and-grading",
     "href": "syllabus/syllabus.html#assignments-and-grading",
     "title": "Syllabus",
-    "section": "",
-    "text": "This is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.\n\n\n\n\n\n\n\nItem\nTotal Points\nInstance\n\n\n\n\nConceptual Assignment\n30\n?10\n\n\nCoding Assignment\n30\n?10\n\n\nMidterm Presentation\n20\n1\n\n\nFinal Project\n20\n1\n\n\n\n\n\nPercentage grades are converted to letter grades according to the following rubric.\n\n\n\n\n\nLetter\nPoint Range\n\n\n\n\nA\n94 - 100\n\n\nA-\n90 - 93.99\n\n\nB+\n87 - 89.99\n\n\nB\n84 - 86.99\n\n\nB-\n80 - 83.99\n\n\nC+\n77 - 79.99\n\n\nC\n74 - 76.99\n\n\nC-\n70 - 73.99\n\n\nD+\n67 - 69.99\n\n\nD\n64 - 66.99\n\n\nD-\n60 - 63.99\n\n\nF\n0 - 59.99"
+    "section": "Assignments and Grading",
+    "text": "Assignments and Grading\nThis is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.\n\nEvaluation and Grading:\n\n\n\n\n\nItem\nTotal Points\nInstance\n\n\n\n\nConceptual Assignment\n30\n?10\n\n\nCoding Assignment\n30\n?10\n\n\nMidterm Presentation\n20\n1\n\n\nFinal Project\n20\n1\n\n\n\n\n\nPercentage grades are converted to letter grades according to the following rubric.\n\n\n\n\n\nLetter\nPoint Range\n\n\n\n\nA\n94 - 100\n\n\nA-\n90 - 93.99\n\n\nB+\n87 - 89.99\n\n\nB\n84 - 86.99\n\n\nB-\n80 - 83.99\n\n\nC+\n77 - 79.99\n\n\nC\n74 - 76.99\n\n\nC-\n70 - 73.99\n\n\nD+\n67 - 69.99\n\n\nD\n64 - 66.99\n\n\nD-\n60 - 63.99\n\n\nF\n0 - 59.99"
   },
   {
     "objectID": "syllabus/syllabus.html#attendance",
     "href": "syllabus/syllabus.html#attendance",
     "title": "Syllabus",
-    "section": "",
-    "text": "Students are expected to attend and participate in each class."
+    "section": "Attendance",
+    "text": "Attendance\nStudents are expected to attend and participate in each class."
   },
   {
     "objectID": "syllabus/syllabus.html#course-policies",
     "href": "syllabus/syllabus.html#course-policies",
     "title": "Syllabus",
-    "section": "",
-    "text": "Due dates are suggestions for completing coursework on a weekly basis. You may be able to work ahead, but you are not encouraged to fall behind.\nYou should email me if you have an exceptional circumstance preventing you from taking an assessment during an assessment week.\n\n\n\nThe syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.\n\n\n\nIn the event of an emergency, contact me as soon as possible. If you are missing an exam for religious reasons refer to the state law regarding non-attendance because of religious beliefs noted in the front matter of the Undergraduate Bulletin and Graduate Bulletin. These may be found on the Academic Calendars, Course Schedules, and Bulletins page of the Registrar’s website. See also the student bereavement policy at http://www.brooklyn.cuny.edu/web/about/initiatives/policies/bereavement.php.\n\n\n\n\nIn order to receive disability-related academic accommodations students must first be registered with the Center for Student Disability Services. Students who have a documented disability or suspect they may have a disability are invited to set up an appointment with the Director of the Center for Student Disability Services, at 718-951-5538. If you have already registered with the Center for Student Disability Services, please provide your professor with the course accommodation form and discuss your specific accommodation with him/her.\n\n\n\n\nI will regularly use e-mail and will use Canvas to send out announcements, changes in the syllabus, reminders about assessments or due dates etc. You are responsible for checking e-mail regularly to keep up-to-date with these announcements. I will use the e-mail address you have listed with the College. Therefore, please make sure that this is indeed the correct address.\nIf you have questions please email me:\n\nAlways add ’PSYC 167” to the subject line\nemail me at: gcook@cmc.edu"
+    "section": "Course Policies",
+    "text": "Course Policies\n\nDue dates\nDue dates are suggestions for completing coursework on a weekly basis. You may be able to work ahead, but you are not encouraged to fall behind.\nYou should email me if you have an exceptional circumstance preventing you from taking an assessment during an assessment week.\n\n\nChanges to the syllabus\nThe syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.\n\n\nMissing an Exam\nIn the event of an emergency, contact me as soon as possible. If you are missing an exam for religious reasons refer to the state law regarding non-attendance because of religious beliefs noted in the front matter of the Undergraduate Bulletin and Graduate Bulletin. These may be found on the Academic Calendars, Course Schedules, and Bulletins page of the Registrar’s website. See also the student bereavement policy at http://www.brooklyn.cuny.edu/web/about/initiatives/policies/bereavement.php.\n\n\n\nAccessibility\nIn order to receive disability-related academic accommodations students must first be registered with the Center for Student Disability Services. Students who have a documented disability or suspect they may have a disability are invited to set up an appointment with the Director of the Center for Student Disability Services, at 718-951-5538. If you have already registered with the Center for Student Disability Services, please provide your professor with the course accommodation form and discuss your specific accommodation with him/her.\n\n\n\nEmail Correspondence\nI will regularly use e-mail and will use Canvas to send out announcements, changes in the syllabus, reminders about assessments or due dates etc. You are responsible for checking e-mail regularly to keep up-to-date with these announcements. I will use the e-mail address you have listed with the College. Therefore, please make sure that this is indeed the correct address.\nIf you have questions please email me:\n\nAlways add ’PSYC 167” to the subject line\nemail me at: gcook@cmc.edu"
   },
   {
     "objectID": "syllabus/syllabus.html#universitys-policy-on-academic-integrity",
     "href": "syllabus/syllabus.html#universitys-policy-on-academic-integrity",
     "title": "Syllabus",
-    "section": "",
-    "text": "The faculty and administration of Claremont McKenna College support an environment free from cheating and plagiarism. Each student is responsible for being aware of what constitutes cheating and plagiarism and for avoiding both.\n\n\nEach student is responsible for understanding and acting in accordance with the College’s policy on Academic Integrity, described below.\n\n\n\nAlthough you may find yourself working on assignments with a partner or discussing them with classmates, all assignments should be your one original work. You are not to share materials with other students if that material has the potential of being copied, even if your intention is not to allow a classmate to copy your work. Any signs of academic dishonesty, even those raised by concerned peers, will be submitted to the Academic Standards Committee for review. Although I do not anticipate any events of academic dishonesty, any form of dishonestly of any form will not be tolerated. Many students are unclear of the definition of plagiarism so I have posted some CMC links to information that I believe will clarify the issue. In addition, any work completed for another course, past or present, may not be submitted for a grade for this course and would be a violation of integrity. http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp\n\n\nYour experience in this class is important to me. If you have already established accommodations with Disability & Accessibility Services at CMC, please communicate your approved accommodations to me during the first week of the semester so we can discuss your needs in this course ASAP. You can start this conversation by forwarding me your accommodation letter. If you have not yet established accommodations through Accessibility Services but have a temporary health condition or permanent disability (conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical or health), you are encouraged to contact Assistant Dean for Disability Services & Academic Success, Kari Rood, at AccessibilityServices@cmc.edu to ask questions and/or begin the process. General information and accommodations request information be found at the CMC DOS Accessibility Service’s website. Please note that arrangements must be made with advance notice in order to access the reasonable accommodations. You are able to request accommodations from CMC Accessibility Services at any point in the semester. Be mindful that this process may take some time to complete and accommodations are not retroactive. I would err on the side of caution and make sure your accommodations are sent to me even if you do not believe you need them as some students only learn they may need time after completing assessment. The Americans With Disabilities Act (ADA) and Section 504 of the Rehabilitation Act do not make accommodations retroactive. If you are approved for extra testing time for example, you must do so before an electronic assessment is posted in order for it to be integrated into the assessment. Claremont McKenna College values creating inclusive and accessible learning environments consistent with federal and state law. If you are not a CMC student, please connect with the Disability & Accessibility Services Coordinator on your campus regarding a similar process.\n\n\n\n\nRemember, you are responsible for not cheating or violating CMC’s Academic Integrity Policy. You are responsible for understanding that policy, and for conducting yourself in a manner such that you do not violate the policy.\nThe above link lists many examples of cheating and plagiarism that are not allowed. There are many more specific acts that you should NOT do. Here is an additional list of activities that will be sufficient cause for immediate failure in the course.\n\nDo not take pictures of exam or quiz questions and share them with other students\nDo not give other students answers during an exam or quiz, or any other assignment that is an individual assignment\nDo not copy work from another source and submit it as your own\nDo not copy and paste text from the internet and submit it as your own words\nDo not copy and paste text and slightly alter wording to pass the work off as your own\nDo not hire someone else to do the coursework for you\nDo not copy and paste text into a paraphrasing app, and then submit the output of the paraphrasing app as your own work\nDo not copy random words from the internet that have nothing to do with the assignment and submit them as your own work.\nDo not work on individual assignments with other students, share answers or other material, and then all hand in versions of the same thing that are slightly different.\nDo not plagiarize yourself by submitting work that you have previously completed in another class.\n\n\n\n\nIf a faculty member suspects a violation of academic integrity and, upon investigation, confirms that violation, or if the student admits the violation, the faculty member MUST report the violation. Students should be aware that faculty may use plagiarism detection software.\nThere is no excuse for cheating. Students who are caught cheating may receive a failing grade for the entire course. All students who violate the academic integrity will receive a Faculty Action Report, which will go on their personal file at the Academic Integrity Office."
+    "section": "University’s policy on Academic Integrity",
+    "text": "University’s policy on Academic Integrity\nThe faculty and administration of Claremont McKenna College support an environment free from cheating and plagiarism. Each student is responsible for being aware of what constitutes cheating and plagiarism and for avoiding both.\n\nViolations of Academic integrity\nEach student is responsible for understanding and acting in accordance with the College’s policy on Academic Integrity, described below.\n\n\nAcademic Integrity\nAlthough you may find yourself working on assignments with a partner or discussing them with classmates, all assignments should be your one original work. You are not to share materials with other students if that material has the potential of being copied, even if your intention is not to allow a classmate to copy your work. Any signs of academic dishonesty, even those raised by concerned peers, will be submitted to the Academic Standards Committee for review. Although I do not anticipate any events of academic dishonesty, any form of dishonestly of any form will not be tolerated. Many students are unclear of the definition of plagiarism so I have posted some CMC links to information that I believe will clarify the issue. In addition, any work completed for another course, past or present, may not be submitted for a grade for this course and would be a violation of integrity. http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp\n\nStatement of Reasonable Accommodations\nYour experience in this class is important to me. If you have already established accommodations with Disability & Accessibility Services at CMC, please communicate your approved accommodations to me during the first week of the semester so we can discuss your needs in this course ASAP. You can start this conversation by forwarding me your accommodation letter. If you have not yet established accommodations through Accessibility Services but have a temporary health condition or permanent disability (conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical or health), you are encouraged to contact Assistant Dean for Disability Services & Academic Success, Kari Rood, at AccessibilityServices@cmc.edu to ask questions and/or begin the process. General information and accommodations request information be found at the CMC DOS Accessibility Service’s website. Please note that arrangements must be made with advance notice in order to access the reasonable accommodations. You are able to request accommodations from CMC Accessibility Services at any point in the semester. Be mindful that this process may take some time to complete and accommodations are not retroactive. I would err on the side of caution and make sure your accommodations are sent to me even if you do not believe you need them as some students only learn they may need time after completing assessment. The Americans With Disabilities Act (ADA) and Section 504 of the Rehabilitation Act do not make accommodations retroactive. If you are approved for extra testing time for example, you must do so before an electronic assessment is posted in order for it to be integrated into the assessment. Claremont McKenna College values creating inclusive and accessible learning environments consistent with federal and state law. If you are not a CMC student, please connect with the Disability & Accessibility Services Coordinator on your campus regarding a similar process.\n\n\n\nFYI on cheating etc.\nRemember, you are responsible for not cheating or violating CMC’s Academic Integrity Policy. You are responsible for understanding that policy, and for conducting yourself in a manner such that you do not violate the policy.\nThe above link lists many examples of cheating and plagiarism that are not allowed. There are many more specific acts that you should NOT do. Here is an additional list of activities that will be sufficient cause for immediate failure in the course.\n\nDo not take pictures of exam or quiz questions and share them with other students\nDo not give other students answers during an exam or quiz, or any other assignment that is an individual assignment\nDo not copy work from another source and submit it as your own\nDo not copy and paste text from the internet and submit it as your own words\nDo not copy and paste text and slightly alter wording to pass the work off as your own\nDo not hire someone else to do the coursework for you\nDo not copy and paste text into a paraphrasing app, and then submit the output of the paraphrasing app as your own work\nDo not copy random words from the internet that have nothing to do with the assignment and submit them as your own work.\nDo not work on individual assignments with other students, share answers or other material, and then all hand in versions of the same thing that are slightly different.\nDo not plagiarize yourself by submitting work that you have previously completed in another class.\n\n\n\nMandate to report violations\nIf a faculty member suspects a violation of academic integrity and, upon investigation, confirms that violation, or if the student admits the violation, the faculty member MUST report the violation. Students should be aware that faculty may use plagiarism detection software.\nThere is no excuse for cheating. Students who are caught cheating may receive a failing grade for the entire course. All students who violate the academic integrity will receive a Faculty Action Report, which will go on their personal file at the Academic Integrity Office."
   },
   {
     "objectID": "syllabus/syllabus.html#faq",
     "href": "syllabus/syllabus.html#faq",
     "title": "Syllabus",
+    "section": "FAQ",
+    "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
+  },
+  {
+    "objectID": "resources/dataviz_readings.html",
+    "href": "resources/dataviz_readings.html",
+    "title": "Readings",
     "section": "",
-    "text": "If you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
+    "text": "You should read the enumerated items (those prefaced by numbers); others can supplemental.\n\nTopic\n\nxxx\nxxx\n\n\n\nGuided Practice with Posit Primers\n\nBar Plots\nBox Plots\nScatterplots\nLine Plots\n\n\n\nTopic\n\nxxx\nxxx\n\n\n\nThe Grammar of Graphics using ggplot\n\nxxx\n\n\n\nMapping Data to Visual Elements\n\nMapping Data to Aesthetics\nMake a Plot\n\ni) xxx\n\n\nAesthetic Considerations Designing Perceptually Efficient Visualizations\n\n\nSpatial Position and Adjustment (CH 7)\n\nAddressing Overplotting with geom_jitter()\n\n\n\n\nStatistical Transformations: Data as-is Versus Summaries\n\n\nData Preparation using dplyr\n\nSelecting Rows and Columns: select() and filter()\n1.2. Grouping/Pooling Data: `group_by()`\n\nData aggregation: summarize()\n\n\n\n\nScales and Axes (CH 6)\n\n\nVisualizing Comparisons\n\nxxx\nxxx\n\n\n\nVisualizing Uncertainty\n\nHistograms/Density Plots\nxxx\n\n\n\nVisualizing Associations and Trends\n\nScatterplots Using group_by for subgroups\nLine Plots\n\nVisualizing Amounts Visualizing Proportions or Ratios\nhttps://clauswilke.com/dataviz/visualizing-amounts.html\n\n\nMaking Visualizations Better\n\nPrinciple of Proportional Ink\nColor Pitfalls\nStorytelling\nWhy People Make Bad Charts (and What to Do When it Happens)\nRefining Plots\n\n\n\nAnnotation\n\nClaus Wilke, Claus Wilke, *Fundamentals of Data Visualization\n\nredundant-coding.html\nSmall Multiples\nTitle and Captions\nAxis Labesls\n\n\n\n\nEmphasis\n\nCalling Attention to Points\nAnnotating Points\nHighlighting Sections\n\n\n\nImage Formats\n\njpg, png, or svg?\nFile Formats Explained\n\n\nWhats the difference between jpg png and gif\nKieran Healy, Data Visualization\n\nxx\n\n\n[Cara Thompson, “Level Up Your Labels: Tips and Tricks for Annotating Plots”] (https://www.cararthompson.com/talks/user2022)\n\n\nReproduce vs. Replicate\n\nWhat is the reprex library?\nReproducible example with reprex\n\n\n\n\n\nAnimation\n\n\n\n\nflowchart RL\n  B(Data) --&gt; A(Plot) \n  C(Geometry) --&gt; A(Plot) \n  D(Statistics) --&gt; A(Plot)\n  E(Coordinate System) --&gt; A(Plot)\n  F(Theme) --&gt; A(Plot)"
   }
 ]

@@ -1,0 +1,18 @@
+---
+date: "2023-01-18"
+---
+
+```{r}
+#source(here::here("R", "_common.R"))
+# from source
+slide_order <- c("02-content.qmd", "01-content.qmd")
+
+slide_name <- basename(this.path::this.path())
+slide_name <- "02-content.qmd"
+```
+
+---
+title: "`r `match(slide_name, slide_order)` . How R and RStudio Work"
+---
+
+testing

@@ -1,0 +1,213 @@
+---
+title: "Operation Span Lab"
+#author: "gcook"
+#date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+OSPAN <- readr::read_csv("C:/Users/gcook/Sync/Courses/GCDS/data/ospan.csv")
+STROOP <- readr::read_csv("C:/Users/gcook/Sync/Courses/GCDS/data/STROOP_agg.csv")
+MR <- readr::read_csv("C:/Users/gcook/Sync/Courses/GCDS/mental_rotation/data/mental_rotation_agg.csv")
+
+view(STROOP)
+STROOP %>%
+  filter(., id < 9999) %>%
+  mutate(., cnt = 1) %>%
+  group_by(id) %>%
+  summarise(., cnt = sum(cnt))
+  
+do_Ospan = T
+do_Stroop = T
+do_MR = T
+
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+STROOP <- STROOP %>%
+  filter(., id > 9999) %>%
+  select(., id, trialtype, rt) %>%
+  tidyr::pivot_wider(., 
+    names_from  = trialtype,
+    values_from = rt
+  ) %>%
+  mutate(., SIE = congruent - incongruent) %>%
+  mutate(., across(.cols = where(is.numeric), .fns = ~as.numeric(scale(.x)), .names = "{.col}_z"))  %>%
+  select(., id, congruent_z, incongruent_z, SIE_z)
+
+J <- dplyr::left_join(OSPAN, STROOP)
+
+
+J <- J %>%
+  arrange(., SIE_z) %>%
+  mutate(., sie_rank = row_number()) %>%
+  arrange(., span_pos_z) %>%
+  mutate(., spank_rank = row_number())
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+J %>%
+  select(., contains("rank")) %>%
+  cor(., method = "spearman")
+
+J %>%
+  select(., c(congruent_z, SIE_z, span_pos_z)) %>%
+  na.omit() %>%
+  cor(., method = "pearson") %>%
+  as.data.frame() %>%
+  mutate(., across(where(is.numeric), round, digits = 2)) %>%
+  htmlTable::htmlTable(.)
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+J %>%
+  na.omit() %>%
+  cor(., method = "spearman") %>%
+  as.data.frame() %>%
+  mutate(., across(where(is.numeric), round, digits = 2)) %>%
+  htmlTable::htmlTable(.)
+```
+
+
+The standardized [(score - group mean) / standard deviation] provides a relative measure of performance. The group mean is 0. Scores above 0 are above average and below 0 are below average. A score of 1.0 (or -1.0) reflects an individual is 1 standard deviation above the average, whereas a score of -1.0 reflects an individual is 1 standard deviation below the average.  
+
+As operation span estimates working memory, those with higher scores will generally be able to filter out distracting information, maintain information in the context of distraction, be better able to perform complex tasks, etc. Working memory span correlates positively with many other cognitive abilities including reading comprehension, problem solving, memory, attention, decision making, etc. This does not mean that those with lower working memory span scores are unable to perform well on other tasks but doing so is often more difficult for them, relatively speaking.  If you are lower on the operation span task, you may benefit from reading or studying is less distracting environments or may prefer working environments that are slower paced, are quieter, and allow for more slow and analytical thinking that is not speeded.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+J %>%
+  #filter(., id > 9999) %>%
+  ggplot(., 
+       aes(x = reorder(id, span_pos_z),
+           y = span_pos_z)
+       ) +  
+#           fill = variable)) + 
+  geom_bar(stat = "identity", fill = "lightblue") + 
+  scale_y_continuous(n.breaks = 20) +
+  #coord_flip() + 
+  see::theme_modern() + 
+  theme(axis.text.x = element_text(
+    angle = 90, hjust = 1)) + #
+  xlab("id") + ylab("Span Score (standardized)")
+```
+
+
+Span does not adjust for errors on the processing task. Accuracy on the math problems is below (from 0 to 1.0). Lower accuracy on the math tasks suggests more time was needed to solve the problem correctly. Of course, more time solving problems will likely interfere with your ability to remember the letters in the task. Lower accuracy can mean that your span score is over-estimated because it likely would be reduced if you attended more to the math problems. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#view(span_scores)
+
+# accuracy
+J %>%
+  #filter(., id > 9999) %>%
+  ggplot(., 
+       aes(x = reorder(id, oper_acc),
+           y = oper_acc)
+       ) +  
+#           fill = variable)) + 
+  geom_bar(stat = "identity", fill = "lightgreen") + 
+  scale_y_continuous(n.breaks = 20) +
+  #coord_flip() + 
+  see::theme_modern() + 
+  theme(axis.text.x = element_text(
+    angle = 90, hjust = 1)) + #
+  xlab("id") + ylab("Solve Accuracy")
+
+```
+
+
+Stroop interference is used to estimate a type of cognitive control. Higher standard scores for this measure reflects more difficulty one with the Stroop task.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+J %>%
+  #filter(., id > 9999) %>%
+  ggplot(., 
+       aes(x = reorder(id, SIE_z),
+           y = SIE_z)
+       ) +  
+#           fill = variable)) + 
+  geom_bar(stat = "identity", fill = "orange") + 
+  scale_y_continuous(n.breaks = 20) +
+  #coord_flip() + 
+  see::theme_modern() + 
+  theme(axis.text.x = element_text(
+    angle = 90, hjust = 1)) + #
+  xlab("id") + ylab("Stroop Interference Score (standardized)")
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+J %>%
+  #filter(., id < 9999) %>%
+  ggplot(., 
+       aes(x = span_pos_z,
+           y = SIE_z)
+       ) +  
+  geom_point() + see::theme_modern()
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+view(MR)
+
+if (do_MR) {
+# **Plots**
+
+MR %>%
+  arrange(., id) %>%
+  filter(., id > 9999) %>%
+  filter(., trialtype == "Same") %>%
+  ggplot(data = ., 
+       aes(x = rotation, y = acc)) +   
+  geom_col() +
+  #geom_smooth(method = "lm", se = F, 
+  #            color = "lightblue", alpha = .2) +
+  scale_x_continuous(breaks = seq(0, 180, 30)) +
+  scale_y_continuous(breaks = seq(0, 1, .20)) +
+  ylab("Accuracy") + xlab("Degree of Rotation") +
+  facet_wrap(~id) +
+  ggtitle("Accuracy Rate by Degree Rotation") +
+  see::theme_modern()
+  
+MR %>%
+  arrange(., id) %>%
+  filter(., id > 9999) %>%
+  filter(., trialtype == "Same") %>%
+  ggplot(data = ., 
+       aes(x = rotation, y = rt_na_med)) +  
+  geom_point() +
+  geom_smooth(method = "lm", se = F, 
+              color = "lightblue", alpha = .2) +
+  scale_x_continuous(breaks = seq(0, 180, 30)) +
+  facet_wrap(~id) +
+  ggtitle("Response Times by Degree Rotation") + ylab("Response Time (ms)") + xlab("Degree of Rotation") +
+  see::theme_modern()
+
+MR %>%
+  arrange(., id) %>%
+  filter(., id > 9999) %>%
+  filter(., trialtype == "Mirror") %>%
+  ggplot(data = ., 
+       aes(x = rotation, y = rt_na_med)) +  
+  geom_point() +
+  geom_smooth(method = "lm", se = F, 
+              color = "lightblue", alpha = .2) +
+  scale_x_continuous(breaks = seq(0, 180, 30)) +
+  facet_wrap(~id) +
+  ggtitle("Response Times by Degree Rotation") +
+  ylab("Response Time (ms)") + xlab("Degree of Rotation") +
+  see::theme_modern()
+
+}
+```

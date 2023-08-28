@@ -1,0 +1,454 @@
+---
+title: "Multiple Regression"
+author: "Lukas"
+date: "March 4, 2016"
+output: html_document
+---
+
+
+##8. Multiple Linear Regression
+
+
+8.1. As explained earlier, *Multiple-linear regression* is used to indicate there is more than one predictor in the linear regression equation (Ex: formula: criterion ~ predictor1 + predictor2 + predictor3). The benefit of *multiple linear regression* is that is allows you to examine how *multiple variables* relate to your *dependent variable*, you can take information about all of the independent variables and use it to make much more powerful and accurate predictions about why things are the way they are. 
+
+8.2. Reading in the data
+
+Again, it would be a smart idea to plot your data on a scatter plot. We will read in a data file named "Album Sales 2.csv" and assign it to a data frame object named ALBUM2. Examine the structure once you are done. 
+
+```{r}
+
+ALBUM2 <- read.csv("Album Sales 2.csv")
+str(ALBUM2)
+
+```
+
+The data set contains similar variables to your ALBUM data.set except ads is called advertisements. 
+
+
+8.3. Checking the  correlation matrix 
+
+Specify all of the variable pairs you want to correlate below. Since there are multiple pairs simply use the cor() function on the ALBUM2 object itself (e.g., cor(ALBUM2)). Make sure the correlation table is rounded to 3 decimal places and does not include the ID column. 
+
+**Answer** 
+```{r}
+##Hide
+round(cor(ALBUM2[, -1]), 3) 
+```
+
+It would also be nice to plot the pairs of data below to get a visual representative of all our variables. Again, don't forget to remove the ID column. 
+
+```{r}
+##Hide
+pairs(ALBUM2[, -1]) # plot the pairs of data  
+```
+
+
+8.4. The multiple regression model
+
+
+8.4.1 Building the Model
+
+Specifying a multiple linear regression model is very similar to a bivariate linear regression model except there are more predictors. Again, the multiple linear model is specified with lm() below(notice how multiple predictors are in the model):
+
+mymodel <- lm(formula = criterion ~ predictor1 + predictor2 + predictor3, 
+              data = mydataframe, 
+              na.action = some action)
+
+Below we will build a model to predict album sales using Ads, Airplay, and Attraction of band members.
+
+```{r}
+# Specifying the data object makes things easier
+ALBUM2.model <- lm(formula = sales ~ adverts + airplay + attract , data = ALBUM2)
+ALBUM2.model
+```
+
+8.5.2 Examining the multiple regression model
+
+Notice how when calling the *ALBUM2.model* it displays three coefficients for out three predictors. Lets summarize the details of our model using the summary() function below:
+
+```{r}
+summary(ALBUM2.model)
+```
+
+In multiple regression each predictor will have a different row in the Coefficients Table which was previously described. 
+
+**Answers()
+What is the highest *Std.Error* among the variables (Remember that intercept is not a variable):
+Answer:
+
+Do you want a high or low *Std.Error*?
+Answer:
+
+What is the highest *t*-statistic?
+Answer:
+
+Do all of the predictors significantly differ from 0?
+Answer: 
+
+
+The strength of prediction from a multiple regression equation is nicely measured by the square of the multiple correlation coefficient, *Multiple R-squared*. One interpretation of *Multiple R-squared* is that it is the proportion of Y variance that can be explained by the predictors.  Here the three predictors can explain (predict) 66% of the variance in sales. The *F-statistic* is also statistically significant, indicating that the regression model explains the data better than model based on the mean of album sales (mean-based model). 
+
+
+8.6 Checking Assumptions
+
+First, check the range of your criterion variables Sales:
+
+```{r}
+## hide
+range(ALBUM2$sales)
+```
+
+
+Second, we need to check the assumptions of each of our variables :
+
+```{r}
+library(lattice) # Move up
+
+mean(ALBUM2$adverts, na.rm = TRUE)
+range(ALBUM2$adverts)
+var(ALBUM2$adverts, na.rm = TRUE) 
+sd(ALBUM2$adverts, na.rm = TRUE)  
+histogram(ALBUM2$adverts) 
+
+mean(ALBUM2$airplay, na.rm = TRUE)
+range(ALBUM2$airplay)
+var(ALBUM2$airplay, na.rm = TRUE) 
+sd(ALBUM2$airplay, na.rm = TRUE)  
+histogram(ALBUM2$airplay) 
+
+
+mean(ALBUM2$attract, na.rm = TRUE)
+range(ALBUM2$attract)
+var(ALBUM2$attract, na.rm = TRUE) 
+sd(ALBUM2$attract, na.rm = TRUE)  
+histogram(ALBUM2$attract) 
+
+```
+
+
+**Answers**
+It appears that advertisements and attractiveness of the band may be slightly skewed. Below, test whether it is statistically different from a normal distribution by using the Shapiro-Wilk test.
+
+```{r}
+### Test the two variables for skewness
+
+#Hide
+shapiro.test(ALBUM2$adverts)
+shapiro.test(ALBUM2$attract)
+
+```
+
+**Answer*
+Which variable does the shapiro test reveal to be significantly skewed?
+Answer:
+
+Which method might you use to transform the variable?
+Answer:
+
+Although we will not ask your to transform the variables for this assignment it is important to understand when to transform variables and how to perform the transformation.
+
+
+**Answers*
+Using the plot() function on the model object that you created to examine the assumptions of the model. 
+```{r}
+
+##Hide
+par(mfrow = c(2,2))  
+plot(ALBUM2.model)
+par(mfrow = c(1,1))  
+```
+
+
+**Answers**
+Lets go through checking each of the assumptions:
+
+Is the relationship between the criterion and the predictor(s) linear rather than curvilinear?
+Answer: #Yes
+
+Which plot did you look at to verify this assumption?
+Answer: #Residual vs Fitted
+
+
+**Answers**
+Checking Homoscedasticity of the residuals:
+Does it appear that variance in the residuals, or error in prediction, is the same across the values of the predictor?
+Answer:
+
+How might we test this in R?
+```{r}
+#Test for constant variance
+#Hide
+ncvTest(ALBUM2.model)
+```
+
+
+**Answers**
+Just by looking at the plots does it appear that the Residuals (prediction errors) are distributed normal?
+Answer:
+
+How would you view and test the residuals in R using the histogram and shapiro.test functions?
+Write the code below:
+```{r}
+##hide
+histogram(~ ALBUM2.model$residuals) 
+
+#hide
+shapiro.test(ALBUM2.model$residuals) 
+```
+
+
+**Answers**
+No multicollinearity! Remember that this is important when you have multiple predictors in your model. 
+
+Below check the VIP and the square root of the VIF to determine if multicollinearity is violated:
+```{r}
+#hide
+vif(ALBUM2.model) 
+
+#hide
+sqrt(vif(ALBUM2.model))
+```
+
+Did we violate multicollinearity?
+Answer:
+
+
+**Answers**
+Independence of errors.
+
+Just for good measure check to make sure that errors are not related for observations in the data.
+```{r}
+#hide
+durbinWatsonTest(ALBUM2.model)
+```
+
+Do we violate independence of error?
+Answer:
+
+8.7 Detecting Outliers
+
+*Answers*
+Check Cooks distance to determine if we have any outliers?
+```{r}
+plot(ALBUM2.model, which = 4, cook.levels = cutoff)
+```
+
+Which is the data point with the highest Cook's distance
+Answer:
+
+Is it considered an outlier?
+Answer:
+
+
+**Answer**
+Would you say we have a good multiple regression model?
+Answer: 
+
+
+8.7 Note on Categorical Variables
+
+Categorical variables with two levels may be directly entered as predictor or predicted variables in a multiple regression model. Their use in multiple regression is a straightforward extension of their use in simple linear regression. When entered as predictor variables, interpretation of regression weights depends upon how the variable is coded. If the dichotomous variable is coded as 0 and 1, the regression weight is added or subtracted to the predicted value of Y depending upon whether it is positive or negative. If the dichotomous variable is coded as -1 and 1, then if the regression weight is positive, it is subtracted from the group coded as -1 and added to the group coded as 1. If the regression weight is negative, then addition and subtraction is reversed. Dichotomous variables can be included in hypothesis tests for R2 change like any other variable.
+
+Because categorical predictor variables cannot be entered directly into a regression model and be meaningfully interpreted, some other method of dealing with information of this type must be developed. In general, a categorical variable with k levels will be transformed into k-1 variables each with two levels. For example, if a categorical variable had six levels, then five dichotomous variables could be constructed that would contain the same information as the single categorical variable. Dichotomous variables have the advantage that they can be directly entered into the regression model. The process of creating dichotomous variables from categorical variables is called dummy coding.
+
+
+To practice we are going to bring in a dataset that consists of a categorical variables and view it
+
+```{r}
+Categorical <- read.csv("Categorical.csv")
+View(Categorical)
+```
+
+Below is a description of the dataset:
+
+Q24 - How many miles away from home are you?
+Q14 - In which CMC quad do you live?
+      "0 - North Quad"
+      "1 - South Quad"
+      "2 - Mid Quad"
+      "3 - Don't live on CMC
+      
+      
+We are going to build a model to predict how far away from home you are based off which quad you live in on CMC.
+
+
+
+First, you must create the factored out categorical variables
+```{r}
+Categorical$Q14.f <- factor(Categorical$Q14)
+is.factor(Categorical$Q24) ## Returns true if a factor
+
+```
+
+We are going to want to create the levels to our second variables
+
+```{r}
+levels(Categorical$Q14.f)[1] <- "0 - North Quad"
+levels(Categorical$Q14.f)[2] <- "1 - South Quad"
+levels(Categorical$Q14.f)[3] <- "2 - Mid Quad"
+levels(Categorical$Q14.f)[4] <- "3 - Don't live on CMC"
+```
+
+
+
+Next, put the categorical variable into the linear model:
+
+```{r}
+Categorical$Q14.f[1:15]
+Try <-lm(Categorical$Q24 ~ Categorical$Q14.f)
+
+```
+
+You may notice that you get an error. This is because Question 24 was brought in as a categorical variable and is causing an error. This can be fixed with the code below.
+
+```{r}
+Categorical$Q24 <- as.numeric(Categorical$Q24)
+```
+
+
+Now try to build the linear model again and view the summary.
+```{r}
+Factor.model <-lm(Categorical$Q24 ~ Categorical$Q14.f)
+summary(Factor.model)
+```
+
+
+You can also use factor() to run a categorical variable.
+```{r}
+Factor2.model <- (lm(Q24~ factor(Q14), data = Categorical))
+summary(Factor2.model)
+
+```
+
+
+Notice how both return the same tables. 
+
+With dummy coding the constant is equal to the mean of the reference group, in this case *North Quad*. The coefficients of each of the dummy variables is equal to the difference between the mean of the group (*South Quad*, *Mid Quad*, and *Don't Live*) and the mean of the reference group (*North Quad*). 
+
+##End
+
+##Do it yourself!
+
+First, read in some of the questions from the stats survey that was you sent out to family and friends.
+
+```{r}
+SSurvey <- read.csv("StatsSurveyHw5.csv")
+```
+
+
+This dataset contains the questions 
+
+
+Q22 - On average, how many movies have you watched this month?
+Q20 - On average, how many hours a day do you spend on social media?
+Q25 - On average, how many hours a week do you exercise?
+Q2 -  Do you like to read non-fiction books?
+      "0 - No"
+      "1 - Yes"
+   
+
+Try to predict how many movies people have watching this month from how often they spend on social media, how many hours they exercise, and if they like to read non-fiction(Categorical Variable).
+
+Build the model:
+```{r}
+
+```
+
+
+Check the correlation matrix:
+```{r}
+
+
+```
+
+
+
+Also, don't forget to check normality of our variables and if any are significantly skewed:
+```{r}
+
+```
+
+
+**Answers*
+Use the plot() function on the model object that you created to examine the assumptions of the model. 
+```{r}
+
+```
+
+
+**Answers**
+Lets go through checking each of the assumptions:
+
+Is the relationship between the criterion and the predictor(s) linear rather than curvilinear?
+Answer: 
+
+
+
+**Answers**
+Checking Homoscedasticity of the residuals:
+Does it appear that variance in the residuals, or error in prediction, is the same across the values of the predictor?
+Answer:
+
+How might we test this in R?
+```{r}
+
+```
+
+
+**Answers**
+Just by looking at the plots does it appear that the Residuals (prediction errors) are distributed normal?
+Answer:
+
+How would you view and test the residuals in R using the histogram and shapiro.test functions?
+Write the code below:
+```{r}
+
+```
+
+
+**Answers**
+No multicollinearity! Remember that this is important when you have multiple predictors in your model. 
+
+Below check the VIP and the square root of the VIF to determine if multicollinearity is violated:
+```{r}
+
+```
+
+Did we violate multicollinearity?
+Answer:
+
+
+**Answers**
+Independence of errors.
+
+Just for good measure check to make sure that errors are not related for observations in the data.
+```{r}
+
+
+```
+
+Do we violate independence of error?
+Answer:
+
+8.7 Detecting Outliers
+
+*Answers*
+Check Cooks distance to determine if we have any outliers?
+```{r}
+
+
+```
+
+Which is the data point with the highest Cook's distance
+Answer:
+
+Is it considered an outlier?
+Answer:
+
+
+**Answer**
+Would you say we have a good multiple regression model?
+Answer: 
+
+
+

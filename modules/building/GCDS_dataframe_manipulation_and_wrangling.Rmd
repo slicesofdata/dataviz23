@@ -1,0 +1,1338 @@
+---
+title: "GCDS: Dataframe Manipulation and Wrangling"
+author: ""
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"   # date
+output: 
+  html_document:
+    toc: true     # this will create a table of contents 
+                  # of hyperlinks (change true to omit)
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+
+source("https://pastebin.com/raw/8mXH02yg")   # run and comment out after knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions
+
+# set the paths for project, script, and data dirs
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", get_ActivePath())
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")    # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/") # data subdir
+if ( proj_name != "" & !dir.exists(paste(proj_dir, proj_name, sep = "/")) ) {
+  # create project dir
+  suppressWarnings(dir.create(paste(proj_dir, proj_name, sep = "/")))
+  r_dir <- gsub("/r", paste0("/", proj_name, "/r"), r_dir)
+  data_dir <- gsub("/data", paste0("/", proj_name, "/data"), data_dir)
+  # create sub directories
+  suppressWarnings(dir.create(r_dir))
+  suppressWarnings(dir.create(data_dir)) }
+  suppressWarnings(dir.create(data_dir)) }
+```
+
+# Libraries for Dataframe Manipulaton
+
+- `magrittr` for piping dataframe objects
+- `dplyr` for selecting, filtering, and mutating
+- `stringr` for working with strings
+
+```{r}
+library(magrittr)
+library(dplyr)
+library(stringr)
+```
+
+```{r}
+GAME_DAT %>%
+  select(., starts_with("mechan")) %>%
+  #group_by("gender") %>%
+  summarise(., across(
+    # pass the columns 
+    .cols = everything(), #c("a", "c":"e"),
+    
+    # compare the two below
+    #.fns  = list(mean, median),
+    .fns  = list(mean = mean, median = median),
+    # pass the name schematic
+    .names = "{.col}_{.fn}"
+  )) %>% 
+  mutate(., across(where(is.numeric), round, digits = 2)) %>%
+  view(.)
+
+```
+
+
+
+
+# **Some Common Ways for Selecting Variables**
+
+```{r}
+# passing variables by name (does not work with base R manipulation)
+USArrests %>% 
+  select(., Murder, Assault)
+
+# passing a character vectory
+USArrests %>% 
+  select(., c("Murder", "Assault"))
+
+
+# passing a character vectory
+keep_vars <- c("Murder", "Assault")
+
+USArrests %>% 
+  select(., keep_vars)
+```
+
+# Select Variables Starting with or Ending with Certain Characters
+
+```{r}
+USArrests %>%
+  select(., var, ends_with(""))
+
+```
+
+
+
+# **A Grammar for Data Wrangling** 
+
+The `dplyr` package presents a type of grammar for wrangling data (H. Wickham and Francois 2020). `dplyr` is part of the `tidyverse` ecosystem and loads using `library(tidyverse)`. The functions from the packages in the `tidyverse` can can be used without referencing the packages explicitly but to avoid functions of the same name from other packages being confused, we will reference the package/library and the function (e.g., `package::function()`).
+
+Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data, often by groups. Consequently, there are five main function verbs for working with data in a data frame: `select`, `filter`, `mutate`, `arange`, and `summarize`. 
+
+- `select(x, variables_to_select)`
+
+
+- `select()`: subset by columns 
+- `filter()`: subset by rows
+- `mutate()` and `dplyr::rename()`: add or modify existing columns
+- `arrange()`: sort rows
+- `summarize()` in conjunction with `dplyr::group_by()`: aggregate the data in some way
+
+
+# Selecting and selecting out variables by or between index
+
+- `select(., 1,2)`
+- `select(., c(1,2))`
+- `select(., -c(1,2))`
+
+- `select(., 1:2)`
+- `select(., c(1:2))`
+- `select(., -c(1:2))`
+
+*Recommendation*: use options utilizing `c()` as this will be more versatile with base R functionality.
+
+```{r}
+data %>%
+  select(., 1,2) # select this and that 
+
+
+data %>%
+  select(., c(1,2)) # select this and that
+
+
+data %>%
+  select(., -c(1,2)) # select out this and that
+
+
+data %>%
+  select(., 1:2) # select from here to there
+
+
+data %>%
+  select(., c(1:3)) # select from here to there
+
+
+data %>%
+  select(., -c(1:3))   # select out from here to there
+```
+
+# Selecting and selecting out variables by or between character name
+
+- `select(., "var1", "var2")`
+- `select(., c("var1", "var2"))`
+- `select(., -c("var1", "var2"))`
+
+- `select(., var1:var2))`
+- `select(., c("var1":"var2))`
+- `select(., -c("var1":"var2))`
+
+*Recommendation*: use options utilizing `c()` as this will be more versatile with base R functionality.
+
+These also work but may lead to some confusion regarding usage of quotes:
+
+- `select(., var1, var2)`
+- `select(., c(var1, var2))`
+- `select(., -c(var1, var2))` 
+
+```{r}
+data %>%
+  select(., Id:Age) # select from here to there
+
+data %>%
+  select(., "Id":"Age") # select from here to there
+
+
+data %>%
+  select(., c("Id":"Age")) # select from here to there
+
+
+data %>%
+  select(., -c("Sex":"Age"))   # select out from here to there
+
+```
+    
+# Cleaning Data 
+
+- `dplyr::distinct()`: remove duplicate rows
+- `dplyr::distinct(., column)`: remove duplicate rows by column
+- `na.omit()`: remove any row with NA’s
+
+
+
+
+```{r}
+data <- data.frame(
+  Id  = c(100, 101, 102, 103, 104, 100, 105),
+  Sex = c('male', 'female', 'Male', NA, 'man', "male", "neither"),
+  Age = c(25, 33, 27, 40, 44, 25, 40),
+  Renting = c("yes", NA, "yes", NA, "no", "yes", "yes")
+)
+```
+
+# Viewing
+
+- `str()`: returns structure
+- `dplyr::glimpse()`: returns structure with a littl more information and in tidy format
+
+```{r}
+glimpse(data)
+
+
+data %>% glimpse()
+
+
+data %>% glimpse(.) %>% view(.)
+```
+
+Using `view()` for HTML viewing, sorting, and filtering:
+
+```{r}
+view(data)
+```
+
+
+# **A quick summary**
+
+```{r}
+summary(data)
+```
+
+
+
+```{r}
+ct <- readr::cols(
+  character = readr::col_character(),
+  integer = readr::col_double(),
+  double = readr::col_double(),
+  logical = readr::col_logical(),
+  date = readr::col_date(format = "%d-%b-%y")
+)
+
+
+PERS <- readr::read_csv(paste(data_dir, "personality.csv", sep = "/"), col_types = ct)
+view(PERS)
+```
+
+
+
+
+```{r}
+data %>%
+  distinct(.) %>%    # Remove exact duplicates
+  view(.)
+
+
+data %>%             
+  distinct(., "Id") %>%  # Remove duplicates by variable; returns the unique values
+  view()    
+
+
+# Take row slices of the entire data frame
+data %>% slice(1:6)   # the same thing head() does
+
+?slice
+data
+data %>% slice(., 2, 3, 6)      # Take slices 2, 3, 6
+```
+
+But I think this is easier to conceptualize as passing a vector of combined (e.g., `c()`) row indices.
+
+```{r}
+data %>% slice(., c(2, 3, 6))   # Take slices 2, 3, 6
+
+
+data %>% slice(., 1, c(2, 3, 6), order_by(Age) )
+
+
+data %>% slice(2, 3, 8)
+
+
+data %>% 
+  group_by(Sex) %>%
+  distinct(.)
+
+data %>% 
+  group_by(Sex) %>%
+  distinct(., Age)
+
+
+data %>% slice_max(Age, n = 2)   # keep the rows for which variable has largest value, n for cases
+```
+
+Unfortunately, `slice()` and variants of it don't play as nicely with evaluating quoted strings. 
+In the `tidyverse` [documentation](https://dplyr.tidyverse.org/articles/programming.html), they explain that "When you have an env-variable that is a character vector, you need to index into the `.data` pronoun with `[[` ...". 
+
+For example:
+
+```{r}
+data %>% slice_max(.[["Age"]], n = 5)
+```
+
+
+
+data %>% slice(., c(1:3))   # keep these rows
+
+data %>% slice(., -c(1:3))   # drop these rows
+```
+
+But all of the other varaiable are gone. If `.keep_all = T`, all variables/columns in the input data frame are kept for the returned data frame. 
+.
+```{r}
+data %>%
+  distinct(., "Id", .keep_all = T) %>%    # Remove duplicates by variable, .keep_all = T
+  view(.)
+
+```
+
+# Selecting and selecting out variables by characters in name
+
+- `select(., starts_with("character/s"))`
+- `select(., ends_with("character/s"))`
+- `select(., contains('e'))`
+
+```{r}
+data %>%
+  select(., starts_with('i'))
+
+
+data %>%
+  select(., -starts_with('s'))
+
+
+data %>%
+  select(., ends_with('e'))
+
+
+data %>%
+  select(., -ends_with('e'))
+
+
+data %>%
+  select(., contains('g'))
+
+
+data %>%
+  select(., -contains('g'))
+```
+
+
+# Selecting variables by type
+
+```{r}
+data %>%
+  select_if(., is.numeric)
+
+data %>%
+  select_if(., is.character)
+
+  #select(., where(is.numeric)) # select(., where(~is.numeric(.)))
+```
+
+
+
+
+
+# Dealing Missing Data (NAs)
+
+- `dplyr::filter(!is.na(column_name))`: remove rows with NA in specific variable
+- `dplyr::filter(complete.cases(.))`:    
+
+
+```{r}
+data %>%
+  na.omit() %>%     # omit any rows with NAs 
+  view()
+
+data %>%
+  filter(., !is.na(Sex)) %>%      # remove NAs by variable
+  view()
+
+
+data %>%
+  filter(., !is.na(Sex)) %>%      
+  filter(., !is.na(Renting)) %>%
+  view()
+
+
+# separate calls on separate lines can also make code inclusion/exclusion easy
+data %>%
+  #filter(., !is.na(Sex)) %>%      
+  filter(., !is.na(Renting)) %>%
+  view()
+
+
+dplyr::filter(complete.cases(.))
+
+```
+
+
+Select columns for which the average of the column is less than some value 
+
+Selecting Numeric or Character
+
+
+
+```{r}
+data %>% 
+  dplyr::select(., is.numeric) %>%
+  colMeans(., na.rm = T) %>%
+  #is.data.frame()
+  as.data.frame() %>%
+  round(., 2) %>%
+  view()
+
+
+#data %>% 
+#  dplyr::select(., is.numeric) %>%
+#  select(which(colMeans(.) > 35)) %>%
+#  view(.)
+
+# is.na(data$Sex)  
+```
+
+
+Fast summary of NAs by column 
+
+```{r}
+colMeans(is.na(data))    # proportion of NAs per column
+
+
+
+colMeans(!is.na(data))   # proportion of NOT NAs per column
+
+
+
+which(colMeans(!is.na(data)) > .75)   # returns column index
+
+
+these_cols <- which(colMeans(!is.na(data)) > .75) # object holding column index
+```
+
+
+Select columns with high rates or low rates
+
+Combine above with `select(which())`
+
+```{r}
+data %>%
+  select(., c(1, 2, 3))   # by column index
+
+
+data %>%
+  select(., these_cols)   # by vector holding column index
+
+
+data %>%
+  select(., which(colMeans(!is.na(.)) > 0.75))   # by 
+
+
+# same thing using select_if 
+data %>%
+  select_if(~mean(!is.na(.)) > 0.75)  
+
+```
+
+
+```{r}
+dplyr::bind_rows()
+dplyr::bind_cols()
+
+
+dplyr::summarise(
+  x = mean(data))
+
+data
+
+#??? dplyr::recode()
+#
+```
+
+
+# **`magrittr` meets `dplyr`**
+
+
+Although `dplyr` is one of the best libraries for data manipulation but its functionality is far superior when paired with the `magrittr` library. 
+
+The piping operator `%>%` from the `magrittr` library takes an object (e.g., data frame object, model object, etc.) and "pipes" it into the first argument of the subsequent function; this first argument typically takes an object like a data frame. Rather than referencing the data frame for each function separately, the `%>%` allows for nesting functions, each which will inherit the returned object from the previous function. 
+
+
+# **The Concept of Piping (using `magrittr`)**
+
+
+## **Concept Overview**
+
+We often need to get a subset of data using one function, and then use another function to do something with that subset (and we may do this multiple times). This leads to nesting functions, which can get messy and hard to keep track of. Enter 'piping', `dplyr`'s way of passing the object returned from one function to another function, and so on, without the hassle of parentheses and brackets.
+
+Data frame manipulation take many forms. Perhaps you want to take a subset of columns (e.g., variables) or rows (e.g., cases) from a large data frame. Perhaps certain rows contain missing values for important variables or perhaps you want to select cases that match a particular rule (e.g., older than 35, between ages 15 and 22, individuals of certain ethnicities, etc.). 
+
+In order to accomplish various data frame manipulation procedures, you would start with the data frame, do something to it, then do something else to it, etc. 
+
+Because functions can return a modified data frame object, you could nest the functions so that the final returned data frame contains the last iteration of your desired changes. In other words, you would apply a function on the data frame, then apply another function on that returned data frame, and then apply another function on that returned data frame. 
+
+Piping works on objects. Remember, objects can be vectors, data frames, lists, etc. Although you will typically use `%>%` to manipulate data frames, the first example demonstrates the usage with a simple vector object.
+
+
+## **Examples Without Piping**
+
+Below are two examples of code that can become messy, cumbersome, and less flexible than using `%>%` as you will see.
+
+*First*, we will create an vector object (viz., `object1`) and then create new objects for each function needed to obtain the arithmetic mean of that vector. 
+
+```{r}
+object1 <- c(11.34, 44.13, 23.10, "87.60", "99.19")   # a vector containing strings and numerics
+
+#is.vector(object1)                    # if you don't believe this is a vector, test it
+
+object2 <- as.numeric(object1)         # convert to numeric
+
+object3 <- mean(object2)               # calculate the mean of them
+
+object4 <- round(object3, 1)           # round it
+
+print(object4)
+```
+
+
+*Second*, we will take `object1`) and apply the same code by wrapping the functions. In this example, 
+`function1()` is wrapped by `function2()` which is wrapped by `function3()`. Specifically, `as.numeric()` is wrapped by `mean()` which is wrapped by `round`()`.
+
+Ex: `function3(function2(function1(object)))` 
+
+```{r}
+round(mean(as.numeric(object1)), 1)
+```
+
+As you can see with the nested functions, in order to understand the code, you have to read it from the inside outward (e.g., from right to left). Doing so is opposite of how you might normally read (e.g., from left to right).
+
+Nested functions can be messy, can be difficult to follow, and are impossible to modify using code commenting (e.g., `#`) to prevent one of those functions because all functions run on the data frame. Although nesting functions can appear clean, the approach is inflexible to modifications or executing only certain functions in the line of code.
+
+
+## **Example With Piping**
+
+The `magrittr` package helps clean up these types of messes and provides a  more readable and modifiable alternative. We will start with an object and then modify that object with each line of code. In this way, the code is read from top to bottom, making it much more legible and the functions are not wrapped in other functions. By using the `%>%` pipe operator from `magrittr`, a more elegant and readable form of the above example looks like this:
+
+`object %>%         # take this object`
+  `function1(.) %>%  # do this to modify the object `
+  `function2(.) %>%  # then do this to the modified object`
+  `function3(.)      # and then do this to the modified modified object`
+
+
+Tip: If you can remember, `ctrl + shift + m` (for pc) `cmd + shift + m (for mac)` is a hotkey combination for typing `%>%`.
+
+
+Because each function needs an object to manipulate and the object name is typically visible in the function call (e.g., `object1` in  `as.numeric(object1))`, the `.` is used as a stand in for that object for illustration purposes. When you want to pass the object into a subsequent function when piping with `%>%`, you can use `.`. Doing so, However, is not typically needed because `magrittr` makes this an assumption of the process and you can typically omit `.` unless you need to add arguments to the function.  
+
+Including `.` for all steps:
+
+```{r}
+object1 %>%           # take the object
+  as.numeric(.) %>%   # use "." to reference the object and convert the object to numeric
+  mean(.) %>%         # use "." to reference the object and calculate mean of the object
+  round(., 1)         # use "." to reference the object and round it to 1 decimal
+```
+
+Excluding `.` except when passing function arguments:
+
+```{r}
+object1 %>%           # take the object
+  as.numeric() %>%    # convert to numeric
+  mean() %>%          # calculate mean
+  round(., 1)         # use "." to reference the object
+```
+
+
+## **Commenting Out/Removing Function Calls**
+
+## `#` **meets** `%>%`
+
+When using `%>%`, functions are applied in isolation to the object inherited from the previous function call. Each line of code can be included or removed so that each is very readable. Greater flexibility comes with using `#` to "comment out" or remove lines of code. In the example below, by commenting out the line of code for calculating the `mean()` in the second function, the mean is never computed. Instead the object returned from `as.numeric()`is passed to the third function, `round()`. The final returned object is a vector of values rounded to 1 decimal.
+
+Although this example is arbitrary, this flexibility is not possible with nested functions.
+
+```{r}
+object1 %>%           # take the object
+  as.numeric() %>%    # convert to numeric
+  #mean() %>%         # DO NOT calculate mean
+  round(., 1)         # use "." to reference the data frame object; each element of vector is rounded
+```
+
+
+
+
+
+
+
+
+
+# **Data fame objects, `magrittr` and `dplyr`. ** 
+
+The above example illustrated that `%>%` could be used to pass a vector object to other functions. In many instances, you will be working with data frames in order to clean, modify, plot, or model.
+
+Below is the same logic when the object is a data frame:
+
+```{r}
+dataframe %>%     # take this data frame
+  function1(.) %>% # do this to modified the data frame
+  function2(.) %>% # then do this to the modified data frame
+  function3(.)     # and then do this to the modified data frame
+```
+
+In this case, a data frame object is passed to different functions and the final returned data frame contains all of the applied functions in the piped code block. All lines of code except for the last line can be commented out if not desired to apply. If you wish to remove the last function, the final `%>%` needs to be removed because some operation needs to be applied after the usage of every `%>%`. For example, omit the second function.
+
+Because `dplyr` is great for data frame manipulation, pairing it with `%>%`is useful for manipulating data frames in a clear and elegant way.
+
+
+dataframe %>%      # take this data frame
+  function1() %>%  # do this to modified the data frame
+  #function2() %>% # then DO NOT do this to the modified data frame
+  function3()      # but do this to the modified data frame
+
+The returned data frame can also be assigned to overwrite itself
+
+dataframe <- dataframe %>%  # # take this data frame and assign the returned data frame to the existing object (or a new object)
+  function1() %>% # do this to modified the data frame
+  function2() %>% # then do this to the modified data frame
+  function3()     # and then do this to the modified data frame 
+
+ 
+ 
+
+Example using `select()`, `filter()`, `rename()`, and `mutate()`:
+
+```{r}
+dataframe %>%                                # take this data frame
+  dplyr::select() %>%                        # select these columns
+  dplyr::filter(!is.na(id)) %>%              # filter if case for the id variable is NOT na; !is.na()
+  dplyr::filter() %>%                        # filter out men
+  dplyr::filter(sex %in% c('male', 'Men'))   # keep only if in list
+  dplyr::filter(!sex %in% c('male', 'Men'))  # keep only if NOT in list
+  dplyr::filter(rt < 100) %>%                # filter out those who responded too slow
+  dplyr::filter(rt > 100 & rt < 2000) %>%    # filter out numeric values within a range
+  dplyr::filter() %>%                        # filter out character values of a particular form
+  dplyr::rename(Sex = sex) %>%               # rename columns; # new name = old name
+  dplyr::mutate(Sex = sex) %>%               # mutate columns (e.g., add or change) to add a new 
+                                             # new column rather than renaming an existing column
+    
+  dplyr::mutate() %>%    # mutate values for recoding
+  dplyr::mutate() %>%    # mutate columns to replace values with another value, for example NA
+  # names() %>%          # see the new column names
+  view()                 # then view the new data frame
+```
+
+```{r}
+dplyr::filter(age %in% 18:65)
+
+data = mtcars
+data %>%
+  dplyr::mutate(hp_char = as.character(hp)) %>%
+  dplyr::select_if(., is.numeric)
+
+
+
+```
+
+
+# **Filtering by Rows/Cases/Observations**
+
+When a column variable has more than one value (e.g., check using `unique()`),
+Data frame manipulation may involve keeping only certain rows for data, for example, male or female respondents, male respondents, those who do not contain missing values (e.g., `NA`s) for a specific column variable, who are of a certain age (or born in in certain year), who are above (or below) some acceptable criterion, etc.  
+
+You may even need to filter rows in a data frame that are distinct (e.g., not duplicate responses). This is often a good first step in order to determine the size of the usable data set. `dplyr::distinct()` makes de-duplicating easy as this function will return only distinct rows.
+
+```{r}
+data %>%
+  dplyr::distinct() %>% # dedup the data frame
+  str()                 # take a look as the data frame structure
+
+data <- data %>%
+  dplyr::distinct() # dedup and assign the cleaned data frame to an object of the same name
+```
+
+
+Filtering cases using the `dplyr::filter()` verbs works by removing rows that do not match a specific criterion and then by returning the data frame that omits the mismatched condition. 
+
+Some useful filtering operators and functions include `==`, `>`, `>=`, `&`, `|`, `!`, `xor()`, `c()`, `is.na()`, `between()`, `near()`. 
+
+
+The first argument in `dplyr::filter()` takes a data frame, s `dplyr::filter(data, sex == 'female')` will filter the `data` data frame to include rows for which the `sex` column equals `'female'`.
+
+```{r}
+dplyr::filter(data, sex == 'female')
+```
+
+# **Piping Using Multiple Filter Function**
+
+In many cases, data filtering will involve different conditions for different column variables, so specifying them separately as separate lines of code is most appropriate. 
+When passing a data frame using `%>%` from `magrittr`, the first argument for the data frame can be specified using a `.` because the function inherits the data frame manipulated. However, `dplyr` also understand this so the `.` can also be omitted for convenience; this is the general practive you will see in forums like stackexchage.
+
+```{r}
+# using .
+data %>%
+  dplyr::filter(., Sex == 'female')
+
+# omitting .
+data %>%
+  dplyr::filter(Sex == 'female')
+
+# multiple filters
+# busy
+
+data %>%
+  dplyr::filter(Sex == 'female' & Age > 27) # this "AND" that
+
+data %>%
+  dplyr::filter(Sex == 'female' | Age > 27) # this "OR" that
+```
+
+A cleaner method involves separate lines of code. Although cleaner, this will not allow the "OR" option because the data frame that is returned from the first `filter()` is passed to the second `filter()` and all cases other than `"female"` have already been removed from the data frame.
+
+```{r}
+data %>%
+  dplyr::filter(Sex == 'female') %>%   # keep female (and add another pipe)
+  dplyr::filter(Age => 27)             # keep only those equal to or older than 27
+
+
+
+
+```
+
+
+# Selecting variables by type
+
+You can also quickly select variables that are of a certain type. If you want to perform math on variables, you'll need to make sure you don't have characters or you have already changed any characters to numeric. Selecting variables that match a type is easy:
+
+- `is.numeric()`: returns logical
+- `is.character()`: returns logical
+
+
+```{r}
+
+data %>% 
+  select(., where(~is.numeric(.)))
+
+data %>%
+  select(., which(lapply(., is.character) == T))
+
+numeric_names <- names(which(lapply(data, is.numeric) == T))
+
+data %>%
+  select(., numeric_names)
+
+data %>%
+  names(.)
+
+data %>%
+  	select(., where(names(unlist(lapply(., is.character)))))
+  	       
+
+dplyr::select(., is.numeric) # 
+
+
+data %>% dplyr::select(where(is.numeric)) # dplyr::select(~is.numeric(.))
+
+
+data %>% 
+  dplyr::select(., where(is.character))
+
+```
+
+
+
+
+Cases can be filtered to "include" only certain matched conditions or can be filtered to "exclude" by negating those matched conditions. If the column variable `sex` is in the data frame and cases are 'male', 'men', 'female', 'women', 'neither', NA, etc., you can specify the column `sex` variable and then the row matching condition(s). 
+
+Th function `dplyr::filter(sex == 'male')` can be read "filter the data frame to include rows for which the value of `sex` is equal to `'male'`". 
+
+More flexibly, however, you could specify a vector containing acceptable strings using `c()`. `dplyr::filter(sex %in% c('male'))` filters the rows to include only those for which the value for `sex` is in the string vector which includes a single string,`'male'` whereas `dplyr::filter(sex %in% c('male', 'Man'))` filters the rows to include only those for which the value for `sex` is in the string vector which includes `'male'` and `'Man'`. Cases containing `'Male'`, `'Men'` (`R` is a case-sensitive language), or `'female'`, for example, will not be included in the returned data frame because they do not match values in the string vector. 
+
+```{r}
+data <- data.frame(
+  sex = c('male', 'female', 'neither', NA, 'man'),
+  age = c(25, 33, 27, 40, 44)
+)
+
+# inclusion
+data %>%
+  dplyr::filter(sex == 'male')   # keep only if this string
+
+data %>%
+  dplyr::filter(sex %in% c('male'))   # keep only if in vector
+
+data %>%
+  dplyr::filter(sex %in% c('male', 'Men'))   # keep only if in vector
+```
+
+
+Using the "OR" operator, `|`, cases can be included if "this" or "that".
+
+```{r}
+data %>%
+  dplyr::filter(sex == 'male' | sex == 'female')
+
+# although dplyr::filter(sex %in% c('male', 'female')) would be easier
+
+data %>%
+  dplyr::filter(sex == 'male' | age == 27)  
+
+data %>%
+  dplyr::filter(dplyr::between(age, 27, 33))
+
+data %>%
+  dplyr::filter(., dplyr::between(age, 27, 33))
+```
+
+If a vector object is already defined (e.g., `my_levels = c('male', 'female')`), it can be used for filtering also. Such approaches are useful when data manipulation involves reusing a reference as it simplifies coding and reduces errors because the specification is defined only once.
+
+```{r}
+my_levels = c('male', 'female')
+
+data %>%
+  dplyr::filter(sex %in% my_levels)
+```
+
+When inclusion is inappropriate, exclusion may be useful. The `!` operator means "NOT" in `R` so it is great to accomplish the opposite. For example, `dplyr::filter(!sex %in% c('male', NA))` will "filter the data frame to include rows in the `sex` column for which the value is NOT in the vector".
+
+```{r}
+# exclusion
+data %>%
+  dplyr::filter(!sex %in% c('male', NA))  # keep only if NOT in vector
+
+data %>%
+  dplyr::filter(!sex %in% c('male', 'Men'))  # keep only if NOT in vector
+```
+
+
+# Applying Multiple Filters for Different Variables 
+
+
+If the case for the variable is equal to any element in the list:
+
+- `sex %in% c('male', 'Male', 'MALE', 'm', 'M')`
+
+If the case for the variable is NOT equal to any element in the list:
+
+- `!sex %in% c('male', 'Male', 'MALE', 'm', 'M')` # 
+
+If the case for the variable is not equal to:
+
+- `race != 'white'`                               
+
+If the case for the variable is equal to: 
+
+- `aptitude == 'average'`                         # 
+
+If the value for the variable is greater than:
+
+- `age > 30`                                      
+
+if the vase for the variable is greater than AND less than:
+
+- `age >= 30 & age <= 65`                         # 
+ 
+
+
+```{r}
+datafame %>%
+    dplyr::filter(
+        sex %in% c('male', 'Male', 'MALE', 'm', 'M') %>%     # if the case for the variable is equal to any element in the list
+        !sex %in% c('male', 'Male', 'MALE', 'm', 'M') %>%    # if the case for the variable is NOT equal to any element in the list
+        race != 'white',                                     # if the case for the variable is not equal to 
+        aptitude == 'average'                                # if the case for the variable is equal to 
+        age > 30,                                            # if the vase for the variable is greater than
+        age >= 30 & age <= 65,                               # if the vase for the variable is greater than AND less than
+  ) 
+```
+
+
+# If you have a vector of column variable names or numeric values and wish to filter by referencing column names that are stored as strings, use the `.data` pronoun in the `dplyr::filter()` call.
+
+```{r}
+vars   <- c('weight', 'height')   # vector of two strings that represent variables
+#is.vector(vars)
+cutoff <- c(100, 150)             # vector of two values representing cutoffs
+
+datafame %>%
+  dplyr::filter(
+    .data[[vars[[1]]]] > cutoff[[1]],  # filter if the case value of the first element in the vars vector (e.g., weight) is greater than the first element in the cutoff vector (e.g., 100)
+    .data[[vars[[2]]]] > cutoff[[2]],  # filter if the case value of the second element in the vars vector is greater than the second element in the cutoff list
+    .data[[vars[[1]]]] %in% cutoff,    # filter if the case value first element in vars is in the cutoff vector
+  )
+```
+
+```{r}
+
+```
+
+# use lappy to loop over the file list and apply the function; add bind_rows to merge as a single data frame.
+
+
+
+
+```{r}
+DAT <- csv.files %>%
+  lapply(clean_dat) %>%
+  dplyr::bind_rows()
+
+DAT %>% view()
+```
+
+# Creating New Column Variables or Modifying Existing Variables 
+
+The `dplyr` library uses the verb "mutate" for changing column variables in a data frame. 
+
+`dplyr::mutate()` and `dplyr::rename()` 
+
+```{r}
+data %>%
+  dplyr::mutate(
+    new_numeric    = 0,                  # compute a numeric 
+    new_numeric2   = age * 2,            # perform operation on existing numeric
+    new_numeric3   = ifelse(age < 30, "younger", "older"), # perform operation on existing numeric
+    new_character  = 'blah',         # 
+    new_character2 = as.character(age),  # create a character variable from age
+    new_logical    = age >= 30,          # True if older than 29
+    new_logical2   = as.numeric(age >= 30), # convert a logical to numeric
+  ) 
+
+data %>%
+  dplyr::rename(    # rename to a different name
+    AGE = age,
+  ) %>%             # adding a %>% to pipe the returned data frame to the next function
+  dplyr::rename(    # rename 
+    Age = AGE,
+  ) %>%             # new %>% to pass data frame
+  dplyr::mutate(    # mutate to create a new column variable
+    age = Age
+  )
+```
+
+# Selecting Column Variables
+When data frames are large and not all column variable are needed, the data frame can be subsetted. The `dplyr` verb for selecting certain variables is `select`. The function is `dplyr::select(data, sex)` will select only the `sex` column from the `data` data frame; all other columns will be omitted.  
+
+One way to subset is to use base `R` to partition the data frames columns. Pass a base `R` subsetted data frame and pipe to mutate a new variable
+
+```{r}
+ 
+data[, c("sex", "age")] %>%
+  dplyr::mutate(
+    Age = age
+  )
+```
+
+Another way to subset is to use `dplyr::select()` without using `magrittr`.
+
+```{r}
+dplyr::select(data, sex)`
+```
+
+Piping with `magrittr` makes subsetting easy using the `select()` verb function(s).
+
+Pass the full data frame, mutate, and subset using `dplyr`. Note, `dplyr::mutate()` will only work on variables included in `dplyr::select()`. Selecting `sex` first will disallow for mutating `Age` from `age`.
+
+```{r}
+data %>%
+  dplyr::mutate(
+    Age = age
+  ) %>%
+  #dplyr::select(sex)  # Selecting will only include that which is specified in select()
+  dplyr::select(sex, Age)  # Selecting will only include that which is specified in select()
+  # dplyr::select(age) %>% # select only the age column
+```
+
+# Removing Missing Values (e.g., `NA`) 
+
+```{r}
+data <- data %>%
+  dplyr::mutate(
+    junk = NA            # create a junk variable where all rows are NA
+    number = NA
+  )
+
+data %>%
+  tidyr::drop_na() # tidyr::drop_na() will drop rows with NA in any column; 
+                   # data from is empty now
+
+data %>%
+  dplyr::filter(!is.na(junk))
+
+data %>%
+  dplyr::filter(., is.na(sex) | age > 1)
+
+data %>%
+  dplyr::filter(., is.na(sex) & age > 1)
+```
+
+
+
+# if_else(condition, true, false, missing = NULL)
+
+Compared to the base ifelse(), this function is more strict. It checks that true and false are the same type. This strictness makes the output type more predictable, and makes it somewhat faster.
+
+
+
+# Recoding 
+
+#### recode() https://dplyr.tidyverse.org/reference/recode.html #####
+
+```{r}
+recode(char_vec, a = "Apple", b = "Banana")
+recode(char_vec, a = "Apple", b = "Banana", .default = NA_character_) #Use .default as replacement for unmatched values. Note that NA and
+# replacement values need to be of the same type. 
+# Use a named character vector for unquote splicing with !!!
+level_key <- c(a = "apple", b = "banana", c = "carrot")
+recode(char_vec, !!!level_key)
+
+num_vec <- c(1:4, NA)
+recode(num_vec, `2` = 20L, `4` = 40L) #note: recode(num_vec, `2` = 20, `4` = 40) will replace the 2 and 4 but will make all others NA
+
+factor_vec <- factor(c("a", "b", "c"))
+recode(factor_vec, a = "Apple", .default = levels(factor_vec))
+
+
+se recode_factor() to create factors with levels ordered as they
+# appear in the recode call. The levels in .default and .missing
+# come last.
+recode_factor(num_vec, `1` = "z", `2` = "y", `3` = "x")
+#> Warning: Unreplaced values treated as NA as `.x` is not compatible.
+#> Please specify replacements exhaustively or supply `.default`.
+#> [1] z    y    x    <NA> <NA>
+#> Levels: z y x
+recode_factor(num_vec, `1` = "z", `2` = "y", `3` = "x",
+              .default = "D")
+```
+
+
+Sorting and Arranging Lists, Vectors, and Data Frames
+
+```{r}
+# sort vector in descending order using sort()
+sort(my_numeric_vector, decreasing = TRUE)
+sort(my_numeric_vector, decreasing = TRUE)
+sort(my_numeric_vector, decreasing = FALSE)
+
+# sort a data frame using dplyr
+# sort the dataframe in R using arrange; by default, arrange is ascending
+dplyr::arrange(my_data, a_vector)
+
+# sort dataframe using dplyr::arrange()
+my_data %>% dplyr::arrange(dplyr::desc(a_vector))
+
+# sort dataframe using multiple variable with dplyr::arrange()
+pipe operator first sorts vector_a in descending order and then sorts vector_b in ascending order 
+my_data %>% dplyr::arrange(dplyr::desc(vector_a), vector_b)
+```
+
+Sort data frame by variable in Descending or Ascending order
+
+```{r}
+
+dplyr::arrange(dplyr::desc(subid))  # descending
+dplyr::arrange(subid)               # not descending
+```
+
+
+
+**Full Matching**
+
+```{r}
+rownames(mtcars)
+
+mtcars %>%
+  filter(rownames(.) == "Toyota Corolla")  # the rownames of the passed dataframe "."
+
+mtcars %>%
+  filter(rownames(.) %in% c("Toyota Corolla", "Toyota Corona")) 
+```
+
+Full matches can be difficult if you have a lot of similar strings that you'll have to specify. Can you search for a partial string match?
+
+
+**Partial Matching**
+
+What if you wanted to select or exclude cases for which string variable or vectors contain certain characters, digits, or patterns. This is where regular expressions (regex) are amazingly useful. There are many string-related functions can utilize regex (e.g., `grep()`,  `gsub()`, etc. ). 
+
+```{r}
+names(mtcars)
+
+# select columns
+mtcars %>%
+  select(contains("g"))   # select variables that contain the letter g
+
+#?contains
+
+# filter rows
+mtcars %>% 
+   filter(
+     str_detect(string = rownames(.), pattern = "Toy|Hon")
+     )
+ 
+```
+
+
+```{r}
+mtcars %>% 
+  filter(
+    str_detect(string = rownames(.), pattern = "Toy")
+    )
+```
+
+
+# **Partial Matching After Splitting**
+
+What are the makes and models of the cars?
+
+```{r}
+rownames(mtcars)
+
+# make a data frame
+make_model <- data.frame(
+  stringr::str_split_fixed(rownames(mtcars), " ", 2) #%>% #split on space
+)
+names(make_model) <- c("make", "model")
+
+# a new data frame
+mtcars2 <- cbind(mtcars, make_model)  # use cbind() to bind columns of data frames of the same length
+
+head(mtcars2)
+```
+
+Or combine `tidyr` and `dplyr` to make a new variable named **temp** that hold the `rownames` which can be extract using `rowname()` and then split the string using `separate()` by a space using `sep = " "` but if there are more than one space for each make and model set  `extra = merge` so that all the model information is together and the make is separate.
+
+```{r}
+mtcars2 <- mtcars %>%
+  dplyr::mutate(temp = rownames(.)) %>%
+  tidyr::separate(temp,                      # the variable defined above 
+                  into = c('make', 'model'), # the columns names, in this case 2
+                  sep = ' ',                 # what to sep by
+                  extra = "merge")           # how to deal with extra info
+head(mtcars2)
+```
+
+Now that the variables are included, filter the data set to include car `make` that contains **Toy**  
+
+```{r}
+mtcars2 %>%
+  filter(make %in% c("Toyota"))
+
+mtcars2 %>%
+  filter(make %in% c("Toy"))
+
+# filter on 2 variables, one OR the other using | operator
+mtcars2 %>% 
+  filter(
+    str_detect(string = make, pattern = "Toy|Hon") | #or
+    str_detect(string = model, pattern = "Fire|Chal")  
+    )
+```
+
+
+However, `stringr` is an amazing string library for manipulating strings.
+
+Another usecase could be that we want to pick rows where the names contain digits.
+In Regex (regular expressions), `\d` means "digit". If you use only `\d` The backslash needs to be escaped (by typing an extra backslash), so you need two  backslashes.
+
+
+
+- Escaping characters:
+
+Similarly, if we want all values except those with digits, we could say:
+
+
+
+The circonflex means “the string starts with”; in this example “the string starts with "M". To get values ending with, say, “L”, we use $ in Regex:
+```{r}
+
+```
+
+
+```{r}
+library(stringr)
+
+filter(!str_detect(rowname, "\\d"))  
+
+```
+
+
+Dealing with messy vectors
+- parsing vectors
+
+```{r}
+a = data.frame(
+  "function_" = c("parse_logical()", 
+                   "parse_integer()", 
+                   "parse_double()", 
+                   "parse_number()", 
+                   "parse_character()", 
+                   "parse_factors()", 
+                   "parse_datetime(), parse_date() and parse_time()"),
+  "operation" = c("parse logical expressions", 
+              "parse integers",
+              "parse real numbers", 
+              "parse any type of number", 
+              "parse strings", 
+              "parse levels for factors", 
+              "parse various date and time formats")
+)
+a %>% view()
+```
+
+**Exploratory Data Analysis: Variation**
+
+The goal of *Exploratory Data Analysis* (EDA) is to determine **where** the data
+lies and **what types** of pattern exist in the data.
+
+- variation, how to understand the different types of data. 
+- `dplyr::count()` is useful here, both for categorical and for numerical data.
+When faced with a new data set, the frst step is usually what statisticians call Exploratory Data Analysis (EDA). This is when we frst try to look at what the data is telling us.
+There is no one way to approach EDA, partially because at the beginning, there is noway to know what is going on with your data set. 
+
+
+Three starting metrics:
+
+- **Center**: where is the data located?
+- **Variation**: how does the data vary from its center.
+- **Covariation**: how two variables move together or in opposition
+
+Some terminology.
+
+- **Variables** are measurable objects or events; either quantitative (numerical; e.g., age, weight, speed, etc.) or qualitative (e.g., emotion, ethnicity, etc.).
+
+- **Value** is the state of a variable when measured.
+
+- **Observations** are a set of measurements of a particular variable (aka data points).
+
+- **Tabular data** is a representation or organization of data as a table. Some data scientists refer to data set up neatly as a set of columns (variable) and rows (cases/observations) as *tidy*
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999) # turn off scientific notation  # 0 = sn is on
+options(digits = 4)
+```
+
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+rm(list = ls(all.names = TRUE))
+proj_dir <- gsub("R/.*.Rmd","", rstudioapi::getActiveDocumentContext()$path)
+source(paste0(proj_dir, "R/functions_", tolower(as.character(Sys.info()[7])), ".txt"))
+```
+
+# Load Libraries and Functions
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(magrittr)
+#library(tidyverse)
+
+# pastebin install libraries if not installed
+# source()
+# pastebin install functions
+# source()
+```
+
+
+Obtaining a list of files in a directory that match a search pattern.
+
+# Use piping to clean up the file list; use full.names = T for the entire file path
+list.files(dat_dir2, ".csv", full.names = T) %>%   # get the list
+  .[grepl("exp2", .)  == T] %>%                    # keep if contain "exp2"
+  .[grepl("PARTIC", .) == F] %>%                   # remove if contain partic
+  .[file.info(.)$size > 50] -> csv.files           # keep if greater than a certain file size, and create object
+
+(same as)
+pattern   = paste0("exp2")
+csv.files = csv.files[grepl(pattern, csv.files)  == T]
+csv.files = csv.files[grepl("PARTIC", csv.files) == F]
+csv.files = csv.files[file.info(csv.files)$size > 50]
+(end same as)
+
+# use the same above and make into dplyr code
+
+
+read.csv(file) %>%
+    dplyr::select(dplyr::starts_with('axcpt_')) %>%
+    dplyr::rename_with(., ~gsub("axcpt_", "", .)) %>%
+    dplyr::filter(!is.na(subid))
+
+
+Cleaning and combining multiple files.
+
+# function to clean individual files and extract important variables.
+```{r}
+
+clean_dat <- function(file) {
+  read.csv(file) %>%
+    dplyr::select(dplyr::starts_with('axcpt_')) %>%
+    dplyr::rename_with(., ~gsub("axcpt_", "", .)) %>%
+    dplyr::filter(!is.na(subid))
+}
+```
+
+
+```{r}
+df <- tibble::tibble(
+  a = c(1, 2, 3, 4, 5),
+  b = c(5, 4, 3, 2, 1),
+  c = c(1, 2, NA, 1, 2),
+  d = c("m", "f", "f", "m", NA),
+  e = c(999, rep(NA, 4))
+  )
+
+df %>% print()
+
+df %>% 
+  #dplyr::filter(!is.na(c)) %>%
+  dplyr::filter(
+    NA %in% 
+    !is.na(c),
+    a < 4 & b >= 2,
+    
+    ) %>%
+  tidyr::drop_na()
+
+df %>%
+  dplyr::filter(complete.cases(.))   # must include the . (often good practice)
+
+  complete.cases(.)
+
+  dplyr::filter()
+
+  df[complete.cases(df), ]
+```
+

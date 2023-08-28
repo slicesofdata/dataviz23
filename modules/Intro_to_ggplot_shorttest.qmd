@@ -1,0 +1,64 @@
+---
+title: "**Intro to ggplot**"
+author: "Gabriel I. Cook"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  quarto::html_document:
+    #backgroundcolor: blue
+  #html_document:               
+    toc: yes                   # include a table of contents
+    number_sections: yes       # enumerate sections flagged with #
+    code_folding: show         # allow option to show/hide code
+
+    theme: css/styles.scss
+    #theme: cosmo #quartz
+    #css: css/home.css
+    #fontcolor: black
+    #page-layout: full
+    #css: [css/nav.css,css/styles.css]
+    
+#editor_options: 
+#  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+
+quick_data <- data.frame(
+  A = c("Male", "Male", "Female", "Female", NA),
+  B = c(1, 0, 1, 0, NA),
+  C = c(1, 5, 6, 3, NA)
+) 
+
+quick_data %>% 
+  mutate(., J = case_when(A == "Male" ~ "a", TRUE ~ "b"))
+```
+
+## plot
+
+```{r}
+ggplot(data = quick_data) +
+  geom_point(aes(B, C), color = "blue")
+
+
+mydata <- data.frame(
+  A = c("Male", "Male", "Female", "Female", NA),
+  B = c(1, 2, 10, 30, NA),
+  C = c(1, 5, 6, 3, NA)
+)  
+```
+

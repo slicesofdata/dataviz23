@@ -12,17 +12,19 @@ list.files_only <- function(dir, full.names = T) {
 
 list.files_only(dir, full.names = F)
 
-dir = here::here("modules/")
+here_dir = here::here()
 basename(dir)
 list.files_only(dir)
 paste0(basename(dir), "_", Sys.Date(), ".zip")
 ?zip
-zip(zipfile = paste0(basename(dir), "_", Sys.Date(), ".zip"), 
+zippy <- function(dir) {
+  zip(zipfile = paste0(basename(dir), "_", Sys.Date(), ".zip"), 
     
-    files = list.files_only(dir)
+    files = list.files_only(dir, full.names = F)
     )
-
-
+}
+zippy(dir = dir)
+z
 page_reorder <- function(ord_name_ext = NULL, 
                          dir = NULL, 
                          prefix = " - ",

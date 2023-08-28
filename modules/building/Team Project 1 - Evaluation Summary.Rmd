@@ -1,0 +1,114 @@
+---
+title: "Team-Based Cognitive Task Presentation Assessment"
+author: ""
+#date: "`r Sys.Date()`"
+output:
+  html_document:
+    #toc: yes
+    #number_sections: yes
+    #code_folding: show # vs. hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Project Evaluation**
+
+You will be evaluated on your team's ability to convey the steps taken to produce your deliverable for the Stroop data to your audience (the client). Your individual performance and contributions will be considered toward the evaluation. Reflect back on the steps taken to achieve the project goals. Your team should communicate those steps as the final deliverable is dependent on them. Teams taking different approaches will end up with different data and potentially different stories. Include code where appropriate to communicate how you achieved your goals. For presentation format, review previous handout(s) on the project.
+
+You are expected to read this evaluation document as items will appear on a grading rubric. By not reading and understanding your expectations, you may inadvertently elect to forgo items of value. 
+
+
+### *Data Cleaning and Variable Creation*
+
+1. Communicate steps taken to clean data to fulfill sub-goals
+
+2. Communicate how you modified variables and/or computed variables of interest 
+
+
+
+### *Data Summary: Story Telling with Tables or Numbers*
+
+1. Communicate how you calculated and/or obtained summary metrics
+
+2. Provide data summaries for performance metrics of interest
+
+3. Thoroughness of communicating data summaries: data summaries convey information about average performance of the sample, the sample size, and ideally some measure of variability within the sample
+
+4. Above and beyond: communication of novel or deeper-level data inquiries that communicate interesting elements or relationships in the data
+
+
+
+### *Data Visualizations: Story Telling with Pictures*
+
+1. Convey performance metrics using appropriate data visualizations 
+
+2. Communicate how you obtained the data visualizations
+
+3. Appropriateness and quality of plots: data visualizations communicate an appropriate and comprehensive story about the data; visualization convey information about sample performance as well as 
+
+4. Above and beyond: communication of novel or deeper-level data visualizations that communicate interesting elements or relationships in the data
+
+
+
+### *Presentation Characteristics*
+
+1. *Clarity*: well-explained; easy to follow/understand; ability to communicate points effectively
+
+2. *Organization*: structured logically; ability to walk audience through the data journey and communicate a story interpretation about data
+
+3. *Thoroughness*: all relevant issues discussed thoroughly
+
+4. *Presentation Style*: degree of preparedness and polish in presentation; smooth and rehearsed; minimum of reading; well-paced; slide quality
+
+
+
+### *Weekly Progress Report Logs*
+
+Demonstration of weekly goals and progress. Timeliness and submission of weekly report logs.
+
+
+
+### *Team and Team Member Evaluation*
+
+1. Evaluation of personal contributions toward the project as evaluated by other team members (claims partially validated using on-time weekly report submissions). 
+
+2. The audience (your client) will also provide an overall review for the team and individual team members.  
+
+
+### *Self Evaluation*
+
+Evaluation of your personal contributions toward the project as evaluated by yourself (claims partially validated using on-time weekly report submissions).
+
+
+## **Reproducibility**
+
+A well-organized project is easily reproducible by others. Class readings have been taken largely from a text on reproducible research, so quite naturally, others should be able to evaluate code and reproduce your results, if desired. Knit HTML versions of R Markdown files allow others to evaluate and validate the code without the effort of running the code themselves. We have used R Markdown throughout the semester for homework assignments and class exercises in order to illustrate code execution, create reports, and communicate tables/data visualizations. These files also allow others to reproduce data summaries and plots easily. As you likely anticipated, an knit/html .Rmd file of the project containing the coded steps taken to produce the final deliverable should be included. How else does one know they data presented were truly calculated? This file should be easy to produce for organized teams and projects. 
+
+
+## **Presentation Tips**
+
+1. Speak to your audience. Look them in the eyes, tell them about the journey. In other words, don't just read from your slides. 
+
+2. Do not overwhelm your audience with too much information, especially verbal information. Doing so causes people to read your slides or look at slide content you are not talking about at the moment. You are the presenter and your slides are your visual aides used to support what you communicate. 
+
+a. Present slides topically; do not mix unrelated content; use relevant headers, etc.
+
+b. Present summary points on slides rather than full sentences.  Communicate to your audience in sentences but don't present complete sentences on slides unless imperative for communicating a specific point.
+
+c. Present each point separately; do not present all slide content at once (e.g., points a, b, c); communicate specific points (e.g., a) to your audience. Presenting all points at once prevents your audience from paying attention to you and causes cognitive interference/distraction.
+
+d. Use a tool (e.g., pointer, finger, etc.) to direct attention to necessary elements of slides, especially when a slide contains multiple pieces of information. Doing so will reduce unnecessary confusion from some audience members because they will not be looking at the incorrect content.
+
+e. Introduce team members, their role, etc. when passing the the mic. Your client should be reminded of who the team member is and what their role was. 
+
+
+## **Upload Submission: Due by Class Time**
+
+By start of class time on presentation day, there is a code freeze. Use your team member's last names to name your slide deck (download as PowerPoint if using Google Slides) and your HTML code file submission and upload both files [here](https://claremontmckenna.app.box.com/f/80863fd8e0f44ec7a95882d9dda8bb91).
+
+```{r}
+
+```
+

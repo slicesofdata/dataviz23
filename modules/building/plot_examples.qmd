@@ -1,0 +1,389 @@
+---
+title: "data viz examples"
+author: "gcook"
+date: "`r Sys.Date()`"
+
+# https://quarto.org/docs/get-started/hello/rstudio.html
+#execute: # for hiding all code
+#  echo: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+library(gcookbook)  
+```
+
+## Start with data
+
+```{r}
+nums <- c(rep(1, 10), rep(2, 10), rep(3, 10))
+nums <- unlist(lapply(X = c(1,2,3), FUN = function(x) rep(x, 10)))
+
+DF <- PlantGrowth %>%
+  mutate(group_num = nums)
+
+DF
+```
+
+# Summarize data
+
+We are going to group by the two variables in order to have  `group_num` in the data too. 
+
+```{r}
+DF_means <- DF %>%
+  group_by(., group, group_num) %>%
+  summarise(weight = mean(weight)) 
+
+DF_means
+```
+
+
+Then create plot object using `ggplot()` by setting `data` to your data frame, for example, `data = DF_means`
+
+```{r}
+ggplot(data = DF_means)
+```
+
+Notice the empty plot. After having created a plto object, we need to add a geometric object to indicate what type of plot to create.
+
+
+
+## Scatter plots
+
+```{r}
+
+```
+
+
+
+
+
+
+But add a `geom_*` and set aesthetics for `x` ans `y`
+
+```{r}
+ggplot(data = DF_means) +
+  geom_col(aes(x = group, y = weight))
+```
+
+Or set the `x` and `y` aesthetics in the `ggplot()` object if you wish them to be inherited by `geom_*`'s. See the plot is the same as above.
+
+```{r}
+ggplot(data = DF_means, aes(x = group, y = weight)) +
+  geom_col()  # add the col layer
+```
+
+Aesthetic inheritance is useful when you want to add geoms with the same aestethics. For example, if you wanted to add points to the plot to represent the mean for each group. But presenting both the length of bars and position of points to communicate the same information is really overkill. This also violates the principle of proportional ink (see claus chapter)
+
+```{r}
+ggplot(data = DF_means, aes(x = group, y = weight)) +
+  geom_col() + # add the col layer
+  geom_point() # add the point layer
+```
+
+
+Or combine it all from the main data file. 
+
+```{r}
+DF %>%
+  group_by(., group) %>%
+  summarise(weight = mean(weight)) %>%
+  ggplot(data = ., aes(x = group, y = weight)) +
+  geom_col()
+```
+
+If your plot a numeric variable along the x-axis, your plot may take on a new look.  For example, when data are missing for a particular value, you may see a missing bar in the spot for the corresponding tick mark. 
+
+ 
+
+# need example here
+
+```{r}
+DF_means %>%
+#  filter(., group_num %in% c(1,3)) %>%
+  ggplot(., aes(x = factor(group_num), y = weight)) +
+  geom_col()
+```
+
+Changing the x variable to a factor will solve the problem but will create a new problem as well.
+
+```{r}
+DF_means %>%
+#  filter(., group_num %in% c(1,3)) %>%
+  ggplot(., aes(x = factor(group_num), y = weight)) +
+  geom_col()
+```
+
+So you can change the variable before passing it to `ggplot`.
+
+```{r}
+DF_means %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, y = weight)) +
+  geom_col()
+```
+
+So you may just wish to change the x or y labels by changing label layer using `labs()`
+
+```{r}
+DF_means %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, y = weight)) +
+  geom_col() +
+  labs(x = "Group", y = "Weight")
+```
+
+
+# Changing column colors using `fill`.
+
+```{r}
+DF_means %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_col(fill = "blue", colour = "red") +
+  labs(x = "Group", y = "Weight")
+```
+
+
+# Scaling Colors
+
+If you wanted to vary the color 
+
+```{r}
+# get the group label names
+x_limits <- c("1", "2", "3")
+
+DF_means %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_col() + #fill = "blue", colour = "red") +
+  labs(x = "Group", y = "Weight") 
+
+
+base_box <- DF %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight
+                )
+         ) +
+  #geom_boxplot(fill = "blue", colour = "red") +
+  geom_boxplot(aes(fill = group_num))
+
+```
+
+
+```{r}
+base_box +
+  labs(x = "Group", y = "Weight") +
+  scale_fill_grey(start = .1, end = 1) 
+```
+
+Specify the limits and reverse the scale with `rev()`.
+
+```{r}
+base_box +
+  labs(x = "Group", y = "Weight") +
+  scale_fill_grey(start = .1, end = 1, limits = rev(c("1", "2", "3")))
+
+# or just pass the label vector
+base_box +
+  labs(x = "Group", y = "Weight") +
+  scale_fill_grey(start = .1, end = 1, limits = rev(x_limits))
+```
+
+If you like pastels...
+
+```{r}
+base_box +
+  labs(x = "Group", y = "Weight") +
+  scale_fill_brewer(palette = "Pastel2", limits = x_limits)
+```
+
+
+Note how this only changes the color order and not the box plot order. 
+
+# Changing the ordering of labels/values along the x-axis for a `geom_boxplot()` manually.
+
+```{r}
+DF %>%
+  mutate(., group_num = factor(group_num, level = c("3", "2", "1"))) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_boxplot() 
+```
+
+# Changing the ordering of labels/values along the x-axis for a `geom_boxplot()` by some statistic.
+
+`reorder(x, X, FUN = mean, ...,`
+`        order = is.ordered(x), decreasing = FALSE)`
+
+
+
+```{r}
+#DF %>%
+#  forcats::fct_reorder(weight, group, .fun = mean)
+
+
+#?reorder
+#DF_means %>%
+#  reorder(group_num, weight, mean)) 
+
+
+#  level = c("3", "2", "1")
+#  mutate(., group = factor(reorder(group_num, weight, mean))) #%>%
+  
+  
+#  ggplot(., aes(x = group_num, 
+#                y = weight)) 
+  
+```
+
+
+
+# Changing the ordering of labels/values along the x-axis for a `geom_col()` manually.
+
+```{r}
+DF_means %>%
+  mutate(., group_num = factor(group_num, level = c("1", "2", "3"))) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_col(fill = "blue", colour = "red") +
+  labs(x = "Group", y = "Weight")
+```
+
+
+
+
+# Changing the ordering of labels/values along the x-axis for a `geom_bar()` manually.
+
+```{r}
+DF_means %>%
+  mutate(., group_num = factor(group_num, level = c("1", "2", "3")))
+```
+
+
+
+
+See also examples [here](https://bookdown.org/yih_huynh/Guide-to-R-Book/bar-graph.html)
+
+
+Unlike `geom_col()`, `geom_bar()` takes either an `x` or `y` aesthetic but not both. Also, remember that all plots have statistical elements. By default, that element for `geom_bar()` is `stat = "count"`, which will pass the count corresponding to the number of cases for the x-variable. See more at `?geom_bar`.
+
+
+```{r}
+DF_means %>%
+  ggplot(., aes(x = group)) +
+  geom_bar(stat = "count") # or geom_bar(stat = "count")
+```
+
+Because there is only one mean per group, the count is 1 as shown on the plot. If the entire data frame was used, the counts would correspond to the counts of the cases for each group.  
+
+```{r}
+DF %>%
+  ggplot(., aes(x = group)) +
+  geom_bar(stat = "count")
+```
+
+If there is a subroup, say a third-variable, positioning can also be changed to offset or dodge the bars using `geom_bar(position = "dodge")`. If there is only one subgroup, the bars will be offset natively. 
+
+```{r}
+DF %>%
+  ggplot(., aes(x = group)) +
+  geom_bar(stat = "count", position = "dodge")
+```
+
+The amount of offsetting can also be set by passing a value to the `width` argument in `position_dodge()` for `position`, for example `position = position_dodge(width = .5)` or `position = position_dodge(.5)` because `width` is the first argument. Additional arguments exist for `position_dodge2()`.
+
+```{r}
+DF %>%
+  ggplot(., aes(x = group)) +
+  geom_bar(stat = "count", position = position_dodge(.5))
+```
+
+
+If you want to plot bars to represent a value for another variable along the y-axis other than the count, you can set `stat = "identity"` but you need to specify a `y` aesthetic. By default, this will count up the values on the `y` variable, which may not always be your intention. 
+
+```{r}
+DF %>%
+  ggplot(., aes(x = group, y = weight)) +
+  geom_bar(stat = "identity")
+
+
+#?stat_count
+DF %>%
+  ggplot(., aes(x = group, y = weight)) +
+  geom_bar(stat = "identity")
+
+
+DF_means %>%
+  ggplot(., aes(x = group, y = weight)) +
+  geom_bar(stat = "identity")
+```
+
+# Use `just` to specify how bars or columns aligned with axis breaks. Try `just = 0`, `just = .25`, or `just = 1` to get an idea.
+
+```{r}
+DF %>%
+  ggplot(., aes(x = group)) +
+  geom_bar(stat = "count", just = 0)
+```
+
+
+
+```{r}
+#?geom_bar
+DF_means %>%
+  mutate(., group_num = factor(group_num, level = c("1", "2", "3"))) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_bar(stat = "identity")
+```
+
+
+
+DF_means %>%
+  mutate(., group_num = factor(group_num)) %>%
+  ggplot(., aes(x = group_num, 
+                y = weight)) +
+  geom_col(fill = "blue", colour = "red") +
+  labs(x = "Group", y = "Weight") +
+  
+  aes(x = factor(Species, level = level_order
+                 scale_
+  
+scale_fill_discrete(
+   limits = c("1",  
+              "3", 
+              "2")
+)  
+scale_fill_discrete(
+   limits = c("1",  
+              "3", 
+              "2")
+)
+
+
+
+## Line plot
+
+
+
+## Bar Plots
+
+```{r }
+# Convert Time to a discrete (categorical) variable with factor()
+ggplot(BOD, aes(x = factor(Time), y = demand)) +
+  geom_col()
+
+```
+
+# Stacked Bar
+

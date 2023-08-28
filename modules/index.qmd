@@ -1,19 +1,12 @@
 ---
-title: "Modules"
-description: "Overview of modules for PSYC 167"
-author: ""
-date: ""
-order: 0 
+title: "Modules" # index to display header for the nested *.qmd files (even if in subdirectory); displays directory name otherwise
+description: "Overview of Modules for PSYC 167"
+#author: ""
+#date: ""
+#order: 0 
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-This course consist of approximately 10 content modules. The goal of the course is introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).
+This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).
 
 The modules consists of content from chapters of various textbooks that are freely available:
 
@@ -24,4 +17,15 @@ The modules consists of content from chapters of various textbooks that are free
 In general, modules will contain a reading, additional resources, and a weekly assignment.
 
 The modules will be updated across the semester as needed.
+
+
+```{r}
+mtcars
+```
+
+```{r}
+library(dplyr)
+```
+
+
 
