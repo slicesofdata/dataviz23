@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
+<meta name="dcterms.date" content="2023-08-28">
 
-<title>PSYC167 - Column Plots</title>
+<title>PSYC167 - Creating a Posit Account</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,10 +101,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><strong>Exercises</strong></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resources/dataviz_readings.html" rel="" target="">
- <span class="menu-text"><strong>Readings</strong></span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../resources/dataviz_tools.html" rel="" target="">
  <span class="menu-text"><strong>DataViz Tools</strong></span></a>
   </li>  
@@ -125,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/06  - geom_col.html"><strong>Column Plots</strong></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/02_creating_a_posit_account.html"><strong>Creating a Posit Account</strong></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -160,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/02_creating_a_posit_account.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/02_creating_a_posit_account.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><strong>Creating a Posit Account</strong></span></a>
   </div>
 </li>
@@ -190,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/06  - geom_col.html" class="sidebar-item-text sidebar-link active">
+  <a href="../modules/06  - geom_col.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Column Plots</strong></span></a>
   </div>
 </li>
@@ -367,9 +364,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#column-plots" id="toc-column-plots" class="nav-link active" data-scroll-target="#column-plots"><strong>Column Plots</strong></a>
+  <li><a href="#read" id="toc-read" class="nav-link active" data-scroll-target="#read">Read</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional resources</a>
   <ul class="collapse">
-  <li><a href="#geom_col" id="toc-geom_col" class="nav-link" data-scroll-target="#geom_col"><code>geom_col()</code></a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#github" id="toc-github" class="nav-link" data-scroll-target="#github">Github</a></li>
+  </ul></li>
+  <li><a href="#week-2-assignment-make-a-tip-sheet" id="toc-week-2-assignment-make-a-tip-sheet" class="nav-link" data-scroll-target="#week-2-assignment-make-a-tip-sheet">Week 2 Assignment: Make a tip sheet</a>
+  <ul class="collapse">
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -379,7 +382,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><strong>Column Plots</strong></h1>
+<h1 class="title"><strong>Creating a Posit Account</strong></h1>
 </div>
 
 
@@ -396,7 +399,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
+      <p class="date">August 28, 2023</p>
     </div>
   </div>
   
@@ -406,10 +409,36 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="column-plots" class="level1">
-<h1><strong>Column Plots</strong></h1>
-<section id="geom_col" class="level2">
-<h2 class="anchored" data-anchor-id="geom_col"><code>geom_col()</code></h2>
+<section id="read" class="level2">
+<h2 class="anchored" data-anchor-id="read">Read</h2>
+<p>Read the intro to R and RStudio chapter from the textbook.</p>
+<p><a href="https://psyteachr.github.io/ads-v2/01-intro.html" class="uri">https://psyteachr.github.io/ads-v2/01-intro.html</a></p>
+</section>
+<section id="additional-resources" class="level2">
+<h2 class="anchored" data-anchor-id="additional-resources">Additional resources</h2>
+<section id="quarto" class="level3">
+<h3 class="anchored" data-anchor-id="quarto">Quarto</h3>
+<p>The quarto website contains many helpful examples. We will cover aspects throughout the semester.</p>
+<p><a href="https://quarto.org" class="uri">https://quarto.org</a></p>
+</section>
+<section id="github" class="level3">
+<h3 class="anchored" data-anchor-id="github">Github</h3>
+<p>We will be making use of Github to store and share your course blog and website.</p>
+<p>We will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.</p>
+<p><a href="https://happygitwithr.com" class="uri">https://happygitwithr.com</a></p>
+</section>
+</section>
+<section id="week-2-assignment-make-a-tip-sheet" class="level2">
+<h2 class="anchored" data-anchor-id="week-2-assignment-make-a-tip-sheet">Week 2 Assignment: Make a tip sheet</h2>
+<p>We are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.</p>
+<p>This week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In <a href="https://psyteachr.github.io/ads-v2/01-intro.html#sec-intro-sessions">section 1.2</a>, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”</p>
+<p>Making a tip sheet for yourself is the assignment for this weeks blog post.</p>
+<section id="instructions" class="level3">
+<h3 class="anchored" data-anchor-id="instructions">Instructions</h3>
+<ol type="1">
+<li>Make a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.</li>
+<li>Submit the URL to your tips post to the week 2 assignment on blackboard.</li>
+</ol>
 
 
 </section>
