@@ -11,7 +11,7 @@
     "href": "modules/index.html#module-structure",
     "title": "Modules",
     "section": "Module structure",
-    "text": "Module structure\nIn general, modules will contain a reading, additional resources, and a weekly assignment.\nThe modules will be updated across the semester as needed.\n\nmtcars\n\n                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb\nMazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2\nValiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1\nDuster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4\nMerc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2\nMerc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2\nMerc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4\nMerc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4\nMerc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3\nMerc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3\nMerc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3\nCadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4\nLincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4\nChrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4\nFiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1\nHonda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2\nToyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1\nToyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1\nDodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2\nAMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2\nCamaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4\nPontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2\nFiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1\nPorsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2\nLotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2\nFord Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4\nFerrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6\nMaserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8\nVolvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2\n\n\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+    "text": "Module structure\nIn general, modules will contain readings, additional resources, and weekly assignments.\nThe modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing.\n\n#mtcars\n\n\n#library(dplyr)"
   },
   {
     "objectID": "modules/06  - geom_point.html",
@@ -586,5 +586,320 @@
     "title": "Readings",
     "section": "",
     "text": "You should read the enumerated items (those prefaced by numbers); others can supplemental.\n\nTopic\n\nxxx\nxxx\n\n\n\nGuided Practice with Posit Primers\n\nBar Plots\nBox Plots\nScatterplots\nLine Plots\n\n\n\nTopic\n\nxxx\nxxx\n\n\n\nThe Grammar of Graphics using ggplot\n\nxxx\n\n\n\nMapping Data to Visual Elements\n\nMapping Data to Aesthetics\nMake a Plot\n\ni) xxx\n\n\nAesthetic Considerations Designing Perceptually Efficient Visualizations\n\n\nSpatial Position and Adjustment (CH 7)\n\nAddressing Overplotting with geom_jitter()\n\n\n\n\nStatistical Transformations: Data as-is Versus Summaries\n\n\nData Preparation using dplyr\n\nSelecting Rows and Columns: select() and filter()\n1.2. Grouping/Pooling Data: `group_by()`\n\nData aggregation: summarize()\n\n\n\n\nScales and Axes (CH 6)\n\n\nVisualizing Comparisons\n\nxxx\nxxx\n\n\n\nVisualizing Uncertainty\n\nHistograms/Density Plots\nxxx\n\n\n\nVisualizing Associations and Trends\n\nScatterplots Using group_by for subgroups\nLine Plots\n\nVisualizing Amounts Visualizing Proportions or Ratios\nhttps://clauswilke.com/dataviz/visualizing-amounts.html\n\n\nMaking Visualizations Better\n\nPrinciple of Proportional Ink\nColor Pitfalls\nStorytelling\nWhy People Make Bad Charts (and What to Do When it Happens)\nRefining Plots\n\n\n\nAnnotation\n\nClaus Wilke, Claus Wilke, *Fundamentals of Data Visualization\n\nredundant-coding.html\nSmall Multiples\nTitle and Captions\nAxis Labesls\n\n\n\n\nEmphasis\n\nCalling Attention to Points\nAnnotating Points\nHighlighting Sections\n\n\n\nImage Formats\n\njpg, png, or svg?\nFile Formats Explained\n\n\nWhats the difference between jpg png and gif\nKieran Healy, Data Visualization\n\nxx\n\n\n[Cara Thompson, “Level Up Your Labels: Tips and Tricks for Annotating Plots”] (https://www.cararthompson.com/talks/user2022)\n\n\nReproduce vs. Replicate\n\nWhat is the reprex library?\nReproducible example with reprex\n\n\n\n\n\nAnimation\n\n\n\n\nflowchart RL\n  B(Data) --&gt; A(Plot) \n  C(Geometry) --&gt; A(Plot) \n  D(Statistics) --&gt; A(Plot)\n  E(Coordinate System) --&gt; A(Plot)\n  F(Theme) --&gt; A(Plot)"
+  },
+  {
+    "objectID": "modules/04  - project_management_with_here.html#the-here-library",
+    "href": "modules/04  - project_management_with_here.html#the-here-library",
+    "title": "Project management with {here}",
+    "section": "The here library",
+    "text": "The here library"
+  },
+  {
+    "objectID": "modules2/index.html",
+    "href": "modules2/index.html",
+    "title": "Modules2",
+    "section": "",
+    "text": "This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).\nThe modules consists of content from chapters of various textbooks that are freely available:"
+  },
+  {
+    "objectID": "modules2/index.html#module-structure",
+    "href": "modules2/index.html#module-structure",
+    "title": "Modules2",
+    "section": "Module structure",
+    "text": "Module structure\nIn general, modules will contain readings, additional resources, and weekly assignments.\nThe modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing.\n\n#mtcars\n\n\n#library(dplyr)"
+  },
+  {
+    "objectID": "modules2/01 - installing_r_and_rstudio.html",
+    "href": "modules2/01 - installing_r_and_rstudio.html",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/01 - installing_r_and_rstudio.html#read",
+    "href": "modules2/01 - installing_r_and_rstudio.html#read",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/01 - installing_r_and_rstudio.html#do",
+    "href": "modules2/01 - installing_r_and_rstudio.html#do",
+    "title": "Installing R & RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules2/01_installing_r_and_rstudio.html",
+    "href": "modules2/01_installing_r_and_rstudio.html",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/01_installing_r_and_rstudio.html#read",
+    "href": "modules2/01_installing_r_and_rstudio.html#read",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/01_installing_r_and_rstudio.html#do",
+    "href": "modules2/01_installing_r_and_rstudio.html#do",
+    "title": "Installing R & RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules2/02 - creating_a_posit_account.html",
+    "href": "modules2/02 - creating_a_posit_account.html",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/02 - creating_a_posit_account.html#read",
+    "href": "modules2/02 - creating_a_posit_account.html#read",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/02 - creating_a_posit_account.html#additional-resources",
+    "href": "modules2/02 - creating_a_posit_account.html#additional-resources",
+    "title": "Creating a Posit Account",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nQuarto\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nhttps://quarto.org\n\n\nGithub\nWe will be making use of Github to store and share your course blog and website.\nWe will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.\nhttps://happygitwithr.com"
+  },
+  {
+    "objectID": "modules2/02 - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "href": "modules2/02 - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "title": "Creating a Posit Account",
+    "section": "Week 2 Assignment: Make a tip sheet",
+    "text": "Week 2 Assignment: Make a tip sheet\nWe are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.\nThis week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In section 1.2, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”\nMaking a tip sheet for yourself is the assignment for this weeks blog post.\n\nInstructions\n\nMake a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.\nSubmit the URL to your tips post to the week 2 assignment on blackboard."
+  },
+  {
+    "objectID": "modules2/03 - installing_git_and_github_desktop.html",
+    "href": "modules2/03 - installing_git_and_github_desktop.html",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/03 - installing_git_and_github_desktop.html#read",
+    "href": "modules2/03 - installing_git_and_github_desktop.html#read",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules2/03 - installing_git_and_github_desktop.html#do",
+    "href": "modules2/03 - installing_git_and_github_desktop.html#do",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Do",
+    "text": "Do\n\nCreate a GitHub account\nInstall Git\nConfigure Git with RStudio"
+  },
+  {
+    "objectID": "modules2/03 - installing_git_and_github_desktop.html#additional-resources",
+    "href": "modules2/03 - installing_git_and_github_desktop.html#additional-resources",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nGithub\nWe will be use of Github to backup, store, and share your code with me and your collaborators.\nWe will troubleshoot Github challenges both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it’s rather advanced.\nhttps://happygitwithr.com (updated reguarly)"
+  },
+  {
+    "objectID": "modules2/04 - project_management_with_here.html#the-here-library",
+    "href": "modules2/04 - project_management_with_here.html#the-here-library",
+    "title": "Project management with {here}",
+    "section": "The here library",
+    "text": "The here library"
+  },
+  {
+    "objectID": "modules2/05  - geom_bar.html",
+    "href": "modules2/05  - geom_bar.html",
+    "title": "Bar Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules2/05  - geom_bar.html#geom_bar",
+    "href": "modules2/05  - geom_bar.html#geom_bar",
+    "title": "Bar Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules2/05  - geom_bar.html#meet-the-penguins",
+    "href": "modules2/05  - geom_bar.html#meet-the-penguins",
+    "title": "Bar Plots",
+    "section": "Meet the penguins",
+    "text": "Meet the penguins\n\nThe penguins data from the palmerpenguins package contains size measurements for r nrow(penguins) penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/07  - geom_point.html",
+    "href": "modules2/07  - geom_point.html",
+    "title": "Point Plots",
+    "section": "",
+    "text": "a\n\nlibrary(palmerpenguins)\n\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/07  - geom_point.html#meet-the-penguins",
+    "href": "modules2/07  - geom_point.html#meet-the-penguins",
+    "title": "Point Plots",
+    "section": "",
+    "text": "The penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/08  - geom_line.html",
+    "href": "modules2/08  - geom_line.html",
+    "title": "Line Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for r nrow(penguins) penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/08  - geom_line.html#geom_line",
+    "href": "modules2/08  - geom_line.html#geom_line",
+    "title": "Line Plots",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules2/08  - geom_line.html#meet-the-penguins",
+    "href": "modules2/08  - geom_line.html#meet-the-penguins",
+    "title": "Line Plots",
+    "section": "",
+    "text": "The penguins data from the palmerpenguins package contains size measurements for r nrow(penguins) penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/09  - animation.html",
+    "href": "modules2/09  - animation.html",
+    "title": "Introduction to Animation",
+    "section": "",
+    "text": "Static plots are great. Animating visualizations can enhance characteristics relevant to data story.\nCase 1.\nCase 2. The model parameters obtained from a linear model represent a single model fit. Models based on subsets of data or biased samples can provide misleading parameter estimation. This is why model outputs provide confidence intervals for those parameters in order to communicate uncertainty about them. This uncertainly is typically presented visually using confidence bands.\ngganimate is a library that provides a set of functions for animating static plots.\nhttps://gganimate.com/articles/gganimate.html#your-first-animation\n\nAnimate Plots\n\n\nAnimating Uncertainty"
+  },
+  {
+    "objectID": "modules2/09  - module_starter_page.html",
+    "href": "modules2/09  - module_starter_page.html",
+    "title": "Module starter",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules2/09  - module_starter_page.html#starter-file",
+    "href": "modules2/09  - module_starter_page.html#starter-file",
+    "title": "Module starter",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "modules2/09  - module_starter_page.html#meet-the-penguins",
+    "href": "modules2/09  - module_starter_page.html#meet-the-penguins",
+    "title": "Module starter",
+    "section": "",
+    "text": "The penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica.\nThe plot below shows the relationship between flipper and bill lengths of these penguins."
+  },
+  {
+    "objectID": "modules/01 - installing_r_and_rstudio.html",
+    "href": "modules/01 - installing_r_and_rstudio.html",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01 - installing_r_and_rstudio.html#read",
+    "href": "modules/01 - installing_r_and_rstudio.html#read",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01 - installing_r_and_rstudio.html#do",
+    "href": "modules/01 - installing_r_and_rstudio.html#do",
+    "title": "Installing R & RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules/01_installing_r_and_rstudio.html",
+    "href": "modules/01_installing_r_and_rstudio.html",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01_installing_r_and_rstudio.html#read",
+    "href": "modules/01_installing_r_and_rstudio.html#read",
+    "title": "Installing R & RStudio",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/01_installing_r_and_rstudio.html#do",
+    "href": "modules/01_installing_r_and_rstudio.html#do",
+    "title": "Installing R & RStudio",
+    "section": "Do",
+    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules/02 - creating_a_posit_account.html",
+    "href": "modules/02 - creating_a_posit_account.html",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/02 - creating_a_posit_account.html#read",
+    "href": "modules/02 - creating_a_posit_account.html#read",
+    "title": "Creating a Posit Account",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/02 - creating_a_posit_account.html#additional-resources",
+    "href": "modules/02 - creating_a_posit_account.html#additional-resources",
+    "title": "Creating a Posit Account",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nQuarto\nThe quarto website contains many helpful examples. We will cover aspects throughout the semester.\nhttps://quarto.org\n\n\nGithub\nWe will be making use of Github to store and share your course blog and website.\nWe will troubleshoot all Github issues individually and in class. If you want to learn more, then I recommend this free resource.\nhttps://happygitwithr.com"
+  },
+  {
+    "objectID": "modules/02 - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "href": "modules/02 - creating_a_posit_account.html#week-2-assignment-make-a-tip-sheet",
+    "title": "Creating a Posit Account",
+    "section": "Week 2 Assignment: Make a tip sheet",
+    "text": "Week 2 Assignment: Make a tip sheet\nWe are beginning week 2 on Monday February, 6th, 2023. By this point you should have your quarto blog published on github.com, and have the url to your blog submitted to the first assignment on Blackboard. If you need help completing this step, please email me.\nThis week we will cover the first chapter of the textbook, which goes into several important details about using Rstudio. In section 1.2, the authors recommend that “now would be a good time to create a notebook where you can keep a record of useful hints and tips and things to try when your code isn’t working.”\nMaking a tip sheet for yourself is the assignment for this weeks blog post.\n\nInstructions\n\nMake a new blog post where you can write “tips” and notes as you are learning about Rstudio this week. Please feel free to make notes during class and stuff this blog post with as many things that will be helpful for you to remember.\nSubmit the URL to your tips post to the week 2 assignment on blackboard."
+  },
+  {
+    "objectID": "modules/03 - installing_git_and_github_desktop.html",
+    "href": "modules/03 - installing_git_and_github_desktop.html",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03 - installing_git_and_github_desktop.html#read",
+    "href": "modules/03 - installing_git_and_github_desktop.html#read",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "",
+    "text": "Read the intro to R and RStudio chapter from the textbook.\nhttps://psyteachr.github.io/ads-v2/01-intro.html"
+  },
+  {
+    "objectID": "modules/03 - installing_git_and_github_desktop.html#do",
+    "href": "modules/03 - installing_git_and_github_desktop.html#do",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Do",
+    "text": "Do\n\nCreate a GitHub account\nInstall Git\nConfigure Git with RStudio"
+  },
+  {
+    "objectID": "modules/03 - installing_git_and_github_desktop.html#additional-resources",
+    "href": "modules/03 - installing_git_and_github_desktop.html#additional-resources",
+    "title": "Installing Git & GitHub Desktop",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nGithub\nWe will be use of Github to backup, store, and share your code with me and your collaborators.\nWe will troubleshoot Github challenges both in class and in person (come see me). If you want to learn more, I also recommend this free resource, though it’s rather advanced.\nhttps://happygitwithr.com (updated reguarly)"
+  },
+  {
+    "objectID": "modules/04 - project_management_with_here.html#the-here-library",
+    "href": "modules/04 - project_management_with_here.html#the-here-library",
+    "title": "Project management with {here}",
+    "section": "The here library",
+    "text": "The here library"
   }
 ]

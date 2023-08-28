@@ -11,7 +11,7 @@ list.files_only <- function(dir, full.names = T) {
 
 page_reorder <- function(ord_name_ext = NULL, 
                          dir = NULL, 
-                         prefix = "_",
+                         prefix = " - ",
                          ...
 ) {
   here_dir = here::here()
@@ -31,7 +31,7 @@ page_reorder <- function(ord_name_ext = NULL,
     
     # add the spacing
     names_prefix = paste(names_prefix, prefix, sep = "") 
-    print(names_prefix)
+    #print(names_prefix)
     
     # build new name ordered list
     new_names_ordered = paste0(names_prefix, ord_name_ext)

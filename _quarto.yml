@@ -71,6 +71,7 @@ website:
       contents:
         - syllabus/syllabus.qmd
         - auto: modules
+        
         #- compendium
 
     - title: "Modules zzzzz"

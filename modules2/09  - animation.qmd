@@ -1,0 +1,36 @@
+---
+title: "**Introduction to Animation**"
+author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+
+```{r, include = FALSE}
+#knitr::opts_chunk$set(
+#  collapse = TRUE,
+#  comment = "#>"
+#)
+```
+
+
+Static plots are great. Animating visualizations can enhance characteristics relevant to data story.  
+
+
+Case 1. 
+
+Case 2. The model parameters obtained from a linear model represent a single model fit. Models based on subsets of data or biased samples can provide misleading parameter estimation. This is why model outputs provide confidence intervals for those parameters in order to communicate uncertainty about them. This uncertainly is typically presented visually using confidence bands. 
+
+[gganimate](https://gganimate.com/index.html) is a library that provides a set of functions for animating static plots. 
+
+
+
+https://gganimate.com/articles/gganimate.html#your-first-animation
+
+
+# Animate Plots
+
+
+# Animating Uncertainty
+
+
