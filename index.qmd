@@ -16,7 +16,7 @@ format:
 #| figh-height: 5
 #| out-width: "20%"
 #| fig-align: "left"
-knitr::include_graphics('images/dataviz_hex_plus_course.jpg')
+knitr::include_graphics('images/dataviz_hex_plus_course.png')
 ```
 
 
