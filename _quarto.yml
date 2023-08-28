@@ -15,6 +15,7 @@ project:
     - "!syllabus/syllabus2.qmd"
     - "!modules/module_starter_page.qmd"
     - "!modules/intro_to_ggplot.qmd"
+    - "!exercises/building/"
     
     #- "!modules/hello.qmd"
     - "!modules/building"
@@ -46,8 +47,8 @@ website:
       #      href: slides/sample_pres.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
-      - text: "**Exercises**"
-        file: exercises #/index.qmd
+      #- text: "**Exercises**"
+      #  file: exercises #/index.qmd
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
       - text: "**DataViz Tools**"

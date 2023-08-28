@@ -129,10 +129,6 @@ SCHEDULE <- rio::import(here::here("syllabus/tables/schedule.csv"))
 knitr::kable(SCHEDULE)
 ```
 
-## Portfolio development
-
-Throughout this course you will learn how to analyse and communicate data using reproducible computational methods. These methods allow you to communicate information in many formats including websites, interactive web apps, slide decks, pdfs, word documents, books, web-books, and more. Students can use these very same methods to create their own personal websites, which can be used as a digital portfolio to showcase examples of their work and demonstrate their skills. To support digital portfolio development, students will learn to create a personal website and blog. Students will add content to their websites in the form of blogs and other weekly assignment content prompts. By the end of the course students will have created evidence of their learning process in the form of their course website and blog. Students can choose to share their coursework publicly or privately.
-
 ```{r eval=FALSE, include=FALSE}
 #For more information on see [notes on privacy and sharing in the compendium](compendium/privacy.qmd).
 ```
