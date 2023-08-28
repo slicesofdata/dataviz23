@@ -11,7 +11,7 @@ list.files_only <- function(dir, full.names = T) {
 
 page_reorder <- function(ord_name_ext = NULL, 
                          dir = NULL, 
-                         prefix = " - ",
+                         prefix = "_",
                          ...
 ) {
   here_dir = here::here()
@@ -29,12 +29,18 @@ page_reorder <- function(ord_name_ext = NULL,
                               paste(1 : length(ord_name_ext)))
                          )
     
+    #print(substring(names_prefix, 6))
     # add the spacing
     names_prefix = paste(names_prefix, prefix, sep = "") 
     #print(names_prefix)
     
+    
     # build new name ordered list
     new_names_ordered = paste0(names_prefix, ord_name_ext)
+    
+    new_names_ordered = gsub(" ", "", new_names_ordered, fixed = TRUE)
+    #new_names_ordered = gsub("-", "_", new_names_ordered)
+    
     #print(new_names_ordered)
 
     # retrieve names from dir
@@ -44,7 +50,8 @@ page_reorder <- function(ord_name_ext = NULL,
     old_names = grep(pattern = paste(ord_name_ext, collapse = "|"), 
                      x = old_names, value = TRUE
     )
-    
+    #print(old_names)
+
     # reorder the old names to match new order
     old_names_cleaned = trimws(gsub(".*\\b(\\w+\\.\\w+)$", "\\1", 
                                      old_names), which = "both")
