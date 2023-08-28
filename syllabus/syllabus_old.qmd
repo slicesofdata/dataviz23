@@ -88,9 +88,13 @@ The course is targeted toward students with expressed interest in cognition and 
 
 If you do the math, including class time of 2½ hours, you should expect to allocate 8 ½ to 10 ½ hours per week for courses at CMC. "Per week" is a key phrase; courses are not designed for nondistributed cramming.
 
+#### **General Education Courses**
+
+This course qualifies as a general education (GE) course in the social sciences and is also part of the psychology major. GE courses are not intended to be easy. Because they are often not part of one's major, they can be often be more difficult because the content covered is likely unfamiliar to you.
+
 ## Course Materials and Textbook
 
-All of the course materials will be available on this course website .
+All of the course materials will be available in a timely fashion on this course website and/or posted on blackboard.
 
 Link to the course website: <https://slicesofdata.github.io/dataviz23>
 
@@ -104,19 +108,15 @@ Computer: current Mac (macOS) or PC (Windows or Linux) with high-speed internet 
 
 ### Reading Materials/Textbook(s)
 
-Readings will be taken from different sources and will appear in each topic module.
+-   Wickham (2016). ggplot2: Elegant Graphics for Data Analysis (Use R) 2nd ed. Supplemental readings from other books and empirical journals.
 
--   *Wickham, H., Navarro. D., & Pedersen, T. L.. [ggplot2: Elegant Graphics for Data Analysis, 3rd ed](https://ggplot2-book.org/).*
+-   Clause Wilkes
 
--   Claus O. Wilke (2019). [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/directory-of-visualizations.html). O\'Reilly Media.
+-   Kieran Healy
 
--   Xie, Y., Allaire, J. J., & Grolemund, G. [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+-   "**Applied Data Skills**: Processing & Presenting Data" (2023) Emily Nordmann and Lisa DeBruine. <https://psyteachr.github.io/ads-v2>
 
--   Kieran Healy (2018). [Data Visualization: A Practical Introduction](https://socviz.co/). Princeton University Press.
-
--   Nordmann, E. & DeBruine, L. (2023). **Applied Data Skills**: Processing & Presenting Data (2023) . <https://psyteachr.github.io/ads-v2>
-
-These textbooks are free and open-source.
+These textbooks are free and open-source. For other free resources and tools, please see the [compendium](compendium) " or if link doesn't work, use comdendium/privacy.qmd)."
 
 ## Course Structure
 
@@ -170,6 +170,12 @@ You should email me if you have an exceptional circumstance preventing you from 
 ### Changes to the syllabus
 
 The syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.
+
+### Missing an Exam
+
+In the event of an emergency, contact me as soon as possible. If you are missing an exam for religious reasons refer to the state law regarding non-attendance because of religious beliefs noted in the front matter of the Undergraduate Bulletin and Graduate Bulletin. These may be found on the Academic Calendars, Course Schedules, and Bulletins page of the Registrar's website. See also the student bereavement policy at <http://www.brooklyn.cuny.edu/web/about/initiatives/policies/bereavement.php>.
+
+------------------------------------------------------------------------
 
 ### Accessibility
 

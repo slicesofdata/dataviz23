@@ -1,17 +1,30 @@
-Week,Date,Topic
-1,30-Jan-23,Introduction
-2,30-Jan-23,Introduction
-3,1-Feb-23,Introduction
-4,6-Feb-23,Introduction
-5,8-Feb-23,Introduction
-6,13-Feb-23,Introduction
-7,15-Feb-23,Introduction
-8,20-Feb-23,Introduction
-9,21-Feb-23,Introduction
-10,22-Feb-23,Introduction
-11,27-Feb-23,Introduction
-12,1-Mar-23,Introduction
-13,6-Mar-23,Introduction
-14,8-Mar-23,Introduction
-15,13-Mar-23,Introduction
-16,15-Mar-23,Introduction
+Date,Module,Topic
+29-Aug,1,"Introduction, Project Management"
+,2,Graphical Perception
+5-Sep,3,Data Frame Manipulation and Wrangling
+,4,Data Subsets and Summaries 
+12-Sep,5,The Grammar of Graphics
+,6,
+19-Sep,7,Visualizing Amounts
+,8,Spatial Position and Adjustment
+26-Sep,9,Considerations in Data Visualization
+,10,Visualizing Associations 
+3-Oct,11,Color Scales and Palettes
+,12,Statistical Transformations: Data as-is Versus Summaries
+10-Oct,13,"Coordinates, Axes, and Position Scales"
+,14,Histograms and Density Plots
+17-Oct,15,Fall Break (no class)
+,16,
+24-Oct,17,Visualizing More Distributions
+,18,Visualizing Uncertainty
+31-Oct,19,Visualizing Trends
+,20,Legends and Arrangement 
+7-Nov,21,Annotation and Text
+,22,
+14-Nov,23,
+,24,Designing Perceptually Efficient Visualizations
+21-Nov,25,Attentional Control 
+,26,Multi-Panel Plots: Faceting and Layers
+28-Nov,27,Project Week
+,28,Telling a story
+8-Dec,29,Presentation (Last day of Instruction)
