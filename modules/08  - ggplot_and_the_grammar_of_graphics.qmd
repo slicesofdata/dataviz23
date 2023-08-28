@@ -1,5 +1,5 @@
 ---
-title: "**Project Management with {here}**"
+title: "**{ggplot} and the grammar of graphics**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -19,3 +19,4 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 # **Under Construction**
 
 ## **Content Pending**
+

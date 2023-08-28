@@ -1,5 +1,5 @@
 ---
-title: "**Project Management with {here}**"
+title: "**Data subsets and summaries**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"

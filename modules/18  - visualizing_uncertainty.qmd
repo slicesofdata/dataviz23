@@ -1,5 +1,5 @@
 ---
-title: "**Project Management with {here}**"
+title: "**Visualizing uncertainty**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -12,8 +12,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #| label: load-packages
 #| include: false
 
-#library()
-#library()
+
 ```
 
 # **Under Construction**
