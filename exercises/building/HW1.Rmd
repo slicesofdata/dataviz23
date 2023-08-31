@@ -1,0 +1,55 @@
+---
+title: "Exercise 02"
+---
+
+```{r global_options, include=FALSE}
+library(knitr)
+library(ggplot2)
+opts_chunk$set(fig.align = "center", fig.height = 4, fig.width = 5.5)
+```
+
+*Enter your name here*
+
+**This homework is due on Tuesday by. Please knit as a pdf file and upload [here](https://claremontmckenna.app.box.com/f/140969a32dea44e9ab6c0c00146d66e3).**
+
+snippet upload_assign_167
+	https://claremontmckenna.app.box.com/f/140969a32dea44e9ab6c0c00146d66e3
+
+**Problem 1: (4 pts)** 
+
+Insert a code block and load the `{readr}` and `{dplyr}` libraries in that block. 
+
+
+**Problem x: (x pts)**
+
+Practice using some RMarkdown code by creating: **a)** bulleted list with three items, **b)** a numbered list with three items, and **c)** a sentence that has one word in bold and one word in italics.
+
+
+
+**Problem x: (x pts)**
+
+**Problem x: (x pts)**
+
+ 
+
+Demonstrate basic command of Markdown by creating a bulleted list with three items, a numbered list with three items, and a sentence that has one word in bold and one word in italics.
+
+*Your text goes here.*
+
+**Problem 2: (3 pts)** The `economics` dataset contains various time series data from the US economy:
+
+```{r}
+economics
+```
+
+Use ggplot to make a line plot of the total population (`pop`, in thousands) versus time (column `date`).
+
+```{r}
+# your code goes here
+```
+
+**Problem 3: (3 pts)** Again using the `economics` dataset, now make a scatter plot (using `geom_point()`) of the number of unemployed versus the total population (`pop`), and color points by date.
+
+```{r}
+# your code goes here
+```

@@ -1,0 +1,71 @@
+---
+title: "exercise"
+output: html_document
+date: "2023-08-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+library(magrittr)
+library(ggplot2)
+
+dat = mtcars
+dat$mpg2 = dat$mpg * 10
+dat2 = data.frame(x = mean(dat$mpg2), y = mean(dat$hp))
+
+p <- ggplot(data = dat, 
+       mapping = aes(x = hp, y = mpg2)) +
+  geom_point(aes(size = rev(drat)),
+             alpha = .5,
+             position = position_jitter(seed = 100)) +
+  scale_y_continuous(limits = c(0, 350), 
+                     breaks = seq(0, 350, 10)) +
+  scale_x_continuous(limits = c(0, 360), 
+                     breaks = seq(0, 350, 10)) +
+  labs(x = NULL, y = NULL) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none") #+ geom_point(data = dat2, aes(x = x, y = y), col = "red")
+
+
+p
+#p + coord_flip() + theme(axis.text.x = element_text(angle = 90))
+
+# no coord flip
+
+
+p2 <- ggplot(data = dat, 
+       mapping = aes(x = hp, y = mpg2)) +
+  geom_point(aes(size = hp), alpha = .35, 
+             position = position_jitter(seed = 100)) +
+  scale_y_continuous(limits = c(0, 350), 
+                     breaks = seq(0, 350, 10)) +
+  scale_x_continuous(limits = c(0, 360), 
+                     breaks = seq(0, 350, 10)) +
+  labs(x = NULL, y = NULL) +
+  coord_flip() +
+  theme_classic() +
+  #geom_point(data = dat2, aes(x = x, y = y), col = "red") +   
+  theme(axis.text.x = element_text(angle = 90), legend.position = "none")
+
+p2
+
+p + geom_point(aes(, alpha = .5)) + 
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "none") +
+  guides(legend = NULL)
+
+p + coord_flip() + geom_point(aes(size = rev(hp), alpha = .5)) + 
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "none") +
+  guides(legend = NULL)
+
+
+suppressWarnings(lapply(c( "api", "data", "r", "r/src", "reports", "figs", "refs", "notes"), FUN = function(x) dir.create(here::here(x))))
+
+
+```

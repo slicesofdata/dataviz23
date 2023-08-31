@@ -76,17 +76,14 @@ page_reorder <- function(ord_name_ext = NULL,
 ordered_names <- c("installing_r_and_rstudio.qmd",
                    "creating_a_posit_account.qmd",
                    "installing_git_and_github_desktop.qmd",
-                   "project_management_with_here.qmd",
-
-#                   "module_starter_page.qmd"#,
-                   
-                   "graphical_perception.qmd",
+                   "project_management_with_here.qmd",  #                   "module_starter_page.qmd"#,
+                   "graphical_perception.qmd", 
+                   "reading_data_files.qmd",
                    "data_frame_manipulation_and_wrangling.qmd",
                    "data_subsets_and_summaries.qmd", 
                    "ggplot_and_the_grammar_of_graphics.qmd",
                    "visualizing_amounts.qmd",
-#                   "geom_bar.qmd", 
-
+                   #"geom_bar.qmd", 
                    "spatial_position_and_adjustment.qmd",
                    "considerations_in_data_visualization.qmd",
                    "visualizing_associations.qmd",
@@ -105,7 +102,6 @@ ordered_names <- c("installing_r_and_rstudio.qmd",
                    "designing_perceptually_efficient_visualizations.qmd",
                    "attentional_control.qmd", 
                    "multi_panel_plots_faceting.qmd"
-                   
 #                   "animation.qmd",
 #                   "hello.qmd"
                    ) 

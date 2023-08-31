@@ -326,6 +326,12 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#read" id="toc-read" class="nav-link active" data-scroll-target="#read"><strong>Read</strong></a></li>
   <li><a href="#do" id="toc-do" class="nav-link" data-scroll-target="#do"><strong>Do</strong></a></li>
+  <li><a href="#determine-the-version-of-your-computers-operating-system" id="toc-determine-the-version-of-your-computers-operating-system" class="nav-link" data-scroll-target="#determine-the-version-of-your-computers-operating-system"><strong>Determine the version of your computer's operating system</strong></a></li>
+  <li><a href="#download-r" id="toc-download-r" class="nav-link" data-scroll-target="#download-r"><strong>Download R</strong></a></li>
+  <li><a href="#download-rstudio" id="toc-download-rstudio" class="nav-link" data-scroll-target="#download-rstudio"><strong>Download RStudio</strong></a></li>
+  <li><a href="#install-r-and-rstudio-on-your-computer" id="toc-install-r-and-rstudio-on-your-computer" class="nav-link" data-scroll-target="#install-r-and-rstudio-on-your-computer"><strong>Install R and RStudio on your Computer</strong></a></li>
+  <li><a href="#verify-that-rstudio-is-communicating-correctly-with-r" id="toc-verify-that-rstudio-is-communicating-correctly-with-r" class="nav-link" data-scroll-target="#verify-that-rstudio-is-communicating-correctly-with-r"><strong>Verify that RStudio is communicating correctly with R</strong></a></li>
+  <li><a href="#configure-rstudio" id="toc-configure-rstudio" class="nav-link" data-scroll-target="#configure-rstudio"><strong>Configure RStudio</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -363,8 +369,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="read" class="level2">
 <h2 class="anchored" data-anchor-id="read"><strong>Read</strong></h2>
-<p>Read the intro to R and RStudio chapter from the textbook.</p>
-<p><a href="https://psyteachr.github.io/ads-v2/01-intro.html" class="uri">https://psyteachr.github.io/ads-v2/01-intro.html</a></p>
+<p>For this course, we will use R and RStudio for manipulating data and creating data visualizations. The first step is to install these pieces of software so that you can use them. You may find helpful reading <a href="https://psyteachr.github.io/ads-v2/01-intro.html" class="uri">https://psyteachr.github.io/ads-v2/01-intro.html</a></p>
 </section>
 <section id="do" class="level2">
 <h2 class="anchored" data-anchor-id="do"><strong>Do</strong></h2>
@@ -373,6 +378,62 @@ ul.task-list li input[type="checkbox"] {
 <li>Install RStudio</li>
 <li>Configure RStudio</li>
 </ul>
+</section>
+<section id="determine-the-version-of-your-computers-operating-system" class="level2">
+<h2 class="anchored" data-anchor-id="determine-the-version-of-your-computers-operating-system"><strong>Determine the version of your computer's operating system</strong></h2>
+<p>Your version of operating system will dictate which version of R to download and install. Make note of your computer's operating system.</p>
+<p><strong><em>Windows</em></strong> systemsare easier and Windows 10 and 11 operating systems will both use the same R versions.</p>
+<p><strong><em>Macs</em></strong> are somewhat more complicated. The version depends on your cpu. Here is how you can determine:</p>
+<p><a href="https://www.howtogeek.com/706226/how-to-check-if-your-mac-is-using-an-intel-or-apple-silicon-processor/" class="uri">https://www.howtogeek.com/706226/how-to-check-if-your-mac-is-using-an-intel-or-apple-silicon-processor/</a> .</p>
+<p>There will be two cpu options, Intel 64-bit for macOS 10.13 or Apple silicon arm64 for macOS 11 and higher.</p>
+<p><strong>Cloud Options:</strong></p>
+<p>If you do not have a laptop (let me know) or do not have 5GB of hard drive space available on your computer, you might consider a cloud version of the software. One is maintained by Posit (formerly RStudio) and the other is maintained by CMC.</p>
+<p>1.&nbsp;<a href="https://posit.cloud/plans/free" class="uri">https://posit.cloud/plans/free</a> &nbsp;&nbsp;&nbsp;&nbsp;(25 free compute hours a month – make time out)</p>
+<p>2.&nbsp;Remote Desktop Protocol &nbsp;(No limit on compute hours) (contact me if interested)</p>
+</section>
+<section id="download-r" class="level2">
+<h2 class="anchored" data-anchor-id="download-r"><strong>Download R</strong></h2>
+<p>Once you know your processor, navigate to <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> and in the "<strong>Download and Install R</strong>" section, select your operating system. You can also select from below and follow the indented sections that follow.</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/bin/linux/">Download R for Linux</a> (<a href="https://cran.r-project.org/bin/linux/debian">Debian</a>, <a href="https://cran.r-project.org/bin/linux/fedora">Fedora/Redhat</a>, <a href="https://cran.r-project.org/bin/linux/ubuntu">Ubuntu)</a></p></li>
+<li><p><a href="https://cran.r-project.org/bin/macosx/">Download R for macOS</a></p></li>
+<li><p><a href="https://cran.r-project.org/bin/windows/">Download R for Windows</a></p></li>
+</ul>
+<pre><code>***Windows*** users should select the **base** version of R and download version **4.3.1** **(no other version)** to your computer. If this version is not on the main page, go to the \"Other Builds\" section and select \"previous releases\" and download the correct version.
+
+***Mac*** users should download either **R-4.3.1.pkg** or **R-4.3.1-x86_64.pkg** version depending on the cpu noted earlier. **Do not** download any version other than 4.3.1 and please do not update throughout the semester.</code></pre>
+</section>
+<section id="download-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="download-rstudio"><strong>Download RStudio</strong></h2>
+<p>Use the urls below to download RStudio and save it to the same directory location on your computer as you saved R. &nbsp;</p>
+<p><strong><em>Windows 10/11</em></strong>: <a href="https://download1.rstudio.org/electron/windows/RStudio-2023.06.2-561.exe" class="uri">https://download1.rstudio.org/electron/windows/RStudio-2023.06.2-561.exe</a></p>
+<p><strong><em>MacOS 10.15+:</em></strong> <a href="https://download1.rstudio.org/electron/macos/RStudio-2023.06.2-561.dmg" class="uri">https://download1.rstudio.org/electron/macos/RStudio-2023.06.2-561.dmg</a></p>
+<p><strong><em>Linux:</em></strong> go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+<p><em>Note:</em> If you have a 32bit operating system, you will need to install an older version: <a href="https://www.rstudio.com/products/rstudio/older-versions/" class="uri">https://www.rstudio.com/products/rstudio/older-versions/</a></p>
+</section>
+<section id="install-r-and-rstudio-on-your-computer" class="level2">
+<h2 class="anchored" data-anchor-id="install-r-and-rstudio-on-your-computer"><strong>Install R and RStudio on your Computer</strong></h2>
+<p><em>Install R first and then install RStudio.</em></p>
+<p>Installing should be easy and you can accept all of the defaults although the desktop icons are not needed, especially for R because you will never need it; RStudio will find R for you. You can follow these videos for simple installing.</p>
+<p><em>PC</em>: <a href="https://www.youtube.com/watch?v=_2sewGCA0y4">How to Install R and R Studio on Windows 10/11</a></p>
+<p><em>Mac</em>: <a href="https://www.youtube.com/watch?v=H6Tfgt5gtWQ">Installing R and RStudio on a Mac</a></p>
+<p><strong>Note:</strong> If you leave the desktop icon for R, you can remove that later. You will never need it because RStudio will find R for you.</p>
+<p><strong>Additional Step for Mac Users:</strong></p>
+<p><em>Download and Install XQuartz</em></p>
+<p>Some functions in R require an "X11 Server" and/or libraries associated with an X11 server. Apple does not provide this software with OS X anymore so unfortunately you have to do it on your own via a third-party application called XQuartz for <strong>OS X 10.9 or later</strong>.</p>
+<p>Use the url below to download the XQuartz file and save it to your computer. Follow the same install instructions as above for installing the XQuartz file.</p>
+<p><strong>For macOS 10.9 or later, download this XQuartz file and save it to your computer and install:</strong> <a href="https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg" class="uri">https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg</a></p>
+</section>
+<section id="verify-that-rstudio-is-communicating-correctly-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="verify-that-rstudio-is-communicating-correctly-with-r"><strong>Verify that RStudio is communicating correctly with R</strong></h2>
+<p><em>Launch the <strong>RStudio</strong> application.</em></p>
+<p>If RStudio and R are communicating correctly, you should see an RStudio window open with the R console opened which should look similar to that shown below. Your R version should be listed at the top of the console (4.3.1 <strong>Beagle Scouts</strong>).</p>
+</section>
+<section id="configure-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="configure-rstudio"><strong>Configure RStudio</strong></h2>
+<p>A.&nbsp;Go to <em>Tools -&gt; Global Options</em> under the <em>General + Basic</em> Tab</p>
+<p>·&nbsp;<strong>R Sessions -&gt; R version:</strong> There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.</p>
+<p>B.&nbsp;<strong>Other options</strong>:Check the other checkboxes as indicated in the images below.</p>
 
 
 </section>

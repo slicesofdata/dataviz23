@@ -1,0 +1,340 @@
+---
+title: 'GCDS Homework #02'
+author: "KEY"
+date: "Due: 09-15-2022"
+output:
+  #word_document:
+  #  toc: yes
+  #  number_sections: yes
+  html_document:
+    toc: yes
+    number_sections: yes
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+# set the paths for project, script, and data dirs
+this_rmd_path <- rstudioapi::getActiveDocumentContext()$path
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", this_rmd_path)
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")          # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/")       # data subdir
+#source("https://pastebin.com/raw/b63hB7Hj")         # get all externals
+#source("https://pastebin.com/raw/8mXH02yg")   # run and comment out after knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions 
+```
+
+
+For this homework, you will save the `R Markdown` homework document and save it to "GCDS/r" on your computer. Rename as **"GCDS_HW_02_yourname"**. When you open it, add your name to the author part of the YAML code. The homework will need to be submitted as a `knit` HTML file. Feel free to work with a partner but understand that the work submitted has to be your own.
+
+
+**Questions:**
+
+
+# Create objects 
+
+Create a code chunk in R Markdown by either a) typing on a Windows system `CONTROL+ALT+i` or on a Mac `COMMAND+OPTION+i` all at the same time or by 2) clicking the green icon containing a + and a c that appears in RStudio near the file tab for your opened `.Rmd` file. You can also [go here](https://rmarkdown.rstudio.com/lesson-3.html) to see the icon image. 
+
+In that code chunk: 
+
+1) assign any a character object to x, 
+2) assign any numeric object to y, and 
+3) assign 21 to z. 
+
+```{r}
+x <- "hello"
+
+y <- 2
+
+z <- c(1,2)
+```
+
+
+# Is an object numeric?
+
+Use the appropriate function to determine whether the objects are numeric.
+
+```{r}
+is.numeric(x)
+
+is.numeric(y)
+
+is.numeric(z)
+```
+
+# Creating vectors with multiple elements 
+
+Use the function to *combine* 10 numeric elements and assign them to a vector object named v.
+
+```{r}
+v <- c(1,2,3,4,5,6,7,8,9,10)
+```
+
+
+# Extracting elements of a vector
+
+You can extract elements of a vector using what is referred to ask bracket notation. For example, if you wanted to extract the first 3 elements of v, you would type v[1:3]. The colon specifies that you want a sequence, in this case from 1 *TO* 3.  
+
+Using object v: 
+
+1) extract the 4th element from the vector and 
+2) extract the 4th through 5th elements
+
+```{r}
+v[4]
+
+v[4:5]
+```
+
+
+# Extracting elements of vectors by passing vectors
+
+Because elements can be referenced by their position in a vector, you can extract any that you wish. However, you cannot extract using `v[1,2,4]` (try that code if you want to see the error). In order to extract elements that are not in a sequence, you will need to pair `c()` with the bracket notation.
+
+First, pass `c(1, 2, 4)` into the brackets and explain what happened in the bold section below.
+
+```{r}
+v[c(1, 2, 4)]
+```
+
+**What happens?**: 
+
+
+Second, create a numeric vector named *element* which contains numeric values 1, 3, 4. 
+
+```{r}
+element <- c(1,3,4)
+```
+
+Third, pass *element* into the brackets to see what happens.
+
+```{r}
+v[element]
+```
+
+**What happens?**: 
+
+
+
+
+
+# Pasting/Concatenating character objects 
+
+Atop this homework file is an object named data_dir which was created using `paste()` for concatenating strings. This function is useful when you need to reference character strings and prefer not keep typing them; every time you type them, you can make an error. 
+
+`paste()` was used to concatenate two strings and to separate them by setting `sep = "/"`. `data_dir <- paste(proj_dir, "data", sep = "/")` 
+
+One string was the *path do your GCDS directory* an the other string was the word *data*.
+
+First, reference `data_dir` to see what it is on your computer.
+
+```{r}
+data_dir
+```
+
+Second, now that you know what the path looks like, create a new object named *game_dat_path* that uses `paste()` to concatenate the path with the file name for the data file `"GCDS_Games_Survey_choice.csv"`.
+
+```{r}
+game_dat_path <- paste(data_dir, "GCDS_Games_Survey_choice.csv", sep = "/")
+```
+
+**Explain what this object represents:**
+
+
+
+
+
+
+Third, find out whether you have this file saved on your computer by passing this object into a function named `file.exists()`. This function will return a logical TRUE or FALSE.
+
+```{r}
+file.exists(game_dat_path)
+```
+
+If the file is not in your data directory, access it from the Slack #data channel and save it into your data directory. 
+
+
+# Read a local csv file
+
+Once you have the file saved in the correct place, you will read this csv file by passing the object containing the file path into a `readr`'s `read_csv()` function and assign this to an object named *GAME_DAT*. You can either call the function from the readr library specifically or you can load the library and then call the function. That's up to you.
+
+```{r}
+GAME_DAT <- readr::read_csv(game_dat_path)
+```
+
+
+
+# Understanding function arguments
+
+Why will these two function calls return the same object? You might need to query R using ?readr::read_csv to answer. 
+
+`readr::read_csv(file = game_dat)`
+
+`readr::read_csv(game_dat)`
+
+
+**Explain why:**
+
+
+If you did not have column/variables in your data file and you wanted to override the default argument for col_names, why would the following function call not work? 
+
+`readr::read_csv(F, file = game_dat)`
+
+
+```{r}
+
+```
+
+**Explain:**
+
+
+
+# Checking data frame objects
+
+Use `is.data.frame()` to determine whether *GAME_DAT* is a data frame object. 
+
+```{r}
+is.data.frame(GAME_DAT)
+```
+
+
+# Viewing data frames 
+
+Use a function of your choice to view the data frame. If you want to use my `view()` function, you will need to make sure you run the code atop this file to read in the external functions from pastebin.com. 
+
+```{r}
+view(GAME_DAT, show = 5)
+```
+
+After viewing, comment out your above code so that the output will not appear in your knitted output file. Alternatively, in RStudio, select the gear icon from in your code block and change the output option to "show nothing (run code)".  
+
+
+
+# Getting data frame column names 
+
+Use `colnames()` or `names()` to find out the column/variable names in the data frame.
+
+```{r}
+names(GAME_DAT)
+```
+
+# Working with vector elements 
+
+For practice working with vector elements: 
+
+First, find the *length* of the elements in the column names. 
+
+```{r}
+length(names(GAME_DAT))
+```
+
+Second, get the first 5 elements from the column names and assign it to an object named *enjoys*. 
+
+```{r}
+enjoys <- names(GAME_DAT)[1:5]
+```
+
+Third, reference this new object to find out what the variables are.
+
+```{r}
+enjoys
+```
+
+
+These variables in the data frame represent responses to questions to determine what users enjoy about playing games. Participants rated questions using a response scale that was recoded as numeric values, something that you might need to do.  
+
+
+
+# Using vector objects to subset data frames
+
+In order to run the code, you will need to load two libraries: magrittr and dplyr. Add your code above the code I provide. 
+
+The `select()` function from the `dplyr` library is used to select columns/variables from a data frame. By contrast, `filter()` is used to select row/observations from a data frame.
+
+`select()` takes at least 2 arguments. The first argument is the data frame you want to select variables from and the second argument is what you want to select. 
+
+For example, if you want to select the first 5 columns by index number, you would use:
+
+```{r}
+dplyr::select(GAME_DAT, c(1:5))
+```
+`
+When you use the `magrittr` library to pass an object from function to function using the `magrittr` pipe operator `%>%`, a period (e.g., .) is a stand-in for the object. The following code returns the same object.
+
+```{r}
+library(magrittr)
+GAME_DAT %>%      # take this object
+  dplyr::select(., 1:5)  # pass the object from above into select() and return a                   # new object containing only what is selected 
+```
+
+In some cases, however, you do not need to use the period as a stand-in for the data frame. 
+
+For example:
+
+```{r}
+GAME_DAT %>%
+  dplyr::select(1:5)
+```
+
+This causes confusion because you will come across instannces for which you will need to reference a period (or .data) for the data frame as not all functions understand.
+
+For example, taking the 4 code blocks below, the first 3 will throw an error because `colnames()` doesn't understand. In order for `colnames()` to operate correctly, you will need to use a period in the function call.
+
+Why is this important, although perhaps annoying to always place a . in your function calls when passing objects using `magrittr`'s pipe operator `%>%`, doing so will ensure all of your code works and will serve to remind you that you are passing the object inherited from the previous function call.
+
+```{r}
+#GAME_DAT %>%
+#  dplyr::select(colnames())
+
+#GAME_DAT %>%
+#  dplyr::select(., colnames())
+
+#GAME_DAT %>%
+#  dplyr::select(., colnames())
+
+#GAME_DAT %>%
+#  dplyr::select(colnames(.))
+
+```
+
+Back to subsetting data frames by passing vector objects. 
+
+Modify the code in the code block below to pass your vector object holding the first 5 column names into select() to subset the data frame to see only those 5 columns. 
+
+```{r}
+GAME_DAT %>%
+  dplyr::select(., enjoys) %>%
+  head(.)           # inherited object is passed to head(); period not   
+                     #  required though
+```
+
+
+# Data frame structure
+
+Use the `str()` function to examine the dimensions of the entire *GAME_DAT*.
+
+```{r}
+str(GAME_DAT)
+```
+
+**How many rows and how many columns are there?** 
+
+32 x 215
+
+(Note: You may need to scroll up a lot in your R console to find this information because there are many variables in the data set.)
+
+
+
+
+
+**Upload Submission**: Make sure you have named your file correctly, knit it to html (click icon in RStudio) and upload file [here](https://claremontmckenna.app.box.com/f/80863fd8e0f44ec7a95882d9dda8bb91).
+
+
+```{r}
+message(paste0("knit by ", usr_time))
+```

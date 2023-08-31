@@ -1,0 +1,346 @@
+---
+title: "**Reading data files**"
+author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+# this is a test to fingure out why there is the following error when rendering many quarto files:
+# ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+---
+
+```{r}
+#| label: load-packages
+#| include: false
+
+#library()
+#library()
+```
+
+# **Overview**
+
+
+## **Libraries** 
+
+- **{readxl}**: for reading Excel spreadsheets
+- **{readr}**: for reading `.csv`, `.tsv`, and `.fwf` files
+
+# **Reading/Importing Data Files**
+
+
+## **Reading Excel Spreadsheets with `{readxl}`**
+
+We will use the **{readxl}** library to handing reading of Excel files. Because Excel files can contain multiple sheets, one goal would be to find out the sheet names using `readxl::excel_sheets` (see `?readxl::excel_sheets`). This function takes one argument, which is the path to the file. Passing the path will return the sheet names in that file. We can pass the path string directly into the function or if the file path is already saved as a object, pass that. In both cases, let's save it as
+
+In order to read an Excel spreadsheet file, you will need to specify at very least `file` and if you want to read a specific sheet other than the first one, then you will need to specify `sheet`.
+
+-  `file`: a path to the file,
+-  `sheet`: the sheet name to read
+
+### **Getting Sheet Names**
+
+```{r}
+readxl::excel_sheets(path = here::here("data", "cms-top-all-time-2023-swim.xlsx"))
+
+file <- here::here("data", "cms-top-all-time-2023-swim.xlsx")
+
+readxl::excel_sheets(path = file)
+```
+
+Great, we know know the sheet names. The benefit of passing an object is that you you may wish to pass the path to another function, for example, to read a sheet from the file. 
+
+### **Reading a Sheet**
+
+In order to read a sheet, we will use `readxl::read_excel()`, which takes the file `path` as the first argument and the name of the desired       `sheet` as the second argument. You might get away with passing only the `path` as long as your goal is to read the first sheet because this is the default action. Let's wrap the function in `head()` to see the top.
+
+```{r}
+head(
+  readxl::read_excel(file)
+)
+```
+
+The function also turns the file content into a `data frame` composed of row and column data. Luckily we have a clean file and nothing too messy. You can verify using `R`'s built-in function `is.data.frame()`, which will return `TRUE` if it's a data frame or `FALSE` if not.
+We will assign this to an object 
+
+```{r}
+is.data.frame(readxl::read_excel(file))
+```
+But we don't want the first sheet. Pass `sheet = "swim"` to read that sheet. Also, let's read in the data and assign it to an object called `DAT` which will hold the data frame.
+
+```{r}
+DAT <- readxl::read_excel(file, sheet = "swim")
+```
+
+Another way to read data files is using either **{vroom}**, which is extremely fast for reading large files (see docs for why it's so awesome), or using **{dplyr}** library that is part of the **{tidyverse}**. **{dplyr}**, however, does not handle Excel files. In order to demonstrate how to use **{readr}**, we can save the data frame as a `.csv` file.
+
+
+## **Writing Data Files**
+
+Despite it's name, **{readr}** can save data frames too. Interestingly, at least at the time of this writing, **{readr}** allows you to write files in excel format even though you cannot open them. 
+
+Moving forward, you can save the data frame as a `.csv` file using `readr::write_csv()`. When writing a file using `write_csv()` we need to specify key arguments: `x`, the data frame object and `file`, the file name. You do not need to set a delimiter because, given its name, `.csv` defaults the separation as a comma `","`. Other arguments may be necessary for other files and goals. 
+
+If, however, you specify name of the file (e.g., `"my file name.csv"`), the data frame will be written to a default location because no file path was provided. Um, so where is that default location? Well it depends and it's complicated depending on whether files are `.R` or `.Rmd`. By default, `.Rmd` files will assume the directory from which the `.Rmd` file, NOT THE DATA FILE, is opened. But you don't want to save a data file to the directory where your code lives. 
+
+If you are organized, you save your `.R` and `.Rmd` files in code directory and your data files in a data directory. So yeah, the default is a problem. The solution is to specify the file path using `file = the file path`. 
+
+What's the best way? The easiest/best way is with the **{here}** library, assuming of course you are smart enough to be using projects in `RStudio`. When you open a file from within a project, **{here}** will make the project directory the working directory. And if you are organized, your data files will be in a `/data` directory inside the project directory. When passing `"data"` as the first argument to `here::here()` ( e.g., `here::here("data")`, you will see that the function returns a string containing the full path to the project directory plus the data subdirectory. 
+
+```{r}
+here::here("data")
+```
+
+# **Writing/Exporting Data Files**
+
+Data frames can be written, or saved, as `.csv` files using `readr::write_csv()`, as r data files using `readr::write_rds()`, as Excel `.csv` files using `readr::write_excel_csv()`, as well as other formats. 
+
+If you query `R` using `?readr::write_excel_csv` or `?write_excel_csv` having already loaded **{readr}** using `library(readr)`, you will see the arguments. 
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+?readr::write_csv
+```
+
+OK, so let's save the data frame. But remember, you cannot pass the file path and name used to read the `.xlsx` file because what you want to save is not an Excel file. If you pass that previous path string, you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the `.csv` would be incorrectly named as `.xlsx` and second, you would completely clobber your Excel spreadsheet along with the worksheets containing that you did not read. Yeah, that's bad.
+
+So we need to change the file name. Specifically, we only need to change the file extension part of the path. 
+
+```{r}
+readr::write_csv(DAT, here::here("data", "cms-top-all-time-2023-swim.csv"))
+```
+
+## **A Workflow Side Note on Strings**
+
+You could avoid hard coding the change of the file extension in order to streamline you workflow. Every time to pass the path and the path changes you will need to change this by hand and doing so could be extremely annoying. For example, if you change the save location or the file name, you'll need to make updates for all code referencing the path. To avoid potential headaches, we can instead use `gsub()` to examine a string, look for a pattern, and replace that pattern with another pattern. All we want to do is to change `".xlsx"` or `".xls"` in the string to `".csv"`. And because we will next want to use this new name for reading later, let's assign the change to a new string object, `file_csv`.
+
+First, let's see what `gsub()` is doing.
+
+```{r}
+gsub(pattern = ".xlsx|.xls",  
+     replacement = ".csv", 
+     x = file
+     )
+```
+
+Assign to an object:
+
+```{r}
+file_csv <- gsub(".xlsx|.xls", ".csv", file)
+```
+
+Second, pass the path object to `write_csv()`:
+
+```{r}
+readr::write_csv(x = DAT, 
+                 file = file_csv
+                 )
+```
+
+Did it save? Use `file.exists()`. 
+
+```{r}
+file.exists(file_csv)
+```
+
+Remember, all we have done is saved the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
+
+
+
+
+# **Reading `.csv` files with {readr}**
+
+The `base R` functions for reading/importing and writing/exporting data can be slow and may cause issues on different operating systems. By contrast, **{readr}** functions operate independently of the OS. As a result, we will generally use the **{readr}** equivalent to `read.csv` files is `readr::read_csv()` (note the library reference and function name).
+
+If you query `R` using `?readr::read_csv` or `read_csv` having already loaded  the **{readr}** library using `library(readr)`, you will see how to use the function.
+
+```{r eval=FALSE, include=FALSE}
+?readr::read_csv
+```
+
+In order to read a data file, you will need to specify at very least `file`, which could be a physical file or a remote file. We will address a few ways of reading data.
+
+-  `file`: a path to a file, a connection, or literal data (either a single string or a raw vector)
+-  `delim = " "`: the delimiter used to separate values; this is `","` for `.csv` files
+-  `col_names = !append`: the names of columns/variables
+
+Some examples:
+
+- Reading a `.csv` file from a website
+- Reading a locale `.csv` file
+- Reading raw data that is comma-separated
+
+## **Reading a `.csv` File Stored on a Website**
+
+For example, although the `mtcars` data is also a built-in data set in `R`, if it were a read actual `.csv` file save on some website, you can pass the URL path as the `file`. This file does exist on the **{tidyverse}** github for `{readr}`. 
+
+```{r}
+readr::read_csv(file = "https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
+```
+
+Because `file` if the first argument of the function, you do not need to reference it specifically. Doing so just eliminates ambiguity for more complicated function calls. You will come across a lot of examples of code that do NOT reference the arguments by name.
+
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv")
+```
+
+By default, `readr::read_csv()` tries to guess whether column/variable names are present. If you know they exist, you can set `col_names = TRUE`. 
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = T)
+```
+
+If the names are present and you set  `col_names = FALSE`, you will get a mess because **{readr}** will assume the header row is data just as the rest of the file.
+ 
+```{r}
+readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = F)
+```
+
+As you can see, the column names are all prefixed with "X" and the first row is now the name of the headers. `names()` or `colnames()` will return the column names, so we can apply it and see what happens. We will wrap  `readr::read_csv()` in `names()`. See how this is a problem. You can use `colnames()` to test this too.
+
+```{r}
+names(
+  readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = T)
+  )
+```
+
+
+## **Reading a `.csv` File Stored Locally on your Computer**
+
+If a file actually existed on your computer, the file would not be a URL but rather the path location to where the file is stored.
+
+
+And now we can read the locale file as before except we are not passing the string name but rather an object (e.g., `my_local_csv`) holding the file path and file name. Voilà.
+
+```{r}
+readr::read_csv(file_csv)
+```
+
+
+## **Reading Raw Data that is Comma-Separated (e.g., `.csv`)**
+
+We will file use `readr::read_csv()` to read our data file. 
+
+```{r}
+readr::read_csv(file_csv)
+```
+
+If there were only data in the file and no names representing variables on the first row, the file might look like that below. We can imitate this by skipping the first row (containing names) using `skip = `. 
+
+
+```{r}
+readr::read_csv(file_csv, skip = 1)
+```
+
+See how the first row is assumed to be *names*? Setting `col_names = F` will fix the problem. Putting the arguments on separate rows of `R` code might improve code legibility.
+
+```{r}
+readr::read_csv(file_csv, 
+                skip = 1,
+                col_names = F
+                )
+```
+
+But we have no column names now. Setting `col_names = ` will fix that. Use `c()` to combine 4 names, e.g.,  `col_names = c("name1", "name2", "name3", "name4")`.
+
+```{r}
+readr::read_csv(file_csv, 
+                skip = 1,
+                col_names = c("time", "name", "year", "event")
+                )
+```
+
+Luckily, we have both names and data in the file and by default `readr::read_csv()` does what we intend.
+
+
+
+##  **Data from a Library/Package**
+
+As mentioned earlier, `mtcars` is a data set on cars which is also part of base `R`, meaning you do not need to read it from anyplace. `R` does this automatically.
+
+```{r}
+print(mtcars)
+
+# or 
+mtcars
+```
+
+And the column names...
+
+```{r}
+names(mtcars)
+```
+
+
+# **Assigning a Data Frame to an Object** 
+
+Unfortunately, once you read data into `R` what you see is only the returned content from the functions. This approach will not really allow you to perform other operations on the data frame itself very easily because you would have to read the file over and over every time you wished to perform a different operation. 
+
+
+## **Assign the Data to an Object**
+
+You'll want to take the data frame object that is returned by the `read.csv()` function and assign it to an object of some name. Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let's assign it to `DAT` standing for `data frame` and let's make it ALL CAPS. 
+
+A note about case: `R` is a case-sensitive language so object names like `DAT`, `dat`, `DaT`, etc. are possible and can refer to different objects depending on how you assign them. We will use capital letters only because I like to flag objects that are data frame as special and this approach makes them visually identifiable. You could choose your own convention for naming data frames, other objects, variables in data frames, etc. but I don't recommend being random about it.
+
+## Using built-in `read.csv()` and `read.table()`:
+
+```{r}
+DAT <- read.csv(file_csv)
+
+# or by passing a "," as a the sep
+DAT <- read.table(file_csv,
+                  sep = ","
+                  )
+```
+
+## Using `read_csv()` from **{readr}**:
+
+```{r}
+DAT2 <- readr::read_csv(file_csv)
+
+print(head(DAT2))
+```
+
+## **Data as a Data Frame**
+
+You should see an object named `DAT` that contains the data frame with some swim data. If you want to verify this is actually a data frame object, you can pass the `DAT` object into the `is.data.frame()` function. The function will return `TRUE` if it is and `FALSE` if it is not.
+
+```{r}
+is.data.frame(DAT)
+
+
+is.data.frame(DAT2)  # tibbles are also data frames
+```
+
+
+## **Are they both `tibbles`?**
+
+Tibbles are different from data frames, see the [**{tibble}** library](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html).
+
+```{r}
+tibble::is_tibble(DAT)
+
+
+tibble::is_tibble(DAT2)
+```
+
+Now the you have the data frame, you can examine some of its contents, for example, the first 6 rows using the `head()` function.
+
+```{r}
+head(DAT)    # hmm, something seems off.
+```
+
+Because header rows do exist atop the `.csv` file, specify that they exist by passing `TRUE` to the `header` argument of the function (e.g., `header = TRUE` or `header = T`). 
+
+```{r}
+DAT <- read.table(file_csv,
+                  sep = ",", 
+                  header = TRUE
+                  )
+
+head(DAT)    # Perfect!
+```
+
+
+
+# **Reading Large Files**
+
+Now, sometimes you might work with very large files over 1 GB in size. If so, `read.csv()` and `read.table()` will be extremely slow. You'll want another function. One of the fastest is `fread()` that is part of a library that's not built into base R. The library is **{data.table}**. **{vroom}** is a new library that may even be better. See [{vroom}]https://cran.r-project.org/web/packages/vroom/vignettes/vroom.html).
+

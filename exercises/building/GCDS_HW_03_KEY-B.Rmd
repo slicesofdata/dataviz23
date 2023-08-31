@@ -1,0 +1,458 @@
+---
+title: 'GCDS Homework #03'
+author: "KEY"
+date: "Due: 09-22-2022"
+output:
+  #word_document:
+  #  toc: yes
+  #  number_sections: yes
+  html_document:
+    toc: yes
+    number_sections: yes
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+rm(list = ls(all.names = TRUE))      # remove objects in R
+# set the paths for project, script, and data dirs
+this_rmd_path <- rstudioapi::getActiveDocumentContext()$path
+proj_dir <- gsub("GCDS.*.Rmd", "GCDS", this_rmd_path)
+proj_name = ""
+r_dir    <- paste(proj_dir, "r", sep = "/")          # r subdir
+data_dir <- paste(proj_dir, "data", sep = "/")       # data subdir
+#source("https://pastebin.com/raw/b63hB7Hj")         # get all externals
+#source("https://pastebin.com/raw/8mXH02yg")   # run and comment out after knitting
+source("https://pastebin.com/raw/97NNTTzu")   # run to include in function definitions 
+```
+
+
+For this homework, you will save the `R Markdown` homework document and save it to "GCDS/r" on your computer. Rename as **"GCDS_HW_02_yourname"**. When you open it, add your name to the author part of the YAML code. The homework will need to be submitted as a `knit` HTML file. Feel free to work with a partner but understand that the work submitted has to be your own.
+
+
+This homework assignment uses three of the 6 main verb function from `dplyr` for data manipulation. 
+
+- `select()`: for selecting variables
+- `mutate()`: for creating/modifying variables
+- `arrange()`: for arranging the data frame by variable(s)
+
+- `filter()`: for filtering cases/rows
+- `group_by()`: for grouping by variable levels
+- `summarise()`: for summarizing statistics
+
+**Questions:**
+
+# Load `dplyr`, `ggplot2`, `magrittr` libraries
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+```
+
+# **Reading Data**
+
+Download "Games_Survey_numeric_cleaned.csv" from Slack #data, save, and read in data file and assign to object.
+
+```{r}
+#p <- "G:\\Sync\\Courses\\GCDS\\data\\GCDS_Games_Survey_choice.csv"
+p <- "C:\\Users\\gcook\\Sync\\Courses\\GCDS\\data\\Games_Survey_numeric_gcook_cleaned.csv"
+GAME_DAT <- readr::read_csv(p)
+```
+
+Much of the homework involves selecting variables, which can be done easily using functions from the `dplyr` library.
+
+If you get stuck, you can review notes or also `?select` to find held and read the docs on what `select()` can do and what helper functions you can use to help with selecting variables. 
+
+
+# **Select variables from a data frame with and without `magrittr`**
+
+This question is designed to provide you with practice using `dplyr`'s verb functions on their own or in conjunction with piping operators like `magrittr`s `%>%`. Remember that either way, the first argument you are passing will be a data frame.
+
+## *Select variables by names matching patterns*
+
+- First, take your data frame and select variables *start with* a character string of your choosing without using `%>%` 
+
+- Second, do the same but in conjunction with `%>%`
+
+```{r}
+select(GAME_DAT, ends_with("d"))
+
+GAME_DAT %>% 
+  select(., ends_with("d"))
+
+```
+
+
+
+## *Select numeric variables*
+ 
+- In conjunction with `%>%`, take your data frame and select variables that are numeric while piping using `magrittr`
+
+```{r}
+
+```
+
+## *Select a range of variables*
+
+- Choose a starting variable and an ending variable to select a range of variables. 
+
+```{r}
+
+```
+
+
+# **Select variables combinations**
+
+## *Select by variable/element index*
+
+- First, select any 6 variables by their column index/position in the data frame with the constraint that they are not next to one another and then display the top 6 rows of the data frame containing them.
+
+- Second, select those same variables by their names and display the top 6 rows of the data frame 
+
+```{r}
+vars_5 <- c(1,3,5,33,63, 160)
+
+GAME_DAT %>%
+  select(., vars_5 ) %>%
+  head(.)
+
+GAME_DAT %>%
+  select(., names(.)[vars_5]) %>%
+  head(.)
+```
+
+
+
+**Optional Challenge:**
+
+For at least one of the questions above, you probably coded a solution that may cause problems if the column index number changes for the variables. This is often a problem with data sets that are not consistent. For example, a client provides you with a data set one week and another week with the variables in different orders. Beware that they may also provide data with names that are different too. 
+
+In base R, the `%in%` operator will allow you to determine where x is in y. 
+
+```{r}
+"x" %in% "y"    # is string in string
+
+
+"x" %in% "x"    # is string in string
+
+
+"X" %in% "x"    # is string in string
+
+
+tolower(c("x", "X", "t")) %in% "x"  # is element 1, 2, 3 in string
+
+# note, the reverse query is not the same
+"x" %in% tolower(c("x", "X", "t"))
+
+
+1 %in% c(1,2,3)
+
+
+TRUE %in% c(TRUE, FALSE)
+
+
+pets <- c("cat", "dog", "hamster")
+
+
+"cat" %in% pets
+```
+
+If you want to ask whether x is NOT in y using the `%in%` operator, then you would ask in a different way. Essentially you have to negate your query using an operator that represents a negation. 
+
+You basically will ask "Is NOT cat in pets" by using the `!` operator, which indicates logical negation (NOT). If "cat" is in `pets`, then R will return `TRUE` so the negation is `FALSE`. When you use !"cats", you are sending the query "Are cats NOT in pets", which will return `FALSE` because the string is in the character vector.
+
+```{r}
+#help("!")
+
+!"cat" %in% pets
+
+```
+
+`which()` is a function that will return TRUE indices of a logical object, a
+
+For example, there is an object in base R named `LETTERS` which contains the upper-case version of the alphabet. If you want to find out the index position of a particular letter, you can use:
+
+```{r}
+which(LETTERS == "R")
+
+which(LETTERS == "r")
+```
+
+And for positions of multiple elements:
+
+```{r}
+which(LETTERS %in% c("A", "Q"))
+
+#or 
+my_letters <- c("A", "Q")
+
+which(LETTERS %in% my_letters)
+```
+
+Take the following variable names: 
+
+- "Response ID"
+- "enjoy discovering", 
+- "enjoy competing", 
+- "theme-Spatial Puzzles",
+- "mechanic-betting/wagering"
+- "category-trivia"
+
+
+- First, use `which()` to return the index corresponding to names from the data frame that are in your vector of 6 names. This part may be tricky for you to assemble.
+
+- Second, then based on this, select the variables from your data frame by indices.
+
+The point of this exercise is to have you consider using either element index or names and switching between them whenever is appropriate. Sometimes passing character objects will cause errors so you can avoid this by referencng the indices associated with the characters.
+
+```{r}
+vars_6 <- c("Response ID", "enjoy discovering", 
+            "enjoy competing", "theme-Spatial Puzzles",
+            "mechanic-betting/wagering", "category-trivia")
+
+GAME_DAT %>%
+  select(., which(colnames(.) %in% c(vars_6)))
+```
+
+
+## *Select by variable character name*
+
+```{r}
+#GAME_DAT %>%
+#  select(.,  ) %>%
+#  head(.)
+```
+
+
+
+
+# **Select variables and returning their names**
+
+## *Return numeric variable names*
+
+Select the numeric variables from the data frame and then return a vector containing the variable names and assign to an object named something meaningful like `numeric_vars`.  Try to do this with as few object assignments as necessary.
+
+```{r}
+
+```
+
+## *Return character variable names*
+
+Do the same for variables that are character type.
+
+```{r}
+
+```
+
+# **Creating variables representing quantiles**
+
+Take any numeric variable in the data frame and create a new variable that  
+
+```{r}
+#ntile(Iq, 5)   # quintiles based on specific variable
+```
+
+# ~ complete cases
+
+```{r}
+
+```
+
+# Creating a pair plot
+
+```{r}
+names(GAME_DAT)
+
+
+GAME_DAT %>%
+  select(., contains("mechanic")) %>%
+  select(., 1:5) %>%
+  #sjPlot::plot_likert()
+
+  #select(., contains("s")) 
+  GGally::ggpairs()
+
+
+    #select(., is.numeric) %>% 
+  #select_if(., is.numeric) %>% 
+  #select(., where(is.numeric)) # select(., where(~is.numeric(.)))
+#  GGally::ggpairs(.)
+```
+
+
+# Vizualizing data using `ggplot2`
+
+Using `magrittr`, pipe the data frame to a function that: 
+
+a) selects any two variables and 
+b) then passes that subsetted data frame to create a `ggplot2` plot object that is point plot.
+
+```{r}
+
+```
+
+Color by gender
+
+
+# Plotting with `facet_wrap()`
+
+- Facet wrap gender
+
+```{r}
+
+```
+
+# Creating variables from other variables
+
+Mutate a new variable in the data frame that examines the score associated with variable X and recodes the cases into two groups, 1) as above and 2) below the mean for that variable. 
+
+For example, you ultimately want a new variable that represents two groups, one for those rows with a value above the average of that variable and another that is below the average of that variable. After creating those variable that variable, you will also want to make this variable a factor. If you wish to mutate the variable and trade it as a factor on a separate line you can do that or you can factorize within the same or single UT.  However, one thing to note regarding mutations, variables will not exist in the data frame unless the mutation in the mutate function has been executed. And if you try to create variables or new variables using variables that have been created in the same mutate function, you may run into problems. In such cases you may want to introduce two separate mutate functions.
+
+
+Introduce students to the core function. Which calculates the correlation and can do so for a data frame. Create a correlation matrix for variables in a data frame. Perhaps choose any five variables that you are interested in.
+
+
+
+# Create objects 
+
+Create a code chunk in R Markdown by either a) typing on a Windows system `CONTROL+ALT+i` or on a Mac `COMMAND+OPTION+i` all at the same time or by 2) clicking the green icon containing a + and a c that appears in RStudio near the file tab for your opened `.Rmd` file. You can also [go here](https://rmarkdown.rstudio.com/lesson-3.html) to see the icon image. 
+
+In that code chunk: 
+
+1) assign any a character object to x, 
+2) assign any numeric object to y, and 
+3) assign 21 to z. 
+
+
+# Clean missing cases
+
+```{r}
+
+```
+
+# Correlation Matrix
+
+```{r}
+#create a correlation matrix and plot it
+correlations <- cor(as.matrix(MECH_CLEANED))
+correlations <- as.data.frame(correlations)
+#correlations[correlations == 1] <- ""
+
+library(dplyr)
+library(tidyr)
+
+cor_mat <- cor(MECH_CLEANED)
+
+filter_cormat <- function(data, threshold = 0.0) {
+  
+  # create the correlation matrix on the full df
+  cor_matrix = cor(data)
+  # reduce based on absolute value of threshold
+  cor_matrix = cor_matrix[
+    apply(cor_matrix, 1, function(x) any(x > threshold & x < 1) ),
+    apply(cor_matrix, 2, function(x) any(x > threshold & x < 1) )
+  ]
+
+  return(list(cor_mat  = as.data.frame(cor_matrix), 
+              varnames = rownames(cor_matrix)
+              ))
+}
+cor_mat <- filter_cormat(MECH_CLEANED, threshold = .6)
+cor_mat$cor_mat %>% view()
+
+cor_mat$cor_mat %>%
+  ggcorrplot::ggcorrplot(., 
+  hc.order = TRUE, 
+  type = "lower",
+  lab = TRUE)
+
+MECH_CLEANED %>%
+  select(., cor_mat$varnames)
+
+cor_mat <- cor(MECH_CLEANED)
+cor_mat[!lower.tri(cor_mat)] <- NA # remove diagonal and redundant values
+
+correlations %>% view()
+
+ggcorrplot::ggcorrplot(
+  correlations, 
+  hc.order = TRUE, 
+  type = "lower",
+  lab = TRUE)
+
+
+
+GGally::ggcorr(MECH_CLEANED, 
+               palette = "RdBu", 
+               label = TRUE)
+```
+
+# **Create plot pairs**
+
+take 6 variables
+
+```{r}
+#GGally::ggpairs(MECH_CLEANED)
+```
+
+# Challenge
+
+
+Sometimes you need to clean up names of variables in a data frame because they are messy, contain funky characters, are too long, etc.
+
+You can do this in base R by assinging them cleaned up names:
+
+- names(the names) <- the cleaned up old names(the names)
+- 
+
+`gsub()` is a function designed to replace patterns in strings with some other pattern. It takes an argument of the `pattern`, the `replacement` pattern, and `x` the object to search for the pattern. 
+
+For example, you can search for "Old" and replace with "New" in a vector. What is returned is the vector containing the replacement(s).
+
+```{r}
+#?gsub
+gsub(pattern = "Old", replacement = "New", x = c("New", "Old"))
+```
+
+OK, so how might you do this with `dplyr`? The `rename_with()` function will help you in this case. It is a special case of `rename()`, which is usually fine.
+
+But implementing this step is hard. Here is how you would do it:
+
+`my_data %>%`
+  `rename_with(., ~ gsub("look for this", "replace with this", .x, fixed = T))`
+
+If you want to replace a pattern match with nothing, use an empty string `""`.
+
+Use the example above to:
+
+- select the variables that are mechanics
+- remove mechanic from the names
+- replace / with _
+- replace - space with _
+- replace a space with _
+- return the new names as a vector
+  
+
+```{r}
+MECH_CLEANED <- MECH %>%
+  # this option will create new
+  #mutate(., across(everything(), scale, .names = "z_{.col}")) %>%
+  # this option with overwrite existing
+#  mutate(., across(everything(), scale, .names = "{.col}")) %>%
+  rename_with(., ~ tolower(gsub("mechanic-", "", .x, fixed = T))) %>%
+  rename_with(., ~ (gsub("/", "_", .x, fixed = T))) %>%
+  rename_with(., ~ (gsub("-", "_", .x, fixed = T))) %>%
+  rename_with(., ~ (gsub(" ", "_", .x, fixed = T)))
+```
+
+
+**Upload Submission**: Make sure you have named your file correctly, knit it to html (click icon in RStudio) and upload file [here](https://claremontmckenna.app.box.com/f/80863fd8e0f44ec7a95882d9dda8bb91).
+
+
+```{r}
+message(paste0("knit by ", usr_time))
+```

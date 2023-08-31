@@ -1,0 +1,14 @@
+{
+  "hash": "9280330978e5f97d117a087dc68d0989",
+  "result": {
+    "markdown": "---\ntitle: \"**Data frame manipulation and wrangling**\"\nauthor: \"Gabriel I. Cook\"\n#date: \"2023-08-28\"\ndate: \"28 August, 2023\"\n\n# this is a test to fingure out why there is the following error when rendering many quarto files:\n# ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)\n---\n\n\n\n\n# **Under Construction**\n\n## **Content Pending**\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
