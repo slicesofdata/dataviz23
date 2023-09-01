@@ -12,16 +12,25 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #  comment = "#>"
 #)
 ```
+# **Overview**
 
-## **Read**
+For this course, we will use the `R` programming language and the `RStudio` IDE for manipulating data and creating data visualizations.
 
-For this course, we will use R and RStudio for manipulating data and creating data visualizations. The first step is to install these pieces of software so that you can use them. You may find helpful reading <https://psyteachr.github.io/ads-v2/01-intro.html>
+# **To Do**
 
-## **Do**
+## **Tasks**
 
--   Install R
--   Install RStudio
+The first step is to install these pieces of software so that you can use them. You may find helpful reading <https://psyteachr.github.io/ads-v2/01-intro.html>
+
+-   Download and Install R
+-   Download and Install RStudio
 -   Configure RStudio
+
+## **Readings**
+
+- [Intro to R](https://psyteachr.github.io/ads-v2/01-intro.html)
+- [Working with RMarkdown](https://socviz.co/gettingstarted.html#work-in-plain-text-using-rmarkdown)
+
 
 ## **Determine the version of your computer's operating system**
 

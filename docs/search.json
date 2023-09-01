@@ -39,7 +39,7 @@
     "href": "modules/01_installing_r_and_rstudio.html",
     "title": "Installing R & RStudio",
     "section": "",
-    "text": "For this course, we will use R and RStudio for manipulating data and creating data visualizations. The first step is to install these pieces of software so that you can use them. You may find helpful reading https://psyteachr.github.io/ads-v2/01-intro.html"
+    "text": "For this course, we will use the R programming language and the RStudio IDE for manipulating data and creating data visualizations."
   },
   {
     "objectID": "modules/01_installing_r_and_rstudio.html#read",
@@ -98,11 +98,46 @@
     "text": "Configure RStudio\nA. Go to Tools -&gt; Global Options under the General + Basic Tab\n· R Sessions -&gt; R version: There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.\nB. Other options: Check the other check boxes as indicated in the images below."
   },
   {
+    "objectID": "modules/02_graphical_perception.html",
+    "href": "modules/02_graphical_perception.html",
+    "title": "Graphical perception",
+    "section": "",
+    "text": "In this module, we will address some aspects of how people perceive elements of data visualizations. You will likely learn that you are not as accurate as you might have thought at extracting data from visual representations. There will be illusions."
+  },
+  {
+    "objectID": "modules/02_graphical_perception.html#readings",
+    "href": "modules/02_graphical_perception.html#readings",
+    "title": "Graphical perception",
+    "section": "Readings",
+    "text": "Readings\n\nLooking at Data"
+  },
+  {
+    "objectID": "modules/02_graphical_perception.html#content-pending",
+    "href": "modules/02_graphical_perception.html#content-pending",
+    "title": "Graphical perception",
+    "section": "Content Pending",
+    "text": "Content Pending"
+  },
+  {
     "objectID": "modules/03_reading_data_files.html",
     "href": "modules/03_reading_data_files.html",
     "title": "Reading data files",
     "section": "",
     "text": "In this module, you will learn how to read and write data files in different formats."
+  },
+  {
+    "objectID": "modules/03_reading_data_files.html#readings",
+    "href": "modules/03_reading_data_files.html#readings",
+    "title": "Reading data files",
+    "section": "Readings",
+    "text": "Readings\n\nR Workflow Basics\nGeneral Wrangling: Sections 5.1 up through 5.5"
+  },
+  {
+    "objectID": "modules/03_reading_data_files.html#task",
+    "href": "modules/03_reading_data_files.html#task",
+    "title": "Reading data files",
+    "section": "Task",
+    "text": "Task\n\nCreate a GitHub account if you don’t have one (this may come in handy for projects and a blog if you want)"
   },
   {
     "objectID": "modules/03_reading_data_files.html#libraries",
@@ -334,6 +369,13 @@
     "title": "Data frame manipulation and wrangling",
     "section": "Filter using complete.cases()…",
     "text": "Filter using complete.cases()…\nThe complete.cases() function returns a logical vector for which TRUE reflects the row has complete information and no missing cases. Using complete.cases() along with filter(), you would retain all rows TRUE rows.\n\nDAT %&gt;%\n  dplyr::filter(., complete.cases(.))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
+  },
+  {
+    "objectID": "modules/Introduction/index.html",
+    "href": "modules/Introduction/index.html",
+    "title": "junk",
+    "section": "",
+    "text": "If you found this, you have way too much time on your hands or are way too curious."
   },
   {
     "objectID": "modules/Introduction/introduction.html",
@@ -763,24 +805,17 @@
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
   },
   {
-    "objectID": "modules/03_reading_data_files.html#readings",
-    "href": "modules/03_reading_data_files.html#readings",
-    "title": "Reading data files",
+    "objectID": "modules/01_installing_r_and_rstudio.html#tasks",
+    "href": "modules/01_installing_r_and_rstudio.html#tasks",
+    "title": "Installing R & RStudio",
+    "section": "Tasks",
+    "text": "Tasks\nThe first step is to install these pieces of software so that you can use them. You may find helpful reading https://psyteachr.github.io/ads-v2/01-intro.html\n\nDownload and Install R\nDownload and Install RStudio\nConfigure RStudio"
+  },
+  {
+    "objectID": "modules/01_installing_r_and_rstudio.html#readings",
+    "href": "modules/01_installing_r_and_rstudio.html#readings",
+    "title": "Installing R & RStudio",
     "section": "Readings",
-    "text": "Readings\n\nR Workflow Basics\nLooking at Data\nGeneral Wrangling: Sections 5.1 up through 5.5"
-  },
-  {
-    "objectID": "modules/03_reading_data_files.html#task",
-    "href": "modules/03_reading_data_files.html#task",
-    "title": "Reading data files",
-    "section": "Task",
-    "text": "Task\n\nCreate a GitHub account if you don’t have one (this may come in handy for projects and a blog if you want)"
-  },
-  {
-    "objectID": "modules/Introduction/index.html",
-    "href": "modules/Introduction/index.html",
-    "title": "junk",
-    "section": "",
-    "text": "If you found this, you have way too much time on your hands or are way too curious."
+    "text": "Readings\n\nIntro to R\nWorking with RMarkdown"
   }
 ]
