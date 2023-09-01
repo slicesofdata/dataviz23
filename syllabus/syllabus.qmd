@@ -108,7 +108,7 @@ Readings will be taken from different sources and will appear in each topic modu
 
 -   *Wickham, H., Navarro. D., & Pedersen, T. L.. [ggplot2: Elegant Graphics for Data Analysis, 3rd ed](https://ggplot2-book.org/).*
 
--   Claus O. Wilke (2019). [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/directory-of-visualizations.html). O\'Reilly Media.
+-   Claus O. Wilke (2019). [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/directory-of-visualizations.html). O'Reilly Media.
 
 -   Xie, Y., Allaire, J. J., & Grolemund, G. [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 
