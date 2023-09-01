@@ -18,6 +18,12 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 # **Overview**
 
+In this module, you will learn how to read and write data files in different formats.
+
+## **Readings**
+
+- 
+- 
 
 ## **Libraries** 
 

@@ -38,13 +38,13 @@ website:
 
 #      - text: "Content"
 #        file: modules/index.qmd
-      #- text: "**Slides**"
-        #file: slides/index.qmd
-      #  menu:
-      #    - text: Topic 1
-      #      href: slides/sample_pres.qmd
-      #    - text: Topic 2
-      #      href: slides/sample_pres.qmd
+#      - text: "**Slides**"
+#        #file: slides/index.qmd
+#        menu:
+#          - text: Topic 1
+#            href: slides/sample_pres.qmd
+#          - text: Topic 2
+#            href: slides/sample_pres.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
 #      - text: "**Exercises**"
@@ -52,15 +52,33 @@ website:
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
       - text: "**Homework**"
-        file: exercises/exercises.qmd
+        #file: slides/index.qmd
         menu:
-          - text: EX 01
-            href: exercsies/exercise-01.Rmd
-          - text: EX 02
-            href: exercsies/exercise-01.Rmd
+          - text: HW 1
+            href: homework/EX01.pdf
+          - text: HW 2
+            href: homework/EX02.Rmd
+
+      - text: "**Cheatsheets**"
+        #file: slides/index.qmd
+        menu:
+          - text: RMarkdown
+            href: cheatsheets/rmarkdown-2.0.pdf
+          - text: 'Data Wrangling with {dplyr} and {tidyr}'
+            href: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+          - text: Quarto (Publish and Share)
+            href: https://rstudio.github.io/cheatsheets/html/quarto.html
+          - text: 'String Manipulation with {stringr}'
+            href: https://rstudio.github.io/cheatsheets/html/strings.html
+          - text: 'Reading and Writing Data with {readr}'
+            href: https://rstudio.github.io/cheatsheets/html/data-import.html
+          - text: Data Science with RWorkflow
+            href: cheatsheets/Data_Science_With_R_Workflow.pdf 
+          - text: More Cheatsheets Here
+            href: https://rstudio.github.io/cheatsheets/
       - text: "**DataViz Tools**"
-        href: resources/dataviz_tools.qmd
-        
+        href: resources/dataviz_tools.qmd 
+
 
     right:
       - icon: github
