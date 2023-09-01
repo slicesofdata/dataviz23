@@ -19,7 +19,7 @@ page_reorder <- function(ord_name_ext = NULL,
     dir = paste(here_dir, dir, sep = "/")  
   }
   # backup dir
-  zip(paste0(basename(dir), "_", Sys.Date(), ".zip"), list.files(dir, include.dirs = F))
+  #zip(paste0(basename(dir), "_", Sys.Date(), ".zip"), list.files(dir, include.dirs = F))
   
   if (!is.null(ord_name_ext)) {
     
@@ -74,9 +74,9 @@ page_reorder <- function(ord_name_ext = NULL,
 ### Module Page
 ###############################################################
 ordered_names <- c("installing_r_and_rstudio.qmd",
-                   "creating_a_posit_account.qmd",
-                   "installing_git_and_github_desktop.qmd",
-                   "project_management_with_here.qmd",  #                   "module_starter_page.qmd"#,
+                   #"creating_a_posit_account.qmd",
+                   #"installing_git_and_github_desktop.qmd",
+                   #"project_management_with_here.qmd",  #                   "module_starter_page.qmd"#,
                    "graphical_perception.qmd", 
                    "reading_data_files.qmd",
                    "data_frame_manipulation_and_wrangling.qmd",
