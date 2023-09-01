@@ -32,7 +32,7 @@ knitr::kable(
     Contact      = the_contact,
     Credit       = the_credit
   ) %>%
-    dplyr::rename_with(~ gsub("_", " ", .x), contains("_")) %>% 
+    dplyr::rename_with(~ gsub("_", " ", .x), tidyselect::contains("_")) %>% 
     t() 
 )
 # this is a test
@@ -125,7 +125,7 @@ Students are expected to participate in all aspects of the class. This class inv
 ## Course Schedule
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
-SCHEDULE <- rio::import(here::here("syllabus/tables/schedule.csv"))
+SCHEDULE <- rio::import(here::here("syllabus/tables/new_schedule.csv"))
 knitr::kable(SCHEDULE)
 ```
 

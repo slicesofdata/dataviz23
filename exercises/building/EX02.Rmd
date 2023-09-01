@@ -27,7 +27,7 @@ Feel free to work with a partner but understand that the work submitted has to b
 
 **Problem 1: Checking your working directory using `{here}`**
 
-You should have the `{here}` library installed. The following code block contains a function from the `{here}` library that will return the name of the your working directory. If the function does not run, you will need to install `{here}`. In addition, if the working directory is not put in a place where your homework goes, you will need to either move your `.Rmd` homework file or set up a project directory for homework.
+You should have the **{here}** library installed. The following code block contains a function from the **{here}** library that will return the name of the your working directory. If the function does not run, you will need to install **{here}**. In addition, if the working directory is not put in a place where your homework goes, you will need to either move your `.Rmd` homework file or set up a project directory for homework.
 
 ```{r}
 here::here()
@@ -37,7 +37,7 @@ here::here()
 
 **Problem 2: Loading libraries** 
 
-Inside the following code block, use `library()` to load the `{readr}` and `{dplyr}` libraries. You won't use them for this exercise but you will for the next one.
+Inside the following code block, use `library()` to load the **{readr}** and **{dplyr}** libraries. You won't use them for this exercise but you will for the next one.
 
 ```{r, libraries}
 
