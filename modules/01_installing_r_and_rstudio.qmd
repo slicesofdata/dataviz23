@@ -20,7 +20,7 @@ For this course, we will use the `R` programming language and the `RStudio` IDE 
 
 ## **Tasks**
 
-The first step is to install these pieces of software so that you can use them. You may find helpful reading <https://psyteachr.github.io/ads-v2/01-intro.html>
+The first step is to install these pieces of software so that you can use them. 
 
 -   Download and Install R
 -   Download and Install RStudio

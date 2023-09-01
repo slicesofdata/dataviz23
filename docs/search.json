@@ -42,18 +42,18 @@
     "text": "For this course, we will use the R programming language and the RStudio IDE for manipulating data and creating data visualizations."
   },
   {
-    "objectID": "modules/01_installing_r_and_rstudio.html#read",
-    "href": "modules/01_installing_r_and_rstudio.html#read",
+    "objectID": "modules/01_installing_r_and_rstudio.html#tasks",
+    "href": "modules/01_installing_r_and_rstudio.html#tasks",
     "title": "Installing R & RStudio",
-    "section": "",
-    "text": "For this course, we will use R and RStudio for manipulating data and creating data visualizations. The first step is to install these pieces of software so that you can use them. You may find helpful reading https://psyteachr.github.io/ads-v2/01-intro.html"
+    "section": "Tasks",
+    "text": "Tasks\nThe first step is to install these pieces of software so that you can use them.\n\nDownload and Install R\nDownload and Install RStudio\nConfigure RStudio"
   },
   {
-    "objectID": "modules/01_installing_r_and_rstudio.html#do",
-    "href": "modules/01_installing_r_and_rstudio.html#do",
+    "objectID": "modules/01_installing_r_and_rstudio.html#readings",
+    "href": "modules/01_installing_r_and_rstudio.html#readings",
     "title": "Installing R & RStudio",
-    "section": "Do",
-    "text": "Do\n\nInstall R\nInstall RStudio\nConfigure RStudio"
+    "section": "Readings",
+    "text": "Readings\n\nIntro to R\nWorking with RMarkdown"
   },
   {
     "objectID": "modules/01_installing_r_and_rstudio.html#determine-the-version-of-your-computers-operating-system",
@@ -145,6 +145,13 @@
     "title": "Reading data files",
     "section": "Libraries",
     "text": "Libraries\n\n{readxl} 1.4.3: for reading Excel spreadsheets\n{readr} 2.1.4: for reading .csv, .tsv, and .fwf files"
+  },
+  {
+    "objectID": "modules/03_reading_data_files.html#a-data-file",
+    "href": "modules/03_reading_data_files.html#a-data-file",
+    "title": "Reading data files",
+    "section": "A Data File",
+    "text": "A Data File\nFirst, we need an .xlsx data file."
   },
   {
     "objectID": "modules/03_reading_data_files.html#reading-excel-spreadsheets-with-readxl",
@@ -803,19 +810,5 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
-  },
-  {
-    "objectID": "modules/01_installing_r_and_rstudio.html#tasks",
-    "href": "modules/01_installing_r_and_rstudio.html#tasks",
-    "title": "Installing R & RStudio",
-    "section": "Tasks",
-    "text": "Tasks\nThe first step is to install these pieces of software so that you can use them. You may find helpful reading https://psyteachr.github.io/ads-v2/01-intro.html\n\nDownload and Install R\nDownload and Install RStudio\nConfigure RStudio"
-  },
-  {
-    "objectID": "modules/01_installing_r_and_rstudio.html#readings",
-    "href": "modules/01_installing_r_and_rstudio.html#readings",
-    "title": "Installing R & RStudio",
-    "section": "Readings",
-    "text": "Readings\n\nIntro to R\nWorking with RMarkdown"
   }
 ]

@@ -146,6 +146,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text"><strong>Data</strong></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
+        <li>
+    <a class="dropdown-item" href="../data/cms-top-all-time-2023-swim.xlxs" rel="" target="">
+ <span class="dropdown-text">cms-top-all-time-2023-swim.xlsx</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cheatsheets" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text"><strong>Cheatsheets</strong></span>
     </a>
@@ -405,6 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#readingimporting-data-files" id="toc-readingimporting-data-files" class="nav-link" data-scroll-target="#readingimporting-data-files"><strong>Reading/Importing Data Files</strong></a>
   <ul class="collapse">
+  <li><a href="#a-data-file" id="toc-a-data-file" class="nav-link" data-scroll-target="#a-data-file"><strong>A Data File</strong></a></li>
   <li><a href="#reading-excel-spreadsheets-with-readxl" id="toc-reading-excel-spreadsheets-with-readxl" class="nav-link" data-scroll-target="#reading-excel-spreadsheets-with-readxl"><strong>Reading Excel Spreadsheets with <code>{readxl}</code></strong></a>
   <ul class="collapse">
   <li><a href="#getting-sheet-names" id="toc-getting-sheet-names" class="nav-link" data-scroll-target="#getting-sheet-names"><strong>Getting Sheet Names</strong></a></li>
@@ -499,6 +511,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="readingimporting-data-files" class="level1">
 <h1><strong>Reading/Importing Data Files</strong></h1>
+<section id="a-data-file" class="level2">
+<h2 class="anchored" data-anchor-id="a-data-file"><strong>A Data File</strong></h2>
+<p>First, we need an <code>.xlsx</code> data file.</p>
+</section>
 <section id="reading-excel-spreadsheets-with-readxl" class="level2">
 <h2 class="anchored" data-anchor-id="reading-excel-spreadsheets-with-readxl"><strong>Reading Excel Spreadsheets with <code>{readxl}</code></strong></h2>
 <p>We will use the <strong>{readxl}</strong> library to handing reading of Excel files. Because Excel files can contain multiple sheets, one goal would be to find out the sheet names using <code>readxl::excel_sheets</code> (see <code>?readxl::excel_sheets</code>). This function takes one argument, which is the path to the file. Passing the path will return the sheet names in that file. We can pass the path string directly into the function or if the file path is already saved as a object, pass that. In both cases, let’s save it as</p>
