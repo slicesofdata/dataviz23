@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-Various tasks and exercises will be found here. 
+# **Exercises**
 
-The exercise list will be updated as the semester progresses.
+Various tasks and exercises will be found here. The exercise list will be updated as the semester progresses. Click to download.
 
+Homework Exercise [01](https://github.com/slicesofdata/dataviz23/tree/main/figs/diamonds_full.png)
+Homework Exercise [02](https://github.com/slicesofdata/dataviz23/blob/main/exercises/building/EX02.Rmd)

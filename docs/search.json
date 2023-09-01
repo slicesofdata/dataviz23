@@ -196,6 +196,13 @@
     "text": "Provided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))"
   },
   {
+    "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
+    "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
+    "title": "Data frame manipulation and wrangling",
+    "section": "",
+    "text": "We will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
+  },
+  {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#select-variables-starting-with-or-ending-with-certain-characters",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#select-variables-starting-with-or-ending-with-certain-characters",
     "title": "Data frame manipulation and wrangling",
@@ -308,48 +315,6 @@
     "text": "Filter using complete.cases()…\nThe complete.cases() function returns a logical vector for which TRUE reflects the row has complete information and no missing cases. Using complete.cases() along with filter(), you would retain all rows TRUE rows.\n\nDAT %&gt;%\n  dplyr::filter(., complete.cases(.))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
   },
   {
-    "objectID": "modules/Introduction/index.html",
-    "href": "modules/Introduction/index.html",
-    "title": "Modules x",
-    "section": "",
-    "text": "#source(here::here(\"R\", \"_common.R\"))\n# from source\nslide_order &lt;- tolower(c(\"02-content.qmd\", \"01-content.qmd\", \"Introduction\"))\nslide_name &lt;- tolower(basename(this.path::this.path()))\nslide_name &lt;- \"Introduction\"\ntesting\nWelcome to the orientation learning module for PSYC 167. We have a lot of ground to cover this semester and in return you will have much to showcase for yourself.\nIf you are willing to embrace challenge and troubleshooting, you will walk away with:\nWarning: If you are not up for the challenge, you may feel overwhelmed, likely be miserable, and will want to give up. If that’s you, there are other courses that may be a better fit for you.\nWe will cover everything here and more on the first day of class. See you there."
-  },
-  {
-    "objectID": "modules/Introduction/index.html#goals",
-    "href": "modules/Introduction/index.html#goals",
-    "title": "Modules x",
-    "section": "Goals",
-    "text": "Goals\n\nGeneral course orientation\nget you ready for the first week"
-  },
-  {
-    "objectID": "modules/Introduction/index.html#read",
-    "href": "modules/Introduction/index.html#read",
-    "title": "Modules x",
-    "section": "Read",
-    "text": "Read\nRead the syllabus for this course."
-  },
-  {
-    "objectID": "modules/Introduction/index.html#getting-started-goals",
-    "href": "modules/Introduction/index.html#getting-started-goals",
-    "title": "Modules x",
-    "section": "Getting started goals",
-    "text": "Getting started goals\nThere are many possibilities for technical difficulties as we get started. The computer room is equipped with the software that we need, however, I strongly encourage you to install the necessary software on your own computer.\nThroughout the semester we will be using software called R, Rstudio, quarto, and github. All of this software is free and open-source, and can be installed on windows, mac, or linux."
-  },
-  {
-    "objectID": "modules/Introduction/index.html#week-1-assignment",
-    "href": "modules/Introduction/index.html#week-1-assignment",
-    "title": "Modules x",
-    "section": "Week 1 assignment",
-    "text": "Week 1 assignment\n\nenter here"
-  },
-  {
-    "objectID": "modules/Introduction/index.html#more-goals-for-week-1",
-    "href": "modules/Introduction/index.html#more-goals-for-week-1",
-    "title": "Modules x",
-    "section": "More Goals for Week 1",
-    "text": "More Goals for Week 1"
-  },
-  {
     "objectID": "modules/Introduction/introduction.html",
     "href": "modules/Introduction/introduction.html",
     "title": "Introduction",
@@ -438,14 +403,14 @@
     "href": "modules/index.html",
     "title": "Modules",
     "section": "",
-    "text": "This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.).\nThe modules consists of content from chapters of various textbooks that are freely available:"
+    "text": "This course consists of various content modules that introduce students to data visualization techniques using R. Techniques, however, should not be applied haphazardly but instead with respect to the biological and cognitive limitations of the user. The general principles of data visualization taught can be applied to programming languages other than R (e.g., Python, D3, etc.)."
   },
   {
     "objectID": "modules/index.html#module-structure",
     "href": "modules/index.html#module-structure",
     "title": "Modules",
     "section": "Module structure",
-    "text": "Module structure\nIn general, modules will contain readings, additional resources, and weekly assignments.\nThe modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing.\n\n#mtcars\n\n\n#library(dplyr)"
+    "text": "Module structure\nIn general, modules will contain readings, additional resources, and weekly assignments.\nThe modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing."
   },
   {
     "objectID": "resources/dataviz_readings.html",
@@ -775,12 +740,5 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
-  },
-  {
-    "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
-    "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
-    "title": "Data frame manipulation and wrangling",
-    "section": "",
-    "text": "We will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
   }
 ]
