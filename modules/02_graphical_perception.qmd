@@ -12,9 +12,19 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #| label: load-packages
 #| include: false
 
-
 ```
+
+# **Overview**
+
+In this module, we will address some aspects of how people perceive elements of data visualizations. You will likely learn that you are not as accurate as you might have thought at extracting data from visual representations. There will be illusions. 
+
+# **To Do**
+
+## **Readings**
+
+- [Looking at Data](https://socviz.co/lookatdata.html#lookatdata) 
 
 # **Under Construction**
 
 ## **Content Pending**
+

@@ -102,14 +102,14 @@
     "href": "modules/03_reading_data_files.html",
     "title": "Reading data files",
     "section": "",
-    "text": "In this module, you will learn how to read and write data files in different formats.\n\n\n\n\n\n\n\n\n\n\n{readxl} 1.4.3: for reading Excel spreadsheets\n{readr} 2.1.4: for reading .csv, .tsv, and .fwf files"
+    "text": "In this module, you will learn how to read and write data files in different formats."
   },
   {
     "objectID": "modules/03_reading_data_files.html#libraries",
     "href": "modules/03_reading_data_files.html#libraries",
     "title": "Reading data files",
-    "section": "",
-    "text": "{readxl} 1.4.3: for reading Excel spreadsheets\n{readr} 2.1.4: for reading .csv, .tsv, and .fwf files"
+    "section": "Libraries",
+    "text": "Libraries\n\n{readxl} 1.4.3: for reading Excel spreadsheets\n{readr} 2.1.4: for reading .csv, .tsv, and .fwf files"
   },
   {
     "objectID": "modules/03_reading_data_files.html#reading-excel-spreadsheets-with-readxl",
@@ -761,5 +761,26 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
+  },
+  {
+    "objectID": "modules/03_reading_data_files.html#readings",
+    "href": "modules/03_reading_data_files.html#readings",
+    "title": "Reading data files",
+    "section": "Readings",
+    "text": "Readings\n\nR Workflow Basics\nLooking at Data\nGeneral Wrangling: Sections 5.1 up through 5.5"
+  },
+  {
+    "objectID": "modules/03_reading_data_files.html#task",
+    "href": "modules/03_reading_data_files.html#task",
+    "title": "Reading data files",
+    "section": "Task",
+    "text": "Task\n\nCreate a GitHub account if you don’t have one (this may come in handy for projects and a blog if you want)"
+  },
+  {
+    "objectID": "modules/Introduction/index.html",
+    "href": "modules/Introduction/index.html",
+    "title": "junk",
+    "section": "",
+    "text": "If you found this, you have way too much time on your hands or are way too curious."
   }
 ]

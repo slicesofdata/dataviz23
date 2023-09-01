@@ -18,12 +18,19 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 # **Overview**
 
-In this module, you will learn how to read and write data files in different formats.
+In this module, you will learn how to read and write data files in different formats. 
+
+# **To Do**
 
 ## **Readings**
 
-- 
-- 
+- [R Workflow Basics](https://r4ds.had.co.nz/workflow-basics.html)
+- [General Wrangling: Sections 5.1 up through 5.5](https://r4ds.had.co.nz/transform.html#introduction-2)
+
+
+## **Task**
+- [Create a GitHub account](https://github.com/) if you don’t have one (this may come in handy for projects and a blog if you want)
+
 
 ## **Libraries** 
 
