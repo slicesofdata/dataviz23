@@ -23,9 +23,9 @@ For this course, we will use R and RStudio for manipulating data and creating da
 -   Install RStudio
 -   Configure RStudio
 
-## **Determine the version of your computer\'s operating system** 
+## **Determine the version of your computer's operating system**
 
-Your version of operating system will dictate which version of R to download and install. Make note of your computer\'s operating system.
+Your version of operating system will dictate which version of R to download and install. Make note of your computer's operating system.
 
 ***Windows*** systemsare easier and Windows 10 and 11 operating systems will both use the same R versions.
 
@@ -43,19 +43,21 @@ If you do not have a laptop (let me know) or do not have 5GB of hard drive space
 
 2. Remote Desktop Protocol  (No limit on compute hours) (contact me if interested)
 
-## **Download R** 
+## **Download R**
 
-Once you know your processor, navigate to <https://cran.r-project.org/> and in the \"**Download and Install R**\" section, select your operating system. You can also select from below and follow the indented sections that follow.
+Once you know your processor, navigate to <https://cran.r-project.org/> and in the "**Download and Install R**" section, select your operating system. You can also select from below and follow the indented sections that follow.
 
--    [Download R for Linux](https://cran.r-project.org/bin/linux/) ([Debian](https://cran.r-project.org/bin/linux/debian), [Fedora/Redhat](https://cran.r-project.org/bin/linux/fedora), [Ubuntu) ](https://cran.r-project.org/bin/linux/ubuntu)
+-   [Download R for Linux](https://cran.r-project.org/bin/linux/) ([Debian](https://cran.r-project.org/bin/linux/debian), [Fedora/Redhat](https://cran.r-project.org/bin/linux/fedora), [Ubuntu)](https://cran.r-project.org/bin/linux/ubuntu)
 
--    [Download R for macOS](https://cran.r-project.org/bin/macosx/)
+-   [Download R for macOS](https://cran.r-project.org/bin/macosx/)
 
--    [Download R for Windows](https://cran.r-project.org/bin/windows/)
+-   [Download R for Windows](https://cran.r-project.org/bin/windows/)
 
-    ***Windows*** users should select the **base** version of R and download version **4.3.1** **(no other version)** to your computer. If this version is not on the main page, go to the \"Other Builds\" section and select \"previous releases\" and download the correct version.
+```         
+***Windows*** users should select the **base** version of R and download version **4.3.1** **(no other version)** to your computer. If this version is not on the main page, go to the \"Other Builds\" section and select \"previous releases\" and download the correct version.
 
-    ***Mac*** users should download either **R-4.3.1.pkg** or **R-4.3.1-x86_64.pkg** version depending on the cpu noted earlier. **Do not** download any version other than 4.3.1 and please do not update throughout the semester.
+***Mac*** users should download either **R-4.3.1.pkg** or **R-4.3.1-x86_64.pkg** version depending on the cpu noted earlier. **Do not** download any version other than 4.3.1 and please do not update throughout the semester.
+```
 
 ## **Download RStudio**
 
@@ -85,7 +87,7 @@ Installing should be easy and you can accept all of the defaults although the de
 
 *Download and Install XQuartz*
 
-Some functions in R require an \"X11 Server\" and/or libraries associated with an X11 server. Apple does not provide this software with OS X anymore so unfortunately you have to do it on your own via a third-party application called XQuartz for **OS X 10.9 or later**.
+Some functions in R require an "X11 Server" and/or libraries associated with an X11 server. Apple does not provide this software with OS X anymore so unfortunately you have to do it on your own via a third-party application called XQuartz for **OS X 10.9 or later**.
 
 Use the url below to download the XQuartz file and save it to your computer. Follow the same install instructions as above for installing the XQuartz file.
 
@@ -97,10 +99,10 @@ Use the url below to download the XQuartz file and save it to your computer. Fol
 
 If RStudio and R are communicating correctly, you should see an RStudio window open with the R console opened which should look similar to that shown below. Your R version should be listed at the top of the console (4.3.1 **Beagle Scouts**).
 
-## **Configure RStudio** 
+## **Configure RStudio**
 
 A. Go to *Tools -\> Global Options* under the *General + Basic* Tab
 
 · **R Sessions -\> R version:** There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.
 
-B. **Other options**:Check the other checkboxes as indicated in the images below.
+B. **Other options**: Check the other check boxes as indicated in the images below.

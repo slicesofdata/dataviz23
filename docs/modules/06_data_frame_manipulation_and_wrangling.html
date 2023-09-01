@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-08-28">
+<meta name="dcterms.date" content="2023-09-01">
 
 <title>PSYC167 - Data frame manipulation and wrangling</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -183,6 +217,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../modules/06_reading_data_files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Reading data files</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../modules/07_data_subsets_and_summaries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Data subsets and summaries</strong></span></a>
   </div>
@@ -324,10 +364,47 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#under-construction" id="toc-under-construction" class="nav-link active" data-scroll-target="#under-construction"><strong>Under Construction</strong></a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><strong>Overview</strong></a>
   <ul class="collapse">
-  <li><a href="#content-pending" id="toc-content-pending" class="nav-link" data-scroll-target="#content-pending"><strong>Content Pending</strong></a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><strong>Libraries</strong></a></li>
+  <li><a href="#external-functions" id="toc-external-functions" class="nav-link" data-scroll-target="#external-functions"><strong>External Functions</strong></a></li>
   </ul></li>
+  <li><a href="#a-grammar-for-data-wrangling" id="toc-a-grammar-for-data-wrangling" class="nav-link" data-scroll-target="#a-grammar-for-data-wrangling"><strong>A Grammar for Data Wrangling</strong></a></li>
+  <li><a href="#some-common-ways-for-selecting-variables-using-dplyr" id="toc-some-common-ways-for-selecting-variables-using-dplyr" class="nav-link" data-scroll-target="#some-common-ways-for-selecting-variables-using-dplyr"><strong>Some Common Ways for Selecting Variables Using <code>{dplyr}</code></strong></a>
+  <ul class="collapse">
+  <li><a href="#select-variables-starting-with-or-ending-with-certain-characters" id="toc-select-variables-starting-with-or-ending-with-certain-characters" class="nav-link" data-scroll-target="#select-variables-starting-with-or-ending-with-certain-characters"><em>Select Variables Starting with or Ending with Certain Characters</em></a></li>
+  <li><a href="#selecting-and-selecting-out-variables-bybetween-index" id="toc-selecting-and-selecting-out-variables-bybetween-index" class="nav-link" data-scroll-target="#selecting-and-selecting-out-variables-bybetween-index"><em>Selecting and Selecting Out Variables By/Between Index</em></a></li>
+  <li><a href="#selecting-and-selecting-out-variables-by-or-between-character-name" id="toc-selecting-and-selecting-out-variables-by-or-between-character-name" class="nav-link" data-scroll-target="#selecting-and-selecting-out-variables-by-or-between-character-name"><em>Selecting and Selecting Out Variables By or Between Character Name</em></a></li>
+  <li><a href="#selecting-and-selecting-out-variables-characters-in-their-names" id="toc-selecting-and-selecting-out-variables-characters-in-their-names" class="nav-link" data-scroll-target="#selecting-and-selecting-out-variables-characters-in-their-names"><em>Selecting and Selecting Out Variables Characters in Their Names</em></a></li>
+  <li><a href="#selecting-and-selecting-out-variables-by-type" id="toc-selecting-and-selecting-out-variables-by-type" class="nav-link" data-scroll-target="#selecting-and-selecting-out-variables-by-type"><em>Selecting and Selecting Out Variables by Type</em></a></li>
+  </ul></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data"><strong>Cleaning Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#removing-duplicate-rows-using-distinct" id="toc-removing-duplicate-rows-using-distinct" class="nav-link" data-scroll-target="#removing-duplicate-rows-using-distinct"><em>Removing duplicate rows using <code>distinct()</code></em></a></li>
+  </ul></li>
+  <li><a href="#filtering-using-dplyr-and-understanding-filtering-operators" id="toc-filtering-using-dplyr-and-understanding-filtering-operators" class="nav-link" data-scroll-target="#filtering-using-dplyr-and-understanding-filtering-operators"><strong>Filtering using {dplyr} and Understanding Filtering Operators</strong></a></li>
+  <li><a href="#piping-multiple-filter-function-calls" id="toc-piping-multiple-filter-function-calls" class="nav-link" data-scroll-target="#piping-multiple-filter-function-calls"><strong>Piping Multiple Filter Function Calls</strong></a></li>
+  <li><a href="#filtering-cases-by-character-namesstring-values" id="toc-filtering-cases-by-character-namesstring-values" class="nav-link" data-scroll-target="#filtering-cases-by-character-namesstring-values"><strong>Filtering Cases by Character Names/String Values </strong></a>
+  <ul class="collapse">
+  <li><a href="#filter-cases-using" id="toc-filter-cases-using" class="nav-link" data-scroll-target="#filter-cases-using"><em>Filter Cases using <code>==</code></em></a></li>
+  </ul></li>
+  <li><a href="#filtering-cases-by-value" id="toc-filtering-cases-by-value" class="nav-link" data-scroll-target="#filtering-cases-by-value"><strong>Filtering Cases by Value</strong></a>
+  <ul class="collapse">
+  <li><a href="#filter-by-and-or-or" id="toc-filter-by-and-or-or" class="nav-link" data-scroll-target="#filter-by-and-or-or"><em>Filter by <code>&lt;</code> and <code>&gt;</code> or <code>&lt;=</code> or <code>&gt;=</code>…</em></a></li>
+  <li><a href="#filter-cases-by-conditional-x-or-y-using-operator" id="toc-filter-cases-by-conditional-x-or-y-using-operator" class="nav-link" data-scroll-target="#filter-cases-by-conditional-x-or-y-using-operator"><strong>Filter Cases by Conditional X <em>or</em> Y Using <code>|</code> Operator…</strong></a></li>
+  <li><a href="#filter-cases-between-values-with-between" id="toc-filter-cases-between-values-with-between" class="nav-link" data-scroll-target="#filter-cases-between-values-with-between"><strong>Filter Cases Between Values with <code>between()</code></strong></a></li>
+  <li><a href="#filter-by-range-using-the-in-operator-this-is-in-meaning-in" id="toc-filter-by-range-using-the-in-operator-this-is-in-meaning-in" class="nav-link" data-scroll-target="#filter-by-range-using-the-in-operator-this-is-in-meaning-in"><em>Filter by range using the <code>%in%</code> operator (this is IN meaning in)</em></a></li>
+  <li><a href="#filter-by-exclusion" id="toc-filter-by-exclusion" class="nav-link" data-scroll-target="#filter-by-exclusion"><em>Filter by exclusion</em></a></li>
+  <li><a href="#filter-by-conditional-x-and-y-using-operator" id="toc-filter-by-conditional-x-and-y-using-operator" class="nav-link" data-scroll-target="#filter-by-conditional-x-and-y-using-operator"><em>Filter by conditional X and Y using <code>&amp;</code> operator…</em></a></li>
+  </ul></li>
+  <li><a href="#filter-cases-containing-characters-using-stringrstr_detect-and-in" id="toc-filter-cases-containing-characters-using-stringrstr_detect-and-in" class="nav-link" data-scroll-target="#filter-cases-containing-characters-using-stringrstr_detect-and-in"><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>…</strong></a></li>
+  <li><a href="#filtering-missing-data-nas" id="toc-filtering-missing-data-nas" class="nav-link" data-scroll-target="#filtering-missing-data-nas"><strong>Filtering Missing Data (<code>NA</code>’s)</strong></a>
+  <ul class="collapse">
+  <li><a href="#filter-using-na.omit" id="toc-filter-using-na.omit" class="nav-link" data-scroll-target="#filter-using-na.omit"><em>Filter using <code>na.omit()</code>…</em></a></li>
+  <li><a href="#filter-using-is.na-and-is.na" id="toc-filter-using-is.na-and-is.na" class="nav-link" data-scroll-target="#filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>…</em></a></li>
+  <li><a href="#filter-using-complete.cases" id="toc-filter-using-complete.cases" class="nav-link" data-scroll-target="#filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>…</em></a></li>
+  </ul></li>
+  <li><a href="#the-data-manipulation-workflow-putting-it-all-together" id="toc-the-data-manipulation-workflow-putting-it-all-together" class="nav-link" data-scroll-target="#the-data-manipulation-workflow-putting-it-all-together"><strong>The Data Manipulation Workflow: Putting It All Together</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -353,7 +430,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 28, 2023</p>
+      <p class="date">September 1, 2023</p>
     </div>
   </div>
   
@@ -363,13 +440,1237 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="under-construction" class="level1">
-<h1><strong>Under Construction</strong></h1>
-<section id="content-pending" class="level2">
-<h2 class="anchored" data-anchor-id="content-pending"><strong>Content Pending</strong></h2>
-
-
+<section id="overview" class="level1">
+<h1><strong>Overview</strong></h1>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries"><strong>Libraries</strong></h2>
+<ul>
+<li><strong>{dplyr}</strong>: for selecting, filtering, and mutating</li>
+<li><strong>{magrittr}</strong>: for code clarity and piping data frame objects</li>
+<li><strong>{stringr}</strong>: for working with strings</li>
+</ul>
 </section>
+<section id="external-functions" class="level2">
+<h2 class="anchored" data-anchor-id="external-functions"><strong>External Functions</strong></h2>
+<p>Provided in class:</p>
+<p><code>view_html()</code>: from <code>/r/my_functions.R</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"r"</span>, <span class="st">"my_functions.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will work with a few different libraries for data manipulation. Let’s load them into our work space using <code>library()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Make note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence.</p>
+</section>
+</section>
+<section id="a-grammar-for-data-wrangling" class="level1">
+<h1><strong>A Grammar for Data Wrangling</strong></h1>
+<p>The <strong>{dplyr}</strong> package presents a type of grammar for wrangling data (H. Wickham and Francois 2020). <strong>{dplyr}</strong> is part of the <strong>{tidyverse}</strong> ecosystem which loads using <code>library(tidyverse)</code>, or specifically using <code>library(dplyr)</code>. <strong>{dplyr}</strong> also imports functions from <strong>{tidyselect}</strong>, which is also part of the <strong>{tidyverse}</strong> ecosystem.</p>
+<p>The functions from any <code>R</code> package can be called after loading the package library. One does not need to reference the package explicitly when calling a function but to avoid confusion, we will often reference the package/library and the function together (e.g., <code>package::function()</code>).</p>
+<p>Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data (often by groups/factors). etc. Consequently, there are five main function verbs for working with data in a data frame: <code>select</code>, <code>filter</code>, <code>mutate</code>, <code>arange</code>, and <code>summarize</code>.</p>
+<ul>
+<li><code>select(dataframe, variables_to_select)</code>: subset by columns</li>
+<li><code>mutate(dataframe, variables_to_create)</code> and <code>dplyr::rename()</code>: add or modify existing columns</li>
+<li><code>filter(dataframe, rows_to_select)</code>: subset by rows</li>
+<li><code>arrange(dataframe, variable_to_sort_by)</code>: sort rows</li>
+<li><code>summarize(dataframe, procedures_for_summarizing)</code> in conjunction with <code>dplyr::group_by()</code>: aggregate the data in some way</li>
+</ul>
+</section>
+<section id="some-common-ways-for-selecting-variables-using-dplyr" class="level1">
+<h1><strong>Some Common Ways for Selecting Variables Using <code>{dplyr}</code></strong></h1>
+<p>Using <code>select()</code>, you can select columns/variables from a data frame. The variables you select are retained and variables omitted that you don’t select are omitted in the returned data frame.</p>
+<p>If you are not piping a data frame from a previous object using either <code>|&gt;</code> (now in base <code>R</code>) or <code>%&gt;%</code> (from <strong>{magrittr}</strong>), the first argument passed into <code>select()</code> will be the data frame. The second and subsequent arguments can be column variables you wish to select from the data frame. <code>select(mydataframe, myvars)</code></p>
+<p>If piping a data frame with <strong>{magrittr}</strong>, <code>.</code> or <code>.data</code> will serve to reference the inherited data frame. This detail is not needed but adding it serves as a reminer that the data frame is the first argument of the function.</p>
+<pre><code>dataframe %&gt;%
+   select(., myvars)</code></pre>
+<p>Variables can be passed separately without quotes or collectively as a character vector.</p>
+<p>Passing variables separately by name:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., Murder, Assault) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder Assault
+Alabama      13.2     236
+Alaska       10.0     263
+Arizona       8.1     294
+Arkansas      8.8     190
+California    9.0     276
+Colorado      7.9     204</code></pre>
+</div>
+</div>
+<p><em>Note:</em> passing variables by name does not work with <code>base R</code> manipulation, you need to pass the name as a string.</p>
+<p>Passing variables separately as characters:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="st">"Murder"</span>, <span class="st">"Assault"</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder Assault
+Alabama      13.2     236
+Alaska       10.0     263
+Arizona       8.1     294
+Arkansas      8.8     190
+California    9.0     276
+Colorado      7.9     204</code></pre>
+</div>
+</div>
+<p>Passing a character vector (more like you would do in <code>base R</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">c</span>(<span class="st">"Murder"</span>, <span class="st">"Assault"</span>)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder Assault
+Alabama      13.2     236
+Alaska       10.0     263
+Arizona       8.1     294
+Arkansas      8.8     190
+California    9.0     276
+Colorado      7.9     204</code></pre>
+</div>
+</div>
+<p>Passing an object holding a character vector containing two elements:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>keep_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Murder"</span>, <span class="st">"Assault"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., keep_vars) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %&gt;% select(keep_vars)
+
+  # Now:
+  data %&gt;% select(all_of(keep_vars))
+
+See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder Assault
+Alabama      13.2     236
+Alaska       10.0     263
+Arizona       8.1     294
+Arkansas      8.8     190
+California    9.0     276
+Colorado      7.9     204</code></pre>
+</div>
+</div>
+<section id="select-variables-starting-with-or-ending-with-certain-characters" class="level2">
+<h2 class="anchored" data-anchor-id="select-variables-starting-with-or-ending-with-certain-characters"><em>Select Variables Starting with or Ending with Certain Characters</em></h2>
+<p>One thing about <strong>{dplyr}</strong>, when you load the library, there are functions from other libraries that are imported along with <strong>{dplyr}</strong>’s own functions. These important functions are designed to work with each other, so the people who maintain the libraries have packaged them up nicely so you don’t have to load separate libraries.</p>
+<p>Many of the functions are imported from the <strong>{tidyselect}</strong> library and these functions are what give you additional manipulation ability. Some imported functions are: <code>all_of()</code>, <code>any_of()</code>, <code>contains()</code>, <code>ends_with()</code>, <code>everything()</code>, <code>last_col()</code>, <code>matches()</code>, and <code>starts_with()</code>.</p>
+<p>With functions like <code>starts_with()</code>, <code>contains()</code>, and <code>ends_with()</code>, you can select variables with character patterns in their names.</p>
+<p>Rather that passing the names of the variables as the second argument (e.g., <code>c("Murder", "Assault")</code>), you would pass the helper function, say <code>starts_with()</code>. Whatever <code>starts_with()</code> returns is what gets passed to <code>select()</code> as the variables. This is what is referred to as functional programming. Rather than coding specifically what to do, you with utilize the task of another function to passed its returned object as an argument to another function.</p>
+<p>But first, we need to see what’s going on with these functions, like <code>starts_with()</code>. For more, use <code>?starts_with</code>.</p>
+<p><code>starts_with(match, ignore.case = TRUE, vars = NULL)</code></p>
+<p>Notice the arguments we need to pass:</p>
+<ul>
+<li><code>match</code>: A character vector</li>
+<li><code>ignore.case</code>: If <code>TRUE</code>, the default, ignores case when matching names. This is most flexible.</li>
+<li><code>vars</code>: A character vector of variable names. If not supplied, the variables are taken from the current selection context (as established by functions like <code>select()</code> or <code>pivot_longer()</code>).</li>
+</ul>
+<p>Let’s just try out <code>starts_with()</code> on its own. Let’s set a required pattern <code>match = some character</code> and because <code>vars = NULL</code> by default, let’s just set <code>vars = some character vector</code>. Note that <code>vars</code> is not the second argument, so you will want to name it in the function call.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">starts_with</span>(<span class="at">match =</span> <span class="st">"a"</span>, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>integer(0)</code></pre>
+</div>
+</div>
+<p>Returns <code>integer(0)</code> which is speak for “there is no match”. Hmm, OK. Let’s try another character.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">starts_with</span>(<span class="at">match =</span> <span class="st">"b"</span>, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p>OK, so now an integer is returned (yes, try <code>is.integer()</code> if you don’t believe me).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="fu">starts_with</span>(<span class="st">"b"</span>, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Importantly, the value refers to the element index/position in the <code>vars</code> vector. Because the third string <code>"Bye"</code> starts with <code>"b"</code>, that’s what is returned.</p>
+<p>Try something else…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">starts_with</span>(<span class="st">"h"</span>, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2</code></pre>
+</div>
+</div>
+<p>Now a vector with length = 2 is returned, representing both the first and the second elements start with “h”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">starts_with</span>(<span class="st">"h"</span>, <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>See, it’s really a vector containing the element(s) of the <code>vars</code> vector matching the pattern.</p>
+<p>And yes, this the letter casing is ignored because the default <code>ignore.case = TRUE</code>. Set to <code>FALSE</code> if you want your match to be case sensitive.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">starts_with</span>(<span class="st">"h"</span>, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">vars =</span> <span class="fu">c</span>(<span class="st">"Hello"</span>, <span class="st">"Hi"</span>, <span class="st">"Bye"</span>), </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">ignore.case =</span> F</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>integer(0)</code></pre>
+</div>
+</div>
+<p>OK, no matches.</p>
+<p>You will typically use <code>starts_with()</code> along with other functions. When using <code>starts_with()</code> in the context of <code>select()</code>, the <code>vars</code> argument is essentially passing <code>vars = the names of the columns of the data frame passed to select()</code>.</p>
+<p>Example:</p>
+<pre><code>select(mydataframe,` 
+    starts_with(match = "my pattern",
+                vars = "var names of mydataframe"))</code></pre>
+<p>Without piping…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(USArrests, <span class="fu">starts_with</span>(<span class="st">"m"</span>)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder
+Alabama      13.2
+Alaska       10.0
+Arizona       8.1
+Arkansas      8.8
+California    9.0
+Colorado      7.9</code></pre>
+</div>
+</div>
+<p>With piping…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"m"</span>)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Murder
+Alabama      13.2
+Alaska       10.0
+Arizona       8.1
+Arkansas      8.8
+California    9.0
+Colorado      7.9</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>USArrests <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">ends_with</span>(<span class="st">"t"</span>)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Assault
+Alabama        236
+Alaska         263
+Arizona        294
+Arkansas       190
+California     276
+Colorado       204</code></pre>
+</div>
+</div>
+</section>
+<section id="selecting-and-selecting-out-variables-bybetween-index" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-and-selecting-out-variables-bybetween-index"><em>Selecting and Selecting Out Variables By/Between Index</em></h2>
+<ul>
+<li><p><code>select(., 1,2)</code>: select first and second</p></li>
+<li><p><code>select(., c(1,2))</code>: select first and second</p></li>
+<li><p><code>select(., -c(1,2))</code>: select out first and second</p></li>
+<li><p><code>select(., 1:2)</code>: select first through second</p></li>
+<li><p><code>select(., c(1:2))</code>: select first through second</p></li>
+<li><p><code>select(., -c(1:2))</code>: select out first through second</p></li>
+</ul>
+<p><em>Potential Recommendation</em>: use options utilizing <code>c()</code> as this habit will be more versatile with <code>base R</code> functionality. However, online solutions will likely not take this approach.</p>
+<p>Let’s make a data frame to work with first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Id  =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">100</span>, <span class="dv">105</span>),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="fu">c</span>(<span class="st">'male'</span>, <span class="st">'female'</span>, <span class="st">'Male'</span>, <span class="cn">NA</span>, <span class="st">'man'</span>, <span class="st">"male"</span>, <span class="st">"neither"</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">33</span>, <span class="dv">27</span>, <span class="dv">40</span>, <span class="dv">44</span>, <span class="dv">25</span>, <span class="dv">40</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Renting =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="cn">NA</span>, <span class="st">"yes"</span>, <span class="cn">NA</span>, <span class="st">"no"</span>, <span class="st">"yes"</span>, <span class="st">"yes"</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Select columns 1 and 2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="dv">1</span>,<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex
+1 100    male
+2 101  female
+3 102    Male
+4 103    &lt;NA&gt;
+5 104     man
+6 100    male
+7 105 neither</code></pre>
+</div>
+</div>
+<p>Select columns 1 and 2 as a vector containing values 1 and 2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex
+1 100    male
+2 101  female
+3 102    Male
+4 103    &lt;NA&gt;
+5 104     man
+6 100    male
+7 105 neither</code></pre>
+</div>
+</div>
+<p>Select out columns 1 and 2 as a vector containing values 1 and 2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Age Renting
+1  25     yes
+2  33    &lt;NA&gt;
+3  27     yes
+4  40    &lt;NA&gt;
+5  44      no
+6  25     yes
+7  40     yes</code></pre>
+</div>
+</div>
+<p>Select from columns 1 to 2 using the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex
+1 100    male
+2 101  female
+3 102    Male
+4 103    &lt;NA&gt;
+5 104     man
+6 100    male
+7 105 neither</code></pre>
+</div>
+</div>
+<p>Select from columns 1 through 3 using a vector containing the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age
+1 100    male  25
+2 101  female  33
+3 102    Male  27
+4 103    &lt;NA&gt;  40
+5 104     man  44
+6 100    male  25
+7 105 neither  40</code></pre>
+</div>
+</div>
+<p>Select out columns 1 through 3 using a vector containing the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))   <span class="co"># select out from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Renting
+1     yes
+2    &lt;NA&gt;
+3     yes
+4    &lt;NA&gt;
+5      no
+6     yes
+7     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="selecting-and-selecting-out-variables-by-or-between-character-name" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-and-selecting-out-variables-by-or-between-character-name"><em>Selecting and Selecting Out Variables By or Between Character Name</em></h2>
+<ul>
+<li><p><code>select(., "var1", "var2")</code></p></li>
+<li><p><code>select(., c("var1", "var2"))</code></p></li>
+<li><p><code>select(., -c("var1", "var2"))</code></p></li>
+<li><p><code>select(., var1:var2))</code></p></li>
+<li><p><code>select(., c("var1":"var2))</code></p></li>
+<li><p><code>select(., -c("var1":"var2))</code></p></li>
+</ul>
+<p><em>Recommendation</em>: use options utilizing <code>c()</code> as this will be more versatile with <code>base R</code> functionality.</p>
+<p>These also work but may lead to some confusion regarding usage of quotes:</p>
+<ul>
+<li><code>select(., var1, var2)</code></li>
+<li><code>select(., c(var1, var2))</code></li>
+<li><code>select(., -c(var1, var2))</code></li>
+</ul>
+<p>Select variables <code>Id</code> though <code>Age</code> using the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., Id<span class="sc">:</span>Age) <span class="co"># select from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age
+1 100    male  25
+2 101  female  33
+3 102    Male  27
+4 103    &lt;NA&gt;  40
+5 104     man  44
+6 100    male  25
+7 105 neither  40</code></pre>
+</div>
+</div>
+<p>Select variables <code>Id</code> though <code>Age</code> passed as strings using the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="st">"Id"</span><span class="sc">:</span><span class="st">"Age"</span>) <span class="co"># select from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age
+1 100    male  25
+2 101  female  33
+3 102    Male  27
+4 103    &lt;NA&gt;  40
+5 104     man  44
+6 100    male  25
+7 105 neither  40</code></pre>
+</div>
+</div>
+<p>Select variables <code>Id</code> though <code>Age</code> as a vector containing the variable names passed as strings and using the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="fu">c</span>(<span class="st">"Id"</span><span class="sc">:</span><span class="st">"Age"</span>)) <span class="co"># select from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age
+1 100    male  25
+2 101  female  33
+3 102    Male  27
+4 103    &lt;NA&gt;  40
+5 104     man  44
+6 100    male  25
+7 105 neither  40</code></pre>
+</div>
+</div>
+<p>Select out variables <code>Id</code> though <code>Age</code> as a vector containing the variable names passed as strings and using the <code>:</code> operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">c</span>(<span class="st">"Id"</span><span class="sc">:</span><span class="st">"Age"</span>))   <span class="co"># select out from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Renting
+1     yes
+2    &lt;NA&gt;
+3     yes
+4    &lt;NA&gt;
+5      no
+6     yes
+7     yes</code></pre>
+</div>
+</div>
+<p>You can also use the <code>!</code> operator to select <em>NOT</em> these variables (therefore, all others)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="sc">!</span><span class="fu">c</span>(<span class="st">"Id"</span><span class="sc">:</span><span class="st">"Age"</span>))   <span class="co"># select out from here to there</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Renting
+1     yes
+2    &lt;NA&gt;
+3     yes
+4    &lt;NA&gt;
+5      no
+6     yes
+7     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="selecting-and-selecting-out-variables-characters-in-their-names" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-and-selecting-out-variables-characters-in-their-names"><em>Selecting and Selecting Out Variables Characters in Their Names</em></h2>
+<ul>
+<li><code>select(., starts_with("characters"))</code></li>
+<li><code>select(., ends_with("characters"))</code></li>
+<li><code>select(., contains('e'))</code></li>
+</ul>
+<p>Select variables which start with character “i”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">'i'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id
+1 100
+2 101
+3 102
+4 103
+5 104
+6 100
+7 105</code></pre>
+</div>
+</div>
+<p>Select variables which DO NOT start with character “s”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">'s'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id Age Renting
+1 100  25     yes
+2 101  33    &lt;NA&gt;
+3 102  27     yes
+4 103  40    &lt;NA&gt;
+5 104  44      no
+6 100  25     yes
+7 105  40     yes</code></pre>
+</div>
+</div>
+<p>Select variables which end with character “e”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">ends_with</span>(<span class="st">'e'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Age
+1  25
+2  33
+3  27
+4  40
+5  44
+6  25
+7  40</code></pre>
+</div>
+</div>
+<p>Select variables which end with character “e”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">'e'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Renting
+1 100    male     yes
+2 101  female    &lt;NA&gt;
+3 102    Male     yes
+4 103    &lt;NA&gt;    &lt;NA&gt;
+5 104     man      no
+6 100    male     yes
+7 105 neither     yes</code></pre>
+</div>
+</div>
+<p>Select variables which contain character “g”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">contains</span>(<span class="st">'g'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Age Renting
+1  25     yes
+2  33    &lt;NA&gt;
+3  27     yes
+4  40    &lt;NA&gt;
+5  44      no
+6  25     yes
+7  40     yes</code></pre>
+</div>
+</div>
+<p>Select variables which DO NOT contain character “g”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">contains</span>(<span class="st">'g'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex
+1 100    male
+2 101  female
+3 102    Male
+4 103    &lt;NA&gt;
+5 104     man
+6 100    male
+7 105 neither</code></pre>
+</div>
+</div>
+<p>Note: The functions will return lowercase and uppercase variable name matches because the default behavior is <code>ignore.case = TRUE</code>. Set to <code>FALSE</code> if you want to perform precise surgery on the variables.</p>
+</section>
+<section id="selecting-and-selecting-out-variables-by-type" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-and-selecting-out-variables-by-type"><em>Selecting and Selecting Out Variables by Type</em></h2>
+<p>Select variables that are numeric:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id Age
+1 100  25
+2 101  33
+3 102  27
+4 103  40
+5 104  44
+6 100  25
+7 105  40</code></pre>
+</div>
+</div>
+<p>Select variables that are NOT numeric:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Sex Renting
+1    male     yes
+2  female    &lt;NA&gt;
+3    Male     yes
+4    &lt;NA&gt;    &lt;NA&gt;
+5     man      no
+6    male     yes
+7 neither     yes</code></pre>
+</div>
+</div>
+<p>Select variables that are character:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">where</span>(is.character))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Sex Renting
+1    male     yes
+2  female    &lt;NA&gt;
+3    Male     yes
+4    &lt;NA&gt;    &lt;NA&gt;
+5     man      no
+6    male     yes
+7 neither     yes</code></pre>
+</div>
+</div>
+<p>Select variables that are NOT character:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">where</span>(is.character))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id Age
+1 100  25
+2 101  33
+3 102  27
+4 103  40
+5 104  44
+6 100  25
+7 105  40</code></pre>
+</div>
+</div>
+<p>Select variables that are logical (<code>TRUE</code> to <code>FALSE</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="fu">where</span>(is.logical))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data frame with 0 columns and 7 rows</code></pre>
+</div>
+</div>
+<p>Select variables that are NOT logical (<code>TRUE</code> to <code>FALSE</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">where</span>(is.logical))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 104     man  44      no
+6 100    male  25     yes
+7 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="cleaning-data" class="level1">
+<h1><strong>Cleaning Data</strong></h1>
+<p>Data files are messy and as a result require cleaning. You will have missing rows, incorrect variable names, files with columns named the same, <code>NA</code>s, strings for numbers, duplicate rows of data, people who completed a survey twice, and all sorts of unimaginable and unbelievable data problems. So cleaning is important.</p>
+<p>Whereas <code>select()</code> is used for columns, <code>filter()</code> operates on rows. Data frame manipulation may involve keeping only certain rows for data, for example, male or female respondents, male respondents, those who do not contain missing values (e.g., <code>NA</code>s) for a specific column variable, who are of a certain age (or born in in certain year), who are above (or below) some acceptable criterion, etc.</p>
+<p>When a column variable has more than one value (e.g., check using <code>unique()</code> to determine the unique elements contained), you may wish to filter on some but not others.</p>
+<p>You may even need to filter rows in a data frame that are distinct (e.g., not duplicate responses). This is often a good first step in order to determine the size of the usable data set. <code>dplyr::distinct()</code> makes de-duplicating easy as this function will return only distinct rows.</p>
+<section id="removing-duplicate-rows-using-distinct" class="level2">
+<h2 class="anchored" data-anchor-id="removing-duplicate-rows-using-distinct"><em>Removing duplicate rows using <code>distinct()</code></em></h2>
+<ul>
+<li><code>dplyr::distinct()</code>: remove duplicate rows</li>
+<li><code>dplyr::distinct(., column)</code>: remove duplicate rows by column</li>
+<li><code>na.omit()</code>: remove any row with NA’s (missing values)</li>
+</ul>
+<p>Let’s use the simple <code>DAT</code> data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="co"># or with %&gt;% print() </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 104     man  44      no
+6 100    male  25     yes
+7 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Notice that rows 1 and 6 are the same person (e.g., Id) and have exactly the same data for all variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>DAT[<span class="dv">1</span>,] <span class="sc">==</span> DAT[<span class="dv">6</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Id  Sex  Age Renting
+1 TRUE TRUE TRUE    TRUE</code></pre>
+</div>
+</div>
+<p>Great that the rows are consistent but you don’t want their data twice. So let’s just remove any rows that are identical.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(.) <span class="co">#%&gt;%    # Remove exact duplicates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 104     man  44      no
+6 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>If you know each row is unique based on a variable in the data frame, you can also use <code>distinct()</code> to remove duplicates for a specific variable. Make sure that this variable specification is actually one that you would not want duplicates of.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span>             </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(., Id) <span class="co"># %&gt;% view_html(.) # Remove duplicates by variable; passes unique values for data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id
+1 100
+2 101
+3 102
+4 103
+5 104
+6 105</code></pre>
+</div>
+</div>
+<p>But this function simply returns the unique values in <code>Id</code>. To retain the variables, set <code>.keep_all = T</code>. If you want to remove duplicates and assign the cleaned data frame to an object, you would likely want to keep all of your variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span>             </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(., Id, <span class="at">.keep_all =</span> T) <span class="co">#%&gt;% view_html(.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 104     man  44      no
+6 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Notice, however, this only removed the last instance or <code>Id == 100</code>. Which row to include is a judgment call. The first, the last, neither, the average? Is there a correct answer?</p>
+</section>
+</section>
+<section id="filtering-using-dplyr-and-understanding-filtering-operators" class="level1">
+<h1><strong>Filtering using {dplyr} and Understanding Filtering Operators</strong></h1>
+<p>Filtering cases using the <code>dplyr::filter()</code> verbs works by removing rows that do not match a specific criterion and then by returning the data frame that omits the mismatched condition.</p>
+<p>Some useful filtering operators and functions include: <code>==</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&amp;</code>, <code>|</code>, <code>!</code>, <code>xor()</code>, <code>c()</code>, <code>is.na()</code>, <code>between()</code>, <code>near()</code>.</p>
+<p>Row/Observations/Cases can be filtered to “include” only certain matched conditions or can be filtered to “exclude” by negating those matched conditions. If the column variable <code>Sex</code> is in the data frame and cases are <code>'male'</code>, <code>'men'</code>, <code>'female'</code>, <code>'women'</code>, <code>'neither'</code>, <code>NA</code>, etc., you can specify the column <code>Sex</code> variable and then the row matching condition(s).</p>
+<p>The first argument in <code>dplyr::filter()</code> is a data frame, and the function all <code>dplyr::filter(DAT, Sex == 'female')</code> will filter the data frame named <code>DAT</code> to include rows for which the <code>sex</code> column equals <code>'female'</code>. In other words, <code>TRUE</code> rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(DAT, Sex <span class="sc">==</span> <span class="st">'female'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 101 female  33    &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Similarly, the function call <code>dplyr::filter(., Sex == 'male')</code> can be read “filter the data frame to include rows for which the value of <code>Sex == 'male'</code> is <code>TRUE</code>”.</p>
+<p>More flexibly, however, you could specify a vector containing acceptable strings using <code>c()</code>. <code>dplyr::filter(., Sex %in% c('male'))</code> filters the rows to include only those for which the value for <code>sex</code> is in the string vector which includes a single string,<code>'male'</code> whereas <code>dplyr::filter(., Sex %in% c('male', 'Man'))</code> filters the rows to include only those for which the value for <code>Sex</code> is in the string vector which includes <code>'male'</code> and <code>'Man'</code>. Cases containing <code>'Male'</code>, <code>'Men'</code> (R is a case-sensitive language), or <code>'female'</code>, for example, will not be included in the returned data frame because they do not match values in the string vector.</p>
+</section>
+<section id="piping-multiple-filter-function-calls" class="level1">
+<h1><strong>Piping Multiple Filter Function Calls</strong></h1>
+<p>In many cases, data filtering will involve different conditions for different column variables, so specifying them separately as separate lines of code is most appropriate.</p>
+<p>When passing a data frame using <code>%&gt;%</code> from <strong>{magrittr}</strong>, the first argument for the data frame can be specified using a <code>.</code> because the function inherits the data frame manipulated. However, <strong>{dplyr}</strong> also understand this so the <code>.</code> can also be omitted for convenience; this is the general practice you will see in forums like <a href="stackoverflow.com">stackoverflow.com</a>. Example to follow.</p>
+</section>
+<section id="filtering-cases-by-character-namesstring-values" class="level1">
+<h1><strong>Filtering Cases by Character Names/String Values </strong></h1>
+<section id="filter-cases-using" class="level2">
+<h2 class="anchored" data-anchor-id="filter-cases-using"><em>Filter Cases using <code>==</code></em></h2>
+<p>Filter rows for which the <code>Sex</code> variable is equal to the string <code>'female'</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'female'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 101 female  33    &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Filter rows for which the <code>Sex</code> variable is not equal to the string <code>'female'</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">!=</span> <span class="st">'female'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 102    Male  27     yes
+3 104     man  44      no
+4 100    male  25     yes
+5 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Filter rows for which the <code>Sex</code> variable is equal to the string <code>'female'</code> <strong>AND</strong> <code>Age</code> is greater than the numeric 27:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'female'</span> <span class="sc">&amp;</span> Age <span class="sc">&gt;</span> <span class="dv">27</span>) <span class="co"># this "AND" that</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 101 female  33    &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Filter rows for which the <code>Sex</code> variable is equal to the string <code>'female'</code> <strong>OR</strong> <code>Age</code> is greater than the numeric 27:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'female'</span> <span class="sc">|</span> Age <span class="sc">&gt;</span> <span class="dv">27</span>) <span class="co"># this "OR" that</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 101  female  33    &lt;NA&gt;
+2 103    &lt;NA&gt;  40    &lt;NA&gt;
+3 104     man  44      no
+4 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>A cleaner method involves separate lines of code. Although cleaner, this will not allow the “OR” option because the data frame that is returned from the first <code>filter()</code> is passed to the second <code>filter()</code> and all cases other than <code>"female"</code> have already been removed from the data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'female'</span>) <span class="sc">%&gt;%</span>   <span class="co"># keep female (and add another pipe)</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">&gt;=</span> <span class="dv">27</span>)             <span class="co"># keep only those equal to or older than 27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 101 female  33    &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="filtering-cases-by-value" class="level1">
+<h1><strong>Filtering Cases by Value</strong></h1>
+<section id="filter-by-and-or-or" class="level2">
+<h2 class="anchored" data-anchor-id="filter-by-and-or-or"><em>Filter by <code>&lt;</code> and <code>&gt;</code> or <code>&lt;=</code> or <code>&gt;=</code>…</em></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">&lt;</span> <span class="dv">40</span>)  <span class="co"># keep those less than </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 102   Male  27     yes
+4 100   male  25     yes</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">&gt;</span> <span class="dv">40</span>)  <span class="co"># keep older than</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id Sex Age Renting
+1 104 man  44      no</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">&gt;=</span> <span class="dv">40</span>)  <span class="co"># keep equal to or older than</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 103    &lt;NA&gt;  40    &lt;NA&gt;
+2 104     man  44      no
+3 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-cases-by-conditional-x-or-y-using-operator" class="level2">
+<h2 class="anchored" data-anchor-id="filter-cases-by-conditional-x-or-y-using-operator"><strong>Filter Cases by Conditional X <em>or</em> Y Using <code>|</code> Operator…</strong></h2>
+<p>Using the “OR” operator, <code>|</code>, cases can be included if “this” OR “that” condition.</p>
+<p>Filter numbers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">==</span> <span class="dv">25</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">40</span>)    <span class="co"># filter out numeric values IN a range</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 103    &lt;NA&gt;  40    &lt;NA&gt;
+3 100    male  25     yes
+4 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Filter characters:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'male'</span> <span class="sc">|</span> Sex <span class="sc">==</span> <span class="st">'female'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 100   male  25     yes</code></pre>
+</div>
+</div>
+<p>Although <code>dplyr::filter(sex %in% c('male', 'female'))</code> would be easier.</p>
+<p>Filter rows of variables of both types:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">==</span> <span class="st">'male'</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">27</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id  Sex Age Renting
+1 100 male  25     yes
+2 102 Male  27     yes
+3 100 male  25     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-cases-between-values-with-between" class="level2">
+<h2 class="anchored" data-anchor-id="filter-cases-between-values-with-between"><strong>Filter Cases Between Values with <code>between()</code></strong></h2>
+<p>Between ages 25 and 33:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., <span class="fu">between</span>(Age, <span class="dv">27</span>, <span class="dv">33</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 101 female  33    &lt;NA&gt;
+2 102   Male  27     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-by-range-using-the-in-operator-this-is-in-meaning-in" class="level2">
+<h2 class="anchored" data-anchor-id="filter-by-range-using-the-in-operator-this-is-in-meaning-in"><em>Filter by range using the <code>%in%</code> operator (this is IN meaning in)</em></h2>
+<p>Though less flexible than using <code>between()</code>, <code>%in%</code> may be easier to remember:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">%in%</span> <span class="dv">20</span><span class="sc">:</span><span class="dv">43</span>)    <span class="co"># filter out numeric values IN a range</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 100    male  25     yes
+6 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>One’s age is in the range from 20 through 43.</p>
+<p>If a vector object is already defined (e.g., <code>my_levels = c('male', 'female')</code>), you can use that for filtering also. Such approaches are useful when data manipulation involves reusing a reference as it simplifies coding and reduces errors because the specification is defined only once.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>my_levels <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'male'</span>, <span class="st">'female'</span>)</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Sex <span class="sc">%in%</span> my_levels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 100   male  25     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-by-exclusion" class="level2">
+<h2 class="anchored" data-anchor-id="filter-by-exclusion"><em>Filter by exclusion</em></h2>
+<p>When inclusion of variables is inappropriate, exclusion of them may be useful. The <code>!</code> operator means “NOT” in <code>R</code> so you can use that to accomplish the opposite of the statement. For example, <code>dplyr::filter(., !sex %in% c('male', NA))</code> will “filter the data frame to include rows in the <code>sex</code> column for which the value is NOT in the vector”.</p>
+<p>Exclude rows in the <code>Sex</code> variable that are <code>NA</code> or <code>'male'</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., <span class="sc">!</span>Sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'male'</span>, <span class="cn">NA</span>))  <span class="co"># keep only if NOT in vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 101  female  33    &lt;NA&gt;
+2 102    Male  27     yes
+3 104     man  44      no
+4 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Exclude rows in the <code>Sex</code> variable that are <code>Men</code> or <code>'male'</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., <span class="sc">!</span>Sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'male'</span>, <span class="st">'Men'</span>))  <span class="co"># keep only if NOT in vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 101  female  33    &lt;NA&gt;
+2 102    Male  27     yes
+3 103    &lt;NA&gt;  40    &lt;NA&gt;
+4 104     man  44      no
+5 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-by-conditional-x-and-y-using-operator" class="level2">
+<h2 class="anchored" data-anchor-id="filter-by-conditional-x-and-y-using-operator"><em>Filter by conditional X and Y using <code>&amp;</code> operator…</em></h2>
+<p>By range:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Id <span class="sc">&gt;=</span> <span class="dv">102</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;=</span> <span class="dv">43</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 102    Male  27     yes
+2 103    &lt;NA&gt;  40    &lt;NA&gt;
+3 105 neither  40     yes</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., Age <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;=</span> <span class="dv">43</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 100    male  25     yes
+6 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Note: Age 20:43 won’t work. Can you figure out why?</p>
+</section>
+</section>
+<section id="filter-cases-containing-characters-using-stringrstr_detect-and-in" class="level1">
+<h1><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>…</strong></h1>
+<p>If you want to filter cases that contain certain characters, unfortunately, you cannot use <code>contains()</code> as you would for variable names. For matching characters in levels of variables, you’ll need something like <code>stringr::str_detect()</code> or <code>grepl()</code>.</p>
+<ul>
+<li><code>stringr::str_detect()</code>: returns matching conditions</li>
+</ul>
+<p>The example below uses <code>str_detect()</code> to detect the presence of a character match and returns a logic vector with <code>TRUE</code>s for matching cases. When paired with <code>filter()</code>, the data frame is filtered by to contains cases that match the pattern for the variable.</p>
+<p>Example: <code>stringr::str_detect(my_variable, "pattern")</code>:</p>
+<p>Let’s look for levels of <code>Sex</code> for which <code>"ma"</code> is detected.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(., stringr<span class="sc">::</span><span class="fu">str_detect</span>(Sex, <span class="st">"ma"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 104    man  44      no
+4 100   male  25     yes</code></pre>
+</div>
+</div>
+<p>But the case for which <code>Sex = Male</code> is now missing. This is because <code>stringr::str_detect()</code> is a case-sensitive pattern match.</p>
+<p>You can fix this is a couple ways:</p>
+<ol type="1">
+<li>make the cases in <code>Sex</code> all lower case to <code>mutate()</code> the fix or</li>
+<li>to wrap <code>Sex</code> in <code>tolower()</code> to make cases lowercase.</li>
+</ol>
+<p>The first option might be better if you want to fix the problem in the data frame.</p>
+<p>Other casing functions are:</p>
+<ul>
+<li><code>tolower()</code>: returns lower case of string</li>
+<li><code>toupper()</code>: returns upper case of string</li>
+<li><code>tools::toTitleCase()</code>: returns Title Case (capitalize first letter of string)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="fu">tolower</span>(Sex), <span class="st">"ma"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 102   Male  27     yes
+4 104    man  44      no
+5 100   male  25     yes</code></pre>
+</div>
+</div>
+<p>For some might find this code difficult to read. In order to understand the code, you need to read it inside out like slices of an onion. First understand the first function as the returned value is passed to the next function and so forth.</p>
+<p>For example, elements of the <code>Sex</code> vector are converted to lower case and returned using <code>tolower()</code>. We can demonstrate this using only the vector from the data frame using the <code>$</code> operator, <code>DAT$Sex</code>.</p>
+<p>The initial vector:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>DAT<span class="sc">$</span>Sex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "male"    "female"  "Male"    NA        "man"     "male"    "neither"</code></pre>
+</div>
+</div>
+<p>To lowercase:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tolower</span>(DAT<span class="sc">$</span>Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "male"    "female"  "male"    NA        "man"     "male"    "neither"</code></pre>
+</div>
+</div>
+<p>Next, <code>stringr::str_detect()</code> will return a vector of <code>TRUE</code> or <code>FALSE</code> for all element positions of <code>DAT$Sex</code> for which the (now lowercase) string matches <code>"ma"</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_detect</span>(<span class="fu">tolower</span>(DAT<span class="sc">$</span>Sex), <span class="st">"ma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE  TRUE    NA  TRUE  TRUE FALSE</code></pre>
+</div>
+</div>
+<p>Another approach would be to perform the steps in pieces by first mutating the data frame so that elements in the <code>Sex</code> vector are converted to lowercase and then pipe that mutated data from to <code>filter()</code>.</p>
+<p>Briefly, we will introduce <code>dplyr::mutate()</code> to accomplish this goal. <code>mutate()</code> is used to add, update, etc. variables in a data frame or tibble.</p>
+<p>Mutate <code>Sex</code> using <code>mutate()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">Sex =</span> <span class="fu">tolower</span>(Sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    male  27     yes
+4 103    &lt;NA&gt;  40    &lt;NA&gt;
+5 104     man  44      no
+6 100    male  25     yes
+7 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Now mutate and pipe that new data frame using <code>%&gt;%</code> or <code>|&gt;</code> to be filtered using <code>filter()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">Sex =</span> <span class="fu">tolower</span>(Sex)) <span class="sc">%&gt;%</span></span>
+<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., stringr<span class="sc">::</span><span class="fu">str_detect</span>(Sex, <span class="st">"ma"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   male  25     yes
+2 101 female  33    &lt;NA&gt;
+3 102   male  27     yes
+4 104    man  44      no
+5 100   male  25     yes</code></pre>
+</div>
+</div>
+<p>Pairing this approach with <code>toTitleCase()</code> may be better as only the first letter will be capitalized and you are looking for “Ma”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">Sex =</span> tools<span class="sc">::</span><span class="fu">toTitleCase</span>(Sex)) <span class="sc">%&gt;%</span></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., stringr<span class="sc">::</span><span class="fu">str_detect</span>(Sex, <span class="st">"Ma"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id  Sex Age Renting
+1 100 Male  25     yes
+2 102 Male  27     yes
+3 104  Man  44      no
+4 100 Male  25     yes</code></pre>
+</div>
+</div>
+<p>But notice the <code>male</code> and <code>man</code> issue is still a problem.</p>
+<p>So what are the unique elements in <code>DAT$Sex</code>? Your friend is <code>unique()</code>. And maybe you are too.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(DAT<span class="sc">$</span>Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "male"    "female"  "Male"    NA        "man"     "neither"</code></pre>
+</div>
+</div>
+<p>Hard code a fix using <code>%in%</code> and <code>case_when()</code>. <code>case_when()</code> is <strong>{dplyr}</strong>’s solution for multiple-case conditional.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> <span class="fu">tolower</span>(Sex), <span class="co"># convert to lowercase first</span></span>
+<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> <span class="fu">case_when</span>(    <span class="co"># then recode cases when matched</span></span>
+<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>           Sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"man"</span>) <span class="sc">~</span> <span class="st">"Male"</span>,</span>
+<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a>           Sex <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"woman"</span>) <span class="sc">~</span> <span class="st">"Female"</span></span>
+<span id="cb150-7"><a href="#cb150-7" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb150-8"><a href="#cb150-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   Male  25     yes
+2 101 Female  33    &lt;NA&gt;
+3 102   Male  27     yes
+4 103   &lt;NA&gt;  40    &lt;NA&gt;
+5 104   Male  44      no
+6 100   Male  25     yes
+7 105   &lt;NA&gt;  40     yes</code></pre>
+</div>
+</div>
+<p>For a more flexible fix use <code>str_detect()</code>:</p>
+<p>BUT beware that the order of operations matters here. Because the string “female” contains characters “ma”, you could accidentally recode all “female” cases to “male” if you perform the <code>case_when()</code> conversion on “male” first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> <span class="fu">tolower</span>(Sex),   <span class="co"># convert first</span></span>
+<span id="cb152-4"><a href="#cb152-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> <span class="fu">case_when</span>(      <span class="co"># then recode</span></span>
+<span id="cb152-5"><a href="#cb152-5" aria-hidden="true" tabindex="-1"></a>           stringr<span class="sc">::</span><span class="fu">str_detect</span>(Sex, <span class="st">"fe"</span>) <span class="sc">~</span> <span class="st">"Female"</span>,</span>
+<span id="cb152-6"><a href="#cb152-6" aria-hidden="true" tabindex="-1"></a>           stringr<span class="sc">::</span><span class="fu">str_detect</span>(Sex, <span class="st">"ma"</span>) <span class="sc">~</span> <span class="st">"Male"</span>,</span>
+<span id="cb152-7"><a href="#cb152-7" aria-hidden="true" tabindex="-1"></a>         ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id    Sex Age Renting
+1 100   Male  25     yes
+2 101 Female  33    &lt;NA&gt;
+3 102   Male  27     yes
+4 103   &lt;NA&gt;  40    &lt;NA&gt;
+5 104   Male  44      no
+6 100   Male  25     yes
+7 105   &lt;NA&gt;  40     yes</code></pre>
+</div>
+</div>
+<p>Note that conditions in not declared in <code>case_when()</code> will be recoded as <code>NA</code>, which is what happens for <code>"neither"</code>. Make sure to include all ways you wish you recode cases.</p>
+</section>
+<section id="filtering-missing-data-nas" class="level1">
+<h1><strong>Filtering Missing Data (<code>NA</code>’s)</strong></h1>
+<p><code>is.na()</code> will return a logical vector for which <code>TRUE</code> represents there are missing values.</p>
+<p>Try on the entire data frame…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Id   Sex   Age Renting
+[1,] FALSE FALSE FALSE   FALSE
+[2,] FALSE FALSE FALSE    TRUE
+[3,] FALSE FALSE FALSE   FALSE
+[4,] FALSE  TRUE FALSE    TRUE
+[5,] FALSE FALSE FALSE   FALSE
+[6,] FALSE FALSE FALSE   FALSE
+[7,] FALSE FALSE FALSE   FALSE</code></pre>
+</div>
+</div>
+<p>You can see that some columns contain cases/rows with <code>TRUE</code> indicating the cell contains <code>NA</code>.</p>
+<p>The negation operator, <code>!</code>, will be used to illustrate some filtering approaches. Because <code>filter()</code> will filter out <code>FALSE</code> cases and retain <code>TRUE</code> ones, so you may sometimes need to negate a function so that you keep the rows you want to keep.</p>
+<ul>
+<li><code>na.omit()</code>: removes rows with NAs</li>
+<li><code>filter(., is.na(column_name))</code>: keep rows with NA in specific variable</li>
+<li><code>filter(., !is.na(column_name))</code>: remove rows with NA in specific variable</li>
+<li><code>filter(., complete.cases(.))</code>: remove rows with NAs</li>
+</ul>
+<section id="filter-using-na.omit" class="level2">
+<h2 class="anchored" data-anchor-id="filter-using-na.omit"><em>Filter using <code>na.omit()</code>…</em></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>(.) <span class="co">#%&gt;%     # omit any rows with NAs </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+3 102    Male  27     yes
+5 104     man  44      no
+6 100    male  25     yes
+7 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-using-is.na-and-is.na" class="level2">
+<h2 class="anchored" data-anchor-id="filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>…</em></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="fu">is.na</span>(Sex))       <span class="co"># keep NAs by variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id  Sex Age Renting
+1 103 &lt;NA&gt;  40    &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>But your goal may likely be to keep everything that is not <code>NA</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="sc">!</span><span class="fu">is.na</span>(Sex))      <span class="co"># remove NAs by variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 101  female  33    &lt;NA&gt;
+3 102    Male  27     yes
+4 104     man  44      no
+5 100    male  25     yes
+6 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>And filter step by step for another variable using <code>%&gt;%</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="sc">!</span><span class="fu">is.na</span>(Sex)) <span class="sc">%&gt;%</span>      </span>
+<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="sc">!</span><span class="fu">is.na</span>(Renting))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 102    Male  27     yes
+3 104     man  44      no
+4 100    male  25     yes
+5 105 neither  40     yes</code></pre>
+</div>
+</div>
+<p>Why separate lines if you can use <code>&amp;</code>? Weel, separate function calls on separate lines can also make code inclusion/exclusion easy.</p>
+<p>Comment out what you don’t want using <code>#</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter(., !is.na(Sex)) %&gt;%      </span></span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="sc">!</span><span class="fu">is.na</span>(Renting))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 102    Male  27     yes
+3 104     man  44      no
+4 100    male  25     yes
+5 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-using-complete.cases" class="level2">
+<h2 class="anchored" data-anchor-id="filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>…</em></h2>
+<p>The <code>complete.cases()</code> function returns a logical vector for which <code>TRUE</code> reflects the row has complete information and no missing cases. Using <code>complete.cases()</code> along with <code>filter()</code>, you would retain all rows <code>TRUE</code> rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(., <span class="fu">complete.cases</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Id     Sex Age Renting
+1 100    male  25     yes
+2 102    Male  27     yes
+3 104     man  44      no
+4 100    male  25     yes
+5 105 neither  40     yes</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="the-data-manipulation-workflow-putting-it-all-together" class="level1">
+<h1><strong>The Data Manipulation Workflow: Putting It All Together</strong></h1>
+<p>Of course, all of these functions can be paired with <code>select()</code>, <code>mutate()</code>, <code>filter()</code>, etc. Here is the data manipulation workflow.</p>
+<pre><code>dataframe %&gt;%
+    select(., ...) %&gt;%     # select variables of interest
+    mutate(., ...) %&gt;%     # then create new variables
+    filter(., ...) %&gt;%     # then filter by rows
+    group_by(., ...) %&gt;%   # then group for subsetting
+    summarize(., ...)      # then summarize</code></pre>
+
+
 </section>
 
 </main> <!-- /main -->

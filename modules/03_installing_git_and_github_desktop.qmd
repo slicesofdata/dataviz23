@@ -16,8 +16,6 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 ## **Read**
 
-Read the intro to R and RStudio chapter from the textbook.
-
 <https://psyteachr.github.io/ads-v2/01-intro.html>
 
 
