@@ -15,12 +15,12 @@ project:
     - "!syllabus/syllabus2.qmd"
     - "!modules/module_starter_page.qmd"
     - "!modules/intro_to_ggplot.qmd"
-    - "!exercises/building/"
-    
     #- "!modules/hello.qmd"
     - "!modules/building"
 #    - "!modules/" # Note regarding !, if try to render with an ignore, will get ERROR: TypeError: Cannot convert undefined or null to object 
 #    - "!slides/"
+    - "!exercises/building/"
+    - "!homework/building/"
     
 
 website:
@@ -47,10 +47,17 @@ website:
       #      href: slides/sample_pres.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
-      - text: "**Exercises**"
-        file: exercises/index.qmd
+#      - text: "**Exercises**"
+#        file: exercises/exercises.qmd
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
+      - text: "**Homework**"
+        file: exercises/exercises.qmd
+        menu:
+          - text: EX 01
+            href: exercsies/exercise-01.Rmd
+          - text: EX 02
+            href: exercsies/exercise-01.Rmd
       - text: "**DataViz Tools**"
         href: resources/dataviz_tools.qmd
         

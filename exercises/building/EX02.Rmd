@@ -126,7 +126,7 @@ Often times, you will have code that you do not want to add to your `RMarkdown` 
 Sourcing will require you to use `here::here()` because finding the path location will be easy (if it exists). The function in following code block will return a character object of the `...path to project working dir/r/my_functions.R"` 
 
 ```{r}
-here::here("r", "myfunctions.R")
+here::here("r", "my_functions.R")
 ```
 
 You can test whether the full path exists using `file.exists()`.
