@@ -79,7 +79,6 @@ website:
       - text: "**DataViz Tools**"
         href: resources/dataviz_tools.qmd 
 
-
     right:
       - icon: github
         href: https://github.com/slicesofdata/dataviz23 #https://github.com/slicesofdata/psyc167
