@@ -26,6 +26,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 - **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
 - **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
 - **{stringr}**: `r packageVersion("stringr")`: for working with strings
+- **{tidyselect}**: `r packageVersion("tidyselect")`: for selecting sets from strings
 
 ## **External Functions**
 
@@ -36,6 +37,8 @@ Provided in class:
 ```{r}
 source(here::here("r", "my_functions.R"))
 ```
+
+## **Libraries**
 
 We will work with a few different libraries for data manipulation. Let's load them into our work space using `library()`.
 

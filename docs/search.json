@@ -179,21 +179,21 @@
     "href": "modules/04_data_frame_manipulation_and_wrangling.html",
     "title": "Data frame manipulation and wrangling",
     "section": "",
-    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n\n\n\n\nProvided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))\n\nWe will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
+    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n{tidyselect}: 1.2.0: for selecting sets from strings\n\n\n\n\nProvided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))\n\n\n\n\nWe will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries",
     "title": "Data frame manipulation and wrangling",
     "section": "",
-    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings"
+    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n{tidyselect}: 1.2.0: for selecting sets from strings"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#external-functions",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#external-functions",
     "title": "Data frame manipulation and wrangling",
     "section": "",
-    "text": "Provided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))\n\nWe will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
+    "text": "Provided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#select-variables-starting-with-or-ending-with-certain-characters",
@@ -775,5 +775,12 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
+  },
+  {
+    "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
+    "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
+    "title": "Data frame manipulation and wrangling",
+    "section": "",
+    "text": "We will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence."
   }
 ]

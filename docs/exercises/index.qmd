@@ -1,0 +1,19 @@
+---
+title: "Exercises"
+description: "Overview of exercises for PSYC 167"
+author: ""
+date: ""
+order: 0 
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Various tasks and exercises will be found here. 
+
+The exercise list will be updated as the semester progresses.
+

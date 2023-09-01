@@ -47,8 +47,8 @@ website:
       #      href: slides/sample_pres.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
-      #- text: "**Exercises**"
-      #  file: exercises #/index.qmd
+      - text: "**Exercises**"
+        file: exercises/index.qmd
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
       - text: "**DataViz Tools**"
@@ -57,7 +57,7 @@ website:
 
     right:
       - icon: github
-        href: https://github.com/slicesofdata/psyc167
+        href: https://github.com/slicesofdata/dataviz23 #https://github.com/slicesofdata/psyc167
         aria-label: GitHub
 
   sidebar:
@@ -106,7 +106,7 @@ format:
     toc: true
     include-in-header: "css/fontawesome.html"
     #mainfont: arial #Nunito
-    fontsize: 1.1rem
+    fontsize: 1.1rem # 1.2rem
 #    linkcolor: "#096980"
 #    monofont: courier new
 

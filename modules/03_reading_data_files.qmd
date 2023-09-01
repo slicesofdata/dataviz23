@@ -352,5 +352,5 @@ head(DAT)    # Perfect!
 
 # **Reading Large Files**
 
-Now, sometimes you might work with very large files over 1 GB in size. If so, `read.csv()` and `read.table()` will be extremely slow. You'll want another function. One of the fastest is `fread()` that is part of a library that's not built into base R. The library is **{data.table}**. **{vroom}** is a new library that may even be better. See [{vroom}]https://cran.r-project.org/web/packages/vroom/vignettes/vroom.html).
+Now, sometimes you might work with very large files over 1 GB in size. If so, `read.csv()` and `read.table()` will be extremely slow. You'll want another function. One of the fastest is `fread()` that is part of a library that's not built into base R. The library is **{data.table}**. **{vroom}** is a new library that may even be better. See [{vroom}](https://cran.r-project.org/web/packages/vroom/vignettes/vroom.html).
 
