@@ -187,12 +187,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/02_graphical_perception.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Graphical perception</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../modules/03_reading_data_files.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><strong>Reading data files</strong></span></a>
   </div>
@@ -357,9 +351,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#getting-sheet-names" id="toc-getting-sheet-names" class="nav-link" data-scroll-target="#getting-sheet-names"><strong>Getting Sheet Names</strong></a></li>
   <li><a href="#reading-a-sheet" id="toc-reading-a-sheet" class="nav-link" data-scroll-target="#reading-a-sheet"><strong>Reading a Sheet</strong></a></li>
   </ul></li>
-  <li><a href="#writing-data-files" id="toc-writing-data-files" class="nav-link" data-scroll-target="#writing-data-files"><strong>Writing Data Files</strong></a></li>
   </ul></li>
   <li><a href="#writingexporting-data-files" id="toc-writingexporting-data-files" class="nav-link" data-scroll-target="#writingexporting-data-files"><strong>Writing/Exporting Data Files</strong></a>
+  <ul class="collapse">
+  <li><a href="#managing-file-paths-with-here" id="toc-managing-file-paths-with-here" class="nav-link" data-scroll-target="#managing-file-paths-with-here"><strong>Managing file paths with {here}</strong></a></li>
+  </ul></li>
+  <li><a href="#writing-with-readr" id="toc-writing-with-readr" class="nav-link" data-scroll-target="#writing-with-readr"><strong>Writing with {readr}</strong></a>
   <ul class="collapse">
   <li><a href="#a-workflow-side-note-on-strings" id="toc-a-workflow-side-note-on-strings" class="nav-link" data-scroll-target="#a-workflow-side-note-on-strings"><strong>A Workflow Side Note on Strings</strong></a></li>
   </ul></li>
@@ -368,12 +365,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#reading-a-.csv-file-stored-on-a-website" id="toc-reading-a-.csv-file-stored-on-a-website" class="nav-link" data-scroll-target="#reading-a-.csv-file-stored-on-a-website"><strong>Reading a <code>.csv</code> File Stored on a Website</strong></a></li>
   <li><a href="#reading-a-.csv-file-stored-locally-on-your-computer" id="toc-reading-a-.csv-file-stored-locally-on-your-computer" class="nav-link" data-scroll-target="#reading-a-.csv-file-stored-locally-on-your-computer"><strong>Reading a <code>.csv</code> File Stored Locally on your Computer</strong></a></li>
   <li><a href="#reading-raw-data-that-is-comma-separated-e.g.-.csv" id="toc-reading-raw-data-that-is-comma-separated-e.g.-.csv" class="nav-link" data-scroll-target="#reading-raw-data-that-is-comma-separated-e.g.-.csv"><strong>Reading Raw Data that is Comma-Separated (e.g., <code>.csv</code>)</strong></a></li>
-  <li><a href="#data-from-a-librarypackage" id="toc-data-from-a-librarypackage" class="nav-link" data-scroll-target="#data-from-a-librarypackage"><strong>Data from a Library/Package</strong></a></li>
+  <li><a href="#reading-data-from-a-librarypackage" id="toc-reading-data-from-a-librarypackage" class="nav-link" data-scroll-target="#reading-data-from-a-librarypackage"><strong>Reading Data from a Library/Package</strong></a></li>
   </ul></li>
   <li><a href="#assigning-a-data-frame-to-an-object" id="toc-assigning-a-data-frame-to-an-object" class="nav-link" data-scroll-target="#assigning-a-data-frame-to-an-object"><strong>Assigning a Data Frame to an Object</strong></a>
   <ul class="collapse">
-  <li><a href="#assign-the-data-to-an-object" id="toc-assign-the-data-to-an-object" class="nav-link" data-scroll-target="#assign-the-data-to-an-object"><strong>Assign the Data to an Object</strong></a></li>
-  <li><a href="#using-built-in-read.csv-and-read.table" id="toc-using-built-in-read.csv-and-read.table" class="nav-link" data-scroll-target="#using-built-in-read.csv-and-read.table">Using built-in <code>read.csv()</code> and <code>read.table()</code>:</a></li>
+  <li><a href="#obejct-assignment-using--" id="toc-obejct-assignment-using--" class="nav-link" data-scroll-target="#obejct-assignment-using--"><strong>Obejct Assignment using <code>&lt;-</code></strong></a></li>
+  <li><a href="#usingread.table" id="toc-usingread.table" class="nav-link" data-scroll-target="#usingread.table">Using<code>read.table()</code>:</a></li>
   <li><a href="#using-read_csv-from-readr" id="toc-using-read_csv-from-readr" class="nav-link" data-scroll-target="#using-read_csv-from-readr">Using <code>read_csv()</code> from <strong>{readr}</strong>:</a></li>
   <li><a href="#data-as-a-data-frame" id="toc-data-as-a-data-frame" class="nav-link" data-scroll-target="#data-as-a-data-frame"><strong>Data as a Data Frame</strong></a></li>
   <li><a href="#are-they-both-tibbles" id="toc-are-they-both-tibbles" class="nav-link" data-scroll-target="#are-they-both-tibbles"><strong>Are they both <code>tibbles</code>?</strong></a></li>
@@ -419,8 +416,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries"><strong>Libraries</strong></h2>
 <ul>
-<li><strong>{readxl}</strong>: for reading Excel spreadsheets</li>
-<li><strong>{readr}</strong>: for reading <code>.csv</code>, <code>.tsv</code>, and <code>.fwf</code> files</li>
+<li><strong>{readxl}</strong> 1.4.3: for reading Excel spreadsheets</li>
+<li><strong>{readr}</strong> 2.1.4: for reading <code>.csv</code>, <code>.tsv</code>, and <code>.fwf</code> files</li>
 </ul>
 </section>
 </section>
@@ -483,8 +480,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Another way to read data files is using either <strong>{vroom}</strong>, which is extremely fast for reading large files (see docs for why it’s so awesome), or using <strong>{dplyr}</strong> library that is part of the <strong>{tidyverse}</strong>. <strong>{dplyr}</strong>, however, does not handle Excel files. In order to demonstrate how to use <strong>{readr}</strong>, we can save the data frame as a <code>.csv</code> file.</p>
 </section>
 </section>
-<section id="writing-data-files" class="level2">
-<h2 class="anchored" data-anchor-id="writing-data-files"><strong>Writing Data Files</strong></h2>
+</section>
+<section id="writingexporting-data-files" class="level1">
+<h1><strong>Writing/Exporting Data Files</strong></h1>
+<section id="managing-file-paths-with-here" class="level2">
+<h2 class="anchored" data-anchor-id="managing-file-paths-with-here"><strong>Managing file paths with {here}</strong></h2>
 <p>Despite it’s name, <strong>{readr}</strong> can save data frames too. Interestingly, at least at the time of this writing, <strong>{readr}</strong> allows you to write files in excel format even though you cannot open them.</p>
 <p>Moving forward, you can save the data frame as a <code>.csv</code> file using <code>readr::write_csv()</code>. When writing a file using <code>write_csv()</code> we need to specify key arguments: <code>x</code>, the data frame object and <code>file</code>, the file name. You do not need to set a delimiter because, given its name, <code>.csv</code> defaults the separation as a comma <code>","</code>. Other arguments may be necessary for other files and goals.</p>
 <p>If, however, you specify name of the file (e.g., <code>"my file name.csv"</code>), the data frame will be written to a default location because no file path was provided. Um, so where is that default location? Well it depends and it’s complicated depending on whether files are <code>.R</code> or <code>.Rmd</code>. By default, <code>.Rmd</code> files will assume the directory from which the <code>.Rmd</code> file, NOT THE DATA FILE, is opened. But you don’t want to save a data file to the directory where your code lives.</p>
@@ -498,8 +498,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="writingexporting-data-files" class="level1">
-<h1><strong>Writing/Exporting Data Files</strong></h1>
+<section id="writing-with-readr" class="level1">
+<h1><strong>Writing with {readr}</strong></h1>
 <p>Data frames can be written, or saved, as <code>.csv</code> files using <code>readr::write_csv()</code>, as r data files using <code>readr::write_rds()</code>, as Excel <code>.csv</code> files using <code>readr::write_excel_csv()</code>, as well as other formats.</p>
 <p>If you query <code>R</code> using <code>?readr::write_excel_csv</code> or <code>?write_excel_csv</code> having already loaded <strong>{readr}</strong> using <code>library(readr)</code>, you will see the arguments.</p>
 <p>OK, so let’s save the data frame. But remember, you cannot pass the file path and name used to read the <code>.xlsx</code> file because what you want to save is not an Excel file. If you pass that previous path string, you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the <code>.csv</code> would be incorrectly named as <code>.xlsx</code> and second, you would completely clobber your Excel spreadsheet along with the worksheets containing that you did not read. Yeah, that’s bad.</p>
@@ -537,7 +537,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>Remember, all we have done is saved the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with <strong>{readr}</strong>.</p>
+<p>Remember, all we have done is save the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with <strong>{readr}</strong>.</p>
 </section>
 </section>
 <section id="reading-.csv-files-with-readr" class="level1">
@@ -858,8 +858,8 @@ dbl (1): year
 </div>
 <p>Luckily, we have both names and data in the file and by default <code>readr::read_csv()</code> does what we intend.</p>
 </section>
-<section id="data-from-a-librarypackage" class="level2">
-<h2 class="anchored" data-anchor-id="data-from-a-librarypackage"><strong>Data from a Library/Package</strong></h2>
+<section id="reading-data-from-a-librarypackage" class="level2">
+<h2 class="anchored" data-anchor-id="reading-data-from-a-librarypackage"><strong>Reading Data from a Library/Package</strong></h2>
 <p>As mentioned earlier, <code>mtcars</code> is a data set on cars which is also part of base <code>R</code>, meaning you do not need to read it from anyplace. <code>R</code> does this automatically.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -949,26 +949,29 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 <section id="assigning-a-data-frame-to-an-object" class="level1">
 <h1><strong>Assigning a Data Frame to an Object</strong></h1>
 <p>Unfortunately, once you read data into <code>R</code> what you see is only the returned content from the functions. This approach will not really allow you to perform other operations on the data frame itself very easily because you would have to read the file over and over every time you wished to perform a different operation.</p>
-<section id="assign-the-data-to-an-object" class="level2">
-<h2 class="anchored" data-anchor-id="assign-the-data-to-an-object"><strong>Assign the Data to an Object</strong></h2>
-<p>You’ll want to take the data frame object that is returned by the <code>read.csv()</code> function and assign it to an object of some name. Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let’s assign it to <code>DAT</code> standing for <code>data frame</code> and let’s make it ALL CAPS.</p>
+<section id="obejct-assignment-using--" class="level2">
+<h2 class="anchored" data-anchor-id="obejct-assignment-using--"><strong>Obejct Assignment using <code>&lt;-</code></strong></h2>
+<p>You will want to take the data frame object that is returned by the <code>read.csv()</code> function and assign it to an object of some name using the assignment operator <code>&lt;-</code> . Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let’s assign it to <code>DAT</code> standing for <code>data frame</code> and let’s make it ALL CAPS.</p>
 <p>A note about case: <code>R</code> is a case-sensitive language so object names like <code>DAT</code>, <code>dat</code>, <code>DaT</code>, etc. are possible and can refer to different objects depending on how you assign them. We will use capital letters only because I like to flag objects that are data frame as special and this approach makes them visually identifiable. You could choose your own convention for naming data frames, other objects, variables in data frames, etc. but I don’t recommend being random about it.</p>
 </section>
-<section id="using-built-in-read.csv-and-read.table" class="level2">
-<h2 class="anchored" data-anchor-id="using-built-in-read.csv-and-read.table">Using built-in <code>read.csv()</code> and <code>read.table()</code>:</h2>
+<section id="usingread.table" class="level2">
+<h2 class="anchored" data-anchor-id="usingread.table">Using<code>read.table()</code>:</h2>
+<p><code>read.table()</code> is a flexible function for reading files because you can specify how the data are separated in rows by setting the <code>sep</code> argument. A common separation is a comma but you might also have tabs or other special characters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file_csv)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or by passing a "," as a the sep</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file_csv,</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">","</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> file_csv,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">","</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>read.csv()</code> is a specific case of <code>read.table()</code> that sets <code>sep = ","</code> for you so there is no need to pass the argument. <code>read.csv()</code> is the more common function you will come across for reading <code>.csv</code> files but <code>read.table()</code> works the same as long as you set the argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="using-read_csv-from-readr" class="level2">
 <h2 class="anchored" data-anchor-id="using-read_csv-from-readr">Using <code>read_csv()</code> from <strong>{readr}</strong>:</h2>
+<p>There are advantages to using <code>readr::read_csv()</code> over <code>read.csv()</code>, which is why we will prefer it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>DAT2 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>DAT2 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 210 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
@@ -979,7 +982,7 @@ dbl (1): year
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(DAT2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(DAT2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   time  name              year event  
@@ -997,11 +1000,11 @@ dbl (1): year
 <h2 class="anchored" data-anchor-id="data-as-a-data-frame"><strong>Data as a Data Frame</strong></h2>
 <p>You should see an object named <code>DAT</code> that contains the data frame with some swim data. If you want to verify this is actually a data frame object, you can pass the <code>DAT</code> object into the <code>is.data.frame()</code> function. The function will return <code>TRUE</code> if it is and <code>FALSE</code> if it is not.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(DAT2)  <span class="co"># tibbles are also data frames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(DAT2)  <span class="co"># tibbles are also data frames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -1011,36 +1014,36 @@ dbl (1): year
 <h2 class="anchored" data-anchor-id="are-they-both-tibbles"><strong>Are they both <code>tibbles</code>?</strong></h2>
 <p>Tibbles are different from data frames, see the <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html"><strong>{tibble}</strong> library</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">is_tibble</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">is_tibble</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">is_tibble</span>(DAT2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">is_tibble</span>(DAT2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>Now the you have the data frame, you can examine some of its contents, for example, the first 6 rows using the <code>head()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># hmm, something seems off.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># hmm, something seems off.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     V1               V2   V3      V4
-1  time             name year   event
-2 23.29 Jocelyn Crawford 2019 50 FREE
-3 23.31    Ava Sealander 2022 50 FREE
-4 23.49        Kelly Ngo 2016 50 FREE
-5 23.71        Helen Liu 2014 50 FREE
-6 23.76      Michele Kee 2014 50 FREE</code></pre>
+<pre><code>   time             name year   event
+1 23.29 Jocelyn Crawford 2019 50 FREE
+2 23.31    Ava Sealander 2022 50 FREE
+3 23.49        Kelly Ngo 2016 50 FREE
+4 23.71        Helen Liu 2014 50 FREE
+5 23.76      Michele Kee 2014 50 FREE
+6 23.77 Natalia Orbach-M 2020 50 FREE</code></pre>
 </div>
 </div>
 <p>Because header rows do exist atop the <code>.csv</code> file, specify that they exist by passing <code>TRUE</code> to the <code>header</code> argument of the function (e.g., <code>header = TRUE</code> or <code>header = T</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file_csv,</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">","</span>, </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header =</span> <span class="cn">TRUE</span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># Perfect!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file_csv,</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sep =</span> <span class="st">","</span>, </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header =</span> <span class="cn">TRUE</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># Perfect!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   time             name year   event
 1 23.29 Jocelyn Crawford 2019 50 FREE

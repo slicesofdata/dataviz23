@@ -21,9 +21,11 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 ## **Libraries** 
 
-- **{dplyr}**: for selecting, filtering, and mutating
-- **{magrittr}**: for code clarity and piping data frame objects
-- **{stringr}**: for working with strings
+
+- **{here}**: `r packageVersion("here")`: for path management
+- **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
+- **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
+- **{stringr}**: `r packageVersion("stringr")`: for working with strings
 
 ## **External Functions**
 

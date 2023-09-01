@@ -21,8 +21,8 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 ## **Libraries** 
 
-- **{readxl}**: for reading Excel spreadsheets
-- **{readr}**: for reading `.csv`, `.tsv`, and `.fwf` files
+- **{readxl}** `r packageVersion("readxl")`: for reading Excel spreadsheets
+- **{readr}** `r packageVersion("readr")`: for reading `.csv`, `.tsv`, and `.fwf` files
 
 # **Reading/Importing Data Files**
 
@@ -73,7 +73,9 @@ DAT <- readxl::read_excel(file, sheet = "swim")
 Another way to read data files is using either **{vroom}**, which is extremely fast for reading large files (see docs for why it's so awesome), or using **{dplyr}** library that is part of the **{tidyverse}**. **{dplyr}**, however, does not handle Excel files. In order to demonstrate how to use **{readr}**, we can save the data frame as a `.csv` file.
 
 
-## **Writing Data Files**
+# **Writing/Exporting Data Files**
+
+## **Managing file paths with {here}**
 
 Despite it's name, **{readr}** can save data frames too. Interestingly, at least at the time of this writing, **{readr}** allows you to write files in excel format even though you cannot open them. 
 
@@ -89,7 +91,7 @@ What's the best way? The easiest/best way is with the **{here}** library, assumi
 here::here("data")
 ```
 
-# **Writing/Exporting Data Files**
+# **Writing with {readr}**
 
 Data frames can be written, or saved, as `.csv` files using `readr::write_csv()`, as r data files using `readr::write_rds()`, as Excel `.csv` files using `readr::write_excel_csv()`, as well as other formats. 
 
@@ -140,7 +142,7 @@ Did it save? Use `file.exists()`.
 file.exists(file_csv)
 ```
 
-Remember, all we have done is saved the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
+Remember, all we have done is save the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
 
 
 
@@ -166,6 +168,7 @@ Some examples:
 - Reading a `.csv` file from a website
 - Reading a locale `.csv` file
 - Reading raw data that is comma-separated
+
 
 ## **Reading a `.csv` File Stored on a Website**
 
@@ -250,7 +253,7 @@ Luckily, we have both names and data in the file and by default `readr::read_csv
 
 
 
-##  **Data from a Library/Package**
+## **Reading Data from a Library/Package**
 
 As mentioned earlier, `mtcars` is a data set on cars which is also part of base `R`, meaning you do not need to read it from anyplace. `R` does this automatically.
 
@@ -272,31 +275,38 @@ names(mtcars)
 
 Unfortunately, once you read data into `R` what you see is only the returned content from the functions. This approach will not really allow you to perform other operations on the data frame itself very easily because you would have to read the file over and over every time you wished to perform a different operation. 
 
+## **Obejct Assignment using `<-`**
 
-## **Assign the Data to an Object**
-
-You'll want to take the data frame object that is returned by the `read.csv()` function and assign it to an object of some name. Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let's assign it to `DAT` standing for `data frame` and let's make it ALL CAPS. 
+You will want to take the data frame object that is returned by the `read.csv()` function and assign it to an object of some name using the assignment operator `<-` . Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let's assign it to `DAT` standing for `data frame` and let's make it ALL CAPS. 
 
 A note about case: `R` is a case-sensitive language so object names like `DAT`, `dat`, `DaT`, etc. are possible and can refer to different objects depending on how you assign them. We will use capital letters only because I like to flag objects that are data frame as special and this approach makes them visually identifiable. You could choose your own convention for naming data frames, other objects, variables in data frames, etc. but I don't recommend being random about it.
 
-## Using built-in `read.csv()` and `read.table()`:
+## Using`read.table()`:
+
+`read.table()` is a flexible function for reading files because you can specify how the data are separated in rows by setting the `sep` argument. A common separation is a comma but you might also have tabs or other special characters. 
 
 ```{r}
-DAT <- read.csv(file_csv)
-
-# or by passing a "," as a the sep
-DAT <- read.table(file_csv,
+DAT <- read.table(file = file_csv,
                   sep = ","
                   )
 ```
 
+`read.csv()` is a specific case of `read.table()` that sets `sep = ","` for you so there is no need to pass the argument. `read.csv()` is the more common function you will come across for reading `.csv` files but `read.table()` works the same as long as you set the argument.
+
+```{r}
+DAT <- read.csv(file_csv)
+```
+
 ## Using `read_csv()` from **{readr}**:
+
+There are advantages to using `readr::read_csv()` over `read.csv()`, which is why we will prefer it.
 
 ```{r}
 DAT2 <- readr::read_csv(file_csv)
 
 print(head(DAT2))
 ```
+
 
 ## **Data as a Data Frame**
 
