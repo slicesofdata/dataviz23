@@ -10,6 +10,7 @@ project:
     - "!omit/"
     - "!examples/"
     - "!exercises"
+    - "!data/building"
     - "!content_"
     - "!syllabus/building/"
     - "!syllabus/syllabus2.qmd"
@@ -58,7 +59,12 @@ website:
             href: homework/EX01.pdf
           - text: HW 2
             href: homework/EX02.Rmd
-
+      - text: "**Data**"
+        #file: slides/index.qmd
+        menu:
+          - text: cms-top-all-time-2023-swim.xlsx
+            href: data/cms-top-all-time-2023-swim.xlxs
+            
       - text: "**Cheatsheets**"
         #file: slides/index.qmd
         menu:
