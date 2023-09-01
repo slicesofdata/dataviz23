@@ -9,6 +9,9 @@ _content/
 _R/
 notes/
 omit/
+modules/building/
+homework/builing/
+exercises/building/
 
 *.RData
 *.rdb
