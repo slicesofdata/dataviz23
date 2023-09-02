@@ -18,7 +18,10 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 # **Overview**
 
-In this module, you will learn how to read and write data files in different formats. 
+In this module, you will learn how to read and write data files in different formats. Depending how you access data, the process may change so this topic is discussed in a general way with different approaches described. If you find yourself in a bind with reading data, one of these approaches will likely work. In many instances, however, `readr::read_csv()` will be your friend when reading files and `readr::write_csv()` will be for writing files.
+
+In addition, concepts related to reading files and managing workflow are discussed. By doing so, my goal is to make you aware of some key issues that could cause some problems with data science projects. When reading files, 
+
 
 # **To Do**
 
@@ -34,15 +37,56 @@ In this module, you will learn how to read and write data files in different for
 
 ## **Libraries** 
 
+- **{openxlsx}** `r packageVersion("openxlsx")`: for reading Excel spreadsheets from a URL
 - **{readxl}** `r packageVersion("readxl")`: for reading Excel spreadsheets
 - **{readr}** `r packageVersion("readr")`: for reading `.csv`, `.tsv`, and `.fwf` files
 
+
+First, we need an `.xlsx` data file. You can obtain one locally or online from a URL. 
+
+# **Downloading a `.zip` File from a URL**
+
+GitHub handles Excel files in a way that makes downloading them challenging, so we will first download a `.zip` file containing the `.xlxs` file. 
+
+We will use a URL of a zip file to download to the project data directory, unzip the contents, and remove the `.zip` file. 
+
+```{r}
+zip_url <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip"
+download.file(zip_url, destfile = here::here("data", "swim.zip"))
+unzip(here::here("data", "swim.zip"), 
+      overwrite = T, 
+      exdir = here::here("data")
+      )
+file.remove(here::here("data", "swim.zip"))
+```
+
+If the process worked correctly, the file should exist in the directory.
+
+```{r}
+file.exists(here::here("data", "cms-top-all-time-2023-swim.xlsx"))
+```
+
+OK, great! Let's move to importing files more generally.
+
+
 # **Reading/Importing Data Files**
 
+## **Excel files form a URL**
 
-## **A Data File**
+**{readxl}** `r packageVersion("readxl")` lacks the ability to read the file from online. We can, however, read it using **{openxlsx}**. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to `openxlsx::read.xlsx()` and assign it's contents to an object named `DAT` using the assignment operator `<-`.
 
-First, we need an `.xlsx` data file. 
+```{r}
+URL <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx"
+DAT <- openxlsx::read.xlsx(URL)
+```
+
+What does the head of the file look like?
+
+```{r}
+head(DAT)
+```
+
+Just an FYI, when you want a different worksheet, `openxlsx::read.xlsx()` in **{openxlsx}** `r packageVersion("openxlsx")` won't work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process.
 
 
 ## **Reading Excel Spreadsheets with `{readxl}`**
@@ -51,24 +95,29 @@ We will use the **{readxl}** library to handing reading of Excel files. Because 
 
 In order to read an Excel spreadsheet file, you will need to specify at very least `file` and if you want to read a specific sheet other than the first one, then you will need to specify `sheet`.
 
--  `file`: a path to the file,
+-  `file`: a path to the file, including the file name
 -  `sheet`: the sheet name to read
 
 ### **Getting Sheet Names**
 
+First, let's assign the file path to an object because we will use this path a few times and we don't want to keep typing it lest we make an error.
+
 ```{r}
-readxl::excel_sheets(path = here::here("data", "cms-top-all-time-2023-swim.xlsx"))
-
 file <- here::here("data", "cms-top-all-time-2023-swim.xlsx")
+```
 
+We can examine the worksheet names:
+
+```{r}
 readxl::excel_sheets(path = file)
 ```
 
 Great, we know know the sheet names. The benefit of passing an object is that you you may wish to pass the path to another function, for example, to read a sheet from the file. 
 
+
 ### **Reading a Sheet**
 
-In order to read a sheet, we will use `readxl::read_excel()`, which takes the file `path` as the first argument and the name of the desired       `sheet` as the second argument. You might get away with passing only the `path` as long as your goal is to read the first sheet because this is the default action. Let's wrap the function in `head()` to see the top.
+In order to read a sheet, we will use `readxl::read_excel()`, which takes the file `path` as the first argument and the name of the desired `sheet` as the second argument. You might get away with passing only the `path` as long as your goal is to read the first sheet because this is the default action. Let's wrap the function in `head()` to see the top.
 
 ```{r}
 head(
@@ -76,24 +125,30 @@ head(
 )
 ```
 
-The function also turns the file content into a `data frame` composed of row and column data. Luckily we have a clean file and nothing too messy. You can verify using `R`'s built-in function `is.data.frame()`, which will return `TRUE` if it's a data frame or `FALSE` if not.
+The function also turns the file content into special object type knows as a `data frame`. A data frame is composed of row and column data. Sometimes data frames are messy but luckily we have a fairly clean file. You can verify using `R`'s built-in function `is.data.frame()`, which will return `TRUE` if it's a data frame or `FALSE` if not.
 We will assign this to an object 
 
 ```{r}
 is.data.frame(readxl::read_excel(file))
 ```
+
 But we don't want the first sheet. Pass `sheet = "swim"` to read that sheet. Also, let's read in the data and assign it to an object called `DAT` which will hold the data frame.
 
 ```{r}
 DAT <- readxl::read_excel(file, sheet = "swim")
 ```
 
-Another way to read data files is using either **{vroom}**, which is extremely fast for reading large files (see docs for why it's so awesome), or using **{dplyr}** library that is part of the **{tidyverse}**. **{dplyr}**, however, does not handle Excel files. In order to demonstrate how to use **{readr}**, we can save the data frame as a `.csv` file.
+Viewing the head of the data frame, we can see that it is composed of `r dim(DAT)[2]` column vectors representing variables with names: `r names(DAT)`. 
+
+```{r}
+head(DAT)
+```
+
+OK, that was fun. In order to demonstrate reading local `.csv` files, we will take a detour into saving files.
+
 
 
 # **Writing/Exporting Data Files**
-
-## **Managing file paths with {here}**
 
 Despite it's name, **{readr}** can save data frames too. Interestingly, at least at the time of this writing, **{readr}** allows you to write files in excel format even though you cannot open them. 
 
@@ -103,11 +158,16 @@ If, however, you specify name of the file (e.g., `"my file name.csv"`), the data
 
 If you are organized, you save your `.R` and `.Rmd` files in code directory and your data files in a data directory. So yeah, the default is a problem. The solution is to specify the file path using `file = the file path`. 
 
-What's the best way? The easiest/best way is with the **{here}** library, assuming of course you are smart enough to be using projects in `RStudio`. When you open a file from within a project, **{here}** will make the project directory the working directory. And if you are organized, your data files will be in a `/data` directory inside the project directory. When passing `"data"` as the first argument to `here::here()` ( e.g., `here::here("data")`, you will see that the function returns a string containing the full path to the project directory plus the data subdirectory. 
+## **Managing file paths with {here}**
+
+When downloading the file, you may have noticed using the **{here}** library. A discussion of the library was delayed at the time. We will now look a little deeper into how the library simplifies working with file paths within the context of the **{readr}**.
+
+What's the best way to handle directories and file paths? Undoutedly, that is the **{here}** library, assuming of course you are smart enough to be using projects in `RStudio`. When you open a file from within a project, **{here}** will make the project directory the working directory. And if you are organized, your data files will be in a `/data` directory inside the project directory. When passing `"data"` as the first argument to `here::here()` ( e.g., `here::here("data")`, you will see that the function returns a string containing the full path to the project directory plus the data subdirectory. 
 
 ```{r}
 here::here("data")
 ```
+
 
 # **Writing with {readr}**
 
@@ -119,13 +179,18 @@ If you query `R` using `?readr::write_excel_csv` or `?write_excel_csv` having al
 ?readr::write_csv
 ```
 
-OK, so let's save the data frame. But remember, you cannot pass the file path and name used to read the `.xlsx` file because what you want to save is not an Excel file. If you pass that previous path string, you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the `.csv` would be incorrectly named as `.xlsx` and second, you would completely clobber your Excel spreadsheet along with the worksheets containing that you did not read. Yeah, that's bad.
+OK, so let's save the data frame. But remember, you cannot pass the file path and name used to read the `.xlsx` file because the data frame you  want to save is not in `.xlsx` file format. 
 
-So we need to change the file name. Specifically, we only need to change the file extension part of the path. 
+If you pass that previous path string (`r file` ), you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the `.csv` would be incorrectly named as `.xlsx` and second, you would completely clobber your Excel spreadsheet along with all of the other worksheets that you did not read. Yeah, that would be bad.
+
+So we need to change the file name. Specifically, we only need to change the file extension part of the path. We could simply copy and paste the path and change `".xlsx"` to `".csv"`. 
 
 ```{r}
 readr::write_csv(DAT, here::here("data", "cms-top-all-time-2023-swim.csv"))
 ```
+
+Sure, that will work. But I would also like you to think about smart workflow.
+
 
 ## **A Workflow Side Note on Strings**
 
@@ -146,6 +211,9 @@ Assign to an object:
 file_csv <- gsub(".xlsx|.xls", ".csv", file)
 ```
 
+Note: Code was simplified because the arguments were passed in the order expected by the `gsub()` function.
+
+
 Second, pass the path object to `write_csv()`:
 
 ```{r}
@@ -161,8 +229,6 @@ file.exists(file_csv)
 ```
 
 Remember, all we have done is save the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
-
-
 
 
 # **Reading `.csv` files with {readr}**
@@ -203,6 +269,7 @@ readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars
 ```
 
 By default, `readr::read_csv()` tries to guess whether column/variable names are present. If you know they exist, you can set `col_names = TRUE`. 
+
 ```{r}
 readr::read_csv("https://github.com/tidyverse/readr/raw/main/inst/extdata/mtcars.csv", col_names = T)
 ```
@@ -227,7 +294,7 @@ names(
 If a file actually existed on your computer, the file would not be a URL but rather the path location to where the file is stored.
 
 
-And now we can read the locale file as before except we are not passing the string name but rather an object (e.g., `my_local_csv`) holding the file path and file name. Voilà.
+And now we can read the locale file as before except we are not passing the string name but rather an object (e.g., `file_csv`) holding the file path and file name. Voilà.
 
 ```{r}
 readr::read_csv(file_csv)
@@ -236,7 +303,7 @@ readr::read_csv(file_csv)
 
 ## **Reading Raw Data that is Comma-Separated (e.g., `.csv`)**
 
-We will file use `readr::read_csv()` to read our data file. 
+We will file use `readr::read_csv()` to read our data file (viz., `r basename(file_csv)`). 
 
 ```{r}
 readr::read_csv(file_csv)
@@ -276,13 +343,13 @@ Luckily, we have both names and data in the file and by default `readr::read_csv
 As mentioned earlier, `mtcars` is a data set on cars which is also part of base `R`, meaning you do not need to read it from anyplace. `R` does this automatically.
 
 ```{r}
-print(mtcars)
+mtcars
 
 # or 
-mtcars
+print(mtcars)
 ```
 
-And the column names...
+Use `names()` to read the column names:
 
 ```{r}
 names(mtcars)
@@ -293,13 +360,15 @@ names(mtcars)
 
 Unfortunately, once you read data into `R` what you see is only the returned content from the functions. This approach will not really allow you to perform other operations on the data frame itself very easily because you would have to read the file over and over every time you wished to perform a different operation. 
 
-## **Obejct Assignment using `<-`**
+
+## **Object Assignment using `<-`**
 
 You will want to take the data frame object that is returned by the `read.csv()` function and assign it to an object of some name using the assignment operator `<-` . Although the concept of assignment will be covered later, for now just understand that we need to make the data more accessible to work with. You could name the object anything you want. Let's assign it to `DAT` standing for `data frame` and let's make it ALL CAPS. 
 
 A note about case: `R` is a case-sensitive language so object names like `DAT`, `dat`, `DaT`, etc. are possible and can refer to different objects depending on how you assign them. We will use capital letters only because I like to flag objects that are data frame as special and this approach makes them visually identifiable. You could choose your own convention for naming data frames, other objects, variables in data frames, etc. but I don't recommend being random about it.
 
-## Using`read.table()`:
+
+## Using `read.table()`:
 
 `read.table()` is a flexible function for reading files because you can specify how the data are separated in rows by setting the `sep` argument. A common separation is a comma but you might also have tabs or other special characters. 
 
@@ -317,12 +386,20 @@ DAT <- read.csv(file_csv)
 
 ## Using `read_csv()` from **{readr}**:
 
-There are advantages to using `readr::read_csv()` over `read.csv()`, which is why we will prefer it.
+There are advantages to using `readr::read_csv()` over `read.csv()`, which is why we will prefer it. We will assign it to an object named `DAT2`.
 
 ```{r}
 DAT2 <- readr::read_csv(file_csv)
 
 print(head(DAT2))
+```
+
+We can test whehter `DAT` and `DAT2` are the same using a logical test `==`. Notice the two `=`. If we use one `=`, we will actually assign the contents of `DAT2` to `DAT` because a single `=` in this context (scope) will do the same as `<-`. A discussion of the differences is beyond the scope here but suffice it so say `<-` is the common practice except when you are writing custom functions. In most cases, assignment inside functions are done with `=` because objects created inside a function are not typically needed outside that scope.
+
+Anyway, you can see that the contents are the same even when files are read by different functions. This is wrapped in the `all()` function, which will return `TRUE` if everyting is `TRUE`. This is good that the contents are identical.
+
+```{r}
+all(DAT == DAT2)
 ```
 
 
@@ -366,6 +443,21 @@ DAT <- read.table(file_csv,
 head(DAT)    # Perfect!
 ```
 
+
+# **Project Organization**
+
+For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated `.R` used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your analyses report file, you would then `source()` the files necessary as shown here. 
+
+```
+source(here::here("r", "read_data.R"))
+source(here::here("r", "clean_data.R"))
+source(here::here("r", "analyze_data.R"))
+source(here::here("r", "create_plots.R"))
+```
+
+The alternative is that you write all of your code in one file and overwhelm yourself because of all of the lines of code. You could, however, think of yourself as members of a team and organize your files as though you were working with others.  
+
+When working with teams, you would likely also manage a github repo for the project. Team contributors would be working on separate tasks in separate files. The files might be used by all team members. You could imagine how difficult the process would be if there was only one file with all project code. 
 
 
 # **Reading Large Files**
