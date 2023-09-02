@@ -13,7 +13,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #| include: false
 
 #library()
-#library()
+source(here::here("r", "my_functions.R"))
 ```
 
 # **Overview**

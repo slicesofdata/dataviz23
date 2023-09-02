@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data">    
         <li>
-    <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/blob/main/data/cms-top-all-time-2023-swim.xlsx" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip" rel="" target="">
  <span class="dropdown-text">cms-top-all-time-2023-swim.xlsx</span></a>
   </li>  
     </ul>
@@ -552,13 +552,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   score              name year          event
-1 525.35       Maia Presti 2015 1-Meter Diving
-2 514.70 Makenna Parkinson 2023 1-Meter Diving
-3 512.05      Emma Ng Pack 2023 1-Meter Diving
-4 494.95         Izzy Doud 2023 1-Meter Diving
-5 462.15     Carli Lessard 2015 1-Meter Diving
-6 447.70     Alexis Romero 2023 1-Meter Diving</code></pre>
+<pre><code>   score              name year          event   team
+1 525.35       Maia Presti 2015 1-Meter Diving Athena
+2 514.70 Makenna Parkinson 2023 1-Meter Diving Athena
+3 512.05      Emma Ng Pack 2023 1-Meter Diving Athena
+4 494.95         Izzy Doud 2023 1-Meter Diving Athena
+5 462.15     Carli Lessard 2015 1-Meter Diving Athena
+6 447.70     Alexis Romero 2023 1-Meter Diving Athena</code></pre>
 </div>
 </div>
 <p>Just an FYI, when you want a different worksheet, <code>openxlsx::read.xlsx()</code> in <strong>{openxlsx}</strong> 4.2.5.2 won’t work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process.</p>
@@ -594,15 +594,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_excel</span>(file)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  score  name              year  event         
-  &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;         
-1 525.35 Maia Presti       2015  1-Meter Diving
-2 514.70 Makenna Parkinson 2023  1-Meter Diving
-3 512.05 Emma Ng Pack      2023  1-Meter Diving
-4 494.95 Izzy Doud         2023  1-Meter Diving
-5 462.15 Carli Lessard     2015  1-Meter Diving
-6 447.70 Alexis Romero     2023  1-Meter Diving</code></pre>
+<pre><code># A tibble: 6 × 5
+  score  name              year  event          team  
+  &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt; 
+1 525.35 Maia Presti       2015  1-Meter Diving Athena
+2 514.70 Makenna Parkinson 2023  1-Meter Diving Athena
+3 512.05 Emma Ng Pack      2023  1-Meter Diving Athena
+4 494.95 Izzy Doud         2023  1-Meter Diving Athena
+5 462.15 Carli Lessard     2015  1-Meter Diving Athena
+6 447.70 Alexis Romero     2023  1-Meter Diving Athena</code></pre>
 </div>
 </div>
 <p>The function also turns the file content into special object type knows as a <code>data frame</code>. A data frame is composed of row and column data. Sometimes data frames are messy but luckily we have a fairly clean file. You can verify using <code>R</code>’s built-in function <code>is.data.frame()</code>, which will return <code>TRUE</code> if it’s a data frame or <code>FALSE</code> if not. We will assign this to an object</p>
@@ -616,19 +616,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(file, <span class="at">sheet =</span> <span class="st">"swim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Viewing the head of the data frame, we can see that it is composed of 4 column vectors representing variables with names: time, name, year, event.</p>
+<p>Viewing the head of the data frame, we can see that it is composed of 5 column vectors representing variables with names: time, name, year, event, team.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  time  name             year  event  
-  &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;  
-1 23.29 Jocelyn Crawford 2019  50 FREE
-2 23.31 Ava Sealander    2022  50 FREE
-3 23.49 Kelly Ngo        2016  50 FREE
-4 23.71 Helen Liu        2014  50 FREE
-5 23.76 Michele Kee      2014  50 FREE
-6 23.77 Natalia Orbach-M 2020  50 FREE</code></pre>
+<pre><code># A tibble: 6 × 5
+  time  name             year  event   team  
+  &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+2 23.31 Ava Sealander    2022  50 FREE Athena
+3 23.49 Kelly Ngo        2016  50 FREE Athena
+4 23.71 Helen Liu        2014  50 FREE Athena
+5 23.76 Michele Kee      2014  50 FREE Athena
+6 23.77 Natalia Orbach-M 2020  50 FREE Athena</code></pre>
 </div>
 </div>
 <p>OK, that was fun. In order to demonstrate reading local <code>.csv</code> files, we will take a detour into saving files.</p>
@@ -859,30 +859,29 @@ dbl (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 210 Columns: 4
+<pre><code>Rows: 440 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): time, name, event
-dbl (1): year
+chr (5): time, name, year, event, team
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 210 × 4
-   time  name              year event  
-   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;  
- 1 23.29 Jocelyn Crawford  2019 50 FREE
- 2 23.31 Ava Sealander     2022 50 FREE
- 3 23.49 Kelly Ngo         2016 50 FREE
- 4 23.71 Helen Liu         2014 50 FREE
- 5 23.76 Michele Kee       2014 50 FREE
- 6 23.77 Natalia Orbach-M  2020 50 FREE
- 7 23.77 Suzia Starzyk     2020 50 FREE
- 8 23.87 Katie Bilotti     2010 50 FREE
- 9 23.93 Jenni Rinker      2011 50 FREE
-10 24.02 Annika Sharma     2023 50 FREE
-# ℹ 200 more rows</code></pre>
+<pre><code># A tibble: 440 × 5
+   time  name             year  event   team  
+   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+ 2 23.31 Ava Sealander    2022  50 FREE Athena
+ 3 23.49 Kelly Ngo        2016  50 FREE Athena
+ 4 23.71 Helen Liu        2014  50 FREE Athena
+ 5 23.76 Michele Kee      2014  50 FREE Athena
+ 6 23.77 Natalia Orbach-M 2020  50 FREE Athena
+ 7 23.77 Suzia Starzyk    2020  50 FREE Athena
+ 8 23.87 Katie Bilotti    2010  50 FREE Athena
+ 9 23.93 Jenni Rinker     2011  50 FREE Athena
+10 24.02 Annika Sharma    2023  50 FREE Athena
+# ℹ 430 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -892,60 +891,58 @@ dbl (1): year
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 210 Columns: 4
+<pre><code>Rows: 440 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): time, name, event
-dbl (1): year
+chr (5): time, name, year, event, team
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 210 × 4
-   time  name              year event  
-   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;  
- 1 23.29 Jocelyn Crawford  2019 50 FREE
- 2 23.31 Ava Sealander     2022 50 FREE
- 3 23.49 Kelly Ngo         2016 50 FREE
- 4 23.71 Helen Liu         2014 50 FREE
- 5 23.76 Michele Kee       2014 50 FREE
- 6 23.77 Natalia Orbach-M  2020 50 FREE
- 7 23.77 Suzia Starzyk     2020 50 FREE
- 8 23.87 Katie Bilotti     2010 50 FREE
- 9 23.93 Jenni Rinker      2011 50 FREE
-10 24.02 Annika Sharma     2023 50 FREE
-# ℹ 200 more rows</code></pre>
+<pre><code># A tibble: 440 × 5
+   time  name             year  event   team  
+   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+ 2 23.31 Ava Sealander    2022  50 FREE Athena
+ 3 23.49 Kelly Ngo        2016  50 FREE Athena
+ 4 23.71 Helen Liu        2014  50 FREE Athena
+ 5 23.76 Michele Kee      2014  50 FREE Athena
+ 6 23.77 Natalia Orbach-M 2020  50 FREE Athena
+ 7 23.77 Suzia Starzyk    2020  50 FREE Athena
+ 8 23.87 Katie Bilotti    2010  50 FREE Athena
+ 9 23.93 Jenni Rinker     2011  50 FREE Athena
+10 24.02 Annika Sharma    2023  50 FREE Athena
+# ℹ 430 more rows</code></pre>
 </div>
 </div>
 <p>If there were only data in the file and no names representing variables on the first row, the file might look like that below. We can imitate this by skipping the first row (containing names) using <code>skip =</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 209 Columns: 4
+<pre><code>Rows: 439 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): 23.29, Jocelyn Crawford, 50 FREE
-dbl (1): 2019
+chr (5): 23.29, Jocelyn Crawford, 2019, 50 FREE, Athena
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 209 × 4
-   `23.29` `Jocelyn Crawford` `2019` `50 FREE`
-   &lt;chr&gt;   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;    
- 1 23.31   Ava Sealander        2022 50 FREE  
- 2 23.49   Kelly Ngo            2016 50 FREE  
- 3 23.71   Helen Liu            2014 50 FREE  
- 4 23.76   Michele Kee          2014 50 FREE  
- 5 23.77   Natalia Orbach-M     2020 50 FREE  
- 6 23.77   Suzia Starzyk        2020 50 FREE  
- 7 23.87   Katie Bilotti        2010 50 FREE  
- 8 23.93   Jenni Rinker         2011 50 FREE  
- 9 24.02   Annika Sharma        2023 50 FREE  
-10 51.05   Kelly Ngo            2016 100 FREE 
-# ℹ 199 more rows</code></pre>
+<pre><code># A tibble: 439 × 5
+   `23.29` `Jocelyn Crawford` `2019` `50 FREE` Athena
+   &lt;chr&gt;   &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; 
+ 1 23.31   Ava Sealander      2022   50 FREE   Athena
+ 2 23.49   Kelly Ngo          2016   50 FREE   Athena
+ 3 23.71   Helen Liu          2014   50 FREE   Athena
+ 4 23.76   Michele Kee        2014   50 FREE   Athena
+ 5 23.77   Natalia Orbach-M   2020   50 FREE   Athena
+ 6 23.77   Suzia Starzyk      2020   50 FREE   Athena
+ 7 23.87   Katie Bilotti      2010   50 FREE   Athena
+ 8 23.93   Jenni Rinker       2011   50 FREE   Athena
+ 9 24.02   Annika Sharma      2023   50 FREE   Athena
+10 51.05   Kelly Ngo          2016   100 FREE  Athena
+# ℹ 429 more rows</code></pre>
 </div>
 </div>
 <p>See how the first row is assumed to be <em>names</em>? Setting <code>col_names = F</code> will fix the problem. Putting the arguments on separate rows of <code>R</code> code might improve code legibility.</p>
@@ -955,30 +952,29 @@ dbl (1): 2019
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_names =</span> F</span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 210 Columns: 4
+<pre><code>Rows: 440 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): X1, X2, X4
-dbl (1): X3
+chr (5): X1, X2, X3, X4, X5
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 210 × 4
-   X1    X2                  X3 X4     
-   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;  
- 1 23.29 Jocelyn Crawford  2019 50 FREE
- 2 23.31 Ava Sealander     2022 50 FREE
- 3 23.49 Kelly Ngo         2016 50 FREE
- 4 23.71 Helen Liu         2014 50 FREE
- 5 23.76 Michele Kee       2014 50 FREE
- 6 23.77 Natalia Orbach-M  2020 50 FREE
- 7 23.77 Suzia Starzyk     2020 50 FREE
- 8 23.87 Katie Bilotti     2010 50 FREE
- 9 23.93 Jenni Rinker      2011 50 FREE
-10 24.02 Annika Sharma     2023 50 FREE
-# ℹ 200 more rows</code></pre>
+<pre><code># A tibble: 440 × 5
+   X1    X2               X3    X4      X5    
+   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+ 2 23.31 Ava Sealander    2022  50 FREE Athena
+ 3 23.49 Kelly Ngo        2016  50 FREE Athena
+ 4 23.71 Helen Liu        2014  50 FREE Athena
+ 5 23.76 Michele Kee      2014  50 FREE Athena
+ 6 23.77 Natalia Orbach-M 2020  50 FREE Athena
+ 7 23.77 Suzia Starzyk    2020  50 FREE Athena
+ 8 23.87 Katie Bilotti    2010  50 FREE Athena
+ 9 23.93 Jenni Rinker     2011  50 FREE Athena
+10 24.02 Annika Sharma    2023  50 FREE Athena
+# ℹ 430 more rows</code></pre>
 </div>
 </div>
 <p>But we have no column names now. Setting <code>col_names =</code> will fix that. Use <code>c()</code> to combine 4 names, e.g., <code>col_names = c("name1", "name2", "name3", "name4")</code>.</p>
@@ -988,30 +984,29 @@ dbl (1): X3
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"name"</span>, <span class="st">"year"</span>, <span class="st">"event"</span>)</span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 210 Columns: 4
+<pre><code>Rows: 440 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): time, name, event
-dbl (1): year
+chr (5): time, name, year, event, X5
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 210 × 4
-   time  name              year event  
-   &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;  
- 1 23.29 Jocelyn Crawford  2019 50 FREE
- 2 23.31 Ava Sealander     2022 50 FREE
- 3 23.49 Kelly Ngo         2016 50 FREE
- 4 23.71 Helen Liu         2014 50 FREE
- 5 23.76 Michele Kee       2014 50 FREE
- 6 23.77 Natalia Orbach-M  2020 50 FREE
- 7 23.77 Suzia Starzyk     2020 50 FREE
- 8 23.87 Katie Bilotti     2010 50 FREE
- 9 23.93 Jenni Rinker      2011 50 FREE
-10 24.02 Annika Sharma     2023 50 FREE
-# ℹ 200 more rows</code></pre>
+<pre><code># A tibble: 440 × 5
+   time  name             year  event   X5    
+   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+ 2 23.31 Ava Sealander    2022  50 FREE Athena
+ 3 23.49 Kelly Ngo        2016  50 FREE Athena
+ 4 23.71 Helen Liu        2014  50 FREE Athena
+ 5 23.76 Michele Kee      2014  50 FREE Athena
+ 6 23.77 Natalia Orbach-M 2020  50 FREE Athena
+ 7 23.77 Suzia Starzyk    2020  50 FREE Athena
+ 8 23.87 Katie Bilotti    2010  50 FREE Athena
+ 9 23.93 Jenni Rinker     2011  50 FREE Athena
+10 24.02 Annika Sharma    2023  50 FREE Athena
+# ℹ 430 more rows</code></pre>
 </div>
 </div>
 <p>Luckily, we have both names and data in the file and by default <code>readr::read_csv()</code> does what we intend.</p>
@@ -1131,26 +1126,25 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 <div class="cell">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>DAT2 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 210 Columns: 4
+<pre><code>Rows: 440 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): time, name, event
-dbl (1): year
+chr (5): time, name, year, event, team
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(DAT2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  time  name              year event  
-  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;  
-1 23.29 Jocelyn Crawford  2019 50 FREE
-2 23.31 Ava Sealander     2022 50 FREE
-3 23.49 Kelly Ngo         2016 50 FREE
-4 23.71 Helen Liu         2014 50 FREE
-5 23.76 Michele Kee       2014 50 FREE
-6 23.77 Natalia Orbach-M  2020 50 FREE</code></pre>
+<pre><code># A tibble: 6 × 5
+  time  name             year  event   team  
+  &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 23.29 Jocelyn Crawford 2019  50 FREE Athena
+2 23.31 Ava Sealander    2022  50 FREE Athena
+3 23.49 Kelly Ngo        2016  50 FREE Athena
+4 23.71 Helen Liu        2014  50 FREE Athena
+5 23.76 Michele Kee      2014  50 FREE Athena
+6 23.77 Natalia Orbach-M 2020  50 FREE Athena</code></pre>
 </div>
 </div>
 <p>We can test whehter <code>DAT</code> and <code>DAT2</code> are the same using a logical test <code>==</code>. Notice the two <code>=</code>. If we use one <code>=</code>, we will actually assign the contents of <code>DAT2</code> to <code>DAT</code> because a single <code>=</code> in this context (scope) will do the same as <code>&lt;-</code>. A discussion of the differences is beyond the scope here but suffice it so say <code>&lt;-</code> is the common practice except when you are writing custom functions. In most cases, assignment inside functions are done with <code>=</code> because objects created inside a function are not typically needed outside that scope.</p>
@@ -1193,13 +1187,13 @@ dbl (1): year
 <div class="cell">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># hmm, something seems off.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   time             name year   event
-1 23.29 Jocelyn Crawford 2019 50 FREE
-2 23.31    Ava Sealander 2022 50 FREE
-3 23.49        Kelly Ngo 2016 50 FREE
-4 23.71        Helen Liu 2014 50 FREE
-5 23.76      Michele Kee 2014 50 FREE
-6 23.77 Natalia Orbach-M 2020 50 FREE</code></pre>
+<pre><code>   time             name year   event   team
+1 23.29 Jocelyn Crawford 2019 50 FREE Athena
+2 23.31    Ava Sealander 2022 50 FREE Athena
+3 23.49        Kelly Ngo 2016 50 FREE Athena
+4 23.71        Helen Liu 2014 50 FREE Athena
+5 23.76      Michele Kee 2014 50 FREE Athena
+6 23.77 Natalia Orbach-M 2020 50 FREE Athena</code></pre>
 </div>
 </div>
 <p>Because header rows do exist atop the <code>.csv</code> file, specify that they exist by passing <code>TRUE</code> to the <code>header</code> argument of the function (e.g., <code>header = TRUE</code> or <code>header = T</code>).</p>
@@ -1211,13 +1205,13 @@ dbl (1): year
 <span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)    <span class="co"># Perfect!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   time             name year   event
-1 23.29 Jocelyn Crawford 2019 50 FREE
-2 23.31    Ava Sealander 2022 50 FREE
-3 23.49        Kelly Ngo 2016 50 FREE
-4 23.71        Helen Liu 2014 50 FREE
-5 23.76      Michele Kee 2014 50 FREE
-6 23.77 Natalia Orbach-M 2020 50 FREE</code></pre>
+<pre><code>   time             name year   event   team
+1 23.29 Jocelyn Crawford 2019 50 FREE Athena
+2 23.31    Ava Sealander 2022 50 FREE Athena
+3 23.49        Kelly Ngo 2016 50 FREE Athena
+4 23.71        Helen Liu 2014 50 FREE Athena
+5 23.76      Michele Kee 2014 50 FREE Athena
+6 23.77 Natalia Orbach-M 2020 50 FREE Athena</code></pre>
 </div>
 </div>
 </section>
