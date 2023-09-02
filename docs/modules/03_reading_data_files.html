@@ -447,6 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-as-a-data-frame" id="toc-data-as-a-data-frame" class="nav-link" data-scroll-target="#data-as-a-data-frame"><strong>Data as a Data Frame</strong></a></li>
   <li><a href="#are-they-both-tibbles" id="toc-are-they-both-tibbles" class="nav-link" data-scroll-target="#are-they-both-tibbles"><strong>Are they both <code>tibbles</code>?</strong></a></li>
   </ul></li>
+  <li><a href="#project-organization" id="toc-project-organization" class="nav-link" data-scroll-target="#project-organization"><strong>Project Organization</strong></a></li>
   <li><a href="#reading-large-files" id="toc-reading-large-files" class="nav-link" data-scroll-target="#reading-large-files"><strong>Reading Large Files</strong></a></li>
   </ul>
 </nav>
@@ -485,7 +486,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
-<p>In this module, you will learn how to read and write data files in different formats.</p>
+<p>In this module, you will learn how to read and write data files in different formats. Depending how you access data, the process may change so this topic is discussed in a general way with different approaches described. If you find yourself in a bind with reading data, one of these approaches will likely work. In many instances, however, <code>readr::read_csv()</code> will be your friend when reading files and <code>readr::write_csv()</code> will be for writing files.</p>
+<p>In addition, concepts related to reading files and managing workflow are discussed. By doing so, my goal is to make you aware of some key issues that could cause some problems with data science projects. When reading files,</p>
 </section>
 <section id="to-do" class="level1">
 <h1><strong>To Do</strong></h1>
@@ -1219,6 +1221,16 @@ dbl (1): year
 </div>
 </div>
 </section>
+</section>
+<section id="project-organization" class="level1">
+<h1><strong>Project Organization</strong></h1>
+<p>For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated <code>.R</code> used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your analyses report file, you would then <code>source()</code> the files necessary as shown here.</p>
+<pre><code>source(here::here("r", "read_data.R"))
+source(here::here("r", "clean_data.R"))
+source(here::here("r", "analyze_data.R"))
+source(here::here("r", "create_plots.R"))</code></pre>
+<p>The alternative is that you write all of your code in one file and overwhelm yourself because of all of the lines of code. You could, however, think of yourself as members of a team and organize your files as though you were working with others.</p>
+<p>When working with teams, you would likely also manage a github repo for the project. Team contributors would be working on separate tasks in separate files. The files might be used by all team members. You could imagine how difficult the process would be if there was only one file with all project code.</p>
 </section>
 <section id="reading-large-files" class="level1">
 <h1><strong>Reading Large Files</strong></h1>
