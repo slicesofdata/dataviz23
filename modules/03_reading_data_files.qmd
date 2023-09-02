@@ -48,15 +48,21 @@ First, we need an `.xlsx` data file. You can obtain one locally or online from a
 
 GitHub handles Excel files in a way that makes downloading them challenging, so we will first download a `.zip` file containing the `.xlxs` file. 
 
-We will use a URL of a zip file to download to the project data directory, unzip the contents, and remove the `.zip` file. 
+You can accomplish this in two ways:
+
+- Download from [here](https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip), save in your project `/data` directory, and unzip
+
+- Use the URL to a zip file and download to the project `/data` directory, unzip the contents, and remove the `.zip` file using the code below
 
 ```{r}
 zip_url <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip"
+
 download.file(zip_url, destfile = here::here("data", "swim.zip"))
 unzip(here::here("data", "swim.zip"), 
       overwrite = T, 
       exdir = here::here("data")
       )
+
 file.remove(here::here("data", "swim.zip"))
 ```
 
