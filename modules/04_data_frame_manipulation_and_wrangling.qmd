@@ -71,7 +71,10 @@ Working with data involves creating new column variables, removing or renaming c
 Using `select()`, you can select columns/variables from a data frame. The variables you select are retained and variables omitted that you don't select are omitted in the returned data frame. 
 
 If you are not piping a data frame from a previous object using either `|>` (now in base `R`) or  `%>%` (from **{magrittr}**), the first argument passed into `select()` will be the data frame. The second and subsequent arguments can be column variables you wish to select from the data frame. 
-`select(mydataframe, myvars)`
+
+```
+select(mydataframe, myvars)
+```
 
 If piping a data frame with **{magrittr}**, `.` or `.data` will serve to reference the inherited data frame. This detail is not needed but adding it serves as a reminer that the data frame is the first argument of the function. 
 
@@ -82,7 +85,7 @@ dataframe %>%
 
 Variables can be passed separately without quotes or collectively as a character vector.
 
-Passing variables separately by name:
+*Passing variables separately by name:*
 
 ```{r}
 USArrests %>% 
@@ -91,7 +94,7 @@ USArrests %>%
 *Note:* passing variables by name does not work with `base R` manipulation, you need to pass the name as a string.
 
 
-Passing variables separately as characters:
+*Passing variables separately as characters:*
 
 ```{r}
 USArrests %>% 
@@ -99,14 +102,14 @@ USArrests %>%
 ```
 
 
-Passing a character vector (more like you would do in `base R`):
+*Passing a character vector (more like you would do in `base R`):*
 
 ```{r}
 USArrests %>% 
   select(., c("Murder", "Assault")) %>% head()
 ```
 
-Passing an object holding a character vector containing two elements:
+*Passing an object holding a character vector containing two elements:*
 
 ```{r}
 keep_vars <- c("Murder", "Assault")
@@ -158,7 +161,7 @@ is.integer(starts_with("b", vars = c("Hello", "Hi", "Bye")))
 
 Importantly, the value refers to the element index/position in the `vars` vector. Because the third string `"Bye"` starts with `"b"`, that's what is returned. 
 
-Try something else...
+Try something else:
 
 ```{r}
 starts_with("h", vars = c("Hello", "Hi", "Bye"))

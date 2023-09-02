@@ -417,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#downloading-a-.zip-file-from-a-url" id="toc-downloading-a-.zip-file-from-a-url" class="nav-link" data-scroll-target="#downloading-a-.zip-file-from-a-url"><strong>Downloading a <code>.zip</code> File from a URL</strong></a></li>
   <li><a href="#readingimporting-data-files" id="toc-readingimporting-data-files" class="nav-link" data-scroll-target="#readingimporting-data-files"><strong>Reading/Importing Data Files</strong></a>
   <ul class="collapse">
-  <li><a href="#excel-files-form-a-url" id="toc-excel-files-form-a-url" class="nav-link" data-scroll-target="#excel-files-form-a-url"><strong>Excel files form a URL</strong></a></li>
+  <li><a href="#excel-files-from-a-url" id="toc-excel-files-from-a-url" class="nav-link" data-scroll-target="#excel-files-from-a-url"><strong>Excel files from a URL</strong></a></li>
   <li><a href="#reading-excel-spreadsheets-with-readxl" id="toc-reading-excel-spreadsheets-with-readxl" class="nav-link" data-scroll-target="#reading-excel-spreadsheets-with-readxl"><strong>Reading Excel Spreadsheets with <code>{readxl}</code></strong></a>
   <ul class="collapse">
   <li><a href="#getting-sheet-names" id="toc-getting-sheet-names" class="nav-link" data-scroll-target="#getting-sheet-names"><strong>Getting Sheet Names</strong></a></li>
@@ -547,8 +547,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="readingimporting-data-files" class="level1">
 <h1><strong>Reading/Importing Data Files</strong></h1>
-<section id="excel-files-form-a-url" class="level2">
-<h2 class="anchored" data-anchor-id="excel-files-form-a-url"><strong>Excel files form a URL</strong></h2>
+<section id="excel-files-from-a-url" class="level2">
+<h2 class="anchored" data-anchor-id="excel-files-from-a-url"><strong>Excel files from a URL</strong></h2>
 <p><strong>{readxl}</strong> 1.4.3 lacks the ability to read the file from online. We can, however, read it using <strong>{openxlsx}</strong>. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to <code>openxlsx::read.xlsx()</code> and assign it’s contents to an object named <code>DAT</code> using the assignment operator <code>&lt;-</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>URL <span class="ot">&lt;-</span> <span class="st">"https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx"</span></span>
@@ -558,13 +558,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   score              name year          event   team
-1 525.35       Maia Presti 2015 1-Meter Diving Athena
-2 514.70 Makenna Parkinson 2023 1-Meter Diving Athena
-3 512.05      Emma Ng Pack 2023 1-Meter Diving Athena
-4 494.95         Izzy Doud 2023 1-Meter Diving Athena
-5 462.15     Carli Lessard 2015 1-Meter Diving Athena
-6 447.70     Alexis Romero 2023 1-Meter Diving Athena</code></pre>
+<pre><code>   score              name year          event
+1 525.35       Maia Presti 2015 1-Meter Diving
+2 514.70 Makenna Parkinson 2023 1-Meter Diving
+3 512.05      Emma Ng Pack 2023 1-Meter Diving
+4 494.95         Izzy Doud 2023 1-Meter Diving
+5 462.15     Carli Lessard 2015 1-Meter Diving
+6 447.70     Alexis Romero 2023 1-Meter Diving</code></pre>
 </div>
 </div>
 <p>Just an FYI, when you want a different worksheet, <code>openxlsx::read.xlsx()</code> in <strong>{openxlsx}</strong> 4.2.5.2 won’t work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process.</p>

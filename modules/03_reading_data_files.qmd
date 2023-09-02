@@ -77,7 +77,7 @@ OK, great! Let's move to importing files more generally.
 
 # **Reading/Importing Data Files**
 
-## **Excel files form a URL**
+## **Excel files from a URL**
 
 **{readxl}** `r packageVersion("readxl")` lacks the ability to read the file from online. We can, however, read it using **{openxlsx}**. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to `openxlsx::read.xlsx()` and assign it's contents to an object named `DAT` using the assignment operator `<-`.
 
