@@ -1230,7 +1230,7 @@ dbl (1): year
 </section>
 <section id="project-organization" class="level1">
 <h1><strong>Project Organization</strong></h1>
-<p>For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated <code>.R</code> used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your analyses report file, you would then <code>source()</code> the files necessary as shown here.</p>
+<p>For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated <code>.R</code> used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your report file, you would include a code block for sourcing other scripts as shown here.</p>
 <pre><code>source(here::here("r", "read_data.R"))
 source(here::here("r", "clean_data.R"))
 source(here::here("r", "analyze_data.R"))

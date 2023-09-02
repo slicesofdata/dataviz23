@@ -452,7 +452,7 @@ head(DAT)    # Perfect!
 
 # **Project Organization**
 
-For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated `.R` used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your analyses report file, you would then `source()` the files necessary as shown here. 
+For many projects, you will have to perform lots of data cleaning. For those instances, you would likely also want to organize your project in a way that you create dedicated `.R` used to read and clean the data. Depending on circumstances, you may also wish to create one file for reading data and one for cleaning. You would also have separate files for running analyses or for creating plots. In your report file, you would include a code block for sourcing other scripts as shown here. 
 
 ```
 source(here::here("r", "read_data.R"))
