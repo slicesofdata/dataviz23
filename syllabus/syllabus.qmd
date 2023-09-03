@@ -9,17 +9,12 @@ format:
     toc: true
 ---
 
-::: callout-important
-## Under construction
-
-This syllabus is under construction until Fall 2023
-:::
-
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
 library(magrittr)
+#library(kableExtra)
+#library(knitr)
+
 source(here::here("R/_common.R"))
-
-
 
 knitr::kable(
   data.frame(
@@ -34,7 +29,11 @@ knitr::kable(
   ) %>%
     dplyr::rename_with(~ gsub("_", " ", .x), tidyselect::contains("_")) %>% 
     t() 
-)
+) #%>% kable_styling(bootstrap_options = c("condensed")  )
+#%>% formatStyle("Topic", backgroundColor = styleEqual("Fall Break (no class)", "red"))
+#column_spec(1,background = "yellow")
+
+#kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
 # this is a test
 #knitr::kable(
 #    data.frame(
@@ -125,7 +124,7 @@ Students are expected to participate in all aspects of the class. This class inv
 ## Course Schedule
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
-SCHEDULE <- rio::import(here::here("syllabus/tables/new_schedule.csv"))
+SCHEDULE <- rio::import(here::here("syllabus/tables/schedule.csv"))
 knitr::kable(SCHEDULE)
 ```
 

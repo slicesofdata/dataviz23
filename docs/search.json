@@ -147,11 +147,11 @@
     "text": "Libraries\n\n{openxlsx} 4.2.5.2: for reading Excel spreadsheets from a URL\n{readxl} 1.4.3: for reading Excel spreadsheets\n{readr} 2.1.4: for reading .csv, .tsv, and .fwf files\n\nFirst, we need an .xlsx data file. You can obtain one locally or online from a URL."
   },
   {
-    "objectID": "modules/03_reading_data_files.html#excel-files-form-a-url",
-    "href": "modules/03_reading_data_files.html#excel-files-form-a-url",
+    "objectID": "modules/03_reading_data_files.html#excel-files-from-a-url",
+    "href": "modules/03_reading_data_files.html#excel-files-from-a-url",
     "title": "Reading data files",
-    "section": "Excel files form a URL",
-    "text": "Excel files form a URL\n{readxl} 1.4.3 lacks the ability to read the file from online. We can, however, read it using {openxlsx}. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to openxlsx::read.xlsx() and assign it’s contents to an object named DAT using the assignment operator &lt;-.\n\nURL &lt;- \"https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx\"\nDAT &lt;- openxlsx::read.xlsx(URL)\n\nWhat does the head of the file look like?\n\nhead(DAT)\n\n   score              name year          event   team\n1 525.35       Maia Presti 2015 1-Meter Diving Athena\n2 514.70 Makenna Parkinson 2023 1-Meter Diving Athena\n3 512.05      Emma Ng Pack 2023 1-Meter Diving Athena\n4 494.95         Izzy Doud 2023 1-Meter Diving Athena\n5 462.15     Carli Lessard 2015 1-Meter Diving Athena\n6 447.70     Alexis Romero 2023 1-Meter Diving Athena\n\n\nJust an FYI, when you want a different worksheet, openxlsx::read.xlsx() in {openxlsx} 4.2.5.2 won’t work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process."
+    "section": "Excel files from a URL",
+    "text": "Excel files from a URL\n{readxl} 1.4.3 lacks the ability to read the file from online. We can, however, read it using {openxlsx}. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to openxlsx::read.xlsx() and assign it’s contents to an object named DAT using the assignment operator &lt;-.\n\nURL &lt;- \"https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx\"\nDAT &lt;- openxlsx::read.xlsx(URL)\n\nWhat does the head of the file look like?\n\nhead(DAT)\n\n   score              name year          event\n1 525.35       Maia Presti 2015 1-Meter Diving\n2 514.70 Makenna Parkinson 2023 1-Meter Diving\n3 512.05      Emma Ng Pack 2023 1-Meter Diving\n4 494.95         Izzy Doud 2023 1-Meter Diving\n5 462.15     Carli Lessard 2015 1-Meter Diving\n6 447.70     Alexis Romero 2023 1-Meter Diving\n\n\nJust an FYI, when you want a different worksheet, openxlsx::read.xlsx() in {openxlsx} 4.2.5.2 won’t work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process."
   },
   {
     "objectID": "modules/03_reading_data_files.html#reading-excel-spreadsheets-with-readxl",
@@ -739,7 +739,7 @@
     "href": "syllabus/syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Under construction\n\n\n\nThis syllabus is under construction until Fall 2023\nSemester\nFall 2023\n\n\nSection\nPSYC 167, Sect-01\n\n\nDay Time\nTuesday 2:45 - 05:30PM (Pacific)\n\n\nLocation\nLocation: Roberts South, 104\n\n\nOffice Hours\n(zoom link posted on …)\n\n\nInstructor\nGabriel I. Cook\n\n\nContact\nEmail: gcook@CMC.edu(please put ’PSYC 167 in subject line)\n\n\nCredit\n3 hours; 1 credits"
+    "text": "Semester\nFall 2023\n\n\nSection\nPSYC 167, Sect-01\n\n\nDay Time\nTuesday 2:45 - 05:30PM (Pacific)\n\n\nLocation\nLocation: Roberts South, 104\n\n\nOffice Hours\n(zoom link posted on …)\n\n\nInstructor\nGabriel I. Cook\n\n\nContact\nEmail: gcook@CMC.edu(please put ’PSYC 167 in subject line)\n\n\nCredit\n3 hours; 1 credits"
   },
   {
     "objectID": "syllabus/syllabus.html#course-description",
@@ -774,7 +774,7 @@
     "href": "syllabus/syllabus.html#course-schedule",
     "title": "Syllabus",
     "section": "Course Schedule",
-    "text": "Course Schedule\n\n\n\n\n\nDate\nWeek\nModule\nTopic\n\n\n\n\n8/29\n1\n1\nIntroduction & Project Management\n\n\n\n1\n2\nGraphical Perception\n\n\n9/5\n2\n3\nData Frame Manipulation and Wrangling\n\n\n\n2\n4\nData Subsets and Summaries\n\n\n9/12\n3\n5\nThe Grammar of Graphics\n\n\n\n3\n6\nVisualizing Amounts\n\n\n9/19\n4\n7\nVisualizing Associations\n\n\n\n4\n8\nSpatial Position and Adjustment\n\n\n9/26\n5\n9\nConsiderations in Data Visualization\n\n\n\n5\n10\nColor Scales and Palettes\n\n\n10/3\n6\n11\nHistograms and Density Plots"
+    "text": "Course Schedule\n\n\n\n\n\n\n\n\n\n\n\nDate\nWeek\nModule\nTopic\n\n\n\n\n29-Aug\n1\n1\nIntroduction & Project Management\n\n\n\n1\n2\nGraphical Perception\n\n\n5-Sep\n2\n3\nData Frame Manipulation and Wrangling\n\n\n\n2\n4\nData Subsets and Summaries\n\n\n12-Sep\n3\n5\nThe Grammar of Graphics\n\n\n\n3\n6\nVisualizing Amounts\n\n\n19-Sep\n4\n7\nVisualizing Associations\n\n\n\n4\n8\nSpatial Position and Adjustment\n\n\n26-Sep\n5\n9\nConsiderations in Data Visualization\n\n\n\n5\n10\nColor Scales and Palettes\n\n\n3-Oct\n6\n11\nHistograms and Density Plots\n\n\n\n6\n12\nCoordinates Axes and Position Scales\n\n\n10-Oct\n7\n13\nStatistical Transformations (Data as-is Versus Summaries)\n\n\n\n7\n14\nMore Data Wrangling\n\n\n17-Oct\n8\n\nFall Break (no class)\n\n\n24-Oct\n9\n15\nVisualizing More Distributions\n\n\n\n9\n16\nVisualizing Uncertainty\n\n\n31-Oct\n10\n\nMid-Term Presentation\n\n\n7-Nov\n11\n17\nVisualizing Trends\n\n\n\n11\n18\nLegends and Arrangement\n\n\n14-Nov\n12\n19\nDesigning Perceptually Efficient Visualizations\n\n\n\n12\n20\nAnnotation and Text\n\n\n21-Nov\n13\n21\nMulti-Panel Plots: Faceting and Layers\n\n\n\n13\n22\nAttentional Control and Tradeoffs\n\n\n28-Nov\n14\n23\nTitles Captions & Tables\n\n\n\n14\n24\nFigure Design (Themes)\n\n\n5-Dec\n15\n\nPresentation (Last day of Instruction)"
   },
   {
     "objectID": "syllabus/syllabus.html#assignments-and-grading",
@@ -810,12 +810,5 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
-  },
-  {
-    "objectID": "modules/03_reading_data_files.html#excel-files-from-a-url",
-    "href": "modules/03_reading_data_files.html#excel-files-from-a-url",
-    "title": "Reading data files",
-    "section": "Excel files from a URL",
-    "text": "Excel files from a URL\n{readxl} 1.4.3 lacks the ability to read the file from online. We can, however, read it using {openxlsx}. The problem is that you will only be able to read a the first sheet. If the first sheet is all you need, this can work. Pass the URL to openxlsx::read.xlsx() and assign it’s contents to an object named DAT using the assignment operator &lt;-.\n\nURL &lt;- \"https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx\"\nDAT &lt;- openxlsx::read.xlsx(URL)\n\nWhat does the head of the file look like?\n\nhead(DAT)\n\n   score              name year          event\n1 525.35       Maia Presti 2015 1-Meter Diving\n2 514.70 Makenna Parkinson 2023 1-Meter Diving\n3 512.05      Emma Ng Pack 2023 1-Meter Diving\n4 494.95         Izzy Doud 2023 1-Meter Diving\n5 462.15     Carli Lessard 2015 1-Meter Diving\n6 447.70     Alexis Romero 2023 1-Meter Diving\n\n\nJust an FYI, when you want a different worksheet, openxlsx::read.xlsx() in {openxlsx} 4.2.5.2 won’t work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process."
   }
 ]
