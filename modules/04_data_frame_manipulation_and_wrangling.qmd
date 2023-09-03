@@ -4,7 +4,7 @@ author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
-# this is a test to fingure out why there is the following error when rendering many quarto files:
+# this is a test to figure out why there is the following error when rendering many quarto files:
 # ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
 ---
 
@@ -48,7 +48,7 @@ library(dplyr)
 library(stringr)
 ```
 
-Make note of any warnings that appear. There are some libraries that contain the same function names. The most recently loaded library function will take precedence. 
+Make note of any warnings that appear when loading libraries. There are some libraries that contain have function with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using `::` to call a function from a particular library (e.g., `libraryname::functionname()`).
 
 
 # **A Grammar for Data Wrangling** 
@@ -68,6 +68,8 @@ Working with data involves creating new column variables, removing or renaming c
 
 # **Some Common Ways for Selecting Variables Using `{dplyr}`**
 
+You can reference variables by their name or their column position in a data frame (e.g., 1, 25, etc.). 
+
 Using `select()`, you can select columns/variables from a data frame. The variables you select are retained and variables omitted that you don't select are omitted in the returned data frame. 
 
 If you are not piping a data frame from a previous object using either `|>` (now in base `R`) or  `%>%` (from **{magrittr}**), the first argument passed into `select()` will be the data frame. The second and subsequent arguments can be column variables you wish to select from the data frame. 
@@ -76,11 +78,20 @@ If you are not piping a data frame from a previous object using either `|>` (now
 select(mydataframe, myvars)
 ```
 
-If piping a data frame with **{magrittr}**, `.` or `.data` will serve to reference the inherited data frame. This detail is not needed but adding it serves as a reminer that the data frame is the first argument of the function. 
+If piping a data frame with **{magrittr}**, `.` or `.data` will serve to reference the inherited data frame. This detail is not needed but adding it serves as a reminder that the data frame is the first argument of the function. 
 
 ```
 dataframe %>%
    select(., myvars)
+```
+
+Variables can be passed by their column position.
+
+*Passing variables separately by name:*
+
+```{r}
+USArrests %>% 
+  select(., 1, 3) %>% head()
 ```
 
 Variables can be passed separately without quotes or collectively as a character vector.
@@ -109,11 +120,22 @@ USArrests %>%
   select(., c("Murder", "Assault")) %>% head()
 ```
 
+*Passing a numeric vector of column positions:*
+
+```{r}
+USArrests %>% 
+  select(., c(1, 3)) %>% head()
+```
+
 *Passing an object holding a character vector containing two elements:*
+
+First, creat the vector object:
 
 ```{r}
 keep_vars <- c("Murder", "Assault")
 ```
+
+Then pass the vector into the function:
 
 ```{r}
 USArrests %>% 
@@ -130,8 +152,8 @@ Many of the functions are imported from the **{tidyselect}** library and these f
 With functions like `starts_with()`, `contains()`, and `ends_with()`, you can select variables with character patterns in their names.
 
 Rather that passing the names of the variables as the second argument (e.g., `c("Murder", "Assault")`), you would pass the helper function, say `starts_with()`. Whatever `starts_with()` returns is what gets passed to `select()` as the variables. This is what is referred to as functional programming. Rather than coding specifically what to do, you with utilize the task of another function to passed its returned object as an argument to another function.  
-   
-But first, we need to see what's going on with these functions, like `starts_with()`. For more, use `?starts_with`.
+
+But first, we need to see what these functions, like `starts_with()`, are doing. For more information, use `?starts_with`.
 
 `starts_with(match, ignore.case = TRUE, vars = NULL)`
 
@@ -191,23 +213,26 @@ You will typically use `starts_with()` along with other functions. When using `s
 Example:
 
 ```
-select(mydataframe,` 
+select(mydataframe,
     starts_with(match = "my pattern",
-                vars = "var names of mydataframe"))
+                vars = "var names of mydataframe")
+                )
 ```
 
-Without piping...
+Passing the `data frame` into `select()` without piping it using `%>%`:
 
 ```{r}
 select(USArrests, starts_with("m")) %>% head()
 ```
 
-With piping...
+Piping the `data frame` into `select()`:
 
 ```{r}
 USArrests %>%
   select(., starts_with("m")) %>% head()
 ```
+
+Another example:
 
 ```{r}
 USArrests %>%
@@ -217,15 +242,17 @@ USArrests %>%
 
 ## *Selecting and Selecting Out Variables By/Between Index*
 
-- `select(., 1,2)`: select first and second 
-- `select(., c(1,2))`: select first and second
-- `select(., -c(1,2))`: select out first and second
+There are many approaches for *selecting* or *selecting out* column variables. You can pass multiple arguments for each specification or you can pass a single vector that contains all specifications.  
 
-- `select(., 1:2)`: select first through second
-- `select(., c(1:2))`: select first through second
-- `select(., -c(1:2))`: select out first through second
+- `select(., 1,2)`: select first and second columns
+- `select(., c(1,2))`: select first and second columns
+- `select(., -c(1,2))`: select out first and second columns
 
-*Potential Recommendation*: use options utilizing `c()` as this habit will be more versatile with `base R` functionality. However, online solutions will likely not take this approach.
+- `select(., 1:2)`: select first through second columns
+- `select(., c(1:2))`: select first through second columns
+- `select(., -c(1:2))`: select out first through second columns
+
+*Potential Recommendation*: use options utilizing `c()` to pass a vector because this habit will be more versatile with `base R` functionality. However, online solutions will likely not take this approach.
 
 
 Let's make a data frame to work with first.
@@ -284,6 +311,10 @@ DAT %>%
 
 ## *Selecting and Selecting Out Variables By or Between Character Name*
 
+These approaches are similar to those offered earlier except that some involve passing variables by their name (e.g., character names). Whereas the order of the variables in a data frame may move around, the names may be more stable or permanent, at least after you have cleaned up the names. Consequently, passing variables by name may be more foolproof. 
+
+You don't have to be familiar with all approaches and you may settle on using one that makes the most sense to you.
+
 - `select(., "var1", "var2")`
 - `select(., c("var1", "var2"))`
 - `select(., -c("var1", "var2"))`
@@ -294,7 +325,7 @@ DAT %>%
 
 *Recommendation*: use options utilizing `c()` as this will be more versatile with `base R` functionality.
 
-These also work but may lead to some confusion regarding usage of quotes:
+These approaches also work but they may lead to some confusion regarding usage of quotes:
 
 - `select(., var1, var2)`
 - `select(., c(var1, var2))`
@@ -832,7 +863,7 @@ DAT %>%
   filter(., !is.na(Renting))
 ```
 
-Why separate lines if you can use `&`? Weel, separate function calls on separate lines can also make code inclusion/exclusion easy.
+Why separate lines if you can use `&`? Well, separate function calls written as separate lines of code also make code inclusion/exclusion easy.
 
 Comment out what you don't want using `#`:
 
