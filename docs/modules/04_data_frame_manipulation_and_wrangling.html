@@ -441,12 +441,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filter-by-exclusion" id="toc-filter-by-exclusion" class="nav-link" data-scroll-target="#filter-by-exclusion"><em>Filter by exclusion</em></a></li>
   <li><a href="#filter-by-conditional-x-and-y-using-operator" id="toc-filter-by-conditional-x-and-y-using-operator" class="nav-link" data-scroll-target="#filter-by-conditional-x-and-y-using-operator"><em>Filter by conditional X and Y using <code>&amp;</code> operator…</em></a></li>
   </ul></li>
-  <li><a href="#filter-cases-containing-characters-using-stringrstr_detect-and-in" id="toc-filter-cases-containing-characters-using-stringrstr_detect-and-in" class="nav-link" data-scroll-target="#filter-cases-containing-characters-using-stringrstr_detect-and-in"><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>…</strong></a></li>
-  <li><a href="#filtering-missing-data-nas" id="toc-filtering-missing-data-nas" class="nav-link" data-scroll-target="#filtering-missing-data-nas"><strong>Filtering Missing Data (<code>NA</code>’s)</strong></a>
+  <li><a href="#filter-cases-containing-characters-using-stringrstr_detect-and-in" id="toc-filter-cases-containing-characters-using-stringrstr_detect-and-in" class="nav-link" data-scroll-target="#filter-cases-containing-characters-using-stringrstr_detect-and-in"><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>:</strong></a></li>
+  <li><a href="#filtering-missing-data-nas" id="toc-filtering-missing-data-nas" class="nav-link" data-scroll-target="#filtering-missing-data-nas"><strong>Filtering Missing Data (<code>NAs</code>)</strong></a>
   <ul class="collapse">
-  <li><a href="#filter-using-na.omit" id="toc-filter-using-na.omit" class="nav-link" data-scroll-target="#filter-using-na.omit"><em>Filter using <code>na.omit()</code>…</em></a></li>
-  <li><a href="#filter-using-is.na-and-is.na" id="toc-filter-using-is.na-and-is.na" class="nav-link" data-scroll-target="#filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>…</em></a></li>
-  <li><a href="#filter-using-complete.cases" id="toc-filter-using-complete.cases" class="nav-link" data-scroll-target="#filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>…</em></a></li>
+  <li><a href="#filter-using-na.omit" id="toc-filter-using-na.omit" class="nav-link" data-scroll-target="#filter-using-na.omit"><em>Filter using <code>na.omit()</code>:</em></a></li>
+  <li><a href="#filter-using-is.na-and-is.na" id="toc-filter-using-is.na-and-is.na" class="nav-link" data-scroll-target="#filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>:</em></a></li>
+  <li><a href="#filter-using-complete.cases" id="toc-filter-using-complete.cases" class="nav-link" data-scroll-target="#filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>:</em></a></li>
   </ul></li>
   <li><a href="#the-data-manipulation-workflow-putting-it-all-together" id="toc-the-data-manipulation-workflow-putting-it-all-together" class="nav-link" data-scroll-target="#the-data-manipulation-workflow-putting-it-all-together"><strong>The Data Manipulation Workflow: Putting It All Together</strong></a></li>
   </ul>
@@ -484,6 +484,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Under construction.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.</p>
+</div>
+</div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
 <section id="libraries" class="level2">
@@ -526,14 +539,14 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Make note of any warnings that appear when loading libraries. There are some libraries that contain have function with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using <code>::</code> to call a function from a particular library (e.g., <code>libraryname::functionname()</code>).</p>
+<p>Make note of any warnings that appear when loading libraries. There are some libraries that contain functions with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using <code>::</code> to call a function from a particular library (e.g., <code>libraryname::functionname()</code>).</p>
 </section>
 </section>
 <section id="a-grammar-for-data-wrangling" class="level1">
 <h1><strong>A Grammar for Data Wrangling</strong></h1>
-<p>The <strong>{dplyr}</strong> package presents a type of grammar for wrangling data (H. Wickham and Francois 2020). <strong>{dplyr}</strong> is part of the <strong>{tidyverse}</strong> ecosystem which loads using <code>library(tidyverse)</code>, or specifically using <code>library(dplyr)</code>. <strong>{dplyr}</strong> also imports functions from <strong>{tidyselect}</strong>, which is also part of the <strong>{tidyverse}</strong> ecosystem.</p>
+<p>The <a href="https://dplyr.tidyverse.org/"><strong>{dplyr}</strong></a> package presents a type of grammar for wrangling data (<a href="https://www.researchgate.net/publication/275646200_dplyr_A_Grammar_of_Data_Manipulation">Wickham <em>and</em> Francois 2014</a>). <strong>{dplyr}</strong> is part of the <a href="https://www.tidyverse.org/"><strong>{tidyverse}</strong></a> ecosystem which loads using <code>library(tidyverse)</code>, or specifically using <code>library(dplyr)</code>. <strong>{dplyr}</strong> also imports functions from <strong>{tidyselect}</strong>, which is also part of the <strong>{tidyverse}</strong> ecosystem.</p>
 <p>The functions from any <code>R</code> package can be called after loading the package library. One does not need to reference the package explicitly when calling a function but to avoid confusion, we will often reference the package/library and the function together (e.g., <code>package::function()</code>).</p>
-<p>Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data (often by groups/factors). etc. Consequently, there are five main function verbs for working with data in a data frame: <code>select</code>, <code>filter</code>, <code>mutate</code>, <code>arange</code>, and <code>summarize</code>.</p>
+<p>Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data (often by groups/factors). etc. Consequently, there are five main function verbs for working with data in a data frame: <code>select</code>, <code>filter</code>, <code>mutate</code>, <code>arange</code>, and <code>summarize</code>. Their corresponding functions are:</p>
 <ul>
 <li><code>select(dataframe, variables_to_select)</code>: subset by columns</li>
 <li><code>mutate(dataframe, variables_to_create)</code> and <code>dplyr::rename()</code>: add or modify existing columns</li>
@@ -544,7 +557,7 @@ Attaching package: 'dplyr'</code></pre>
 </section>
 <section id="some-common-ways-for-selecting-variables-using-dplyr" class="level1">
 <h1><strong>Some Common Ways for Selecting Variables Using <code>{dplyr}</code></strong></h1>
-<p>You can reference variables by their name or their column position in a data frame (e.g., 1, 25, etc.).</p>
+<p>You can reference variables by their names or by their column position in a data frame (e.g., 1, 25, etc.).</p>
 <p>Using <code>select()</code>, you can select columns/variables from a data frame. The variables you select are retained and variables omitted that you don’t select are omitted in the returned data frame.</p>
 <p>If you are not piping a data frame from a previous object using either <code>|&gt;</code> (now in base <code>R</code>) or <code>%&gt;%</code> (from <strong>{magrittr}</strong>), the first argument passed into <code>select()</code> will be the data frame. The second and subsequent arguments can be column variables you wish to select from the data frame.</p>
 <pre><code>select(mydataframe, myvars)</code></pre>
@@ -1474,7 +1487,7 @@ Colorado       204</code></pre>
 </section>
 </section>
 <section id="filter-cases-containing-characters-using-stringrstr_detect-and-in" class="level1">
-<h1><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>…</strong></h1>
+<h1><strong>Filter Cases Containing Characters Using <code>stringr::str_detect()</code> and <code>%in%</code>:</strong></h1>
 <p>If you want to filter cases that contain certain characters, unfortunately, you cannot use <code>contains()</code> as you would for variable names. For matching characters in levels of variables, you’ll need something like <code>stringr::str_detect()</code> or <code>grepl()</code>.</p>
 <ul>
 <li><code>stringr::str_detect()</code>: returns matching conditions</li>
@@ -1517,7 +1530,7 @@ Colorado       204</code></pre>
 5 100   male  25     yes</code></pre>
 </div>
 </div>
-<p>For some might find this code difficult to read. In order to understand the code, you need to read it inside out like slices of an onion. First understand the first function as the returned value is passed to the next function and so forth.</p>
+<p>For some, reading this code may be difficult. In order to understand the code, you need to read it inside out like slices of an onion. First understand the first function as the returned value is passed to the next function and so forth.</p>
 <p>For example, elements of the <code>Sex</code> vector are converted to lower case and returned using <code>tolower()</code>. We can demonstrate this using only the vector from the data frame using the <code>$</code> operator, <code>DAT$Sex</code>.</p>
 <p>The initial vector:</p>
 <div class="cell">
@@ -1557,7 +1570,7 @@ Colorado       204</code></pre>
 7 105 neither  40     yes</code></pre>
 </div>
 </div>
-<p>Now mutate and pipe that new data frame using <code>%&gt;%</code> or <code>|&gt;</code> to be filtered using <code>filter()</code>:</p>
+<p>Now mutate and pipe that mutated data frame using <code>%&gt;%</code> (from <strong>{margittr}</strong>) or <code>|&gt;</code> (<code>base R</code> version 4.1+) to <code>filter()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">Sex =</span> <span class="fu">tolower</span>(Sex)) <span class="sc">%&gt;%</span></span>
@@ -1571,7 +1584,7 @@ Colorado       204</code></pre>
 5 100   male  25     yes</code></pre>
 </div>
 </div>
-<p>Pairing this approach with <code>toTitleCase()</code> may be better as only the first letter will be capitalized and you are looking for “Ma”.</p>
+<p>Pairing this piping approach with <code>toTitleCase()</code> may be better as only the first letter will be capitalized and you are looking for “Ma”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">Sex =</span> tools<span class="sc">::</span><span class="fu">toTitleCase</span>(Sex)) <span class="sc">%&gt;%</span></span>
@@ -1585,14 +1598,14 @@ Colorado       204</code></pre>
 </div>
 </div>
 <p>But notice the <code>male</code> and <code>man</code> issue is still a problem.</p>
-<p>So what are the unique elements in <code>DAT$Sex</code>? Your friend is <code>unique()</code>. And maybe you are too.</p>
+<p>So what are the unique elements in <code>DAT$Sex</code>? Your friend here is <code>unique()</code>. And maybe you are too.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(DAT<span class="sc">$</span>Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "male"    "female"  "Male"    NA        "man"     "neither"</code></pre>
 </div>
 </div>
-<p>Hard code a fix using <code>%in%</code> and <code>case_when()</code>. <code>case_when()</code> is <strong>{dplyr}</strong>’s solution for multiple-case conditional.</p>
+<p>You can hard code a fix using <code>%in%</code> and <code>case_when()</code>. <code>case_when()</code> is <strong>{dplyr}</strong>’s solution for multiple-case conditional.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
@@ -1613,8 +1626,8 @@ Colorado       204</code></pre>
 7 105   &lt;NA&gt;  40     yes</code></pre>
 </div>
 </div>
-<p>For a more flexible fix use <code>str_detect()</code>:</p>
-<p>BUT beware that the order of operations matters here. Because the string “female” contains characters “ma”, you could accidentally recode all “female” cases to “male” if you perform the <code>case_when()</code> conversion on “male” first.</p>
+<p>For a more flexible fix, you can use <code>str_detect()</code>:</p>
+<p>BUT beware that the order of operations matters with this approach. Because the string “female” contains characters “ma”, you could accidentally recode all “female” cases to “male” if you perform the <code>case_when()</code> conversion on “male” first.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
@@ -1637,7 +1650,7 @@ Colorado       204</code></pre>
 <p>Note that conditions in not declared in <code>case_when()</code> will be recoded as <code>NA</code>, which is what happens for <code>"neither"</code>. Make sure to include all ways you wish you recode cases.</p>
 </section>
 <section id="filtering-missing-data-nas" class="level1">
-<h1><strong>Filtering Missing Data (<code>NA</code>’s)</strong></h1>
+<h1><strong>Filtering Missing Data (<code>NAs</code>)</strong></h1>
 <p><code>is.na()</code> will return a logical vector for which <code>TRUE</code> represents there are missing values.</p>
 <p>Try on the entire data frame…</p>
 <div class="cell">
@@ -1662,7 +1675,7 @@ Colorado       204</code></pre>
 <li><code>filter(., complete.cases(.))</code>: remove rows with NAs</li>
 </ul>
 <section id="filter-using-na.omit" class="level2">
-<h2 class="anchored" data-anchor-id="filter-using-na.omit"><em>Filter using <code>na.omit()</code>…</em></h2>
+<h2 class="anchored" data-anchor-id="filter-using-na.omit"><em>Filter using <code>na.omit()</code>:</em></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>(.) <span class="co">#%&gt;%     # omit any rows with NAs </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1677,7 +1690,7 @@ Colorado       204</code></pre>
 </div>
 </section>
 <section id="filter-using-is.na-and-is.na" class="level2">
-<h2 class="anchored" data-anchor-id="filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>…</em></h2>
+<h2 class="anchored" data-anchor-id="filter-using-is.na-and-is.na"><em>Filter using <code>is.na()</code> and <code>!is.na()</code>:</em></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="fu">is.na</span>(Sex))       <span class="co"># keep NAs by variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1700,7 +1713,7 @@ Colorado       204</code></pre>
 6 105 neither  40     yes</code></pre>
 </div>
 </div>
-<p>And filter step by step for another variable using <code>%&gt;%</code>:</p>
+<p>And filter step-by-step for each variable using <code>%&gt;%</code> and separate function calls:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
 <span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., <span class="sc">!</span><span class="fu">is.na</span>(Sex)) <span class="sc">%&gt;%</span>      </span>
@@ -1714,7 +1727,7 @@ Colorado       204</code></pre>
 5 105 neither  40     yes</code></pre>
 </div>
 </div>
-<p>Why separate lines if you can use <code>&amp;</code>? Well, separate function calls written as separate lines of code also make code inclusion/exclusion easy.</p>
+<p>So why use separate lines of code if you can use <code>&amp;</code> all in one line? One reason is that separate function calls written as separate lines of code make code inclusion/exclusion extremely easy.</p>
 <p>Comment out what you don’t want using <code>#</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
@@ -1731,7 +1744,7 @@ Colorado       204</code></pre>
 </div>
 </section>
 <section id="filter-using-complete.cases" class="level2">
-<h2 class="anchored" data-anchor-id="filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>…</em></h2>
+<h2 class="anchored" data-anchor-id="filter-using-complete.cases"><em>Filter using <code>complete.cases()</code>:</em></h2>
 <p>The <code>complete.cases()</code> function returns a logical vector for which <code>TRUE</code> reflects the row has complete information and no missing cases. Using <code>complete.cases()</code> along with <code>filter()</code>, you would retain all rows <code>TRUE</code> rows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>

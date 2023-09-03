@@ -8,6 +8,13 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 # ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
 ---
 
+::: callout-important
+## Under construction. 
+
+This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.
+
+:::
+
 ```{r}
 #| label: load-packages
 #| include: false
@@ -48,16 +55,16 @@ library(dplyr)
 library(stringr)
 ```
 
-Make note of any warnings that appear when loading libraries. There are some libraries that contain have function with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using `::` to call a function from a particular library (e.g., `libraryname::functionname()`).
+Make note of any warnings that appear when loading libraries. There are some libraries that contain functions with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using `::` to call a function from a particular library (e.g., `libraryname::functionname()`).
 
 
 # **A Grammar for Data Wrangling** 
 
-The **{dplyr}** package presents a type of grammar for wrangling data (H. Wickham and Francois 2020). **{dplyr}** is part of the **{tidyverse}** ecosystem which loads using `library(tidyverse)`, or specifically using `library(dplyr)`. **{dplyr}** also imports functions from **{tidyselect}**, which is also part of the **{tidyverse}** ecosystem.
+The [**{dplyr}**](https://dplyr.tidyverse.org/) package presents a type of grammar for wrangling data ([Wickham *and* Francois 2014](https://www.researchgate.net/publication/275646200_dplyr_A_Grammar_of_Data_Manipulation)). **{dplyr}** is part of the [**{tidyverse}**](https://www.tidyverse.org/) ecosystem which loads using `library(tidyverse)`, or specifically using `library(dplyr)`. **{dplyr}** also imports functions from **{tidyselect}**, which is also part of the **{tidyverse}** ecosystem.
 
 The functions from any `R` package can be called after loading the package library. One does not need to reference the package explicitly when calling a function but to avoid confusion, we will often reference the package/library and the function together (e.g., `package::function()`).
 
-Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data (often by groups/factors). etc. Consequently, there are five main function verbs for working with data in a data frame: `select`, `filter`, `mutate`, `arange`, and `summarize`. 
+Working with data involves creating new column variables, removing or renaming column variables, removing or deleting row observations, sorting, and summarizing data (often by groups/factors). etc. Consequently, there are five main function verbs for working with data in a data frame: `select`, `filter`, `mutate`, `arange`, and `summarize`. Their corresponding functions are:
 
 - `select(dataframe, variables_to_select)`: subset by columns 
 - `mutate(dataframe, variables_to_create)` and `dplyr::rename()`: add or modify existing columns
@@ -68,7 +75,7 @@ Working with data involves creating new column variables, removing or renaming c
 
 # **Some Common Ways for Selecting Variables Using `{dplyr}`**
 
-You can reference variables by their name or their column position in a data frame (e.g., 1, 25, etc.). 
+You can reference variables by their names or by their column position in a data frame (e.g., 1, 25, etc.). 
 
 Using `select()`, you can select columns/variables from a data frame. The variables you select are retained and variables omitted that you don't select are omitted in the returned data frame. 
 
@@ -687,7 +694,7 @@ Note: Age 20:43 won't work. Can you figure out why?
 
 
 
-# **Filter Cases Containing Characters Using `stringr::str_detect()` and `%in%`...**
+# **Filter Cases Containing Characters Using `stringr::str_detect()` and `%in%`:**
 
 If you want to filter cases that contain certain characters, unfortunately, you cannot use `contains()` as you would for variable names. For matching characters in levels of variables, you'll need something like `stringr::str_detect()` or `grepl()`. 
 
@@ -724,7 +731,7 @@ DAT %>%
   filter(., stringr::str_detect(tolower(Sex), "ma"))
 ```
 
-For some might find this code difficult to read. In order to understand the code, you need to read it inside out like slices of an onion. First understand the first function as the returned value is passed to the next function and so forth. 
+For some, reading this code may be difficult. In order to understand the code, you need to read it inside out like slices of an onion. First understand the first function as the returned value is passed to the next function and so forth. 
 
 For example, elements of the `Sex` vector are converted to lower case and returned using `tolower()`. We can demonstrate this using only the vector from the data frame using the `$` operator, `DAT$Sex`.
 
@@ -757,7 +764,7 @@ DAT %>%
   mutate(., Sex = tolower(Sex))
 ```
 
-Now mutate and pipe that new data frame using `%>%` or `|>` to be filtered using `filter()`:
+Now mutate and pipe that mutated data frame using `%>%` (from **{margittr}**) or `|>` (`base R` version 4.1+) to `filter()`:
 
 ```{r}
 DAT %>%
@@ -766,7 +773,7 @@ DAT %>%
 ```
 
 
-Pairing this approach with `toTitleCase()` may be better as only the first letter will be capitalized and you are looking for "Ma".
+Pairing this piping approach with `toTitleCase()` may be better as only the first letter will be capitalized and you are looking for "Ma".
 
 ```{r}
 DAT %>%
@@ -776,13 +783,13 @@ DAT %>%
 
 But notice the `male` and `man` issue is still a problem. 
 
-So what are the unique elements in `DAT$Sex`? Your friend is `unique()`. And maybe you are too.
+So what are the unique elements in `DAT$Sex`? Your friend here is `unique()`. And maybe you are too.
 
 ```{r}
 unique(DAT$Sex)
 ```
 
-Hard code a fix using `%in%` and `case_when()`. `case_when()` is **{dplyr}**'s solution for multiple-case conditional.  
+You can hard code a fix using `%in%` and `case_when()`. `case_when()` is **{dplyr}**'s solution for multiple-case conditional.  
 
 ```{r}
 DAT %>%
@@ -795,9 +802,9 @@ DAT %>%
 )
 ```
 
-For a more flexible fix use `str_detect()`:
+For a more flexible fix, you can use `str_detect()`:
 
-BUT beware that the order of operations matters here. Because the string "female" contains characters "ma", you could accidentally recode all  "female" cases to "male" if you perform the `case_when()` conversion on "male" first. 
+BUT beware that the order of operations matters with this approach. Because the string "female" contains characters "ma", you could accidentally recode all "female" cases to "male" if you perform the `case_when()` conversion on "male" first. 
 
 ```{r}
 DAT %>%
@@ -813,7 +820,7 @@ Note that conditions in not declared in `case_when()` will be recoded as `NA`, w
 
 
 
-# **Filtering Missing Data (`NA`'s)**
+# **Filtering Missing Data (`NAs`)**
 
 `is.na()` will return a logical vector for which `TRUE` represents there are missing values.
 
@@ -833,7 +840,7 @@ The negation operator, `!`, will be used to illustrate some filtering approaches
 - `filter(., complete.cases(.))`: remove rows with NAs
 
 
-## *Filter using `na.omit()`...*
+## *Filter using `na.omit()`:*
 
 ```{r}
 DAT %>%
@@ -841,7 +848,7 @@ DAT %>%
 ```
 
 
-## *Filter using `is.na()` and `!is.na()`...*
+## *Filter using `is.na()` and `!is.na()`:*
 
 ```{r}
 DAT %>%
@@ -855,7 +862,7 @@ DAT %>%
   filter(., !is.na(Sex))      # remove NAs by variable
 ```
 
-And filter step by step for another variable using `%>%`: 
+And filter step-by-step for each variable using `%>%` and separate function calls: 
 
 ```{r}
 DAT %>%
@@ -863,7 +870,7 @@ DAT %>%
   filter(., !is.na(Renting))
 ```
 
-Why separate lines if you can use `&`? Well, separate function calls written as separate lines of code also make code inclusion/exclusion easy.
+So why use separate lines of code if you can use `&` all in one line? One reason is that separate function calls written as separate lines of code make code inclusion/exclusion extremely easy.
 
 Comment out what you don't want using `#`:
 
@@ -874,7 +881,7 @@ DAT %>%
 ```
 
 
-## *Filter using `complete.cases()`...*
+## *Filter using `complete.cases()`:*
 
 The `complete.cases()` function returns a logical vector for which `TRUE` reflects the row has complete information and no missing cases. Using `complete.cases()` along with `filter()`, you would retain all rows `TRUE` rows.
 

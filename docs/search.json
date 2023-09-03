@@ -123,7 +123,7 @@
     "href": "modules/03_reading_data_files.html",
     "title": "Reading data files",
     "section": "",
-    "text": "In this module, you will learn how to read and write data files in different formats. Depending how you access data, the process may change so this topic is discussed in a general way with different approaches described. If you find yourself in a bind with reading data, one of these approaches will likely work. In many instances, however, readr::read_csv() will be your friend when reading files and readr::write_csv() will be for writing files.\nIn addition, concepts related to reading files and managing workflow are discussed. By doing so, my goal is to make you aware of some key issues that could cause some problems with data science projects. When reading files,"
+    "text": "Under construction.\n\n\n\nThis page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you."
   },
   {
     "objectID": "modules/03_reading_data_files.html#readings",
@@ -242,28 +242,28 @@
     "href": "modules/04_data_frame_manipulation_and_wrangling.html",
     "title": "Data frame manipulation and wrangling",
     "section": "",
-    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n{tidyselect}: 1.2.0: for selecting sets from strings\n\n\n\n\nProvided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))\n\n\n\n\nWe will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear when loading libraries. There are some libraries that contain have function with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using :: to call a function from a particular library (e.g., libraryname::functionname())."
+    "text": "Under construction.\n\n\n\nThis page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you."
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries",
     "title": "Data frame manipulation and wrangling",
-    "section": "",
-    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n{tidyselect}: 1.2.0: for selecting sets from strings"
+    "section": "Libraries",
+    "text": "Libraries\n\n{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{stringr}: 1.5.0: for working with strings\n{tidyselect}: 1.2.0: for selecting sets from strings"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#external-functions",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#external-functions",
     "title": "Data frame manipulation and wrangling",
-    "section": "",
-    "text": "Provided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))"
+    "section": "External Functions",
+    "text": "External Functions\nProvided in class:\nview_html(): from /r/my_functions.R\n\nsource(here::here(\"r\", \"my_functions.R\"))"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#libraries-1",
     "title": "Data frame manipulation and wrangling",
-    "section": "",
-    "text": "We will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear when loading libraries. There are some libraries that contain have function with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using :: to call a function from a particular library (e.g., libraryname::functionname())."
+    "section": "Libraries",
+    "text": "Libraries\nWe will work with a few different libraries for data manipulation. Let’s load them into our work space using library().\n\nlibrary(magrittr)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(stringr)\n\nMake note of any warnings that appear when loading libraries. There are some libraries that contain functions with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using :: to call a function from a particular library (e.g., libraryname::functionname())."
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#select-variables-starting-with-or-ending-with-certain-characters",
@@ -360,22 +360,22 @@
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-na.omit",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-na.omit",
     "title": "Data frame manipulation and wrangling",
-    "section": "Filter using na.omit()…",
-    "text": "Filter using na.omit()…\n\nDAT %&gt;%\n  na.omit(.) #%&gt;%     # omit any rows with NAs \n\n   Id     Sex Age Renting\n1 100    male  25     yes\n3 102    Male  27     yes\n5 104     man  44      no\n6 100    male  25     yes\n7 105 neither  40     yes"
+    "section": "Filter using na.omit():",
+    "text": "Filter using na.omit():\n\nDAT %&gt;%\n  na.omit(.) #%&gt;%     # omit any rows with NAs \n\n   Id     Sex Age Renting\n1 100    male  25     yes\n3 102    Male  27     yes\n5 104     man  44      no\n6 100    male  25     yes\n7 105 neither  40     yes"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-is.na-and-is.na",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-is.na-and-is.na",
     "title": "Data frame manipulation and wrangling",
-    "section": "Filter using is.na() and !is.na()…",
-    "text": "Filter using is.na() and !is.na()…\n\nDAT %&gt;%\n  filter(., is.na(Sex))       # keep NAs by variable\n\n   Id  Sex Age Renting\n1 103 &lt;NA&gt;  40    &lt;NA&gt;\n\n\nBut your goal may likely be to keep everything that is not NA:\n\nDAT %&gt;%\n  filter(., !is.na(Sex))      # remove NAs by variable\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 101  female  33    &lt;NA&gt;\n3 102    Male  27     yes\n4 104     man  44      no\n5 100    male  25     yes\n6 105 neither  40     yes\n\n\nAnd filter step by step for another variable using %&gt;%:\n\nDAT %&gt;%\n  filter(., !is.na(Sex)) %&gt;%      \n  filter(., !is.na(Renting))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes\n\n\nWhy separate lines if you can use &? Well, separate function calls written as separate lines of code also make code inclusion/exclusion easy.\nComment out what you don’t want using #:\n\nDAT %&gt;%\n  #filter(., !is.na(Sex)) %&gt;%      \n  filter(., !is.na(Renting))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
+    "section": "Filter using is.na() and !is.na():",
+    "text": "Filter using is.na() and !is.na():\n\nDAT %&gt;%\n  filter(., is.na(Sex))       # keep NAs by variable\n\n   Id  Sex Age Renting\n1 103 &lt;NA&gt;  40    &lt;NA&gt;\n\n\nBut your goal may likely be to keep everything that is not NA:\n\nDAT %&gt;%\n  filter(., !is.na(Sex))      # remove NAs by variable\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 101  female  33    &lt;NA&gt;\n3 102    Male  27     yes\n4 104     man  44      no\n5 100    male  25     yes\n6 105 neither  40     yes\n\n\nAnd filter step-by-step for each variable using %&gt;% and separate function calls:\n\nDAT %&gt;%\n  filter(., !is.na(Sex)) %&gt;%      \n  filter(., !is.na(Renting))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes\n\n\nSo why use separate lines of code if you can use & all in one line? One reason is that separate function calls written as separate lines of code make code inclusion/exclusion extremely easy.\nComment out what you don’t want using #:\n\nDAT %&gt;%\n  #filter(., !is.na(Sex)) %&gt;%      \n  filter(., !is.na(Renting))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
   },
   {
     "objectID": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-complete.cases",
     "href": "modules/04_data_frame_manipulation_and_wrangling.html#filter-using-complete.cases",
     "title": "Data frame manipulation and wrangling",
-    "section": "Filter using complete.cases()…",
-    "text": "Filter using complete.cases()…\nThe complete.cases() function returns a logical vector for which TRUE reflects the row has complete information and no missing cases. Using complete.cases() along with filter(), you would retain all rows TRUE rows.\n\nDAT %&gt;%\n  dplyr::filter(., complete.cases(.))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
+    "section": "Filter using complete.cases():",
+    "text": "Filter using complete.cases():\nThe complete.cases() function returns a logical vector for which TRUE reflects the row has complete information and no missing cases. Using complete.cases() along with filter(), you would retain all rows TRUE rows.\n\nDAT %&gt;%\n  dplyr::filter(., complete.cases(.))\n\n   Id     Sex Age Renting\n1 100    male  25     yes\n2 102    Male  27     yes\n3 104     man  44      no\n4 100    male  25     yes\n5 105 neither  40     yes"
   },
   {
     "objectID": "modules/Introduction/index.html",
