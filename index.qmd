@@ -30,6 +30,3 @@ Data visualization is the science and art of creating graphical representations 
 
 The course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations. 
 
-**Sources**
-
-This course will use open-educational resources, typically licensed on creative commons.

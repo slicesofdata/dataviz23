@@ -25,6 +25,11 @@ This page is a work in progress and may contain areas that need more detail or t
 
 # **Overview**
 
+This module demonstrates how to use **{dplyr}** to wrangle data frames. There is much that you can do with the library and this module focuses on selecting, filtering, and arranging data frames or tibbles. Helper functions from libraries like **{magrittr}**, **{stringr}**, and **{tidyselect}** are also used in conjunction with **{dplyr}**.
+
+## **External Functions**
+
+Provided in class:
 
 ## **Libraries** 
 
@@ -39,7 +44,7 @@ This page is a work in progress and may contain areas that need more detail or t
 
 Provided in class:
 
-`view_html()`: from `/r/my_functions.R`
+`view_html()`: for viewing data frames in html format, from `/r/my_functions.R`
 
 ```{r}
 source(here::here("r", "my_functions.R"))

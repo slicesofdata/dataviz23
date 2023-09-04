@@ -8,6 +8,13 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 # ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
 ---
 
+::: callout-important
+## Under construction. 
+
+This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.
+
+:::
+
 ```{r}
 #| label: load-packages
 #| include: false
@@ -16,6 +23,310 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #library()
 ```
 
-# **Under Construction**
+# **Overview**
 
-## **Content Pending**
+This module demonstrates how to use **{dplyr}** to subset data, mutate variables, and summarize variables in data frames. Many data summaries involve creating group-level statistics so we will also cover grouping across variables. 
+
+
+# **To Do**
+
+## **Readings**
+
+- [R Workflow Basics](https://r4ds.had.co.nz/workflow-basics.html)
+- [General Wrangling: Sections 5.1 up through 5.5](https://r4ds.had.co.nz/transform.html#introduction-2)
+
+
+## **Task**
+
+- 
+
+
+## **Libraries** 
+
+- **{here}**: `r packageVersion("here")`: for path management
+- **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
+- **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
+- **{lubridate}** `r packageVersion("lubridate")`: for handling date and time vectors
+
+
+## **Functions Used in Module**
+
+- `mean()`: return a mean of a numeric vector
+- `median()`: return a mean of a numeric vector
+- `sd()`: return the standard deviation of a numeric vector
+- `var()`: return the variance of a numeric vector
+- `mad()`: return a median absolute deviation of a numeric vector
+- `which.max()`: return the maximum (see also `max()`)
+- `is.na()`: return a logical vector (T or F) 
+- `na.omit()`: return a vector with omitted NAs
+- `lattice::histogram`: plot a histogram
+- `lattice::bwplot`: plot a box-and-whisker plot
+- `lattice::xyplot`: plot y as a function of x
+- `lm()`: return a linear model (e.g., y ~ x or y ~ x + z)
+- `dplyr::summarise()`: summarize data 
+- `dplyr::group_by()`: groups data in a data frame
+- `psych::describe()`: provides summary descriptive statistics for a numeric vector
+- `psych::describeBy()`: same a describe() but by a grouping variable 
+
+## **External Functions**
+
+Provided in class:
+
+`view_html()`: for viewing data frames in html format, from `/r/my_functions.R` 
+
+You can use this in your own workspace but I am having a challenge rendering this of the website, so I'll default to `print()` on occasion.
+
+```{r}
+source(here::here("r", "my_functions.R"))
+```
+
+## **Libraries**
+
+We will work with a few different libraries for data manipulation. Let's load them into our work space using `library()`.
+
+```{r}
+library(magrittr)
+library(dplyr)
+library(stringr)
+library(lubridate)
+```
+
+
+# **Loading and Looking at Data**
+
+In order to perform any data summary, you need data. We will use the file name `"cms-top-all-time-2023-swim.csv"` and **{here}** to help with the path that we will pass that to `readr::read_csv()`. When we will assign the returned data frame to an object named `DAT`.
+
+```{r}
+file_name <- "cms-top-all-time-2023-swim.csv"
+
+DAT <- readr::read_csv(
+  here::here("data", file_name)
+  )
+```
+
+View its contents:
+
+```{r}
+print(DAT) #view_html(DAT)
+```
+
+We have several variables: `r names(DAT)`. Some appear to be numeric and some are characters. Passing the data frame to `dplyr::glimpse()` will provide more detail (see also `str()`). 
+
+```{r}
+dplyr::glimpse(DAT)
+```
+
+Hmm, looks like there are `<chr>` and `<dbl>` variables and some numbers are in quotes. Objects in quotes are strings. So we need to clean up the file before we can even get a summary.
+
+
+```{r}
+is.numeric(DAT$time)
+```
+
+OK, so this variable is definitely not numeric. Looking at the file, we need to convert at least one variable that should be numbers from character to numeric. 
+
+
+# **Modifying a Data Frame or Tibble Using {dplyr}**
+
+Use `dplyr::mutate()` to create, modify, and delete column variables. At every least, you will need to pass a data frame as the first argument, `.data` and then a name-value pair as the second argument. There are other arguments that are experimental which will not be the focus of this module. 
+
+```
+mutate(
+  .data,
+  ...,
+  .by = NULL,
+  .keep = c("all", "used", "unused", "none"),
+  .before = NULL,
+  .after = NULL
+)
+```
+
+We will use `mutate()` in conjunction with **{magrittr}**'s `%>%` for code piping.
+
+
+## **Creating a new variable**
+
+We will pass the data frame into `mutate()` and then specify a name-value variable pair. When using `%>%`, the data frame piped into the function will be represented as `.`. This `.` is not needed but serves as a good reminder that the data frame that is passed is the one from the previous line of code. In order to keep the print out manageable, we will also use the `slice()` function.
+
+
+```
+mutate(data frame, new variable name = variable) %>%
+```
+
+Create new variables that are set to a constant number or string:
+
+```{r}
+DAT %>%
+  slice(., 1:5) %>%   # rows 1 through 5
+  mutate(., newvar1 = 9999) %>%
+  mutate(., newvar2 = "Student") 
+```
+
+You can see that each row in the data frame will take on the paired value. 
+
+
+## **Modifying a new variable**
+
+New variables are modified using the same name-value pairing approach. When you modify a variable, you are taking an existing variable to setting it to another value. 
+
+### *Set an existing variable equal to a constant*
+
+Just use an existing variable name (left of `=` in name-value pair).
+
+```{r}
+DAT %>%
+  slice(., 1:5) %>%   # rows 1 through 5
+  mutate(., time = 1) %>%
+  mutate(., name = "0") 
+```
+
+OK, that's not very helpful. We just replaced our existing variables with nothing useful. You can see that name is still a `<chr>` type.
+
+
+### *Set an existing variable equal to another value*
+
+As long as **{dplyr}** can result the character elements of the vector, `as.numeric()` will convert the character strings to numbers. For example: 
+
+```{r}
+as.numeric(c("1", "3.2", "6.99"))
+```
+
+We can illustrate in a data frame by creating character value that will serve as the constant, and use `as.numeric()` just to illustrate this example.
+
+```{r}
+DAT %>%
+  slice(., 1:5) %>%   # rows 1 through 5
+  mutate(., name = as.numeric("0")) 
+```
+
+And now `name` is a `<dbl>`, which is a type of numeric. We can see this by selecting columns from the data frame `where()` the variable `is.numeric()`.
+
+```{r}
+DAT %>%
+  slice(., 1:5) %>%   # rows 1 through 5
+  mutate(., name = as.numeric("0")) %>%
+  select(., where(~is.numeric(.)))
+```
+
+But if we try to convert `time` to numeric this way, you will see that the complex numbers will be converted to `NA`s, or missing.
+
+```{r}
+as.numeric(DAT$time)
+```
+
+The problem we have is that the data are not in a clean form. In this data frame, some elements of `time` are composed of numbers, decimals, and colons (e.g., x.xx, xx:xx.xx, etc.). which all make up elements that would be numbers. 
+
+
+### **Converting variables that are time related using {lubridate}**
+
+**{lubridate}** is a library for dealing with dates and times. It is also part of the **tidyverse}** ecosystem. 
+
+The `period_to_seconds()` function will convert periods to seconds depending on the period format. We need to pass to it an objec that equates to a period of seconds.
+
+For `time`, the format is: hour minute second (e.g., `hms`). And there is a `hms()` function to handle this. Let's see how it works before modifying the data frame. Load the library if it is not loaded. 
+
+We will pass a single character string and convert it to `hms` with `hms()` and then convert that to seconds using `period_to_seconds()`. Because 60 minutes and 1 hour is the same number of seconds, we should end up with the same values. We can also use `ms()` to convert the format into minutes and seconds and pass to `period_to_seconds()`. Following the examples, we will apply to the vector in the data frame.
+
+```
+lubridate::period_to_seconds(lubridate::ms())
+lubridate::period_to_seconds(lubridate::hms())
+```
+
+Sixty minutes and one hour to `hms`:
+
+```{r}
+lubridate::hms("00:60:00")
+lubridate::hms("01:00:00")
+```
+
+One day to `hms`:
+
+```{r}
+hms("24:00:00")
+```
+
+
+Sixty minutes and one hour to `hms` to seconds:
+
+```{r}
+lubridate::period_to_seconds(lubridate::hms("00:60:00"))
+lubridate::period_to_seconds(lubridate::hms("01:00:00"))
+```
+
+OK, good. So let's see if we can convert `time`. Because `hms()` is passed into `period_to_seconds()`, we first need to verify that `hms()` can handle it.
+
+```{r}
+hms(DAT$time)
+```
+
+Yikes! Note the warning and look at the output. Some strings failed and turned to `NA`. Looking and the `time` vector again, we see that contains both values like `1:52.83` and `23.87`. If there is only one `:`, we should be able to use `ms()`. 
+
+```{r}
+ms(DAT$time)
+```
+
+Great! All elements are in the form of `"xxM XXs"`. But does **{lubridate}** also convert seconds to a numeric value when using `period_to_seconds()`? If loaded, we can also remove the name of the library when calling the functions.
+
+```{r}
+is.numeric(period_to_seconds(ms(DAT$time)))
+```
+
+So let's go ahead and modify the character vector named `time` to a numeric vector representing seconds. 
+
+```{r}
+period_to_seconds(ms(DAT$time))
+```
+
+Perfect! Let's `mutate()` that variable in the data frame.
+
+```{r}
+DAT %>%
+  slice(., 1:5) %>%   # rows 1 through 5
+  mutate(., time = period_to_seconds(ms(time)))  
+```
+
+Let's look at `DAT` now and see those seconds.
+
+```{r}
+DAT
+```
+
+The data frame has not changed. The final step is to assign assign the returned data frame to an object. Remove the `slice()` so we get the entire data frame.
+
+```{r}
+DAT <- DAT %>%
+  mutate(., time = period_to_seconds(ms(time)))  
+```
+
+Now let's write this to `/data`. But we don't want to overwrite this file. **{here}** won't be as effective but we can concatenate the `file_name` string object with a prefix like `"cleaned"` using the `paste()` function in `base R`. We will add a hyphen, `-`, by passing it to the `sep` argument. 
+
+```{r}
+paste("cleaned", file_name, sep = "-")
+```
+
+When paired with `here::here()`, does the full file path look right?
+
+```{r}
+here::here("data", paste("cleaned", file_name, sep = "-"))
+```
+
+Got our new file name! Let's write!
+
+```{r}
+readr::write_csv(DAT, here::here("data", paste("cleaned", file_name, sep = "-")))
+```
+
+Done!
+
+# **Quick Summary Using `base R`**
+
+If you want a quick summary of data, `summary()` will provide some basic information for you. You can pass a data frame to the function.
+
+```{r}
+summary(DAT)
+```
+
+
+# **Summarizing Data Using {dplyr}**
+
+more to come

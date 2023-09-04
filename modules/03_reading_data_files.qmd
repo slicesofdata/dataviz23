@@ -52,6 +52,7 @@ In addition, concepts related to reading files and managing workflow are discuss
 
 First, we need an `.xlsx` data file. You can obtain one locally or online from a URL. 
 
+
 # **Downloading a `.zip` File from a URL**
 
 GitHub handles Excel files in a way that makes downloading them challenging, so we will first download a `.zip` file containing the `.xlxs` file. 
@@ -91,39 +92,47 @@ OK, great! Let's move to importing files more generally.
 
 ```{r}
 URL <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx"
+
 DAT <- openxlsx::read.xlsx(URL)
 ```
 
-What does the head of the file look like?
+What does the head of the data file look like?
 
 ```{r}
 head(DAT)
 ```
 
-Just an FYI, when you want a different worksheet, `openxlsx::read.xlsx()` in **{openxlsx}** `r packageVersion("openxlsx")` won't work. In many cases, however, you will have the data file saved locally. In this case, we saved it as part of the download process.
+Just an FYI, when you want a different worksheet you will need to pass a sheet name to the `sheet` argument. In this case, we saved it as part of the download process. Let's pass `sheet = "swim"`.
+
+```{r}
+head(
+  openxlsx::read.xlsx(URL, sheet = "swim")
+)
+```
 
 
 ## **Reading Excel Spreadsheets with `{readxl}`**
 
-We will use the **{readxl}** library to handing reading of Excel files. Because Excel files can contain multiple sheets, one goal would be to find out the sheet names using `readxl::excel_sheets` (see `?readxl::excel_sheets`). This function takes one argument, which is the path to the file. Passing the path will return the sheet names in that file. We can pass the path string directly into the function or if the file path is already saved as a object, pass that. In both cases, let's save it as
+We will use the **{readxl}** library to handing reading of Excel files. Because Excel files can contain multiple sheets, one goal would be to find out the sheet names using `readxl::excel_sheets` (see `?readxl::excel_sheets`). This function takes one argument, which is the path to the file. Passing the path will return the sheet names in that file. We can pass the path string directly into the function or if the file path is already saved as a object, pass that. 
 
 In order to read an Excel spreadsheet file, you will need to specify at very least `file` and if you want to read a specific sheet other than the first one, then you will need to specify `sheet`.
 
 -  `file`: a path to the file, including the file name
 -  `sheet`: the sheet name to read
 
+
 ### **Getting Sheet Names**
 
 First, let's assign the file path to an object because we will use this path a few times and we don't want to keep typing it lest we make an error.
 
 ```{r}
-file <- here::here("data", "cms-top-all-time-2023-swim.xlsx")
+file_name <- "cms-top-all-time-2023-swim.xlsx"
 ```
 
 We can examine the worksheet names:
 
 ```{r}
-readxl::excel_sheets(path = file)
+readxl::excel_sheets(path = here::here("data", file_name))
 ```
 
 Great, we know know the sheet names. The benefit of passing an object is that you you may wish to pass the path to another function, for example, to read a sheet from the file. 
@@ -135,7 +144,7 @@ In order to read a sheet, we will use `readxl::read_excel()`, which takes the fi
 
 ```{r}
 head(
-  readxl::read_excel(file)
+  readxl::read_excel(here::here("data", file_name))
 )
 ```
 
@@ -143,13 +152,13 @@ The function also turns the file content into special object type knows as a `da
 We will assign this to an object 
 
 ```{r}
-is.data.frame(readxl::read_excel(file))
+is.data.frame(readxl::read_excel(here::here("data", file_name)))
 ```
 
 But we don't want the first sheet. Pass `sheet = "swim"` to read that sheet. Also, let's read in the data and assign it to an object called `DAT` which will hold the data frame.
 
 ```{r}
-DAT <- readxl::read_excel(file, sheet = "swim")
+DAT <- readxl::read_excel(here::here("data", file_name), sheet = "swim")
 ```
 
 Viewing the head of the data frame, we can see that it is composed of `r dim(DAT)[2]` column vectors representing variables with names: `r names(DAT)`. 
@@ -166,7 +175,7 @@ OK, that was fun. In order to demonstrate reading local `.csv` files, we will ta
 
 Despite it's name, **{readr}** can save data frames too. Interestingly, at least at the time of this writing, **{readr}** allows you to write files in excel format even though you cannot open them. 
 
-Moving forward, you can save the data frame as a `.csv` file using `readr::write_csv()`. When writing a file using `write_csv()` we need to specify key arguments: `x`, the data frame object and `file`, the file name. You do not need to set a delimiter because, given its name, `.csv` defaults the separation as a comma `","`. Other arguments may be necessary for other files and goals. 
+Moving forward, you can save the data frame as a `.csv` file using `readr::write_csv()`. When writing a file using `write_csv()` we need to specify key arguments: `x`, the data frame object, and `file`, the file name. You do not need to set a delimiter because, given its name, `.csv` defaults the separation as a comma `","`. Other arguments may be necessary for other files and goals. 
 
 If, however, you specify name of the file (e.g., `"my file name.csv"`), the data frame will be written to a default location because no file path was provided. Um, so where is that default location? Well it depends and it's complicated depending on whether files are `.R` or `.Rmd`. By default, `.Rmd` files will assume the directory from which the `.Rmd` file, NOT THE DATA FILE, is opened. But you don't want to save a data file to the directory where your code lives. 
 
@@ -215,14 +224,14 @@ First, let's see what `gsub()` is doing.
 ```{r}
 gsub(pattern = ".xlsx|.xls",  
      replacement = ".csv", 
-     x = file
+     x = file_name
      )
 ```
 
 Assign to an object:
 
 ```{r}
-file_csv <- gsub(".xlsx|.xls", ".csv", file)
+file_csv <- gsub(".xlsx|.xls", ".csv", file_name)
 ```
 
 Note: Code was simplified because the arguments were passed in the order expected by the `gsub()` function.
