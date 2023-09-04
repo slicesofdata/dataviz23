@@ -49,25 +49,6 @@ This module demonstrates how to use **{dplyr}** to subset data, mutate variables
 - **{lubridate}** `r packageVersion("lubridate")`: for handling date and time vectors
 
 
-## **Functions Used in Module**
-
-- `mean()`: return a mean of a numeric vector
-- `median()`: return a mean of a numeric vector
-- `sd()`: return the standard deviation of a numeric vector
-- `var()`: return the variance of a numeric vector
-- `mad()`: return a median absolute deviation of a numeric vector
-- `which.max()`: return the maximum (see also `max()`)
-- `is.na()`: return a logical vector (T or F) 
-- `na.omit()`: return a vector with omitted NAs
-- `lattice::histogram`: plot a histogram
-- `lattice::bwplot`: plot a box-and-whisker plot
-- `lattice::xyplot`: plot y as a function of x
-- `lm()`: return a linear model (e.g., y ~ x or y ~ x + z)
-- `dplyr::summarise()`: summarize data 
-- `dplyr::group_by()`: groups data in a data frame
-- `psych::describe()`: provides summary descriptive statistics for a numeric vector
-- `psych::describeBy()`: same a describe() but by a grouping variable 
-
 ## **External Functions**
 
 Provided in class:
