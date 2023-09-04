@@ -242,14 +242,14 @@ Second, pass the path object to `write_csv()`:
 
 ```{r}
 readr::write_csv(x = DAT, 
-                 file = file_csv
+                 file = here::here("data", file_csv)
                  )
 ```
 
 Did it save? Use `file.exists()`. 
 
 ```{r}
-file.exists(file_csv)
+file.exists(here::here("dat", file_csv))
 ```
 
 Remember, all we have done is save the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
@@ -317,11 +317,10 @@ names(
 
 If a file actually existed on your computer, the file would not be a URL but rather the path location to where the file is stored.
 
-
 And now we can read the locale file as before except we are not passing the string name but rather an object (e.g., `file_csv`) holding the file path and file name. Voilà.
 
 ```{r}
-readr::read_csv(file_csv)
+readr::read_csv(here::here("data", file_csv))
 ```
 
 
@@ -330,20 +329,20 @@ readr::read_csv(file_csv)
 We will file use `readr::read_csv()` to read our data file (viz., `r basename(file_csv)`). 
 
 ```{r}
-readr::read_csv(file_csv)
+readr::read_csv(here::here("data", file_csv))
 ```
 
 If there were only data in the file and no names representing variables on the first row, the file might look like that below. We can imitate this by skipping the first row (containing names) using `skip = `. 
 
 
 ```{r}
-readr::read_csv(file_csv, skip = 1)
+readr::read_csv(here::here("data", file_csv), skip = 1)
 ```
 
 See how the first row is assumed to be *names*? Setting `col_names = F` will fix the problem. Putting the arguments on separate rows of `R` code might improve code legibility.
 
 ```{r}
-readr::read_csv(file_csv, 
+readr::read_csv(here::here("data", file_csv), 
                 skip = 1,
                 col_names = F
                 )
@@ -352,7 +351,7 @@ readr::read_csv(file_csv,
 But we have no column names now. Setting `col_names = ` will fix that. Use `c()` to combine 4 names, e.g.,  `col_names = c("name1", "name2", "name3", "name4")`.
 
 ```{r}
-readr::read_csv(file_csv, 
+readr::read_csv(here::here("data", file_csv), 
                 skip = 1,
                 col_names = c("time", "name", "year", "event")
                 )
@@ -397,7 +396,7 @@ A note about case: `R` is a case-sensitive language so object names like `DAT`, 
 `read.table()` is a flexible function for reading files because you can specify how the data are separated in rows by setting the `sep` argument. A common separation is a comma but you might also have tabs or other special characters. 
 
 ```{r}
-DAT <- read.table(file = file_csv,
+DAT <- read.table(file = here::here("data", file_csv),
                   sep = ","
                   )
 ```
@@ -413,7 +412,7 @@ DAT <- read.csv(file_csv)
 There are advantages to using `readr::read_csv()` over `read.csv()`, which is why we will prefer it. We will assign it to an object named `DAT2`.
 
 ```{r}
-DAT2 <- readr::read_csv(file_csv)
+DAT2 <- readr::read_csv(here::here("data", file_csv))
 
 print(head(DAT2))
 ```
@@ -459,7 +458,7 @@ head(DAT)    # hmm, something seems off.
 Because header rows do exist atop the `.csv` file, specify that they exist by passing `TRUE` to the `header` argument of the function (e.g., `header = TRUE` or `header = T`). 
 
 ```{r}
-DAT <- read.table(file_csv,
+DAT <- read.table(here::here("data", file_csv),
                   sep = ",", 
                   header = TRUE
                   )

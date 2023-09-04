@@ -1,9 +1,0 @@
----
-title: "junk"
-description: " "
-#author: ""
-#date: ""
-#order: 1 
----
-
-If you found this, you have way too much time on your hands or are way too curious.
