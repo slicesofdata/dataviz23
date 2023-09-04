@@ -181,6 +181,7 @@ If, however, you specify name of the file (e.g., `"my file name.csv"`), the data
 
 If you are organized, you save your `.R` and `.Rmd` files in code directory and your data files in a data directory. So yeah, the default is a problem. The solution is to specify the file path using `file = the file path`. 
 
+
 ## **Managing file paths with {here}**
 
 When downloading the file, you may have noticed using the **{here}** library. A discussion of the library was delayed at the time. We will now look a little deeper into how the library simplifies working with file paths within the context of the **{readr}**.
@@ -204,7 +205,7 @@ If you query `R` using `?readr::write_excel_csv` or `?write_excel_csv` having al
 
 OK, so let's save the data frame. But remember, you cannot pass the file path and name used to read the `.xlsx` file because the data frame you  want to save is not in `.xlsx` file format. 
 
-If you pass that previous path string (`r file` ), you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the `.csv` would be incorrectly named as `.xlsx` and second, you would completely clobber your Excel spreadsheet along with all of the other worksheets that you did not read. Yeah, that would be bad.
+If you pass that previous path string (`r file_name` ), you will overwrite that existing Excel file, which likely is not your end goal for at least two reasons. First, the `.csv` would be incorrectly named as `.xlsx` and second, you would completely clobber your Excel spreadsheet along with all of the other worksheets that you did not read. Yeah, that would be bad.
 
 So we need to change the file name. Specifically, we only need to change the file extension part of the path. We could simply copy and paste the path and change `".xlsx"` to `".csv"`. 
 
