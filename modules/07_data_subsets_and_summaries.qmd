@@ -211,7 +211,7 @@ The problem we have is that the data are not in a clean form. In this data frame
 
 **{lubridate}** is a library for dealing with dates and times. It is also part of the **tidyverse}** ecosystem. 
 
-The `period_to_seconds()` function will convert periods to seconds depending on the period format. We need to pass to it an objec that equates to a period of seconds.
+The `period_to_seconds()` function will convert periods to seconds depending on the period format. We need to pass to it an object that equates to a period of seconds.
 
 For `time`, the format is: hour minute second (e.g., `hms`). And there is a `hms()` function to handle this. Let's see how it works before modifying the data frame. Load the library if it is not loaded. 
 
@@ -413,7 +413,7 @@ Doing so will also show you some ways to create variables.
 ```{r}
 DAT <- DAT %>%
   mutate(., 
-         sec = time,  # will be redunant with time but named accurately
+         sec = time,  # will be redundant with time but named accurately
          min  = time/60,
          hour = time/(60*60)
          ) %>%
@@ -427,8 +427,7 @@ head(DAT)
 ```
 
 
-Variable names created with `across()` is controlled using the `.names` argument. The default is equivalent to `.names = {.col}`, which means that the name(s) are inherited from the `.cols` argument; the names are a stand-in for the name specification. If you wish to have control over the names, you can pass a string that that either appends  (e.g.,`"{.col}suffix"`) or prepends (e.g.,`"prefix{.col}"`) a string to each column name. 
-This string looks odd because it's a special *glue* specification that glues together with a string with an object. We will use this concept later when using the **{glue}** library. 
+Variable names created with `across()` is controlled using the `.names` argument. The default is equivalent to `.names = {.col}`, which means that the name(s) are inherited from the `.cols` argument; the names are a stand-in for the name specification. If you wish to have control over the names, you can pass a string that that either appends  (e.g.,`"{.col}suffix"`) or prepends (e.g.,`"prefix{.col}"`) a string to each column name. This string looks odd because it's a special *glue* specification that glues together with a string with an object. We will use this concept later when using the **{glue}** library. 
 
 When modifying `.names`, include a character like `"_"` (e.g.,`"{.col}_suffix"`) so that the column names and the appended text are separated, making the name easily legible. If you summarize to create means, a good suggestion is something like (e.g.,`"{.col}_mean"` or (e.g.,`"{.col}_mn"`)) so that you know the variable is a mean. If you prefer the function name first, you can use a prefix (e.g.,`"mean_{.col}"`).
 

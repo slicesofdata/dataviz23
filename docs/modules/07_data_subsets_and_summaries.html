@@ -753,7 +753,7 @@ $ team  &lt;chr&gt; "Athena", "Athena", "Athena", "Athena", "Athena", "Athena", 
 <section id="converting-variables-that-are-time-related-using-lubridate" class="level3">
 <h3 class="anchored" data-anchor-id="converting-variables-that-are-time-related-using-lubridate"><strong>Converting variables that are time related using {lubridate}</strong></h3>
 <p><strong>{lubridate}</strong> is a library for dealing with dates and times. It is also part of the <strong>tidyverse}</strong> ecosystem.</p>
-<p>The <code>period_to_seconds()</code> function will convert periods to seconds depending on the period format. We need to pass to it an objec that equates to a period of seconds.</p>
+<p>The <code>period_to_seconds()</code> function will convert periods to seconds depending on the period format. We need to pass to it an object that equates to a period of seconds.</p>
 <p>For <code>time</code>, the format is: hour minute second (e.g., <code>hms</code>). And there is a <code>hms()</code> function to handle this. Let’s see how it works before modifying the data frame. Load the library if it is not loaded.</p>
 <p>We will pass a single character string and convert it to <code>hms</code> with <code>hms()</code> and then convert that to seconds using <code>period_to_seconds()</code>. Because 60 minutes and 1 hour is the same number of seconds, we should end up with the same values. We can also use <code>ms()</code> to convert the format into minutes and seconds and pass to <code>period_to_seconds()</code>. Following the examples, we will apply to the vector in the data frame.</p>
 <pre><code>lubridate::period_to_seconds(lubridate::ms())
@@ -1214,7 +1214,7 @@ to parse, or all strings are NAs</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec =</span> time,  <span class="co"># will be redunant with time but named accurately</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec =</span> time,  <span class="co"># will be redundant with time but named accurately</span></span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">min  =</span> time<span class="sc">/</span><span class="dv">60</span>,</span>
 <span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">hour =</span> time<span class="sc">/</span>(<span class="dv">60</span><span class="sc">*</span><span class="dv">60</span>)</span>
 <span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
