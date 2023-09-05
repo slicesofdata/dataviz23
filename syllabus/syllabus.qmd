@@ -54,7 +54,7 @@ knitr::kable(
 # Email: gcook\@cmc.edu (*please put ''PSYC 167' in subject line)*
 ```
 
-## Course Description
+## **Course Description**
 
 Data visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.
 
@@ -62,7 +62,7 @@ The course is targeted toward students with expressed interest in cognition and 
 
 *Prerequisite*: For data-science sequence or majors (level-A data-science course); recommended a course in Perception, Visual Attention, Cognitive Psychology, or Cognitive Science; or permission of instructor
 
-### Course Specific Learning Goals
+### **Course Specific Learning Goals**
 
 -   Understand various uses of visual variables to create data visualizations;
 -   Understand both advantages and disadvantages of using visual variables to create data visualizations;
@@ -132,11 +132,11 @@ knitr::kable(SCHEDULE)
 #For more information on see [notes on privacy and sharing in the compendium](compendium/privacy.qmd).
 ```
 
-## Assignments and Grading
+## **Assignments and Grading**
 
 This is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.
 
-### Evaluation and Grading:
+### **Evaluation and Grading*
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
 GRADE_ITEMS <- rio::import(here::here("syllabus/tables/grade_items.csv"))
@@ -150,11 +150,11 @@ GRADE_TABLE <- rio::import(here::here("syllabus/tables/grade_table.csv"))
 knitr::kable(GRADE_TABLE)
 ```
 
-## Attendance
+## **Attendance**
 
 Students are expected to attend and participate in each class.
 
-## Course Policies
+## **Course Policies**
 
 ### Due dates
 
@@ -162,7 +162,7 @@ Due dates are suggestions for completing coursework on a weekly basis. You may b
 
 You should email me if you have an exceptional circumstance preventing you from taking an assessment during an assessment week.
 
-### Changes to the syllabus
+### **Changes to the syllabus**
 
 The syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.
 
@@ -172,32 +172,32 @@ In order to receive disability-related academic accommodations students must fir
 
 ------------------------------------------------------------------------
 
-### Email Correspondence
+### **Email Correspondence**
 
-I will regularly use e-mail and will use Canvas to send out announcements, changes in the syllabus, reminders about assessments or due dates etc. You are responsible for checking e-mail regularly to keep up-to-date with these announcements. I will use the e-mail address you have listed with the College. Therefore, please make sure that this is indeed the correct address.
+I will regularly use e-mail but you should contact me on the Discord channel, which is where I will post announcements, changes in the syllabus, reminders, etc. You are responsible for monitoring Discord and e-mail regularly.
 
 If you have questions please email me:
 
 1.  Always add 'PSYC 167" to the subject line
 2.  email me at: gcook\@cmc.edu
 
-## University's policy on Academic Integrity
+## **University's policy on Academic Integrity**
 
 The faculty and administration of Claremont McKenna College support an environment free from cheating and plagiarism. Each student is responsible for being aware of what constitutes cheating and plagiarism and for avoiding both.
 
-#### Violations of Academic integrity
+#### **Violations of Academic integrity**
 
 Each student is responsible for understanding and acting in accordance with the College's policy on Academic Integrity, described below.
 
-### Academic Integrity
+### **Academic Integrity**
 
 Although you may find yourself working on assignments with a partner or discussing them with classmates, all assignments should be your one original work. You are not to share materials with other students if that material has the potential of being copied, even if your intention is not to allow a classmate to copy your work. Any signs of academic dishonesty, even those raised by concerned peers, will be submitted to the Academic Standards Committee for review. Although I do not anticipate any events of academic dishonesty, any form of dishonestly of any form will not be tolerated. Many students are unclear of the definition of plagiarism so I have posted some CMC links to information that I believe will clarify the issue. In addition, any work completed for another course, past or present, may not be submitted for a grade for this course and would be a violation of integrity. <http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp>
 
-#### Statement of Reasonable Accommodations
+#### **Statement of Reasonable Accommodations**
 
 Your experience in this class is important to me. If you have already established accommodations with Disability & Accessibility Services at CMC, please communicate your approved accommodations to me during the first week of the semester so we can discuss your needs in this course ASAP. You can start this conversation by forwarding me your accommodation letter. If you have not yet established accommodations through Accessibility Services but have a temporary health condition or permanent disability (conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical or health), you are encouraged to contact Assistant Dean for Disability Services & Academic Success, Kari Rood, at **AccessibilityServices\@cmc.edu** to ask questions and/or begin the process. General information and accommodations request information be found at the CMC DOS Accessibility Service's website. Please note that arrangements must be made with advance notice in order to access the reasonable accommodations. You are able to request accommodations from CMC Accessibility Services at any point in the semester. Be mindful that this process may take some time to complete and accommodations are not retroactive. I would err on the side of caution and make sure your accommodations are sent to me even if you do not believe you need them as some students only learn they may need time after completing assessment. The Americans With Disabilities Act (ADA) and Section 504 of the Rehabilitation Act do not make accommodations retroactive. If you are approved for extra testing time for example, you must do so before an electronic assessment is posted in order for it to be integrated into the assessment. Claremont McKenna College values creating inclusive and accessible learning environments consistent with federal and state law. If you are not a CMC student, please connect with the Disability & Accessibility Services Coordinator on your campus regarding a similar process.
 
-### FYI on cheating etc.
+### **FYI on cheating etc.**
 
 Remember, you are responsible for not cheating or violating CMC's [Academic Integrity Policy](http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp). You are responsible for understanding that policy, and for conducting yourself in a manner such that you do not violate the policy.
 
@@ -214,12 +214,12 @@ The above link lists many examples of cheating and plagiarism that are not allow
 -   Do not work on individual assignments with other students, share answers or other material, and then all hand in versions of the same thing that are slightly different.
 -   Do not plagiarize yourself by submitting work that you have previously completed in another class.
 
-### Mandate to report violations
+### **Mandate to report violations**
 
 If a faculty member suspects a violation of academic integrity and, upon investigation, confirms that violation, or if the student admits the violation, the faculty member MUST report the violation. Students should be aware that faculty may use plagiarism detection software.
 
 There is no excuse for cheating. Students who are caught cheating may receive a failing grade for the entire course. All students who violate the academic integrity will receive a Faculty Action Report, which will go on their personal file at the Academic Integrity Office.
 
-## FAQ
+## **FAQ**
 
 If you have questions about the syllabus, let's talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard.

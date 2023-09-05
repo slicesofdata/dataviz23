@@ -454,8 +454,6 @@ DAT %>%
                       .names = "{.col}_{.fn}"
                       )
             )
-
-
 ```
 
 You you will see there is a number that is appended to the variable name. This is because there is only one function passed to `.fns`. You can pass more using a special object called a list (see `?list`). Unlike vectors, elements of lists need not be the same kind. Elements of lists can combinations of characters, numbers, data frames, functions, etc.
