@@ -95,7 +95,7 @@ DAT <- openxlsx::read.xlsx(paste(base_url, file_name, sep = ""), sheet = "swim")
 View its contents:
 
 ```{r}
-print(DAT) 
+head(DAT) 
 
 #view_html(DAT)
 ```
@@ -275,10 +275,10 @@ DAT %>%
   mutate(., time = period_to_seconds(ms(time)))  
 ```
 
-Let's look at `DAT` now and see those seconds.
+Let's look at `DAT` now and see those seconds. You can look at the entire data frame if you wish rather than its `head()`.
 
 ```{r}
-DAT
+head(DAT)
 ```
 
 The data frame has not changed. The final step is to assign assign the returned data frame to an object. Remove the `slice()` so we get the entire data frame.
@@ -687,7 +687,7 @@ NAME_count <- DAT %>%
 NAME_count
 ```
 
-We can see that the top counts of all time are by `r NAME_count[1, "name"]` for a total of `r `NAME_count[1, "count"]`. Kudos to `r stringr::str_split_fixed(NAME_count[1, "name"], " ", 2)[1]`!
+We can see that the top counts of all time are by `r NAME_count[1, "name"]` for a total of `r NAME_count[1, "count"]`. Kudos to `r stringr::str_split_fixed(NAME_count[1, "name"], " ", 2)[1]`!
 
 ```{r}
 YEAR_count <- DAT %>%
@@ -701,7 +701,7 @@ YEAR_count <- DAT %>%
 YEAR_count
 ```
 
-We can see that the year with the most best are by `r YEAR_count[1, "year"]` for a total of `r `YEAR_count[1, "count"]`. Hooray for `r stringr::str_split_fixed(YEAR_count[1, "year"], " ", 2)[1]`!
+We can see that the year with the most best are by `r YEAR_count[1, "year"]` for a total of `r YEAR_count[1, "count"]`. Hooray for `r stringr::str_split_fixed(YEAR_count[1, "year"], " ", 2)[1]`!
 
 
 #### *Grouping by two or more variables*:
@@ -722,7 +722,7 @@ TEAM_NAME_count
 
 #### *Filtering rows and then grouping by one variable*:
 
-For Athena:
+For Athenas:
 
 ```{r}
 ATHENA_NAME_count <- DAT %>%
@@ -736,10 +736,10 @@ ATHENA_NAME_count <- DAT %>%
 ```{r}
 ATHENA_NAME_count
 ```
-We can see that the top counts of all time are by `r ATHENA_NAME_count[1, "name"]` for a total of `r `ATHENA_NAME_count[1, "count"]`. Nice work `r stringr::str_split_fixed(ATHENA_NAME_count[1, "name"], " ", 2)[1]`!
+We can see that the top counts of all time are by `r ATHENA_NAME_count[1, "name"]` with a total of `r ATHENA_NAME_count[1, "count"]`. Nice work `r stringr::str_split_fixed(ATHENA_NAME_count[1, "name"], " ", 2)[1]`!
 
 
-And for Stag:
+And for Stags:
 
 ```{r}
 STAG_NAME_count <- DAT %>%
@@ -753,12 +753,14 @@ STAG_NAME_count <- DAT %>%
 ```{r}
 STAG_NAME_count
 ```
-We can see that the top counts of all time are by `r STAG_NAME_count[1, "name"]` for a total of `r `STAG_NAME_count[1, "count"]`. Go  `r stringr::str_split_fixed(STAG_NAME_count[1, "name"], " ", 2)[1]`!
+
+We can see that the top counts of all time are by `r STAG_NAME_count[1, "name"]` with `r STAG_NAME_count[1, "count"]`. Go `r stringr::str_split_fixed(STAG_NAME_count[1, "name"], " ", 2)[1]`!
 
 
-To wrap up this example, sometimes working with separate data frames as a result of `filter()` can provide more useful summaries.
+To wrap up this example, sometimes working with separate data frames using `filter()` can provide more useful or manageable summaries.Perhaps you only want to obtain the `mean()` or the `sum()` or the `sd()` for a single variable. If so, this approach may be  easiest.
 
-Perhaps you only want to obtain the `mean()` or the `sum()` or the `sd()` for a variable. If so, this is easiest.
+
+If you are curious, here is a story covering ["How CMS teams became the Stags and Athenas"](https://www.cmc.edu/magazine/fall-2016/how-cms-teams-became-stags-and-athenas).
 
 ### *Multiple summary metrics*
 

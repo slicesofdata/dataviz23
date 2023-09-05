@@ -68,7 +68,7 @@ zip_url <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-
 
 download.file(zip_url, destfile = here::here("data", "swim.zip"))
 unzip(here::here("data", "swim.zip"), 
-      overwrite = T, 
+      overwrite = TRUE, 
       exdir = here::here("data")
       )
 
@@ -93,7 +93,7 @@ OK, great! Let's move to importing files more generally.
 ```{r}
 URL <- "https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.xlsx"
 
-DAT <- openxlsx::read.xlsx(URL)
+DAT <- openxlsx::read.xlsx(URL, sheet = 1)
 ```
 
 What does the head of the data file look like?
@@ -249,7 +249,7 @@ readr::write_csv(x = DAT,
 Did it save? Use `file.exists()`. 
 
 ```{r}
-file.exists(here::here("dat", file_csv))
+file.exists(here::here("data", file_csv))
 ```
 
 Remember, all we have done is save the data frame. This new file will contain only the data from the spreadsheet that we read earlier. Before opening this new file, we need to take a detour on general handling of reading files with **{readr}**.
@@ -357,6 +357,13 @@ readr::read_csv(here::here("data", file_csv),
                 )
 ```
 
+If you have column names that are on row 1 of the data frame, don't skip that row and instead set `col_names = TRUE` to put them in place. 
+
+```{r}
+readr::read_csv(here::here("data", file_csv), 
+                col_names = T
+                )
+```
 Luckily, we have both names and data in the file and by default `readr::read_csv()` does what we intend.
 
 
@@ -397,14 +404,15 @@ A note about case: `R` is a case-sensitive language so object names like `DAT`, 
 
 ```{r}
 DAT <- read.table(file = here::here("data", file_csv),
-                  sep = ","
+                  sep = ",",
+                  header = T
                   )
 ```
 
 `read.csv()` is a specific case of `read.table()` that sets `sep = ","` for you so there is no need to pass the argument. `read.csv()` is the more common function you will come across for reading `.csv` files but `read.table()` works the same as long as you set the argument.
 
 ```{r}
-DAT <- read.csv(file_csv)
+DAT <- read.csv(here::here("data", file_csv))
 ```
 
 ## Using `read_csv()` from **{readr}**:
@@ -414,12 +422,12 @@ There are advantages to using `readr::read_csv()` over `read.csv()`, which is wh
 ```{r}
 DAT2 <- readr::read_csv(here::here("data", file_csv))
 
-print(head(DAT2))
+head(DAT2)
 ```
 
-We can test whehter `DAT` and `DAT2` are the same using a logical test `==`. Notice the two `=`. If we use one `=`, we will actually assign the contents of `DAT2` to `DAT` because a single `=` in this context (scope) will do the same as `<-`. A discussion of the differences is beyond the scope here but suffice it so say `<-` is the common practice except when you are writing custom functions. In most cases, assignment inside functions are done with `=` because objects created inside a function are not typically needed outside that scope.
+We can test whether `DAT` and `DAT2` are the same using a logical test `==`. Notice the two `=`. If we use one `=`, we will actually assign the contents of `DAT2` to `DAT` because a single `=` in this context (scope) will do the same as `<-`. A discussion of the differences is beyond the scope here but suffice it so say `<-` is the common practice except when you are writing custom functions. In most cases, assignment inside functions are done with `=` because objects created inside a function are not typically needed outside that scope.
 
-Anyway, you can see that the contents are the same even when files are read by different functions. This is wrapped in the `all()` function, which will return `TRUE` if everyting is `TRUE`. This is good that the contents are identical.
+Anyway, you can see that the contents are the same even when files are read by different functions. This is wrapped in the `all()` function, which will return `TRUE` if everything is `TRUE`. This is good that the contents are identical.
 
 ```{r}
 all(DAT == DAT2)
