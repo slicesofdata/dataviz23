@@ -33,7 +33,7 @@ The first step is to install these pieces of software so that you can use them.
 - [Working with RMarkdown](https://socviz.co/gettingstarted.html#work-in-plain-text-using-rmarkdown)
 
 
-## **Determine the version of your computer's operating system**
+# **Determine the version of your computer's operating system**
 
 Your version of operating system will dictate which version of R to download and install. Make note of your computer's operating system.
 
@@ -53,7 +53,7 @@ If you do not have a laptop (let me know) or do not have 5GB of hard drive space
 
 2. Remote Desktop Protocol  (No limit on compute hours) (contact me if interested)
 
-## **Download R**
+# **Download R**
 
 Once you know your processor, navigate to <https://cran.r-project.org/> and in the "**Download and Install R**" section, select your operating system. You can also select from below and follow the indented sections that follow.
 
@@ -69,7 +69,7 @@ Once you know your processor, navigate to <https://cran.r-project.org/> and in t
 ***Mac*** users should download either **R-4.3.1.pkg** or **R-4.3.1-x86_64.pkg** version depending on the cpu noted earlier. **Do not** download any version other than 4.3.1 and please do not update throughout the semester.
 ```
 
-## **Download RStudio**
+# **Download RStudio**
 
 Use the urls below to download RStudio and save it to the same directory location on your computer as you saved R.  
 
@@ -81,9 +81,9 @@ Use the urls below to download RStudio and save it to the same directory locatio
 
 *Note:* If you have a 32bit operating system, you will need to install an older version: <https://www.rstudio.com/products/rstudio/older-versions/>
 
-## **Install R and RStudio on your Computer**
+# **Install R and RStudio on your Computer**
 
-*Install R first and then install RStudio.*
+## *Install R first and then install RStudio.*
 
 Installing should be easy and you can accept all of the defaults although the desktop icons are not needed, especially for R because you will never need it; RStudio will find R for you. You can follow these videos for simple installing.
 
@@ -93,7 +93,7 @@ Installing should be easy and you can accept all of the defaults although the de
 
 **Note:** If you leave the desktop icon for R, you can remove that later. You will never need it because RStudio will find R for you.
 
-**Additional Step for Mac Users:**
+##*Additional Step for Mac Users:*
 
 *Download and Install XQuartz*
 
@@ -103,16 +103,16 @@ Use the url below to download the XQuartz file and save it to your computer. Fol
 
 **For macOS 10.9 or later, download this XQuartz file and save it to your computer and install:** <https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg>
 
-## **Verify that RStudio is communicating correctly with R**
+# **Verify that RStudio is communicating correctly with R**
 
 *Launch the **RStudio** application.*
 
 If RStudio and R are communicating correctly, you should see an RStudio window open with the R console opened which should look similar to that shown below. Your R version should be listed at the top of the console (4.3.1 **Beagle Scouts**).
 
-## **Configure RStudio**
+# **Configure RStudio**
 
-A. Go to *Tools -\> Global Options* under the *General + Basic* Tab
+A. Go to *Tools -> Global Options* under the *General + Basic* Tab
 
-· **R Sessions -\> R version:** There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.
+· **R Sessions -> R version:** There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.
 
 B. **Other options**: Check the other check boxes as indicated in the images below.
