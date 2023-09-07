@@ -361,14 +361,14 @@
     "href": "modules/07_data_subsets_and_summaries.html#readings",
     "title": "Data subsets and summaries",
     "section": "Readings",
-    "text": "Readings\n\nTBA"
+    "text": "Readings"
   },
   {
     "objectID": "modules/07_data_subsets_and_summaries.html#task",
     "href": "modules/07_data_subsets_and_summaries.html#task",
     "title": "Data subsets and summaries",
     "section": "Task",
-    "text": "Task\n\nTBA"
+    "text": "Task"
   },
   {
     "objectID": "modules/07_data_subsets_and_summaries.html#libraries",
@@ -396,7 +396,7 @@
     "href": "modules/07_data_subsets_and_summaries.html#creating-a-new-variable",
     "title": "Data subsets and summaries",
     "section": "Creating a new variable",
-    "text": "Creating a new variable\nWe will pass the data frame into mutate() and then specify a name-value variable pair. When using %&gt;%, the data frame piped into the function will be represented as .. This . is not needed but serves as a good reminder that the data frame that is passed is the one from the previous line of code. In order to keep the print out manageable, we will also use the slice() function.\nmutate(data frame, new variable name = variable) %&gt;%\nCreate new variables that are set to a constant number or string:\n\nDAT %&gt;%\n  slice(., 1:5) %&gt;%   # rows 1 through 5\n  mutate(., newvar1 = 9999) %&gt;%\n  mutate(., newvar2 = \"Student\") \n\n   time             name year   event   team newvar1 newvar2\n1 23.29 Jocelyn Crawford 2019 50 FREE Athena    9999 Student\n2 23.31    Ava Sealander 2022 50 FREE Athena    9999 Student\n3 23.49        Kelly Ngo 2016 50 FREE Athena    9999 Student\n4 23.71        Helen Liu 2014 50 FREE Athena    9999 Student\n5 23.76      Michele Kee 2014 50 FREE Athena    9999 Student\n\n\nYou can see that each row in the data frame will take on the paired value."
+    "text": "Creating a new variable\nWe will pass the data frame into mutate() and then specify a name-value variable pair. When using %&gt;%, the data frame piped into the function will be represented as .. This . is not needed but serves as a good reminder that the data frame that is passed into mutate() is from the previous line of code. In order to keep the print out manageable, we will also use the slice() function.\nmutate(data_frame, \n    new_variable_name = variable\n    )\nCreate new variables that are set to a constant number or string:\n\nDAT %&gt;%\n  slice(., 1:5) %&gt;%   # rows 1 through 5\n  mutate(., newvar1 = 9999) %&gt;%\n  mutate(., newvar2 = \"Student\") \n\n   time             name year   event   team newvar1 newvar2\n1 23.29 Jocelyn Crawford 2019 50 FREE Athena    9999 Student\n2 23.31    Ava Sealander 2022 50 FREE Athena    9999 Student\n3 23.49        Kelly Ngo 2016 50 FREE Athena    9999 Student\n4 23.71        Helen Liu 2014 50 FREE Athena    9999 Student\n5 23.76      Michele Kee 2014 50 FREE Athena    9999 Student\n\n\nYou can see that each row in the data frame will take on the paired value."
   },
   {
     "objectID": "modules/07_data_subsets_and_summaries.html#modifying-a-new-variable",
@@ -467,6 +467,83 @@
     "title": "Modules",
     "section": "Module structure",
     "text": "Module structure\nIn general, modules will contain readings, additional resources, and weekly assignments.\nThe modules will be updated across the semester as needed. There are more modules on this course site because some modules provide other useful information. The names of the modules listed in the syllabus, however, do match the names in the module listing."
+  },
+  {
+    "objectID": "project/project_overview.html",
+    "href": "project/project_overview.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Semester\nFall 2023\n\n\nSection\nPSYC 167, Sect-01\n\n\nDay Time\nTuesday 2:45 - 05:30PM (Pacific)\n\n\nLocation\nLocation: Roberts South, 104\n\n\nOffice Hours\nSee Discord\n\n\nInstructor\nGabriel I. Cook\n\n\nContact\nEmail: gcook@CMC.edu(please put ’PSYC 167 in subject line)\n\n\nCredit\n3 hours; 1 credits"
+  },
+  {
+    "objectID": "project/project_overview.html#course-description",
+    "href": "project/project_overview.html#course-description",
+    "title": "Syllabus",
+    "section": "Course Description",
+    "text": "Course Description\nData visualization is the science and art of creating graphical representations of information and data. Visual representations provide accessible ways to see patterns, trends, and outliers in data. Variables like position, size, and orientation can focus attention and guide perception but can also bias interpretation of data. Students will learn how well-designed visualizations can reduce bias and improve comprehension for data thereby facilitating data-driven decision-making. Students will explore techniques for creating effective visualizations based on principles from cognitive and perceptual psychology, art, and design. Students will gain hands-on experience coding real-world data visualizations for local offices, organizations, and industry participants.\nThe course is targeted toward students with expressed interest in cognition and cognitive biases related to data communication, students interested in using visualization to communicate their own messages, and students interested in creating better visualization tools and systems. Students will engage in discussions of the readings, complete programming and data analysis assignments, and prepare a final project involving storytelling with data visualizations.\nPrerequisite: For data-science sequence or majors (level-A data-science course); recommended a course in Perception, Visual Attention, Cognitive Psychology, or Cognitive Science; or permission of instructor\n\nCourse Specific Learning Goals\n\nUnderstand various uses of visual variables to create data visualizations;\nUnderstand both advantages and disadvantages of using visual variables to create data visualizations;\nAnalyze, critique, and revise data visualizations;\nUnderstand the functionality of the ggplot2 library for creating data visualizations;\nPresent data with visual representations for your target audience, task, and data;\nIdentify appropriate data visualization techniques given particular requirements imposed by the data and/or audience; and\nApply appropriate design principles in the creation of presentations and visualizations"
+  },
+  {
+    "objectID": "project/project_overview.html#courses-at-cmc",
+    "href": "project/project_overview.html#courses-at-cmc",
+    "title": "Syllabus",
+    "section": "Courses at CMC",
+    "text": "Courses at CMC\n\nFaculty Handbook 5.4.2 Work Load in Classes\n“Courses should involve approximately equal workloads. Generally, students should expect to spend from 6 to 8 hours per week, over and above the time spent in classroom, on each course.” – CMC Faculty Handbook\nIf you do the math, including class time of 2½ hours, you should expect to allocate 8 ½ to 10 ½ hours per week for courses at CMC. “Per week” is a key phrase; courses are not designed for nondistributed cramming."
+  },
+  {
+    "objectID": "project/project_overview.html#course-materials-and-textbook",
+    "href": "project/project_overview.html#course-materials-and-textbook",
+    "title": "Syllabus",
+    "section": "Course Materials and Textbook",
+    "text": "Course Materials and Textbook\nAll of the course materials will be available on this course website .\nLink to the course website: https://slicesofdata.github.io/dataviz23\n\nRequired Equipment:\nComputer: current Mac (macOS) or PC (Windows or Linux) with high-speed internet connection, capable of running R and RStudio\n\n\nRequired Software:\nR and RStudio: Students will be required to use R and RStudio software. Note: Install Version will be provided. Before installing RStudio, you must also download and install the base R software at https://www.r-project.org/ that is appropriate for your computer’s operating system. RStudio can be downloaded for free at https://www.rstudio.com. You are expected to install R and RStudio on your personal computer by downloading the software from the links above. You will also have to install appropriate libraries throughout the course. Further instructions will be provided.\n\n\nReading Materials/Textbook(s)\nReadings will be taken from different sources and will appear in each topic module.\n\nWickham, H., Navarro. D., & Pedersen, T. L.. ggplot2: Elegant Graphics for Data Analysis, 3rd ed.\nClaus O. Wilke (2019). Fundamentals of Data Visualization. O’Reilly Media.\nXie, Y., Allaire, J. J., & Grolemund, G. R Markdown: The Definitive Guide\nKieran Healy (2018). Data Visualization: A Practical Introduction. Princeton University Press.\nNordmann, E. & DeBruine, L. (2023). Applied Data Skills: Processing & Presenting Data (2023) . https://psyteachr.github.io/ads-v2\n\nThese textbooks are free and open-source."
+  },
+  {
+    "objectID": "project/project_overview.html#course-structure",
+    "href": "project/project_overview.html#course-structure",
+    "title": "Syllabus",
+    "section": "Course Structure",
+    "text": "Course Structure\nStudents are expected to participate in all aspects of the class. This class involves developing topic knowledge and computer programming skills for visualizing data. The assumption is that students possess varying levels of skills related to programming. Class time will be spend engaging in a variety of tasks and activities, including lectures, group-work, applied coding activities, presentations, and discussions."
+  },
+  {
+    "objectID": "project/project_overview.html#course-schedule",
+    "href": "project/project_overview.html#course-schedule",
+    "title": "Syllabus",
+    "section": "Course Schedule",
+    "text": "Course Schedule\n\n\n\n\n\n\n\n\n\n\n\nDate\nWeek\nModule\nTopic\n\n\n\n\n29-Aug\n1\n1\nIntroduction & Project Management\n\n\n\n1\n2\nGraphical Perception\n\n\n5-Sep\n2\n3\nData Frame Manipulation and Wrangling\n\n\n\n2\n4\nData Subsets and Summaries\n\n\n12-Sep\n3\n5\nThe Grammar of Graphics\n\n\n\n3\n6\nVisualizing Amounts\n\n\n19-Sep\n4\n7\nVisualizing Associations\n\n\n\n4\n8\nSpatial Position and Adjustment\n\n\n26-Sep\n5\n9\nConsiderations in Data Visualization\n\n\n\n5\n10\nColor Scales and Palettes\n\n\n3-Oct\n6\n11\nHistograms and Density Plots\n\n\n\n6\n12\nCoordinates Axes and Position Scales\n\n\n10-Oct\n7\n13\nStatistical Transformations (Data as-is Versus Summaries)\n\n\n\n7\n14\nMore Data Wrangling\n\n\n17-Oct\n8\n\nFall Break (no class)\n\n\n24-Oct\n9\n15\nVisualizing More Distributions\n\n\n\n9\n16\nVisualizing Uncertainty\n\n\n31-Oct\n10\n\nMid-Term Presentation\n\n\n7-Nov\n11\n17\nVisualizing Trends\n\n\n\n11\n18\nLegends and Arrangement\n\n\n14-Nov\n12\n19\nDesigning Perceptually Efficient Visualizations\n\n\n\n12\n20\nAnnotation and Text\n\n\n21-Nov\n13\n21\nMulti-Panel Plots: Faceting and Layers\n\n\n\n13\n22\nAttentional Control and Tradeoffs\n\n\n28-Nov\n14\n23\nTitles Captions & Tables\n\n\n\n14\n24\nFigure Design (Themes)\n\n\n5-Dec\n15\n\nPresentation (Last day of Instruction)"
+  },
+  {
+    "objectID": "project/project_overview.html#assignments-and-grading",
+    "href": "project/project_overview.html#assignments-and-grading",
+    "title": "Syllabus",
+    "section": "Assignments and Grading",
+    "text": "Assignments and Grading\nThis is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.\n\n**Evaluation and Grading*\n\n\n\n\n\nItem\nTotal Points\n\n\n\n\nKnowledge Assessments\n10\n\n\nWeekly Conceptual and Programming\n30\n\n\nMidterm Presentation\n20\n\n\nFinal Project (pres and report)\n40\n\n\n\n\n\nPercentage grades are converted to letter grades according to the following rubric.\n\n\n\n\n\nLetter\nPoint Range\n\n\n\n\nA\n94 - 100\n\n\nA-\n90 - 93.99\n\n\nB+\n87 - 89.99\n\n\nB\n84 - 86.99\n\n\nB-\n80 - 83.99\n\n\nC+\n77 - 79.99\n\n\nC\n74 - 76.99\n\n\nC-\n70 - 73.99\n\n\nD+\n67 - 69.99\n\n\nD\n64 - 66.99\n\n\nD-\n60 - 63.99\n\n\nF\n0 - 59.99"
+  },
+  {
+    "objectID": "project/project_overview.html#attendance",
+    "href": "project/project_overview.html#attendance",
+    "title": "Syllabus",
+    "section": "Attendance",
+    "text": "Attendance\nStudents are expected to attend and participate in each class."
+  },
+  {
+    "objectID": "project/project_overview.html#course-policies",
+    "href": "project/project_overview.html#course-policies",
+    "title": "Syllabus",
+    "section": "Course Policies",
+    "text": "Course Policies\n\nDue dates\nDue dates are suggestions for completing coursework on a weekly basis. You may be able to work ahead, but you are not encouraged to fall behind.\nYou should email me if you have an exceptional circumstance preventing you from taking an assessment during an assessment week.\n\n\nChanges to the syllabus\nThe syllabus may be updated for clarity or to make adjustments for pedagogical purposes. The most current version of the syllabus is always available from the course website.\n\n\nAccessibility\nIn order to receive disability-related academic accommodations students must first be registered with the Center for Student Disability Services. Students who have a documented disability or suspect they may have a disability are invited to set up an appointment with the Director of the Center for Student Disability Services, at 718-951-5538. If you have already registered with the Center for Student Disability Services, please provide your professor with the course accommodation form and discuss your specific accommodation with him/her.\n\n\n\nEmail Correspondence\nI will regularly use e-mail but you should contact me on the Discord channel, which is where I will post announcements, changes in the syllabus, reminders, etc. You are responsible for monitoring Discord and e-mail regularly.\nIf you have questions please email me:\n\nAlways add ’PSYC 167” to the subject line\nemail me at: gcook@cmc.edu"
+  },
+  {
+    "objectID": "project/project_overview.html#universitys-policy-on-academic-integrity",
+    "href": "project/project_overview.html#universitys-policy-on-academic-integrity",
+    "title": "Syllabus",
+    "section": "University’s policy on Academic Integrity",
+    "text": "University’s policy on Academic Integrity\nThe faculty and administration of Claremont McKenna College support an environment free from cheating and plagiarism. Each student is responsible for being aware of what constitutes cheating and plagiarism and for avoiding both.\n\nViolations of Academic integrity\nEach student is responsible for understanding and acting in accordance with the College’s policy on Academic Integrity, described below.\n\n\nAcademic Integrity\nAlthough you may find yourself working on assignments with a partner or discussing them with classmates, all assignments should be your one original work. You are not to share materials with other students if that material has the potential of being copied, even if your intention is not to allow a classmate to copy your work. Any signs of academic dishonesty, even those raised by concerned peers, will be submitted to the Academic Standards Committee for review. Although I do not anticipate any events of academic dishonesty, any form of dishonestly of any form will not be tolerated. Many students are unclear of the definition of plagiarism so I have posted some CMC links to information that I believe will clarify the issue. In addition, any work completed for another course, past or present, may not be submitted for a grade for this course and would be a violation of integrity. http://registrar.academic.claremontmckenna.edu/acpolicy/default.asp\n\nStatement of Reasonable Accommodations\nYour experience in this class is important to me. If you have already established accommodations with Disability & Accessibility Services at CMC, please communicate your approved accommodations to me during the first week of the semester so we can discuss your needs in this course ASAP. You can start this conversation by forwarding me your accommodation letter. If you have not yet established accommodations through Accessibility Services but have a temporary health condition or permanent disability (conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical or health), you are encouraged to contact Assistant Dean for Disability Services & Academic Success, Kari Rood, at AccessibilityServices@cmc.edu to ask questions and/or begin the process. General information and accommodations request information be found at the CMC DOS Accessibility Service’s website. Please note that arrangements must be made with advance notice in order to access the reasonable accommodations. You are able to request accommodations from CMC Accessibility Services at any point in the semester. Be mindful that this process may take some time to complete and accommodations are not retroactive. I would err on the side of caution and make sure your accommodations are sent to me even if you do not believe you need them as some students only learn they may need time after completing assessment. The Americans With Disabilities Act (ADA) and Section 504 of the Rehabilitation Act do not make accommodations retroactive. If you are approved for extra testing time for example, you must do so before an electronic assessment is posted in order for it to be integrated into the assessment. Claremont McKenna College values creating inclusive and accessible learning environments consistent with federal and state law. If you are not a CMC student, please connect with the Disability & Accessibility Services Coordinator on your campus regarding a similar process.\n\n\n\nFYI on cheating etc.\nRemember, you are responsible for not cheating or violating CMC’s Academic Integrity Policy. You are responsible for understanding that policy, and for conducting yourself in a manner such that you do not violate the policy.\nThe above link lists many examples of cheating and plagiarism that are not allowed. There are many more specific acts that you should NOT do. Here is an additional list of activities that will be sufficient cause for immediate failure in the course.\n\nDo not take pictures of exam or quiz questions and share them with other students\nDo not give other students answers during an exam or quiz, or any other assignment that is an individual assignment\nDo not copy work from another source and submit it as your own\nDo not copy and paste text from the internet and submit it as your own words\nDo not copy and paste text and slightly alter wording to pass the work off as your own\nDo not hire someone else to do the coursework for you\nDo not copy and paste text into a paraphrasing app, and then submit the output of the paraphrasing app as your own work\nDo not copy random words from the internet that have nothing to do with the assignment and submit them as your own work.\nDo not work on individual assignments with other students, share answers or other material, and then all hand in versions of the same thing that are slightly different.\nDo not plagiarize yourself by submitting work that you have previously completed in another class.\n\n\n\nMandate to report violations\nIf a faculty member suspects a violation of academic integrity and, upon investigation, confirms that violation, or if the student admits the violation, the faculty member MUST report the violation. Students should be aware that faculty may use plagiarism detection software.\nThere is no excuse for cheating. Students who are caught cheating may receive a failing grade for the entire course. All students who violate the academic integrity will receive a Faculty Action Report, which will go on their personal file at the Academic Integrity Office."
+  },
+  {
+    "objectID": "project/project_overview.html#faq",
+    "href": "project/project_overview.html#faq",
+    "title": "Syllabus",
+    "section": "FAQ",
+    "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
   },
   {
     "objectID": "resources/dataviz_readings.html",

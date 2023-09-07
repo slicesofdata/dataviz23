@@ -19,3 +19,5 @@ Various tasks and exercises will be found here. The exercise list will be update
 
 Homework Exercise [01](https://github.com/slicesofdata/dataviz23/tree/main/figs/diamonds_full.png)
 Homework Exercise [02](https://github.com/slicesofdata/dataviz23/blob/main/exercises/building/EX02.Rmd)
+Homework Exercise [03](https://github.com/slicesofdata/dataviz23/blob/main/exercises/building/EX03.Rmd)
+
