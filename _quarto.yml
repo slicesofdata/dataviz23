@@ -58,13 +58,15 @@ website:
             href: homework/EX01.pdf
           - text: HW 2
             href: homework/EX02.Rmd
+          - text: HW 3
+            href: homework/HW03.Rmd
       - text: "**Data**"
         #file: slides/index.qmd
         menu:
           - text: cms-top-all-time-2023-swim.xlsx
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip
       - text: "Project"
-#          - text: Overview
+#          - text: Overview 
 #            href: project/project_overview.qmd
 #          - text: Mid Semester Presentation
 #            href: project/project_pres01.qmd

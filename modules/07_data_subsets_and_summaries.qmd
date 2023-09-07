@@ -32,12 +32,9 @@ This module demonstrates how to use **{dplyr}** to subset data, mutate variables
 
 ## **Readings**
 
-- TBA 
-
 
 ## **Task**
 
-- TBA
 
 ## **Libraries** 
 
