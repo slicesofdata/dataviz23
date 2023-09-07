@@ -86,10 +86,14 @@ Look to make sure there are not any odd spacing.
 paste(base_url, file_name, sep = "")
 ```
 
-OK, pass the string to read `sheet = "swim"` from the file.
+
+We will  pass this string to the `xlxsFile` argument and also pass `sheet = "swim"` so the swim worksheet is read from the file.
 
 ```{r}
-DAT <- openxlsx::read.xlsx(paste(base_url, file_name, sep = ""), sheet = "swim")
+DAT <- openxlsx::read.xlsx(
+  xlsxFile = paste(base_url, file_name, sep = ""), 
+  sheet = "swim"
+  )
 ```
 
 View its contents:
@@ -104,10 +108,13 @@ We have several variables: `r names(DAT)`. Some appear to be numeric and some ar
 
 ```{r}
 dplyr::glimpse(DAT)
+
+# or DAT %>% dplyr::glimpse()
 ```
 
-Hmm, looks like there are `<chr>` and `<dbl>` variables and some numbers are in quotes. Objects in quotes are strings. So we need to clean up the file before we can even get a summary.
+Hmm, looks like there are `<chr>` and `<dbl>` variables and some numbers are in quotes. Objects in quotes are strings. So we need to clean up the file before we can even get a summary. Other than looking at the structure of data frame using `glimpse()` or `str()`, you can examine vectors individually. 
 
+When vectors are in data frames, you can reference them using the `$` notation: `my_dataframe$my_variable`. Passing this to `is.numeric()` will also tell you whether the vector is numeric by returning either `TRUE` or `FALSE`.  
 
 ```{r}
 is.numeric(DAT$time)
@@ -136,11 +143,12 @@ We will use `mutate()` in conjunction with **{magrittr}**'s `%>%` for code pipin
 
 ## **Creating a new variable**
 
-We will pass the data frame into `mutate()` and then specify a name-value variable pair. When using `%>%`, the data frame piped into the function will be represented as `.`. This `.` is not needed but serves as a good reminder that the data frame that is passed is the one from the previous line of code. In order to keep the print out manageable, we will also use the `slice()` function.
-
+We will pass the data frame into `mutate()` and then specify a name-value variable pair. When using `%>%`, the data frame piped into the function will be represented as `.`. This `.` is not needed but serves as a good reminder that the data frame that is passed into `mutate()` is from the previous line of code. In order to keep the print out manageable, we will also use the `slice()` function.
 
 ```
-mutate(data frame, new variable name = variable) %>%
+mutate(data_frame, 
+    new_variable_name = variable
+    )
 ```
 
 Create new variables that are set to a constant number or string:

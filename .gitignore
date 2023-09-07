@@ -12,6 +12,8 @@ omit/
 exercises/
 modules/building/
 homework/builing/
+homework/key
+project/builing
 
 *.RData
 *.rdb

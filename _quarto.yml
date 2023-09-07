@@ -63,6 +63,15 @@ website:
         menu:
           - text: cms-top-all-time-2023-swim.xlsx
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip
+      - text: "Project"
+#          - text: Overview
+#            href: project/project_overview.qmd
+#          - text: Mid Semester Presentation
+#            href: project/project_pres01.qmd
+#          - text: Final Presentation
+#            href: project/project_pres02.qmd
+#          - text: Data
+#            href: project/project_data.Rmd
       - text: "**Cheatsheets**"
         #file: slides/index.qmd
         menu:
