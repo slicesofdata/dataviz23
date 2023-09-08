@@ -81,7 +81,7 @@ website:
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip
           - text: tfrrs.zip
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip
-      - text: "Project"
+     # - text: "Project"
 #          - text: Overview 
 #            href: project/project_overview.qmd
 #          - text: Mid Semester Presentation

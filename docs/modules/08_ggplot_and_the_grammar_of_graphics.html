@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">HW 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../homework/EX02.Rmd" rel="" target="">
+    <a class="dropdown-item" href="../homework/HW02.Rmd" rel="" target="">
  <span class="dropdown-text">HW 2</span></a>
   </li>  
         <li>
@@ -124,10 +124,12 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip" rel="" target="">
  <span class="dropdown-text">cms-top-all-time-2023-swim.xlsx</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip" rel="" target="">
+ <span class="dropdown-text">tfrrs.zip</span></a>
+  </li>  
     </ul>
   </li>
-  <li class="dropdown-header">
- <span class="menu-text">Project</span></li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cheatsheets" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text"><strong>Cheatsheets</strong></span>
@@ -352,16 +354,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#under-construction" id="toc-under-construction" class="nav-link active" data-scroll-target="#under-construction"><strong>Under Construction</strong></a>
-  <ul class="collapse">
-  <li><a href="#content-pending" id="toc-content-pending" class="nav-link" data-scroll-target="#content-pending"><strong>Content Pending</strong></a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -395,14 +388,64 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="under-construction" class="level1">
-<h1><strong>Under Construction</strong></h1>
-<section id="content-pending" class="level2">
-<h2 class="anchored" data-anchor-id="content-pending"><strong>Content Pending</strong></h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Under construction.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.</p>
+</div>
+</div>
+<p>csv_files[grep(‘Athena’, csv_files, ignore.case = T)]</p>
+<pre><code>
+Some Helpful Functions:
+
+- `ggplot()`: for initializing a plot object
+- `aes()`: for specifying aesthetics of a plot (e.g., x, y, size, color, etc.)
+- `geom_bar()`: for bar geometry of a plot using either x or y
+- `geom_col()`: for bar geometry of a plot using x and y
+- `geom_point()`: for point geometry of a plot
+- `geom_line()`: for line geometry of a plot
+- `geom_histogram()`: for a distribution geometry of a plot
+- `ggtitle()` or `labs()`: for adding a title
+- `geom_text()`: for editing text
+- `ylab()` and `xlab()`: for axis labeling
+- `coord_flip()`: for flipping the x and y coordinates  
+- `theme_minimal()`: a particular theme application
+- `theme_set()`: for setting a theme
 
 
-</section>
-</section>
+# **Loading Libraries**
+
+You will need to load `dplyr` and `ggplot2`.
+
+::: {.cell}
+
+```{.r .cell-code}
+library(ggplot2)
+library(dplyr)</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<p>:::</p>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

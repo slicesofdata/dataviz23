@@ -45,28 +45,30 @@ Insert a code block below and write your code to load the libraries you will lat
 
 # *Download and Source a `.R` script.*
 
-First, we need to get all the TFRRS data. There is an `.R` script file to perform the download of a `"tfrrs.zip"`, so download that script and save it. Make a note of where this code is and then source `"download_tfrrs_data.R"` either inside the code block below or in the `R` console. 
+First, we need to get all the TFRRS data. Use the code from the code block below to download an `.R` script file. That script file will perform the download of a `"tfrrs.zip"`.  The download won't work unless you have the script file on your computer so make sure you ahe it saved where you would save code files. Make a note of where this code is and then source `"download_tfrrs_data.R"` either inside the code block below or in the `R` console. 
 
 ```
 download.file("https://github.com/slicesofdata/dataviz23/blob/main/R/download_tfrrs_data.R", 
               here::here("r", "download_tfrrs_data.R"))
 ```
 
+Make note of where `"download_tfrrs_data.R"` was saved. 
+
 ```{r eval=FALSE, include=FALSE}
 
 ```
 
-Make note of where `"download_tfrrs_data.R"` was saved and where the data were unpacked. 
+Make now of where the data files were unpacked.
 
 
 
-# *Read a local csv file*
+
+# *Read a Local csv File*
 
 After saving and unpacking the data, use **{readr}** along with **{here}** to read the `2010_CMS_Athena_Outdoor_100.csv` file and assign it to an object of some name. You might wish to examine whether column names exist or do not and make any necessary function argument modifications.
 
-
 ```{r}
-DAT <- readr::read_csv(here::here("data", "tfrrs", "2010_CMS_Athena_Outdoor_100.csv"))
+
 ```
 
 
@@ -228,6 +230,3 @@ Summarize the data frame in some other way you wish. Consider thinking of ways t
 
 **Please knit an `html` file upload [here](https://claremontmckenna.app.box.com/f/140969a32dea44e9ab6c0c00146d66e3).** 
 
-```{r}
-#message(paste0("knit by ", usr_time))
-```
