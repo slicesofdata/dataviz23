@@ -60,7 +60,7 @@ Make note of where `"download_tfrrs_data.R"` was saved and where the data were u
 
 
 
-# *Read a local csv file*
+# *Read a Local csv File*
 
 After saving and unpacking the data, use **{readr}** along with **{here}** to read the `2010_CMS_Athena_Outdoor_100.csv` file and assign it to an object of some name. You might wish to examine whether column names exist or do not and make any necessary function argument modifications.
 
