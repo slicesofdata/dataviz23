@@ -66,7 +66,7 @@ After saving and unpacking the data, use **{readr}** along with **{here}** to re
 
 
 ```{r}
-DAT <- readr::read_csv(here::here("data", "tfrrs", "2010_CMS_Athena_Outdoor_100.csv"))
+
 ```
 
 
