@@ -22,36 +22,3 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.
 
 :::
-
-
-
-
-csv_files[grep('Athena', csv_files, ignore.case = T)]
-
-```
-
-Some Helpful Functions:
-
-- `ggplot()`: for initializing a plot object
-- `aes()`: for specifying aesthetics of a plot (e.g., x, y, size, color, etc.)
-- `geom_bar()`: for bar geometry of a plot using either x or y
-- `geom_col()`: for bar geometry of a plot using x and y
-- `geom_point()`: for point geometry of a plot
-- `geom_line()`: for line geometry of a plot
-- `geom_histogram()`: for a distribution geometry of a plot
-- `ggtitle()` or `labs()`: for adding a title
-- `geom_text()`: for editing text
-- `ylab()` and `xlab()`: for axis labeling
-- `coord_flip()`: for flipping the x and y coordinates  
-- `theme_minimal()`: a particular theme application
-- `theme_set()`: for setting a theme
-
-
-# **Loading Libraries**
-
-You will need to load `dplyr` and `ggplot2`.
-
-```{r}
-library(ggplot2)
-library(dplyr)
-```
