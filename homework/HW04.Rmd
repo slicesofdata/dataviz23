@@ -1,5 +1,5 @@
 ---
-title: "Exercise 03"
+title: "Exercise 04"
 author: ""
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -16,8 +16,18 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-For this homework, you will save the `R Markdown` (e.g., `.Rmd`) homework document and save it to your `homework` project directory on your computer. Save a new copy of this file so that its name has the prefix `2023_Lastname_FirstInitial`. Full name example: `2023_cookg_EX_03.Rmd`. 
-Feel free to work with a partner but understand that the work submitted has to be your own.
+For this homework, you will save the `R Markdown` (e.g., `.Rmd`) homework document and save it to your `homework` project directory on your computer. Save a new copy of this file so that its name has the prefix `2023_Lastname_FirstInitial`. Full name example: `2023_cookg_EX_04.Rmd`. Feel free to work with a partner but understand that the work submitted has to be your own.
+
+
+
+
+
+
+
+
+
+
+
 
 The homework utilizes the modules below. 
 

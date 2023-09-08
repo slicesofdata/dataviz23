@@ -57,14 +57,30 @@ website:
           - text: HW 1
             href: homework/EX01.pdf
           - text: HW 2
-            href: homework/EX02.Rmd
+            href: homework/HW02.Rmd
           - text: HW 3
             href: homework/HW03.Rmd
+#          - text: HW 4
+#            href: homework/HW04.Rmd
+#          - text: HW 5
+#            href: homework/HW05.Rmd
+#          - text: HW 6
+#            href: homework/HW06.Rmd
+#          - text: HW 7
+#            href: homework/HW07.Rmd
+#          - text: HW 8
+#            href: homework/HW08.Rmd
+#          - text: HW 9
+#            href: homework/HW09.Rmd
+#          - text: HW 10
+#            href: homework/HW10.Rmd
       - text: "**Data**"
         #file: slides/index.qmd
         menu:
           - text: cms-top-all-time-2023-swim.xlsx
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip
+          - text: tfrrs.zip
+            href: https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip
       - text: "Project"
 #          - text: Overview 
 #            href: project/project_overview.qmd
