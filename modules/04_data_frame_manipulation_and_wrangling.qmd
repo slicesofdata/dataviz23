@@ -27,10 +27,6 @@ This page is a work in progress and may contain areas that need more detail or t
 
 This module demonstrates how to use **{dplyr}** to wrangle data frames. There is much that you can do with the library and this module focuses on selecting, filtering, and arranging data frames or tibbles. Helper functions from libraries like **{magrittr}**, **{stringr}**, and **{tidyselect}** are also used in conjunction with **{dplyr}**.
 
-## **External Functions**
-
-Provided in class:
-
 ## **Libraries** 
 
 
