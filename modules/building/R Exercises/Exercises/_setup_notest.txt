@@ -1,9 +1,0 @@
-
-                         How exercises and homework work
-
-Once the getExerciseX.R file is created, put a copy in 04_Exercises folder on Box/Sakai
-
-- This script will run the sourceExerciseX.R file to 
-  1. save the data files (Psyc109/Data)
-  2. save script files for the exercise and homework (Psyc109/Scripts)
-

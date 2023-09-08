@@ -1,3 +1,0 @@
-A new release of Deno is available: 1.28.2 → 1.34.3 Run `deno upgrade` to install it.
-now updated to 1.34.3
-https://deno.com/manual@v1.34.3/getting_started/installation 

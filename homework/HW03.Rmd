@@ -52,11 +52,14 @@ download.file("https://github.com/slicesofdata/dataviz23/blob/main/R/download_tf
               here::here("r", "download_tfrrs_data.R"))
 ```
 
+Make note of where `"download_tfrrs_data.R"` was saved. 
+
 ```{r eval=FALSE, include=FALSE}
 
 ```
 
-Make note of where `"download_tfrrs_data.R"` was saved and where the data were unpacked. 
+Make now of where the data files were unpacked.
+
 
 
 
