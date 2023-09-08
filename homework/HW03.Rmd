@@ -228,6 +228,3 @@ Summarize the data frame in some other way you wish. Consider thinking of ways t
 
 **Please knit an `html` file upload [here](https://claremontmckenna.app.box.com/f/140969a32dea44e9ab6c0c00146d66e3).** 
 
-```{r}
-#message(paste0("knit by ", usr_time))
-```
