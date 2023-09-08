@@ -6,5 +6,4 @@ unzip(here::here("data", "tfrrs.zip"),
       overwrite = TRUE, 
       exdir = here::here("data")
 )
-message(paste("Downloaded by ", as.character(tolower(Sys.info()["user"])), "!", sep = ""))
 
