@@ -80,8 +80,7 @@ source(here::here("r", "my_functions.R"))
 
 # **The Grammar of Graphics**
 
-Data visualization is key to understanding data. The major plotting workhorse in `R` is [**{ggplot2}**](https://ggplot2.tidyverse.org/), which is built on    
-[Leland Wilkinson's (2005)](https://link.springer.com/book/10.1007/0-387-28695-0) text on what he called *The Grammar of Graphics*]. You can find out more about the motivation for him developing his approach [here](https://link.springer.com/book/10.1007/0-387-28695-0#about-this-book). 
+Data visualization is key to understanding data. The major plotting workhorse in `R` is [**{ggplot2}**](https://ggplot2.tidyverse.org/), which is built on [Leland Wilkinson's (2005)](https://link.springer.com/book/10.1007/0-387-28695-0) text on what he called *The Grammar of Graphics*]. You can find out more about the motivation for him developing his approach [here](https://link.springer.com/book/10.1007/0-387-28695-0#about-this-book). 
 
 Wilkinson's approach to creating plots layer-by-layer is implemented in the **{ggplot2}**(https://ggplot2.tidyverse.org/) library, which was written by [Hadley Wickham](https://en.wikipedia.org/wiki/Hadley_Wickham) and is explained in more detail in [Elegant Graphics for Data Analysis](https://ggplot2-book.org/). 
 
