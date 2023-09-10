@@ -1,5 +1,5 @@
 ---
-title: "**visualizing amounts**"
+title: "**Visualizing amounts**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -47,3 +47,11 @@ Reading should take place in two parts:
 
 
 # **Under construction, content pending**
+
+
+# **Session Information**
+
+```{r}
+sessioninfo::session_info()
+```
+
