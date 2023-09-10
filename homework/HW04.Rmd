@@ -55,7 +55,7 @@ Insert a code block below and write your code to load the libraries you will lat
 
 # *Download and Source a `.R` script.*
 
-First, we need to get all the TFRRS data. Use the code from the code block below to download an `.R` script file. That script file will perform the download of a `"tfrrs.zip"`.  The download won't work unless you have the script file on your computer so make sure you ahe it saved where you would save code files. Make a note of where this code is and then source `"download_tfrrs_data.R"` either inside the code block below or in the `R` console. If the download does not work, access the zip from the data tab on the course site and unzip into `/data`.
+First, we need to get all the TFRRS data. Use the code from the code block below to download an `.R` script file. That script file will perform the download of a `"tfrrs.zip"`.  The download won't work unless you have the script file on your computer so make sure you have it saved where you would save code files. Make a note of where this code is and then source `"download_tfrrs_data.R"` either inside the code block below or in the `R` console. If the download does not work, access the zip from the *data* tab on the course site and unzip into `/data`.
 
 ```
 download.file("https://github.com/slicesofdata/dataviz23/raw/main/R/download_tfrrs_data.R", 
