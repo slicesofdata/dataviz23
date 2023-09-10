@@ -466,7 +466,7 @@
     "href": "modules/08_ggplot_and_the_grammar_of_graphics.html#load-libraries",
     "title": "{ggplot} and the grammar of graphics",
     "section": "Load libraries",
-    "text": "Load libraries\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(magrittr)\nlibrary(ggplot2)"
+    "text": "Load libraries\n\nlibrary(dplyr)\nlibrary(magrittr)\nlibrary(ggplot2)"
   },
   {
     "objectID": "modules/08_ggplot_and_the_grammar_of_graphics.html#external-functions",

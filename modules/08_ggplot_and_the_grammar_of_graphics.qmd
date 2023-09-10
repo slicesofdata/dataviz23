@@ -59,7 +59,7 @@ Optional (more on the grammar):
 
 ## **Load libraries**
 
-```{r}
+```{r message=FALSE}
 library(dplyr)
 library(magrittr)
 library(ggplot2)
