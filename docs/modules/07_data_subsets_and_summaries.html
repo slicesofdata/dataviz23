@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-09-07">
+<meta name="dcterms.date" content="2023-09-10">
 
 <title>PSYC167 - Data subsets and summaries</title>
 <style>
@@ -103,6 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <body class="nav-sidebar floating nav-fixed">
 
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -157,6 +158,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip" rel="" target="">
  <span class="dropdown-text">cms-top-all-time-2023-swim.xlsx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cleaned-cms-top-all-time-2023-swim.csv" rel="" target="">
+ <span class="dropdown-text">cleaned-cms-top-all-time-2023-swim.csv</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip" rel="" target="">
@@ -292,20 +297,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/10_spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/10_visualizing_associations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing associations</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/11_spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Spatial position and adjustment</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/11_considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/12_considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Considerations in data visualization</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/12_visualizing_associations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Visualizing associations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -316,8 +321,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/14_statistical_transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Statistical transformations</strong></span></a>
+  <a href="../modules/14_histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -328,8 +333,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/16_histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
+  <a href="../modules/16_statistical_transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Statistical transformations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -358,26 +363,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/21_annotation_and_text.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Annotation and text</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/22_designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/21_designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Designing perceptually-efficient visualizations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/23_attentional_control.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/22_annotation_and_text.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Annotation and text</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/23_multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/24_attentional_control.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Attentional control</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/24_multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
+  <a href="../modules/25_titles_captions_and_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Title, Captions, and Tables</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/26_themes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Figure Design &amp; Themes</strong></span></a>
   </div>
 </li>
       </ul>
@@ -470,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 7, 2023</p>
+      <p class="date">September 10, 2023</p>
     </div>
   </div>
   
@@ -1096,9 +1113,16 @@ to parse, or all strings are NAs</code></pre>
 <pre><code>[1] "C:/Users/gcook/Sync/git/dataviz23/data/cleaned-cms-top-all-time-2023-swim.xlsx"</code></pre>
 </div>
 </div>
+<p>We also want to write a <code>.csv</code> file. Let’s use <code>gsub()</code> to look or the string pattern <code>".xlxs"</code> and replace it with <code>".csv"</code> for the file path string.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>new_name <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="at">pattern =</span> <span class="st">".xlsx"</span>, </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">replacement =</span> <span class="st">".csv"</span>, </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste</span>(<span class="st">"cleaned"</span>, file_name, <span class="at">sep =</span> <span class="st">"-"</span>))</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>                 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Got our new file name! Let’s write!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(DAT, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="fu">paste</span>(<span class="st">"cleaned"</span>, file_name, <span class="at">sep =</span> <span class="st">"-"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(DAT, new_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Done!</p>
 </section>
@@ -1108,7 +1132,7 @@ to parse, or all strings are NAs</code></pre>
 <h1><strong>Quick Summary Using <code>base R</code></strong></h1>
 <p>If you want a quick summary of data, <code>summary()</code> will provide some basic information for you. You can pass a data frame to the function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      time            name               year              event          
  Min.   :  61.1   Length:440         Length:440         Length:440        
@@ -1137,10 +1161,10 @@ to parse, or all strings are NAs</code></pre>
    .groups = NULL
    )</code></pre>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      mean
 1 1309.388</code></pre>
@@ -1148,18 +1172,18 @@ to parse, or all strings are NAs</code></pre>
 </div>
 <p>Notice what is returned is a single value reflecting the mean of all the data in the data frame. We could have obtained the same without using <strong>{dplyr}</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(DAT<span class="sc">$</span>time, <span class="at">na.rm =</span> T)        <span class="co"># $ notation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(DAT<span class="sc">$</span>time, <span class="at">na.rm =</span> T)        <span class="co"># $ notation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1309.388</code></pre>
 </div>
 </div>
 <p>But we lose flexibility of easily adding new summary procedures. We can summarize by two name-value pair functions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd   =</span> <span class="fu">sd</span>(time, <span class="at">na.rm =</span> T)</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd   =</span> <span class="fu">sd</span>(time, <span class="at">na.rm =</span> T)</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      mean       sd
 1 1309.388 1225.964</code></pre>
@@ -1167,12 +1191,12 @@ to parse, or all strings are NAs</code></pre>
 </div>
 <p>Now there is a mean and standard deviation for price. You can also add the sample size using <code>dplyr::n()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd   =</span> <span class="fu">sd</span>(time, <span class="at">na.rm =</span> T),</span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">n    =</span> <span class="fu">n</span>()</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(time, <span class="at">na.rm =</span> T),</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd   =</span> <span class="fu">sd</span>(time, <span class="at">na.rm =</span> T),</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">n    =</span> <span class="fu">n</span>()</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      mean       sd   n
 1 1309.388 1225.964 440</code></pre>
@@ -1192,10 +1216,10 @@ to parse, or all strings are NAs</code></pre>
 <section id="summarize-across-by-numeric-variables" class="level2">
 <h2 class="anchored" data-anchor-id="summarize-across-by-numeric-variables"><em>Summarize across by numeric variables:</em></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      time
 1 1309.388</code></pre>
@@ -1203,15 +1227,15 @@ to parse, or all strings are NAs</code></pre>
 </div>
 <p>Well, that’s now actually impressive because there is only one numeric variable. What if we had more that were piped to <code>summarize()</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">num1 =</span> time,</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">num2 =</span> time,</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">num3 =</span> time</span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">num1 =</span> time,</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">num2 =</span> time,</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">num3 =</span> time</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      time     num1     num2     num3
 1 1309.388 1309.388 1309.388 1309.388</code></pre>
@@ -1221,17 +1245,17 @@ to parse, or all strings are NAs</code></pre>
 <p>Because <code>across()</code> is so powerful, let’s just add another variable to the data frame for using in examples. You might also wish to reorder the position of variables in the data frame so that they are grouped in some way. We can use <code>dplyr::relocate()</code> to accomplish this. We will move the <code>time</code> column to the position <code>.before</code> one of the new variables using <code>relocate(., time, .before = min)</code>.</p>
 <p>Doing so will also show you some ways to create variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec =</span> time,  <span class="co"># will be redundant with time but named accurately</span></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">min  =</span> time<span class="sc">/</span><span class="dv">60</span>,</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">hour =</span> time<span class="sc">/</span>(<span class="dv">60</span><span class="sc">*</span><span class="dv">60</span>)</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(., time, <span class="at">.before =</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sec =</span> time,  <span class="co"># will be redundant with time but named accurately</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">min  =</span> time<span class="sc">/</span><span class="dv">60</span>,</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">hour =</span> time<span class="sc">/</span>(<span class="dv">60</span><span class="sc">*</span><span class="dv">60</span>)</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(., time, <span class="at">.before =</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Take a look:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              name year   event   team time  sec      min      hour
 1 Jocelyn Crawford 2019 50 FREE Athena 1409 1409 23.48333 0.3913889
@@ -1245,12 +1269,12 @@ to parse, or all strings are NAs</code></pre>
 <p>Variable names created with <code>across()</code> is controlled using the <code>.names</code> argument. The default is equivalent to <code>.names = {.col}</code>, which means that the name(s) are inherited from the <code>.cols</code> argument; the names are a stand-in for the name specification. If you wish to have control over the names, you can pass a string that that either appends (e.g.,<code>"{.col}suffix"</code>) or prepends (e.g.,<code>"prefix{.col}"</code>) a string to each column name. This string looks odd because it’s a special <em>glue</em> specification that glues together with a string with an object. We will use this concept later when using the <strong>{glue}</strong> library.</p>
 <p>When modifying <code>.names</code>, include a character like <code>"_"</code> (e.g.,<code>"{.col}_suffix"</code>) so that the column names and the appended text are separated, making the name easily legible. If you summarize to create means, a good suggestion is something like (e.g.,<code>"{.col}_mean"</code> or (e.g.,<code>"{.col}_mn"</code>)) so that you know the variable is a mean. If you prefer the function name first, you can use a prefix (e.g.,<code>"mean_{.col}"</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_mean"</span></span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_mean"</span></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  sec_mean min_mean hour_mean
 1 1309.388 21.82313 0.3637189</code></pre>
@@ -1259,12 +1283,12 @@ to parse, or all strings are NAs</code></pre>
 <p>You can see how all variables in the summary end in <code>"_mean"</code>.</p>
 <p>You can also glue the function and the column names together by passing <code>.names = "{.col}_{.fn}"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     sec_1    min_1    hour_1
 1 1309.388 21.82313 0.3637189</code></pre>
@@ -1279,11 +1303,11 @@ to parse, or all strings are NAs</code></pre>
 <p>OK back to two or more functions. If you pass a <code>list()</code> with arguments for the <code>mean</code> and the <code>sd</code> (e.g., <code>list(mean, sd)</code>, you can summarize by both. If you want to prevent errors (yes you do) and want to keep the summaries separate (probably so), you can modify <code>.names</code> to pass both the column and the function (e.g., <code>"{.col}_{.fn}"</code>). The underscore is not needed here; it only helps with readability of the variables so that you don’t end up with variable names like <code>var1mean</code> but instead <code>var1_mean</code>.</p>
 <p>Let’s pass the summary procedures as a <code>list</code> to include measures of mean and standard deviation for the variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols  =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns   =</span> <span class="fu">list</span>(mean, sd),</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)</span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols  =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns   =</span> <span class="fu">list</span>(mean, sd),</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     sec_1    sec_2    min_1    min_2    hour_1    hour_2
 1 1309.388 1225.964 21.82313 20.43274 0.3637189 0.3405456</code></pre>
@@ -1296,14 +1320,14 @@ to parse, or all strings are NAs</code></pre>
 <p>A better approach could be to assign the <code>mean</code> and <code>sd</code> functions their own names in the <code>list()</code> function call. By doing so, the name is appended and the new variable is named meaningfully.</p>
 <p>Let’s modify what we pass to <code>.fns</code> by passing a list containing 3 functions (e.g., <code>mean()</code>, <code>sd()</code>, and <code>length()</code>) and give each there name. I know this part is confusing because the <code>()</code> are dropped inside the list. This is just how <code>R</code> works. Don’t blame the messenger.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> mean, </span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">sd =</span> sd,</span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> length</span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)</span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>, <span class="st">"hour"</span>), </span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> mean, </span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">sd =</span> sd,</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> length</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  sec_mean   sec_sd sec_n min_mean   min_sd min_n hour_mean   hour_sd hour_n
 1 1309.388 1225.964   440 21.82313 20.43274   440 0.3637189 0.3405456    440</code></pre>
@@ -1311,14 +1335,14 @@ to parse, or all strings are NAs</code></pre>
 </div>
 <p>Importantly, however, certain functions like <code>mean()</code> will operate in ways you might not expect. One one hand, it does what we expect when all elements can be used to calculate the mean.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(DAT<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(DAT<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1309.388</code></pre>
 </div>
 </div>
 <p>On the other hand, if there is a missing value, it does not computer the mean but instead something else. Let’s add an <code>NA</code> to the vector using <code>c()</code> to see what happens.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
@@ -1328,35 +1352,35 @@ to parse, or all strings are NAs</code></pre>
 <p>The <code>mean()</code> function returns <code>NA</code> rather than a mean. If there is just one <code>NA</code>, <code>mean()</code> returns <code>NA</code>. By design this is actually good.</p>
 <p>Let’s also try <code>sd()</code> for the standard deviation of a vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
 </div>
 <p>The median of a vector, <code>median()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
 </div>
 <p>The length of a vector, <code>length()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 441</code></pre>
 </div>
 </div>
 <p>Well, that’s interesting. By default <code>length()</code> will return the number of elements of the vector including <code>NA</code>s but by default <code>mean()</code> will not return the mean of a vector with <code>NA</code>s because <code>na.rm = FALSE</code> by default. If you wish to calculate the mean by removing the <code>NA</code>s, pass <code>na.rm = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>), <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>), <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1309.388</code></pre>
 </div>
 </div>
 <p>Make note, however, that the length of this vector without <code>NA</code>s is <strong>shorter</strong> than the length with <code>NA</code>s. We can test this hypothesis on a vector with and without the <code>NA</code> by using <code>na.omit()</code> to omit any of them. Using our vector we added an <code>NA</code>, let’s omit it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 1409.00 1411.00 1429.00 1451.00 1456.00 1457.00 1457.00 1467.00 1473.00
  [10] 1442.00 3065.00 3084.00 3101.00 3116.00 3116.00 3148.00 3125.00 3125.00
@@ -1415,7 +1439,7 @@ attr(,"class")
 </div>
 <p>And then get the length when <code>NA</code>s are omitted:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">na.omit</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">na.omit</span>(<span class="fu">c</span>(DAT<span class="sc">$</span>time, <span class="cn">NA</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 440</code></pre>
 </div>
@@ -1423,9 +1447,9 @@ attr(,"class")
 <p>This behavior is important because if you want to obtain the mean of a variable with <code>NA</code>s and the sample size using <code>length()</code>, your sample size will be inaccurate.</p>
 <p>In order to see these operations on a data frame and in the context of <code>dplyr::summarize()</code>, let’s modify the data frame to include an additional row with some mission values. One simple approach is to use <code>base R</code> to use <code>rbind()</code> to bind a new row to the end of the data frame. In this case, the contents of that new row will be the same as the first row of the data frame (e.g., <code>DAT[1,]</code>). Then the name will be changed and some values will be made missing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">rbind</span>(DAT, </span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>             DAT[<span class="dv">1</span>,]</span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> <span class="fu">rbind</span>(DAT, </span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>             DAT[<span class="dv">1</span>,]</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Modify the cells in the data frame using bracket notation from <code>base R</code>. When using brackets, the data frame can be referenced using row and column arguments.</p>
 <p>Examples:</p>
@@ -1444,7 +1468,7 @@ DAT[, c("name", "year"]    # all rows, "name" and "year" columns
 DAT[15, "name"]    # row 15 through 5, "name" column</code></pre>
 <p>You can also obtain the dimensions of a data frame using <code>dim()</code> from <code>base R</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 441   8</code></pre>
 </div>
@@ -1452,18 +1476,18 @@ DAT[15, "name"]    # row 15 through 5, "name" column</code></pre>
 <p><code>dim()</code> returns a vector with two elements: the number of rows and the number of columns. We can use this to reference the last row in the data frame in order to modify it for this example.</p>
 <p>Following from above, examine the last row, change the <code>"name"</code> to “Anonymous” and then put <code>NA</code>s in the <code>"sec"</code> and <code>"min"</code> columns for the same row. Remember, vectors are pure characters or numeric, they cannot contain a mixture of them. Because <code>"name"</code> is character vector and <code>"sec"</code> and <code>"min"</code> are numeric vectors, we need to fix them separately. There are other ways to accomplish this goal but this example illustrates the approach in <code>base R</code> so that you have some exposure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], ]                              <span class="co"># the current row contents</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], ]                              <span class="co"># the current row contents</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                name year   event   team time  sec      min      hour
 441 Jocelyn Crawford 2019 50 FREE Athena 1409 1409 23.48333 0.3913889</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], <span class="st">"name"</span>] <span class="ot">&lt;-</span> <span class="st">"Anonymous"</span>         <span class="co"># make name anonymous</span></span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>)  <span class="co"># set these cells to NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], <span class="st">"name"</span>] <span class="ot">&lt;-</span> <span class="st">"Anonymous"</span>         <span class="co"># make name anonymous</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>DAT[<span class="fu">dim</span>(DAT)[<span class="dv">1</span>], <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>)] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>)  <span class="co"># set these cells to NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Are <code>NA</code>s across the last row now?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">tail</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span> <span class="fu">tail</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             name year               event   team time  sec      min      hour
 436 Aaron Lutzker 2019 100 BRST-Relay Spl.   Stag 3364 3364 56.06667 0.9344444
@@ -1484,16 +1508,16 @@ DAT[15, "name"]    # row 15 through 5, "name" column</code></pre>
 <pre><code>name = ~function(na.omit(.x))</code></pre>
 <p>We will summarize only <code>time</code> and <code>sec</code> because those variables are identical except for the row we added. We will also add <code>dplyr::n()</code> to see what’s going on with that function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"sec"</span>), </span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="co">#sd = ~sd(na.omit(.x)),</span></span>
-<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">len =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span>dplyr<span class="sc">::</span><span class="fu">n</span>()</span>
-<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"sec"</span>), </span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="co">#sd = ~sd(na.omit(.x)),</span></span>
+<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">len =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span>dplyr<span class="sc">::</span><span class="fu">n</span>()</span>
+<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb119-8"><a href="#cb119-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb119-9"><a href="#cb119-9" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb119-10"><a href="#cb119-10" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  time_mean time_len time_n sec_mean sec_len sec_n
 1  1309.614      441    441 1309.388     440   441</code></pre>
@@ -1510,7 +1534,7 @@ DAT[15, "name"]    # row 15 through 5, "name" column</code></pre>
 <h3 class="anchored" data-anchor-id="identifying-how-to-group"><em>Identifying how to group</em></h3>
 <p>When you have subgroups in your data, you will often want to create summary statistics by those group levels. A typical grouping approach is by some categorical or factor variable present in a data frame. Using <code>glympse()</code>, we can view all variables to see what might be of interest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(DAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 441
 Columns: 8
@@ -1537,10 +1561,10 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <p>The data in cms-top-all-time-2023-swim.xlsx contain the top records for swimming events. You might be curious what <code>year</code> was the best of all time or what swimmer (e.g., <code>name</code>) has attained the most records of all time. There are different ways to accomplish this goal.</p>
 <p>One approach that might be the most straight forward to new programmers is to mutate a constant count variable on each row which can be used to sum the counts for different groups.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>         <span class="co"># mutate a new variable where all rows get a 1</span></span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span>            <span class="co"># group by the swimmer name</span></span>
-<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="co"># sum the count and assign it the name count</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>         <span class="co"># mutate a new variable where all rows get a 1</span></span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span>            <span class="co"># group by the swimmer name</span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="co"># sum the count and assign it the name count</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 142 × 2
    name            count
@@ -1560,14 +1584,14 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 </div>
 <p>By default, the data frame is arranged by the grouping variable (e.g., <code>name</code>). We can change the order of the rows by <code>count</code> using <code>arrange()</code> but this function by default sorts in an ascending manner. If you want a descending sorting, pass <code>count</code> to <code>desc()</code> to arrange the data frame in this way. We can also assign it to an object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
-<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
+<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb125-5"><a href="#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 142 × 2
    name          count
@@ -1587,14 +1611,14 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 </div>
 <p>We can see that the top counts of all time are by Michele Kee for a total of 11. Kudos to Michele!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>YEAR_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., year) <span class="sc">%&gt;%</span></span>
-<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>YEAR_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., year) <span class="sc">%&gt;%</span></span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>YEAR_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>YEAR_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 32 × 2
    year  count
@@ -1618,18 +1642,18 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <h4 class="anchored" data-anchor-id="grouping-by-two-or-more-variables"><em>Grouping by two or more variables</em>:</h4>
 <p>We can also summarize both the teams as well in order to see the top swimmer by team. If you want to summarize more than one variable, pass them both in <code>group_by()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>TEAM_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, name) <span class="sc">%&gt;%</span></span>
-<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>TEAM_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, name) <span class="sc">%&gt;%</span></span>
+<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'team'. You can override using the
 `.groups` argument.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>TEAM_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>TEAM_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 142 × 3
 # Groups:   team [2]
@@ -1653,15 +1677,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <h4 class="anchored" data-anchor-id="filtering-rows-and-then-grouping-by-one-variable"><em>Filtering rows and then grouping by one variable</em>:</h4>
 <p>For Athenas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>ATHENA_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>ATHENA_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>ATHENA_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>ATHENA_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 67 × 2
    name               count
@@ -1682,15 +1706,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <p>We can see that the top counts of all time are by Michele Kee with a total of 11. Nice work Michele!</p>
 <p>And for Stags:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>STAG_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
-<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>STAG_NAME_count <span class="ot">&lt;-</span> DAT <span class="sc">%&gt;%</span></span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(., <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., name) <span class="sc">%&gt;%</span></span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>STAG_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>STAG_NAME_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 2
    name          count
@@ -1720,12 +1744,12 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-one-variable-1" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-one-variable-1"><em>Grouping by one variable</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
-<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
-<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_mean =</span> <span class="fu">mean</span>(sec, <span class="at">na.rm =</span> T),  </span>
-<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_median =</span> <span class="fu">median</span>(sec, <span class="at">na.rm =</span> T)</span>
-<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
+<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_mean =</span> <span class="fu">mean</span>(sec, <span class="at">na.rm =</span> T),  </span>
+<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_median =</span> <span class="fu">median</span>(sec, <span class="at">na.rm =</span> T)</span>
+<span id="cb141-6"><a href="#cb141-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 3
    event               sec_mean sec_median
@@ -1746,15 +1770,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <p>We can also write the summary functions as a list inside <code>across()</code> along with passing <code>.names = "{.col}_{.fn}"</code> if you want the variables named automatically. This approach is more complex but is more flexible.</p>
 <p>When you want to summarize across multiple variables using a list of functions, you will want to make sure your <code>.fns</code> argument passes a function using a <strong>{purrr}</strong>-style lambda (e.g.,<code>~</code>) for that the function is applied across the variables. You will also want to edit <code>.names = "{.col}_{.fn}"</code> so that the naming is done automatically rather than hard coding the names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
-<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
-<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
+<span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb143-6"><a href="#cb143-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb143-7"><a href="#cb143-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb143-8"><a href="#cb143-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb143-9"><a href="#cb143-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 3
    event               sec_mean sec_median
@@ -1776,12 +1800,12 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-two-or-more-variables-1" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-two-or-more-variables-1"><em>Grouping by two or more variables</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
-<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
-<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_mean =</span> <span class="fu">mean</span>(sec, <span class="at">na.rm =</span> T),  </span>
-<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_median =</span> <span class="fu">median</span>(sec, <span class="at">na.rm =</span> T)</span>
-<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., </span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_mean =</span> <span class="fu">mean</span>(sec, <span class="at">na.rm =</span> T),  </span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sec_median =</span> <span class="fu">median</span>(sec, <span class="at">na.rm =</span> T)</span>
+<span id="cb145-6"><a href="#cb145-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'event'. You can override using the
 `.groups` argument.</code></pre>
@@ -1806,15 +1830,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 </div>
 <p>Or pass the list:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
-<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'event'. You can override using the
 `.groups` argument.</code></pre>
@@ -1848,13 +1872,13 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-one-variable-2" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-one-variable-2"><em>Grouping by one variable</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
-<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
-<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
-<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb150-7"><a href="#cb150-7" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
+<span id="cb151-5"><a href="#cb151-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb151-6"><a href="#cb151-6" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb151-7"><a href="#cb151-7" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 3
    event               sec_1 min_1
@@ -1876,13 +1900,13 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-two-or-more-variables-2" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-two-or-more-variables-2"><em>Grouping by two or more variables</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
-<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
-<span id="cb152-4"><a href="#cb152-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
-<span id="cb152-5"><a href="#cb152-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb152-6"><a href="#cb152-6" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb152-7"><a href="#cb152-7" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
+<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
+<span id="cb153-4"><a href="#cb153-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
+<span id="cb153-5"><a href="#cb153-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb153-6"><a href="#cb153-6" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb153-7"><a href="#cb153-7" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'event'. You can override using the
 `.groups` argument.</code></pre>
@@ -1913,15 +1937,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-one-variable-3" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-one-variable-3"><em>Grouping by one variable</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
-<span id="cb155-3"><a href="#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
-<span id="cb155-4"><a href="#cb155-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb155-5"><a href="#cb155-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb155-6"><a href="#cb155-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb155-7"><a href="#cb155-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb155-8"><a href="#cb155-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb155-9"><a href="#cb155-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event) <span class="sc">%&gt;%</span></span>
+<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
+<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb156-8"><a href="#cb156-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb156-9"><a href="#cb156-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 5
    event               sec_mean sec_median min_mean min_median
@@ -1943,15 +1967,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="grouping-by-two-or-more-variables-3" class="level4">
 <h4 class="anchored" data-anchor-id="grouping-by-two-or-more-variables-3"><em>Grouping by two or more variables</em>:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
-<span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
-<span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb157-5"><a href="#cb157-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb157-6"><a href="#cb157-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb157-7"><a href="#cb157-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb157-8"><a href="#cb157-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb157-9"><a href="#cb157-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., event, team) <span class="sc">%&gt;%</span></span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"sec"</span>, <span class="st">"min"</span>),</span>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">median =</span> <span class="sc">~</span><span class="fu">median</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'event'. You can override using the
 `.groups` argument.</code></pre>
@@ -1976,15 +2000,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 </div>
 <p>Depends on the order in <code>group_by()</code>, so change the order:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
-<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
-<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb160-8"><a href="#cb160-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb160-9"><a href="#cb160-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="st">"sec"</span>,</span>
+<span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb161-5"><a href="#cb161-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb161-6"><a href="#cb161-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb161-7"><a href="#cb161-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb161-8"><a href="#cb161-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb161-9"><a href="#cb161-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'team'. You can override using the
 `.groups` argument.</code></pre>
@@ -2017,12 +2041,12 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <h3 class="anchored" data-anchor-id="variables-that-are-numeric"><em>Variables that are numeric</em></h3>
 <p>You can also pass variables that are a certain type, like numeric.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
-<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
-<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}"</span>)</span>
-<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric), </span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb164-5"><a href="#cb164-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}"</span>)</span>
+<span id="cb164-6"><a href="#cb164-6" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'team'. You can override using the
 `.groups` argument.</code></pre>
@@ -2052,15 +2076,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <section id="using-starts_with" class="level4">
 <h4 class="anchored" data-anchor-id="using-starts_with"><em>Using starts_with()</em></h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
-<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"t"</span>),</span>
-<span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb166-5"><a href="#cb166-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb166-6"><a href="#cb166-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb166-7"><a href="#cb166-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb166-8"><a href="#cb166-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb166-9"><a href="#cb166-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
+<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"t"</span>),</span>
+<span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb167-5"><a href="#cb167-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb167-6"><a href="#cb167-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb167-7"><a href="#cb167-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb167-8"><a href="#cb167-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb167-9"><a href="#cb167-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'team'. You can override using the
 `.groups` argument.</code></pre>
@@ -2088,15 +2112,15 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <h4 class="anchored" data-anchor-id="using-for-complex-selection"><em>Using <code>&amp;</code> for complex selection</em></h4>
 <p>You obviously cannot calculate numeric metrics for character variables. But how might you select variables that contain a certain character pattern but are also numeric? You cannot nest these functions (e.g., <code>where(is.numeric(contains("pattern")))</code>). You can, however, pass the functions separately.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
-<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
-<span id="cb169-3"><a href="#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">"e"</span>) <span class="sc">&amp;</span> <span class="fu">where</span>(is.numeric),</span>
-<span id="cb169-4"><a href="#cb169-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
-<span id="cb169-5"><a href="#cb169-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
-<span id="cb169-6"><a href="#cb169-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
-<span id="cb169-7"><a href="#cb169-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span id="cb169-8"><a href="#cb169-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb169-9"><a href="#cb169-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., team, event) <span class="sc">%&gt;%</span></span>
+<span id="cb170-3"><a href="#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">"e"</span>) <span class="sc">&amp;</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb170-4"><a href="#cb170-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.fns  =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(<span class="fu">na.omit</span>(.x)),</span>
+<span id="cb170-5"><a href="#cb170-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="sc">~</span><span class="fu">length</span>(<span class="fu">na.omit</span>(.x))</span>
+<span id="cb170-6"><a href="#cb170-6" aria-hidden="true" tabindex="-1"></a>                                   ),</span>
+<span id="cb170-7"><a href="#cb170-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span id="cb170-8"><a href="#cb170-8" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb170-9"><a href="#cb170-9" aria-hidden="true" tabindex="-1"></a>            ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'team'. You can override using the
 `.groups` argument.</code></pre>
@@ -2130,25 +2154,25 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 <h2 class="anchored" data-anchor-id="a-functional-approach"><strong>A Functional Approach</strong></h2>
 <p>You can also throw your summaries into functions if you wish. We will create a new object that is a function object. We need to give it a name and we need to define arguments to make the function operate. We will want to make sure we have numeric variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>summarizer <span class="ot">&lt;-</span> <span class="cf">function</span>(data, </span>
-<span id="cb172-2"><a href="#cb172-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">cols =</span> <span class="cn">NULL</span>, </span>
-<span id="cb172-3"><a href="#cb172-3" aria-hidden="true" tabindex="-1"></a>                       ...</span>
-<span id="cb172-4"><a href="#cb172-4" aria-hidden="true" tabindex="-1"></a>                       ) {</span>
-<span id="cb172-5"><a href="#cb172-5" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
-<span id="cb172-6"><a href="#cb172-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span></span>
-<span id="cb172-7"><a href="#cb172-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> {{cols}} <span class="sc">&amp;</span> <span class="fu">where</span>(is.numeric),</span>
-<span id="cb172-8"><a href="#cb172-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.fns =</span> <span class="fu">list</span>(</span>
-<span id="cb172-9"><a href="#cb172-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb172-10"><a href="#cb172-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sd   =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb172-11"><a href="#cb172-11" aria-hidden="true" tabindex="-1"></a>                          ), </span>
-<span id="cb172-12"><a href="#cb172-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.names =</span> <span class="st">"{col}_{fn}"</span>)</span>
-<span id="cb172-13"><a href="#cb172-13" aria-hidden="true" tabindex="-1"></a>              )</span>
-<span id="cb172-14"><a href="#cb172-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>summarizer <span class="ot">&lt;-</span> <span class="cf">function</span>(data, </span>
+<span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">cols =</span> <span class="cn">NULL</span>, </span>
+<span id="cb173-3"><a href="#cb173-3" aria-hidden="true" tabindex="-1"></a>                       ...</span>
+<span id="cb173-4"><a href="#cb173-4" aria-hidden="true" tabindex="-1"></a>                       ) {</span>
+<span id="cb173-5"><a href="#cb173-5" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb173-6"><a href="#cb173-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span></span>
+<span id="cb173-7"><a href="#cb173-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(., <span class="fu">across</span>(<span class="at">.cols =</span> {{cols}} <span class="sc">&amp;</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb173-8"><a href="#cb173-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.fns =</span> <span class="fu">list</span>(</span>
+<span id="cb173-9"><a href="#cb173-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb173-10"><a href="#cb173-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sd   =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb173-11"><a href="#cb173-11" aria-hidden="true" tabindex="-1"></a>                          ), </span>
+<span id="cb173-12"><a href="#cb173-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.names =</span> <span class="st">"{col}_{fn}"</span>)</span>
+<span id="cb173-13"><a href="#cb173-13" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb173-14"><a href="#cb173-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test the function:</p>
 <p>Without grouping:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarizer</span>(DAT, <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"e"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarizer</span>(DAT, <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"e"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   time_mean time_sd sec_mean sec_sd
@@ -2158,7 +2182,7 @@ $ hour  &lt;dbl&gt; 0.39138889, 0.39194444, 0.39694444, 0.40305556, 0.40444444, 
 </div>
 <p>With grouping:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarizer</span>(DAT, <span class="at">cols =</span> <span class="fu">c</span>(min, hour), event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarizer</span>(DAT, <span class="at">cols =</span> <span class="fu">c</span>(min, hour), event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 5
    event               min_mean min_sd hour_mean hour_sd

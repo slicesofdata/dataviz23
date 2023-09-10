@@ -9,8 +9,8 @@ Date,Week,Module,Topic
 ,4,8,Spatial Position and Adjustment
 26-Sep,5,9,Considerations in Data Visualization
 ,5,10,Color Scales and Palettes
-3-Oct,6,11,Histograms and Density Plots
-,6,12,Coordinates Axes and Position Scales
+3-Oct,6,11,Histograms and Density Plots*
+,6,12,"Coordinates, Axes and Position Scales"
 10-Oct,7,13,Statistical Transformations (Data as-is Versus Summaries)
 ,7,14,More Data Wrangling
 17-Oct,8," ",<span style="color:#1EDAFB">Fall Break (no class)</span>

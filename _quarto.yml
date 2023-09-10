@@ -79,6 +79,8 @@ website:
         menu:
           - text: cms-top-all-time-2023-swim.xlsx
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip
+          - text: cleaned-cms-top-all-time-2023-swim.csv
+            href: https://github.com/slicesofdata/dataviz23/raw/main/data/cleaned-cms-top-all-time-2023-swim.csv            
           - text: tfrrs.zip
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip
      # - text: "Project"

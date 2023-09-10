@@ -306,10 +306,20 @@ When paired with `here::here()`, does the full file path look right?
 here::here("data", paste("cleaned", file_name, sep = "-"))
 ```
 
+We also want to write a `.csv` file. Let's use `gsub()` to look or the string pattern `".xlxs"` and replace it with `".csv"` for the file path string.
+
+```{r}
+new_name <- gsub(pattern = ".xlsx", 
+                 replacement = ".csv", 
+                 x = here::here("data", paste("cleaned", file_name, sep = "-"))
+                 )
+```
+
+
 Got our new file name! Let's write!
 
 ```{r}
-readr::write_csv(DAT, here::here("data", paste("cleaned", file_name, sep = "-")))
+readr::write_csv(DAT, new_name)
 ```
 
 Done!

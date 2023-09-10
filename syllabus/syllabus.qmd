@@ -136,7 +136,7 @@ knitr::kable(SCHEDULE)
 
 This is an engagement and skills-acquisition based course. At the beginning of the course and throughout, students will be given instruction on building and maintaining a website using quarto and github pages. Each week students will contribute blog posts and other content to their websites in response to module assignments. Students will be expected to submit URL links to their blogs using Blackboard. Students are expected to attend and participate in each class. The final project includes conducting, communicating, and preserving a reproducible data analysis project.
 
-### **Evaluation and Grading*
+### \*\*Evaluation and Grading\*
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
 GRADE_ITEMS <- rio::import(here::here("syllabus/tables/grade_items.csv"))

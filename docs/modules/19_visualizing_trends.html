@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-09-07">
+<meta name="dcterms.date" content="2023-09-10">
 
 <title>PSYC167 - Visualizing trends</title>
 <style>
@@ -69,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
 
 <body class="nav-sidebar floating nav-fixed">
 
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -123,6 +124,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cms-top-all-time-2023-swim.zip" rel="" target="">
  <span class="dropdown-text">cms-top-all-time-2023-swim.xlsx</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/cleaned-cms-top-all-time-2023-swim.csv" rel="" target="">
+ <span class="dropdown-text">cleaned-cms-top-all-time-2023-swim.csv</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip" rel="" target="">
@@ -258,20 +263,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/10_spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/10_visualizing_associations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing associations</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/11_spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Spatial position and adjustment</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/11_considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/12_considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Considerations in data visualization</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/12_visualizing_associations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Visualizing associations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,8 +287,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/14_statistical_transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Statistical transformations</strong></span></a>
+  <a href="../modules/14_histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,8 +299,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/16_histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
+  <a href="../modules/16_statistical_transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Statistical transformations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -324,26 +329,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/21_annotation_and_text.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Annotation and text</strong></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../modules/22_designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/21_designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Designing perceptually-efficient visualizations</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/23_attentional_control.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/22_annotation_and_text.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Annotation and text</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/23_multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/24_attentional_control.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Attentional control</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/24_multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
+  <a href="../modules/25_titles_captions_and_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Title, Captions, and Tables</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/26_themes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Figure Design &amp; Themes</strong></span></a>
   </div>
 </li>
       </ul>
@@ -358,10 +375,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#under-construction" id="toc-under-construction" class="nav-link active" data-scroll-target="#under-construction"><strong>Under Construction</strong></a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><strong>Overview</strong></a></li>
+  <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
   <ul class="collapse">
-  <li><a href="#content-pending" id="toc-content-pending" class="nav-link" data-scroll-target="#content-pending"><strong>Content Pending</strong></a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
   </ul></li>
+  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -387,7 +406,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 7, 2023</p>
+      <p class="date">September 10, 2023</p>
     </div>
   </div>
   
@@ -397,13 +416,47 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="under-construction" class="level1">
-<h1><strong>Under Construction</strong></h1>
-<section id="content-pending" class="level2">
-<h2 class="anchored" data-anchor-id="content-pending"><strong>Content Pending</strong></h2>
-
-
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Under construction.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.</p>
+</div>
+</div>
+<section id="overview" class="level1">
+<h1><strong>Overview</strong></h1>
 </section>
+<section id="to-do" class="level1">
+<h1><strong>To Do</strong></h1>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings"><strong>Readings</strong></h2>
+<p>Reading should take place in two parts:</p>
+<ul>
+<li><em>Prior to class</em>, the goal should be to familiarize yourself and bring questions to class. The readings from <a href="https://clauswilke.com/dataviz">TFDV</a> are conceptual and should facilitate readings from <a href="https://ggplot2-book.org/">EGDA</a> for code implementation.</li>
+<li><em>After class</em>, the goal of reading should be to understand and implement code functions as well as support your understanding and help your troubleshooting of problems.</li>
+</ul>
+<p><em>Before Class</em>: First, read to familiarize yourself with the concepts rather than master them. Understand why one would want to visualize data in a particular way and also understand some of the functionality of <strong>{ggplot2}</strong>. I will assume that you attend class with some level of basic understanding of concepts.</p>
+<p><em>Class</em>: In class, some functions and concepts will be introduced and we will practice implementing <strong>{ggplot2}</strong> code. On occasion, there will be an assessment involving code identification, correction, explanation, etc. of concepts addressed in previous modules and perhaps some conceptual elements from this week’s readings.</p>
+<p><em>After Class</em>: After having some hands-on experience with coding in class, homework assignments will involve writing your own code to address some problem. These problems will be more complex, will involving problem solving, and may be open ended. This is where the second pass at reading with come in for you to reference when writing your code. The module content presented below is designed to offer you some assistance working through various coding problems but may not always suffice as a replacement for the readings from <strong>Wickham, Navarro, &amp; Pedersen (under revision)</strong>. <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>.</p>
+<ul>
+<li><a href="https://clauswilke.com/dataviz/visualizing-trends.html">Wilke (2019). <em>Fundamentals of Data Visualization</em>. Visualizing Trends</a></li>
+</ul>
+<p>Optional:</p>
+<ul>
+<li><a href="https://clauswilke.com/dataviz/time-series.html">Wickham, Navarro, &amp; Pedersen (under revision). <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>. Time series</a></li>
+</ul>
+</section>
+</section>
+<section id="under-construction-content-pending" class="level1">
+<h1><strong>Under construction, content pending</strong></h1>
+
+
 </section>
 
 </main> <!-- /main -->
