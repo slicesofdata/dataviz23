@@ -93,7 +93,7 @@ All plots using **{ggplot2}** start with a base foundation, on top which layers 
 
 As the authors point out in [Elegant Graphics for Data Analysis](https://ggplot2-book.org/), that the original Grammar of Graphics put forth by Wilkinson and later on the layered grammar of graphics, a statistical graphic represents a *mapping from data to aesthetic attributes* (e.g., color, size, shape, etc.) of geometric objects (e.g., points, lines, bars, etc.) plotted on a specific coordinate system (e.g., Cartesian, Polar). Plots may include statistical information or text. Faceting methods can be used to produce the same plots for different subsets of data (e.g., variations in another variable). All of these individual components ultimately create the final graphic.
 
-Applying a set of rules, or a grammar, allows for creating plot of all different types. Just like understanding a language grammar allows you to create new sentences that have never been spoken before, knowing the grammar of graphics allows you to create plots that have not been created before. Without a grammar, you may be limited to choose a sentence structure from a database that matches most closely to what you want to say. Unfortunately, there may not be an appropriate sentence in that database to capture what you would like to communicate. Similarly, if you are programming visualizations, you may be limited need to use a function (like a sentence) that someone has written to plot some data even if the plot is not what you really want to create to facilitate telling your story. A grammar will free you of these limitations. That's where **{ggplot}** comes in. All plots will follow a set of rules but applying the rules in different ways allows you to create unique visualizations never seen before. 
+Applying a set of rules, or a grammar, allows for creating plot of all different types. Just like understanding a language grammar allows you to create new sentences that have never been spoken before, knowing the grammar of graphics allows you to create plots that have not been created before. Without a grammar, you may be limited to choose a sentence structure from a database that matches most closely to what you want to say. Unfortunately, there may not be an appropriate sentence in that database to capture what you would like to communicate. Similarly, if you are programming visualizations, you may be limited need to use a function (like a sentence) that someone has written to plot some data even if the plot is not what you really want to create to facilitate telling your story. A grammar will free you of these limitations. That's where **{ggplot}** comes in. All plots will follow a set of rules but applying the rules in different ways allows you to create unique visualizations that may have never been seen before. 
 
 Note: Using a grammar needs to be correct even if the sentence is nonsensical. If you do not follow the grammar, **{ggplot2}** will not understand you and will return no plot or something that does not make sense.
 
@@ -102,7 +102,7 @@ Note: Using a grammar needs to be correct even if the sentence is nonsensical. I
 
 There are five mapping components:
 
-1. *Layer* containing geometric elements and statistical transformations:
+1. **Layer** containing geometric elements and statistical transformations:
 
   - *Data* a tidy data frame, most typically in [long/narrow format](https://en.wikipedia.org/wiki/Wide_and_narrow_data)
   - *Mapping* defining how vector variables are visualized (e.g., aesthetics like shape, color, position, hue, etc.)
@@ -110,15 +110,15 @@ There are five mapping components:
   - *Geometric object (geom)* controlling the type of visualization
   - *Position Adjustment (position)* controlling where visual elements are positioned
   
-2. *Scales* that map values in the data space to values in aesthetic space
+2. **Scales** that map values in the data space to values in aesthetic space
 
-3. *A Coordinate System* for mapping coordinates to the plane of a graphic
+3. **A Coordinate System** for mapping coordinates to the plane of a graphic
 
-4. *A Facet* for arranging the data into a grid; plotting subsets of data 
+4. **A Facet** for arranging the data into a grid; plotting subsets of data 
 
-5. *A Theme* controlling the niceties of the plot, like font, background, grids, axes, typeface etc.
+5. **A Theme** controlling the niceties of the plot, like font, background, grids, axes, typeface etc.
 
-The grammar does not:
+The grammar does not: 
 
 - Make suggestions about what graphics to use
 - Describe interactivity with a graphic; **{ggplot2}** graphics are static images, though they can be animated

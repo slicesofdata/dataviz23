@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-09-10">
+<meta name="dcterms.date" content="2023-09-12">
 
 <title>PSYC167 - Visualizing amounts</title>
 <style>
@@ -413,8 +413,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
   <ul class="collapse">
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><strong>Libraries</strong></a></li>
+  <li><a href="#external-functions" id="toc-external-functions" class="nav-link" data-scroll-target="#external-functions"><strong>External Functions</strong></a></li>
   </ul></li>
-  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
+  <li><a href="#loading-libraries" id="toc-loading-libraries" class="nav-link" data-scroll-target="#loading-libraries"><strong>Loading Libraries</strong></a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data"><strong>Loading Data</strong></a></li>
+  <li><a href="#making-some-plots" id="toc-making-some-plots" class="nav-link" data-scroll-target="#making-some-plots"><strong>Making some plots</strong></a></li>
+  <li><a href="#plotting-counts" id="toc-plotting-counts" class="nav-link" data-scroll-target="#plotting-counts"><strong>Plotting Counts</strong></a>
+  <ul class="collapse">
+  <li><a href="#reduce-the-data-frame-to-contain-the-bests" id="toc-reduce-the-data-frame-to-contain-the-bests" class="nav-link" data-scroll-target="#reduce-the-data-frame-to-contain-the-bests"><strong>Reduce the data frame to contain the bests</strong></a></li>
+  <li><a href="#data-in-tabular-form" id="toc-data-in-tabular-form" class="nav-link" data-scroll-target="#data-in-tabular-form"><strong>Data in Tabular Form</strong></a></li>
+  <li><a href="#bar-charts" id="toc-bar-charts" class="nav-link" data-scroll-target="#bar-charts"><strong>Bar Charts</strong></a>
+  <ul class="collapse">
+  <li><a href="#geom_bar" id="toc-geom_bar" class="nav-link" data-scroll-target="#geom_bar"><strong><code>geom_bar()</code></strong></a></li>
+  <li><a href="#geom_col" id="toc-geom_col" class="nav-link" data-scroll-target="#geom_col"><strong><code>geom_col()</code></strong></a></li>
+  </ul></li>
+  <li><a href="#adding-layers" id="toc-adding-layers" class="nav-link" data-scroll-target="#adding-layers"><strong>Adding Layers</strong></a></li>
+  </ul></li>
+  <li><a href="#dot-plotpoint-plot" id="toc-dot-plotpoint-plot" class="nav-link" data-scroll-target="#dot-plotpoint-plot"><strong>Dot Plot/Point Plot</strong></a></li>
+  <li><a href="#sub-setting-for-plots" id="toc-sub-setting-for-plots" class="nav-link" data-scroll-target="#sub-setting-for-plots"><strong>Sub-setting for Plots</strong></a></li>
+  <li><a href="#getting-counts-by-summary" id="toc-getting-counts-by-summary" class="nav-link" data-scroll-target="#getting-counts-by-summary"><strong>Getting Counts by Summary</strong></a></li>
+  <li><a href="#year-with-highest-bests" id="toc-year-with-highest-bests" class="nav-link" data-scroll-target="#year-with-highest-bests"><strong>Year with Highest Bests</strong></a></li>
+  <li><a href="#lollipop-plot" id="toc-lollipop-plot" class="nav-link" data-scroll-target="#lollipop-plot"><strong>Lollipop Plot</strong></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a></li>
   <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><strong>Session Information</strong></a></li>
   </ul>
 </nav>
@@ -441,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 10, 2023</p>
+      <p class="date">September 12, 2023</p>
     </div>
   </div>
   
@@ -466,6 +487,9 @@ Under construction.
 </div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
+<p>This module demonstrates some ways to visualize amounts or quantities.</p>
+<p>There are a few key concerns for any data presentation. First, you need to determine what data you want to present. Second, you must to determine how the user will use that information presented. For example, will they make comparisons and if so, what kind of comparisons will they make? The more complicated the data presented, the more comparisons can be made of course. Third, you must consider the interaction between the two, in essence how the data visualization may affect the goal the user has in mind. If you intend users to make a particular comparison, you want to present your data in a way that facilitates that process rather than hinder that process. Amounts could be presented in tabular form for instance when actual values are essential. Amounts could also be presented in visual form as a graphic of some form. Depending on the goals or the use of the data, creating separate plots that facilitate the interpretation process may be most optimal when the bias of the user competes with the aesthetic elements of the visualization (e.g., Gestalt principles).</p>
+<p>A sub goal of the module is also to understand how to map variables in a data frame to geoms and corresponding aesthetics using <strong>{ggplot2}</strong>.</p>
 </section>
 <section id="to-do" class="level1">
 <h1><strong>To Do</strong></h1>
@@ -484,14 +508,933 @@ Under construction.
 <li><a href="https://clauswilke.com/dataviz/visualizing-amounts.html">Wilke (2019). <em>Fundamentals of Data Visualization</em>. Visualizing Amounts</a></li>
 </ul>
 </section>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries"><strong>Libraries</strong></h2>
+<ul>
+<li><strong>{here}</strong>: 1.0.1: for path management</li>
+<li><strong>{dplyr}</strong> 1.1.2: for selecting, filtering, and mutating</li>
+<li><strong>{magrittr}</strong> 2.0.3: for code clarity and piping data frame objects</li>
+<li><strong>{ggplot2}</strong>: 3.4.3: for creating data visualization</li>
+</ul>
 </section>
-<section id="under-construction-content-pending" class="level1">
-<h1><strong>Under construction, content pending</strong></h1>
+<section id="external-functions" class="level2">
+<h2 class="anchored" data-anchor-id="external-functions"><strong>External Functions</strong></h2>
+<p>Provided in class:</p>
+<p><code>view_html()</code>: for viewing data frames in html format, from <code>/r/my_functions.R</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"r"</span>, <span class="st">"my_functions.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="loading-libraries" class="level1">
+<h1><strong>Loading Libraries</strong></h1>
+<p>We will work with a few different libraries for data manipulation. Let’s load them into our work space using <code>library()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Note:</em> Make note of any warnings that appear when loading libraries. There are some libraries that contain functions with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using <code>::</code> to call a function from a particular library (e.g., <code>libraryname::functionname()</code>).</p>
+</section>
+<section id="loading-data" class="level1">
+<h1><strong>Loading Data</strong></h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"cleaned-cms-top-all-time-2023-swim.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 440 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (4): name, year, event, team
+dbl (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Changing the names to title case can facilitate differentiating types of objects, in this case, column variables in a data frame from a data frame, plot, string, function, or something else.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(SWIM) <span class="ot">&lt;-</span> tools<span class="sc">::</span><span class="fu">toTitleCase</span>(<span class="fu">names</span>(SWIM))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Take a look:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#view_html(SWIM)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Take a glimpse:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>(.) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 440
+Columns: 5
+$ Time  &lt;dbl&gt; 1409.00, 1411.00, 1429.00, 1451.00, 1456.00, 1457.00, 1457.00, 1…
+$ Name  &lt;chr&gt; "Jocelyn Crawford", "Ava Sealander", "Kelly Ngo", "Helen Liu", "…
+$ Year  &lt;chr&gt; "2019", "2022", "2016", "2014", "2014", "2020", "2020", "2010", …
+$ Event &lt;chr&gt; "50 FREE", "50 FREE", "50 FREE", "50 FREE", "50 FREE", "50 FREE"…
+$ Team  &lt;chr&gt; "Athena", "Athena", "Athena", "Athena", "Athena", "Athena", "Ath…</code></pre>
+</div>
+</div>
+<p>Group by <code>Event</code> and take a glimpse:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Event) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>(.) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 440
+Columns: 5
+Groups: Event [22]
+$ Time  &lt;dbl&gt; 1409.00, 1411.00, 1429.00, 1451.00, 1456.00, 1457.00, 1457.00, 1…
+$ Name  &lt;chr&gt; "Jocelyn Crawford", "Ava Sealander", "Kelly Ngo", "Helen Liu", "…
+$ Year  &lt;chr&gt; "2019", "2022", "2016", "2014", "2014", "2020", "2020", "2010", …
+$ Event &lt;chr&gt; "50 FREE", "50 FREE", "50 FREE", "50 FREE", "50 FREE", "50 FREE"…
+$ Team  &lt;chr&gt; "Athena", "Athena", "Athena", "Athena", "Athena", "Athena", "Ath…</code></pre>
+</div>
+</div>
+</section>
+<section id="making-some-plots" class="level1">
+<h1><strong>Making some plots</strong></h1>
+<p>Based on the data, there are all different types of way to plot amounts even when there are limited variables. More complex data frames will offer more possibilities. Nevertheless, we can create plots bars based on a single metric or bars that stack based on multiple metrics, bars that are not stacked, points, etc. Amounts could be based on variables visibly present in the data frame or involve creating new variables or statistical transformations. For example, amounts to be time, counts, percentages, etc.</p>
+</section>
+<section id="plotting-counts" class="level1">
+<h1><strong>Plotting Counts</strong></h1>
+<p>We can take the count of various events in order to plot the amount of something. But what fun would an initial example be if it did not introduce a new function? <code>dplyr::slice()</code> is a function that allows you to index rows so that you can select, remove, or duplicate rows. For more information, see <code>?slice</code>.</p>
+<p>Let’s say we want to plot the number of instances for which an ultimate best occurred in a given year. The data set contains bests for each year rather than best times across history. So for each event, we can figure out which year had the fastest time and count the number of instances per year. Then, using that data frame, we can create a data visualization that communicates the number of all-time-bests across the years.</p>
+<p>How many years are in the data?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(SWIM<span class="sc">$</span>Year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 440</code></pre>
+</div>
+</div>
+<p>Um, that’s too many years. Let’s get <code>unique()</code> instances.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(SWIM<span class="sc">$</span>Year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+</div>
+<p>OK, so we are dealing with a total number of 32 years for Stag and Athena data. We could also examine the number of events per year but that involves more wrangling, so let’s make the assumption that the number of swim <code>Events</code> is constant. Let’s also assume that the <code>Time</code> variable is cleaned up correctly or the plots will be inaccurate given the data. We will not wrangle here but you should make note of whether everything looks accurate.</p>
+<section id="reduce-the-data-frame-to-contain-the-bests" class="level2">
+<h2 class="anchored" data-anchor-id="reduce-the-data-frame-to-contain-the-bests"><strong>Reduce the data frame to contain the bests</strong></h2>
+<p>We will group the data by <code>Event</code> and <code>slice()</code> the data so that the data frame contains rows that represent the fastest <code>Time</code> per event. The <code>which.min()</code> function will return the row in an <code>Event</code> that contains the lowest value for the variable, <code>Time</code>.</p>
+<p>We start with 440 rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(SWIM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 440   5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 5
+# Groups:   Event [22]
+     Time Name            Year  Event               Team  
+    &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;               &lt;chr&gt; 
+ 1 2859   Nic Tekieli     2022  100 BACK            Stag  
+ 2   61.8 Annie Perizzolo 2010  100 BREAST          Athena
+ 3   61.1 Annie Perizzolo 2010  100 BRST-Relay Spl. Athena
+ 4 2865   F Applebaum     2022  100 FLY             Stag  
+ 5 2821   F Applebaum     2022  100 FLY-Relay Spl.  Stag  
+ 6 2646   Alex Poltash    2015  100 FREE            Stag  
+ 7 2608   Alex Poltash    2015  100 FREE-Relay Spl. Stag  
+ 8  554.  Lucas Lang      2022  1000 FREE           Stag  
+ 9  917.  Lucas Lang      2022  1650 FREE           Stag  
+10  105.  Nic Tekieli     2022  200 BACK            Stag  
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<p>Let’s assign the new data frame to an object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 22
+Columns: 5
+Groups: Event [22]
+$ Time  &lt;dbl&gt; 2859.00, 61.84, 61.10, 2865.00, 2821.00, 2646.00, 2608.00, 554.1…
+$ Name  &lt;chr&gt; "Nic Tekieli", "Annie Perizzolo", "Annie Perizzolo", "F Applebau…
+$ Year  &lt;chr&gt; "2022", "2010", "2010", "2022", "2022", "2015", "2015", "2022", …
+$ Event &lt;chr&gt; "100 BACK", "100 BREAST", "100 BRST-Relay Spl.", "100 FLY", "100…
+$ Team  &lt;chr&gt; "Stag", "Athena", "Athena", "Stag", "Stag", "Stag", "Stag", "Sta…</code></pre>
+</div>
+</div>
+<p>We now have a data frame containing 22 rows.</p>
+</section>
+<section id="data-in-tabular-form" class="level2">
+<h2 class="anchored" data-anchor-id="data-in-tabular-form"><strong>Data in Tabular Form</strong></h2>
+<p>There are many ways to present tabular data. <strong>{htmlTable}</strong> and <strong>{knitr}</strong> as well as other make this easy. For now, we will pass the data frame to <code>htmlTable::htmlTable()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="co">#%&gt;% </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Time</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Year</th>
+<th style="text-align: left;">Event</th>
+<th style="text-align: left;">Team</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2859.00</td>
+<td style="text-align: left;">Nic Tekieli</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">100 BACK</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">61.84</td>
+<td style="text-align: left;">Annie Perizzolo</td>
+<td style="text-align: left;">2010</td>
+<td style="text-align: left;">100 BREAST</td>
+<td style="text-align: left;">Athena</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">61.10</td>
+<td style="text-align: left;">Annie Perizzolo</td>
+<td style="text-align: left;">2010</td>
+<td style="text-align: left;">100 BRST-Relay Spl.</td>
+<td style="text-align: left;">Athena</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2865.00</td>
+<td style="text-align: left;">F Applebaum</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">100 FLY</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2821.00</td>
+<td style="text-align: left;">F Applebaum</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">100 FLY-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2646.00</td>
+<td style="text-align: left;">Alex Poltash</td>
+<td style="text-align: left;">2015</td>
+<td style="text-align: left;">100 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2608.00</td>
+<td style="text-align: left;">Alex Poltash</td>
+<td style="text-align: left;">2015</td>
+<td style="text-align: left;">100 FREE-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">554.11</td>
+<td style="text-align: left;">Lucas Lang</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">1000 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">917.24</td>
+<td style="text-align: left;">Lucas Lang</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">1650 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">105.05</td>
+<td style="text-align: left;">Nic Tekieli</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">200 BACK</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">119.90</td>
+<td style="text-align: left;">Vincent Pai</td>
+<td style="text-align: left;">2009</td>
+<td style="text-align: left;">200 BREAST</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">103.96</td>
+<td style="text-align: left;">Frank Applebaum</td>
+<td style="text-align: left;">2023</td>
+<td style="text-align: left;">200 FLY</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">98.35</td>
+<td style="text-align: left;">Matt Williams</td>
+<td style="text-align: left;">2017</td>
+<td style="text-align: left;">200 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">97.98</td>
+<td style="text-align: left;">A Breazeale</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">200 FREE-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">106.97</td>
+<td style="text-align: left;">Gary Simon</td>
+<td style="text-align: left;">1998</td>
+<td style="text-align: left;">200 IM</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">235.61</td>
+<td style="text-align: left;">Henry Limm</td>
+<td style="text-align: left;">2018</td>
+<td style="text-align: left;">400 IM</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1352.00</td>
+<td style="text-align: left;">Matt Williams</td>
+<td style="text-align: left;">2014</td>
+<td style="text-align: left;">50 BACK-Relay Leadoff</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1510.00</td>
+<td style="text-align: left;">Gary Simon</td>
+<td style="text-align: left;">1998</td>
+<td style="text-align: left;">50 BRST-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1260.00</td>
+<td style="text-align: left;">Marco Conati</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">50 FLY-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1221.00</td>
+<td style="text-align: left;">Alex Poltash</td>
+<td style="text-align: left;">2015</td>
+<td style="text-align: left;">50 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1187.00</td>
+<td style="text-align: left;">Nic Tekieli</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">50 FREE-Relay Spl.</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">265.67</td>
+<td style="text-align: left;">Lucas Lang</td>
+<td style="text-align: left;">2022</td>
+<td style="text-align: left;">500 FREE</td>
+<td style="text-align: left;">Stag</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#htmlTable::htmlTable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Selecting only the <code>Event</code> and the <code>Year</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., Event, Year) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="co">#%&gt;% </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Event</th>
+<th style="text-align: left;">Year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">100 BACK</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 BREAST</td>
+<td style="text-align: left;">2010</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 BRST-Relay Spl.</td>
+<td style="text-align: left;">2010</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 FLY</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 FLY-Relay Spl.</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 FREE</td>
+<td style="text-align: left;">2015</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 FREE-Relay Spl.</td>
+<td style="text-align: left;">2015</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1000 FREE</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1650 FREE</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 BACK</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 BREAST</td>
+<td style="text-align: left;">2009</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 FLY</td>
+<td style="text-align: left;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 FREE</td>
+<td style="text-align: left;">2017</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 FREE-Relay Spl.</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 IM</td>
+<td style="text-align: left;">1998</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">400 IM</td>
+<td style="text-align: left;">2018</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 BACK-Relay Leadoff</td>
+<td style="text-align: left;">2014</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50 BRST-Relay Spl.</td>
+<td style="text-align: left;">1998</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 FLY-Relay Spl.</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50 FREE</td>
+<td style="text-align: left;">2015</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 FREE-Relay Spl.</td>
+<td style="text-align: left;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">500 FREE</td>
+<td style="text-align: left;">2022</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#htmlTable::htmlTable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Selecting only the <code>Event</code> and the <code>Name</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., Event, Name) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="co">#%&gt;% </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Event</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">100 BACK</td>
+<td style="text-align: left;">Nic Tekieli</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 BREAST</td>
+<td style="text-align: left;">Annie Perizzolo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 BRST-Relay Spl.</td>
+<td style="text-align: left;">Annie Perizzolo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 FLY</td>
+<td style="text-align: left;">F Applebaum</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 FLY-Relay Spl.</td>
+<td style="text-align: left;">F Applebaum</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100 FREE</td>
+<td style="text-align: left;">Alex Poltash</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">100 FREE-Relay Spl.</td>
+<td style="text-align: left;">Alex Poltash</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1000 FREE</td>
+<td style="text-align: left;">Lucas Lang</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1650 FREE</td>
+<td style="text-align: left;">Lucas Lang</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 BACK</td>
+<td style="text-align: left;">Nic Tekieli</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 BREAST</td>
+<td style="text-align: left;">Vincent Pai</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 FLY</td>
+<td style="text-align: left;">Frank Applebaum</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 FREE</td>
+<td style="text-align: left;">Matt Williams</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">200 FREE-Relay Spl.</td>
+<td style="text-align: left;">A Breazeale</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200 IM</td>
+<td style="text-align: left;">Gary Simon</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">400 IM</td>
+<td style="text-align: left;">Henry Limm</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 BACK-Relay Leadoff</td>
+<td style="text-align: left;">Matt Williams</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50 BRST-Relay Spl.</td>
+<td style="text-align: left;">Gary Simon</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 FLY-Relay Spl.</td>
+<td style="text-align: left;">Marco Conati</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">50 FREE</td>
+<td style="text-align: left;">Alex Poltash</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50 FREE-Relay Spl.</td>
+<td style="text-align: left;">Nic Tekieli</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">500 FREE</td>
+<td style="text-align: left;">Lucas Lang</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#htmlTable::htmlTable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The tables show the best <code>Year</code> and the best athlete per event.</p>
+</section>
+<section id="bar-charts" class="level2">
+<h2 class="anchored" data-anchor-id="bar-charts"><strong>Bar Charts</strong></h2>
+<p>Perhaps a table is not what you want. Perhaps you want to present data as bars. There are two types of bar chart geometry functions: <code>geom_bar()</code> and <code>geom_col()</code>. <code>geom_bar()</code> takes either an x or a y (not both) and produces a plot for which the height of the bar is proportional to the count/frequency of cases in the vector. By contrast, <code>geom_col()</code> takes both an x and a y and plots the height of each x variable bar relative to the value of the y variable. If you want the heights of the bars to represent values in the data (e.g., “identity”), use <code>geom_col()</code>.</p>
+<section id="geom_bar" class="level3">
+<h3 class="anchored" data-anchor-id="geom_bar"><strong><code>geom_bar()</code></strong></h3>
+<pre><code>geom_bar(
+  mapping = NULL,
+  data = NULL,
+  stat = "count",
+  position = "stack",
+  ...,
+  just = 0.5,
+  width = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)</code></pre>
+<p>Trying out <code>geom_bar()</code>, we need an either an x or a y aesthetic mapping but not both. When passing a variable to x, the bar will be vertical and when passing the variable to y, the bar will be horizontal. Because the mapping is inherited from <code>ggplot()</code> if specified there, you will throw an error like the following because both x and y will be inherited.</p>
+<p>Using <code>%&gt;%</code>, we will pass the data frame to <code>ggplot()</code>:</p>
+<pre><code>SWIM %&gt;%
+  ggplot(., aes(x = Year, y = Time)) +
+  geom_bar()</code></pre>
+<pre><code>Error in f(): ! stat_count() can only have an x or y aesthetic.</code></pre>
+<p>We can change the mapping in the base <code>ggplot()</code> layer, which will plot bars corresponding to the unique levels of the variable passed to x at a height relative to the frequency of occurrence of those unique levels.</p>
+<p>Checking <code>?geom_bar</code>, you will notice that <code>geom_bar()</code> has a default <code>stat = "count"</code>. This means that the default bar plot will plot the “count”, or frequency, of elements in a vector variable. When the count or frequency of a value is 1, the bar height will be 1 on the y axis and if an element appears 5 times in the vector, the bar height will be 5. For a horizontal bar, the bar length, rather than height, will be 5. Looking at <code>FAST_BY_EVENT$Team</code>, you will see many instances that will be “Stag” or “Athena”. Based on the previous discussion, what might you expect the bar to look like? Answer before seeing the plot or explain why after seeing the plot.</p>
+<p>Let’s pass a variable to x:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year)) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Team)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Event)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Messy. I am not sure that’s what we want but you get a feel for what <code>geom_bar()</code> is doing.</p>
+<p>Let’s pass a variable to y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">y =</span> Team)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>If <code>geom_bar()</code> does inherit x and y from <code>ggplot()</code>, and if you want the heights of the bars to represent values in the data (e.g., “identity”), use <code>geom_bar()</code> and pass <code>stat = "identity")</code>. You should see the same plot as shown with passing only <code>x = Year</code> except for the inclusion of <code>Team</code> information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Team)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This plot is ugly. We will work on fixing this later but or now understand that <code>geom_bar()</code> and <code>geom_col()</code> differ but can be used to do plot same thing.</p>
+</section>
+<section id="geom_col" class="level3">
+<h3 class="anchored" data-anchor-id="geom_col"><strong><code>geom_col()</code></strong></h3>
+<p>Remember that <code>geom_col()</code> takes both an x and a y and plots the height of each x variable bar relative to the value of the y variable.</p>
+<pre><code>geom_col(
+  mapping = NULL,
+  data = NULL,
+  position = "stack",
+  ...,
+  just = 0.5,
+  width = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)</code></pre>
+<p>Being verbose:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Trimming some code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Team)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(Year, Time)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Switching x and y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Team, <span class="at">y =</span> Year)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Yuck.</p>
+</section>
+</section>
+<section id="adding-layers" class="level2">
+<h2 class="anchored" data-anchor-id="adding-layers"><strong>Adding Layers</strong></h2>
+<p>We can take a plot object and add layers that will override defaults. Let’s assign the plot to an object to make adding some layers easier, though not necessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fast_by_event_col <span class="ot">&lt;-</span> FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Add a <code>coord_*()</code> layer, specifically <code>coord_flip()</code> to flip the coordinates. Take object, and add layer using <code>+</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>fast_by_event_col <span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Add a <code>theme()</code> layer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fast_by_event_col <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Add label layers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fast_by_event_col <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">" "</span>) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="dot-plotpoint-plot" class="level1">
+<h1><strong>Dot Plot/Point Plot</strong></h1>
+<p>You can also plot amounts as points. We will add an aesthetic here to color code the points by <code>Team</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>(fast_by_event_point <span class="ot">&lt;-</span> FAST_BY_EVENT <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Team)) <span class="sc">+</span>  </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">" "</span>) <span class="sc">+</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Seconds"</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="sub-setting-for-plots" class="level1">
+<h1><strong>Sub-setting for Plots</strong></h1>
+<p>Let’s just do for each each team by changing the data frame. There are other ways to address this problem but we will cover those topics later.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>FAST_BY_EVENT_TEAM <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Team, Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Filter by <code>Team</code> and Plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>(fast_be_event_team_col_sta <span class="ot">&lt;-</span> FAST_BY_EVENT_TEAM <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., Team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span>  </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">" "</span>) <span class="sc">+</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Seconds"</span>) <span class="sc">+</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Fastest Stags for their event since ?"</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(fast_be_event_team_col_ath <span class="ot">&lt;-</span> FAST_BY_EVENT_TEAM <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(., Team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Time)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span>  </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">" "</span>) <span class="sc">+</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Seconds"</span>) <span class="sc">+</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Fastest Athenas for their event since ?"</span>)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-34-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="getting-counts-by-summary" class="level1">
+<h1><strong>Getting Counts by Summary</strong></h1>
+<p>Let’s use <strong>{dplyr}</strong> to help us obtain subgroups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>TOP_BY_YEAR <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Name, Team) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(TOP_BY_YEAR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   Name [6]
+  Name            Team  Count
+  &lt;chr&gt;           &lt;chr&gt; &lt;int&gt;
+1 A Breazeale     Stag      8
+2 A Roeseler      Stag      2
+3 Aaron Lutzker   Stag      6
+4 Abel Sapirstein Stag      1
+5 Alec Vercruysse Stag      4
+6 Alex Mendoza    Stag      2</code></pre>
+</div>
+</div>
+<p>Filter for a <code>Team</code> and plot. Again, using <code>geom_bar(stat = "identity")</code> we will plot the actual counts in the data set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>TOP_BY_YEAR <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., Team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Name, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="year-with-highest-bests" class="level1">
+<h1><strong>Year with Highest Bests</strong></h1>
+<p>Let’s work from the top using the full <code>SWIM</code> datat in order to see the full workflow.</p>
+<ol type="1">
+<li>Group by team and event type</li>
+<li>Slice the fastest values</li>
+<li>Then group this data frame by year</li>
+<li>Summarize by counting the rows<br>
+</li>
+<li>Arrange in descending order</li>
+<li>Create the plot object and map some aesthetics</li>
+<li>Add a geom layer</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Team, Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Year) <span class="sc">%&gt;%</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(Count)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Add another geom layer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Team, Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Year) <span class="sc">%&gt;%</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(Count)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"gray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Change the geom layer order and add some color:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Team, Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Year) <span class="sc">%&gt;%</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(Count)) <span class="sc">%&gt;%</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">col =</span> <span class="st">"green"</span>) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="st">"red"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>OK, this example is intentionally ugly and likely has different implications for someone who has red-green colorblindness. The point here is to show you a little able plotting amounts. You can also</p>
+</section>
+<section id="lollipop-plot" class="level1">
+<h1><strong>Lollipop Plot</strong></h1>
+<p>A lollipop plot is like a bar plot but has less ink information. It will encode the point position as height.</p>
+<p>In order to see the variables in the data frame, let’s create it and then assign it to an object first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Team, Event) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(., <span class="fu">which.min</span>(Time)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., Year) <span class="sc">%&gt;%</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(., <span class="fu">desc</span>(Count)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use <code>geom_segment()</code> to create a line segment from a starting x and y position to an ending x and y position. We can also flip the coordinates if you want horizontal lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>DAT <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> Year, </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="dv">0</span>, </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> Count)) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09_visualizing_amounts_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="summary" class="level1">
+<h1><strong>Summary</strong></h1>
+<p>This module was used to help demonstrate a subset of ways to visualize amounts using <code>ggplot()*</code> objects. The examples represent only subset of different plots one could create to communicate amounts visually. In addition, the rendered plots certainly have problems and fixing those problems will be goals of future modules.</p>
 </section>
 <section id="session-information" class="level1">
 <h1><strong>Session Information</strong></h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -503,27 +1446,62 @@ Under construction.
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       America/Los_Angeles
- date     2023-09-10
+ date     2023-09-12
  pandoc   3.1.5 @ C:/PROGRA~1/Pandoc/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
- package     * version date (UTC) lib source
- cli           3.6.1   2023-03-23 [1] CRAN (R 4.3.1)
- digest        0.6.33  2023-07-07 [1] CRAN (R 4.3.1)
- evaluate      0.21    2023-05-05 [1] CRAN (R 4.3.1)
- fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.3.1)
- htmltools     0.5.6   2023-08-10 [1] CRAN (R 4.3.1)
- htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.3.1)
- jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.3.1)
- knitr         1.43    2023-05-25 [1] CRAN (R 4.3.1)
- rlang         1.1.1   2023-04-28 [1] CRAN (R 4.3.1)
- rmarkdown     2.24    2023-08-14 [1] CRAN (R 4.3.1)
- rstudioapi    0.15.0  2023-07-07 [1] CRAN (R 4.3.1)
- sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.3.1)
- xfun          0.40    2023-08-09 [1] CRAN (R 4.3.1)
- yaml          2.3.7   2023-01-23 [1] CRAN (R 4.3.0)
+ ! package     * version date (UTC) lib source
+ D archive       1.1.5   2022-05-06 [1] CRAN (R 4.3.1)
+   bit           4.0.5   2022-11-15 [1] CRAN (R 4.3.1)
+   bit64         4.0.5   2020-08-30 [1] CRAN (R 4.3.1)
+   cli           3.6.1   2023-03-23 [1] CRAN (R 4.3.1)
+   colorspace    2.1-0   2023-01-23 [1] CRAN (R 4.3.1)
+   crayon        1.5.2   2022-09-29 [1] CRAN (R 4.3.1)
+   digest        0.6.33  2023-07-07 [1] CRAN (R 4.3.1)
+   dplyr       * 1.1.2   2023-04-20 [1] CRAN (R 4.3.1)
+   evaluate      0.21    2023-05-05 [1] CRAN (R 4.3.1)
+   fansi         1.0.4   2023-01-22 [1] CRAN (R 4.3.1)
+   farver        2.1.1   2022-07-06 [1] CRAN (R 4.3.1)
+   fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.3.1)
+   generics      0.1.3   2022-07-05 [1] CRAN (R 4.3.1)
+   ggplot2     * 3.4.3   2023-08-14 [1] CRAN (R 4.3.1)
+   glue          1.6.2   2022-02-24 [1] CRAN (R 4.3.1)
+   gtable        0.3.4   2023-08-21 [1] CRAN (R 4.3.1)
+   here          1.0.1   2020-12-13 [1] CRAN (R 4.3.1)
+   hms           1.1.3   2023-03-21 [1] CRAN (R 4.3.1)
+   htmltools     0.5.6   2023-08-10 [1] CRAN (R 4.3.1)
+   htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.3.1)
+   jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.3.1)
+   knitr         1.43    2023-05-25 [1] CRAN (R 4.3.1)
+   labeling      0.4.2   2020-10-20 [1] CRAN (R 4.3.0)
+   lifecycle     1.0.3   2022-10-07 [1] CRAN (R 4.3.1)
+   magrittr    * 2.0.3   2022-03-30 [1] CRAN (R 4.3.1)
+   munsell       0.5.0   2018-06-12 [1] CRAN (R 4.3.1)
+   pillar        1.9.0   2023-03-22 [1] CRAN (R 4.3.1)
+   pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.3.1)
+   R6            2.5.1   2021-08-19 [1] CRAN (R 4.3.1)
+   readr         2.1.4   2023-02-10 [1] CRAN (R 4.3.1)
+   rlang         1.1.1   2023-04-28 [1] CRAN (R 4.3.1)
+   rmarkdown     2.24    2023-08-14 [1] CRAN (R 4.3.1)
+   rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.3.1)
+   rstudioapi    0.15.0  2023-07-07 [1] CRAN (R 4.3.1)
+   scales        1.2.1   2022-08-20 [1] CRAN (R 4.3.1)
+   sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.3.1)
+   stringi       1.7.12  2023-01-11 [1] CRAN (R 4.3.0)
+   stringr     * 1.5.0   2022-12-02 [1] CRAN (R 4.3.1)
+   tibble        3.2.1   2023-03-20 [1] CRAN (R 4.3.1)
+   tidyselect    1.2.0   2022-10-10 [1] CRAN (R 4.3.1)
+   tzdb          0.4.0   2023-05-12 [1] CRAN (R 4.3.1)
+   utf8          1.2.3   2023-01-31 [1] CRAN (R 4.3.1)
+   vctrs         0.6.3   2023-06-14 [1] CRAN (R 4.3.1)
+   vroom         1.6.3   2023-04-28 [1] CRAN (R 4.3.1)
+   withr         2.5.0   2022-03-03 [1] CRAN (R 4.3.1)
+   xfun          0.40    2023-08-09 [1] CRAN (R 4.3.1)
+   yaml          2.3.7   2023-01-23 [1] CRAN (R 4.3.0)
 
  [1] C:/Users/gcook/_portable_apps/R/R-4.3.1/library
+
+ D ── DLL MD5 mismatch, broken installation.
 
 ──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
