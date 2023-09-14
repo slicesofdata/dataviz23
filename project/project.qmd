@@ -57,7 +57,7 @@ If the team decides to create roles different from those suggested below, please
 -   Leading coding and code documenting;
 -   Assigning technical tasks to other team members;
 -   Keeping track of the progress of the technical tasks;
--   Helping other team members troubleshoot code (see also TA and course professor);\
+-   Helping other team members troubleshoot code (see also TA and course professor);
 -   Communicating with PM, liaison (during liaison meetings), and course professor regarding any technical needs and concerns;
 -   Communicating with RL regarding messaging of coded results;
 -   Maintaining GitHub repo (recommended, please see course professor for assistance);
@@ -107,7 +107,7 @@ The Project Manager should inquire with the team about the best way to submit wo
 
 ### **Frequency of Worklog**
 
-Worklogs are to be completed by *end-of-day following the team meeting*, after communicating future goals (distributed equally) to other team members. Please make public for me to review.
+Worklogs are to be completed by *end-of-day following the team meeting*, after communicating future goals (distributed equally) to other team members. Please make public for me to review. Meetings should be physical to facilitate team cohesion and conversation, and limit silly technical issues that just waste meeting time.
 
 
 ### **Contents of Worklog**
