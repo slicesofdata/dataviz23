@@ -1230,5 +1230,40 @@
     "title": "Project",
     "section": "Weekly Worklog/Report",
     "text": "Weekly Worklog/Report\nTracking individual and team goals weekly ensures progress toward the goal, commitment to the project, accountability for oneself, and a record of accomplishments.\nThe Project Manager should inquire with the team about the best way to submit worklogs or transparency and review. This could be a Google Doc File, a spreadsheet, or even a Google From that contains questions to answer, which then get dumped into a Google Spreadsheet for all to review.\n\nFrequency of Worklog\nWorklogs are to be completed by end-of-day following the team meeting, after communicating future goals (distributed equally) to other team members. Please make public for me to review. Meetings should be physical to facilitate team cohesion and conversation, and limit silly technical issues that just waste meeting time.\n\n\nContents of Worklog\nWorklogs should contain information about the reporting date, the team member reporting, that member’s previous week accomplishments, and that member’s future week goals\n\nFor the past week, I accomplished the following specific goals for my team:\n\n\nThis…\nThat…\nAnd the other…\n\n\nFor this past week, the number of hours allocated toward those goals was: ___\nFor this coming week, my specific goals for the team include:\n\n\nThis…\nThat…\nAnd the other…\n\n\nIf relevant, any items to discuss with liaison."
+  },
+  {
+    "objectID": "99_importing_many_files_into_a_single_data_frame.html",
+    "href": "99_importing_many_files_into_a_single_data_frame.html",
+    "title": "Importing many files into a single data frame",
+    "section": "",
+    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{vroom}: 1.6.3: for reading many files\n\n\nlibrary(magrittr)"
+  },
+  {
+    "objectID": "99_importing_many_files_into_a_single_data_frame.html#libraries",
+    "href": "99_importing_many_files_into_a_single_data_frame.html#libraries",
+    "title": "Importing many files into a single data frame",
+    "section": "",
+    "text": "{here}: 1.0.1: for path management\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{vroom}: 1.6.3: for reading many files\n\n\nlibrary(magrittr)"
+  },
+  {
+    "objectID": "99_importing_many_files_into_a_single_data_frame.html#get-the-file-names-by-pattern",
+    "href": "99_importing_many_files_into_a_single_data_frame.html#get-the-file-names-by-pattern",
+    "title": "Importing many files into a single data frame",
+    "section": "Get the File Names by Pattern",
+    "text": "Get the File Names by Pattern\nLooking at the pattern of file names for field events, you see .csv file names containing patterns like “DT”, “HT”, “JT”, “LJ”, “PV”, “LJ”, “SP”, and “TJ”. Double check that you have all event name types. I would also recommend keeping events measured on a time scale separate from a distance scale.\nI will demonstrate the process with two field events. You can apply the logic for all events. We will use vroom::vroom() to take the file names (full names mind you), open them all up and combine them into a single data frame.\nLet’s start with field events like discus:\nBecause the data are named by year, we can limit the search to files that contain a 4-digit year \\\\d{4} so that you don’t also match any aggregated uber files that do not contain a year. Then, the dot star .* will help with filler patterns. In particular, . refers to any character (e.g,. digit, alpha character, or any other special character) and * means zero or more times, so this pattern will search for all files that start with 4 digits followed by anything in the name. Then, the _HT.csv pattern will restrict the search to files containing that exact character string. All together, you have a search for pattern = \"\\\\d{4}.*_DT.csv\". This will not return the file without the year.\n\nDT &lt;- list.files(here::here(\"data\", \"tfrrs\"), \n           pattern = \"\\\\d{4}.*_DT.csv\",\n           ignore.case = T,\n           full.names = T\n           ) %&gt;% \n  vroom::vroom(.)\n\nRows: 1743 Columns: 10\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): Athlete, Year, Mark, Conv, Meet, Meet_Date, Team, Event, Location\ndbl (1): Season\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nreadr::write_csv(DT, here::here(\"data\", \"tfrrs\", \"DT.csv\"))\n\nRegistered S3 methods overwritten by 'readr':\n  method                    from \n  as.data.frame.spec_tbl_df vroom\n  as_tibble.spec_tbl_df     vroom\n  format.col_spec           vroom\n  print.col_spec            vroom\n  print.collector           vroom\n  print.date_names          vroom\n  print.locale              vroom\n  str.col_spec              vroom\n\n\nNow how about hammer:\n\nHT &lt;- list.files(here::here(\"data\", \"tfrrs\"), \n           pattern = \"\\\\d{4}.*_HT.csv\",\n           full.names = T\n           ) %&gt;% \n  vroom::vroom(.)\n\nRows: 1557 Columns: 10\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): Athlete, Year, Mark, Conv, Meet, Meet_Date, Team, Event, Location\ndbl (1): Season\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nreadr::write_csv(HT, here::here(\"data\", \"tfrrs\", \"HT.csv\"))"
+  },
+  {
+    "objectID": "99_importing_many_files_into_a_single_data_frame.html#get-the-event-files-and-combine",
+    "href": "99_importing_many_files_into_a_single_data_frame.html#get-the-event-files-and-combine",
+    "title": "Importing many files into a single data frame",
+    "section": "Get the Event Files and Combine",
+    "text": "Get the Event Files and Combine\nFor some events, the columns may differ, so you might get an error. If you review the names of columns and locate the pesky file(s), you can remove any columns from the data, like the \"Wind\" column, or others you don’t want.\nAfter aggregating by event, you can combine the events, for example, combine the field events into a single data frame. Just make sure that you have a vector of names (e.g., c()) that you pass into the here() call because remember, those file names should be saved in the /data/tfrrs/ path specified in here().\n\nFIELD &lt;- vroom::vroom(here::here(\"data\", \"tfrrs\", c(\"DT.csv\", \"HT.csv\")))\n\nRows: 3300 Columns: 10\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): Athlete, Year, Mark, Conv, Meet, Meet_Date, Team, Event, Location\ndbl (1): Season\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nAlternatively, if you have the data frame objects still in memory, pass the data frames to dplyr::bind_rows() which will add the rows of the second data frame below the first data frame and then\n\nFIELD &lt;- dplyr::bind_rows(DT, HT, DT, HT)"
+  },
+  {
+    "objectID": "99_importing_many_files_into_a_single_data_frame.html#save-data",
+    "href": "99_importing_many_files_into_a_single_data_frame.html#save-data",
+    "title": "Importing many files into a single data frame",
+    "section": "Save Data",
+    "text": "Save Data\nAnd then combine and write to an uber field event .csv.\n\nreadr::write_csv(FIELD, here::here(\"data\", \"tfrrs\", \"TFRRS_FIELD.csv\"))"
   }
 ]
