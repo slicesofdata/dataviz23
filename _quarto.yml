@@ -51,6 +51,8 @@ website:
 #        file: exercises/exercises.qmd
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
+      - text: "**Project**"
+        file: project/project.qmd
       - text: "**Homework**"
         #file: slides/index.qmd
         menu:

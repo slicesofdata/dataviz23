@@ -2,6 +2,9 @@ library(rvest)
 library(tidyverse)
 library(magrittr)
 
+#readr::read_csv(here::here("data", "swim", "mm8results1coldefaultcumsub.csv"), col_names = F) %>%
+#  view_html()
+
 ##########################################################
 # Extract links from a url
 ##########################################################
@@ -17,7 +20,7 @@ scrap_links_from_url <- function(url){
   link_ <- webpage %>%
     rvest::html_nodes("a") %>%
     rvest::html_text()
-  return(tibble(link = link_, url = url_))
+  return(tibble::tibble(link = link_, url = url_))
 }
 
 ##########################################################
@@ -27,13 +30,32 @@ scrap_links_from_url <- function(url){
 # read tables and change names in list to link names
 ###################################################################
 read_tables_from_page <- function(page) {
-  # read tables from url to list
+  # read tables from url to a list
   tables = page %>% rvest::read_html() %>% rvest::html_table()
   
-  Sys.sleep(10)
+  Sys.sleep(5)
+  
   
   return(tables)
 }  
+
+var_names_keep <- c("Meet", "Meet Date", "Athlete", "Year", "Time", "Mark")
+table_list <- lapply(table_list, function(x) { names(x) = gsub("Athletes", "Athlete", names(x)) }  )
+#table_list <- lapply(table_list, function(x) { x[!(names(x) %in% c("Wind", "wind"))] }  )
+lapply(table_list, function(x) { x[(names(x) %in% var_names_keep)] }  )
+
+lapply(table_list, function(x) { dplyr::select(x, any(var_names_keep)) }  )
+
+summarize(d, mean(X100.Time, na.rm = T), .by = "X100.Meet")
+
+quantile_df <- function(x, probs = c(0.25, 0.5, 0.75)) {
+  tibble(
+    val = quantile(x, probs, na.rm = TRUE),
+    quant = probs
+  )
+}
+lapply(table_list, function(x) { print(dim(x)[2]) }  ) 
+lapply(table_list, function(x) { print(names(x)) }  ) 
 
 # add names based on extracted links
 add_names_to_list_elements <- function(
@@ -56,15 +78,18 @@ add_new_cols <- function(table_list,
                          remove_cols = c("wind")
                          ) {
   lapply(table_list, function(x) {
-  #print(names(x))
-  dat = x %>% # keep names that are not missing
-    select(., names(x)[nzchar(names(x))])
+
+  # keep names that are not missing
+  dat = select(x, names(x)[nzchar(names(x))])
   
   # clean names
   names(dat) = gsub(" ", "_", names(dat))
   
   # wind variable is missing after 2010, so remove from all
+  dat = select(., -dplyr::any_of(remove_cols))
+  
   #names(dat) = names(dat)[!tolower(names(dat)) %in% tolower(remove_cols)]
+  
   
   # add new variables
   dat = dat %>% 
@@ -94,6 +119,7 @@ for (x in 1:length(table_list)) {
   event        = unique(dat$Event)
   season       = unique(dat$Season)
   
+  dat = dat %>% select(., Season, Location, Meet, Meet_Date, Team, Event, Athlete, Time)
   #print(dat)
   write.csv(dat,
             file = here::here("data", "tfrrs", 
@@ -111,8 +137,8 @@ for (x in 1:length(table_list)) {
 ##########################################################
 # The outdoor URLs
 stag_url_list_outdoor <- list(
-  #"2023" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=4153&season_hnd=608",
-  #"2022" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=3730&season_hnd=568",
+  "2023" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=4153&season_hnd=608",
+  "2022" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=3730&season_hnd=568",
   #"2021" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=3200&season_hnd=530",
   #"2020" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=2906&season_hnd=496",
   #"2019" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=2573&season_hnd=453",
@@ -123,10 +149,10 @@ stag_url_list_outdoor <- list(
   #"2016" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1683&season_hnd=336",
   #"2015" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1552&season_hnd=303",
   #"2014" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1251&season_hnd=256",
-  #"2013" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1047&season_hnd=221",
-  #"2012" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=863&season_hnd=191",
-  #"2011" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=695&season_hnd=158",
-  "2010" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=600&season_hnd=131"
+  "2013" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1047&season_hnd=221",
+  "2012" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=863&season_hnd=191",
+  "2011" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=695&season_hnd=158"
+  #"2010" = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=600&season_hnd=131"
 )
 
 athena_url_list_outdoor <- list(
@@ -153,6 +179,16 @@ athena_url_list_outdoor <- list(
 ##########################################################
 # get url and links
 
+# stag_url_list_outdoor[3] 
+# page_url = stag_url_list_outdoor[[3]]
+# page_url = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=1047&season_hnd=221"
+# links <- scrap_links_from_url(page_url)
+# page_data <- read_tables_from_page(page_url)
+# table_list <- ''
+# add_names_to_list_elements(page_data, links$link)
+# table_list_new <- add_new_cols(table_list, team = "Stag")
+# table_list_new
+
 for (page_url in stag_url_list_outdoor) {
   #page_url = "https://www.tfrrs.org/all_performances/CA_college_m_Claremont_Mudd_Scripps.html?list_hnd=4153&season_hnd=608"
   
@@ -164,7 +200,6 @@ for (page_url in stag_url_list_outdoor) {
          link = gsub(" ", "", as.character(link)),
          link = gsub(",", "", as.character(link)),
   )
-  
 
   # get links and update tables in list
   page_data <- read_tables_from_page(page_url)
