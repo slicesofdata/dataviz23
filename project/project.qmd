@@ -99,7 +99,7 @@ The Project Manager should inquire with the team about the best way to submit wo
 
 ### **Frequency of Worklog**
 
-Worklogs are to be completed by *end-of-day following the team meeting*, after communicating future goals, distributed equally, to other team members. Please make public for me to review.
+Worklogs are to be completed by *end-of-day following the team meeting*, after communicating future goals (distributed equally) to other team members. Please make public for me to review.
 
 
 ### **Contents of Worklog**
