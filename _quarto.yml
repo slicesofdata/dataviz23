@@ -14,8 +14,26 @@ project:
     - "!content_"
     - "!syllabus/building/"
     - "!syllabus/syllabus2.qmd"
-    - "!modules/module_starter_page.qmd"
     - "!modules/intro_to_ggplot.qmd"
+    - "!modules/module_starter_page.qmd"
+    - "!modules/01_installing_r_and_rstudio.qmd"
+    - "!modules/02_graphical_perception.qmd"
+    - "!modules/03_reading_data_files.qmd"  
+    - "!modules/04_data_frame_manipulation_and_wrangling.qmd"
+    - "!modules/07_data_subsets_and_summaries.qmd"
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+    #- "!modules/
+
+
     #- "!modules/hello.qmd"
     - "!modules/building"
 #    - "!modules/" # Note regarding !, if try to render with an ignore, will get ERROR: TypeError: Cannot convert undefined or null to object 
@@ -63,7 +81,7 @@ website:
           - text: HW 3
             href: homework/HW03.Rmd
           - text: HW 4
-            href: homework/HW_04_basic_plotting.Rmd
+            href: homework/HW04.Rmd
 #          - text: HW 5
 #            href: homework/HW05.Rmd
 #          - text: HW 6
