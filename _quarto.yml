@@ -21,18 +21,26 @@ project:
     - "!modules/03_reading_data_files.qmd"  
     - "!modules/04_data_frame_manipulation_and_wrangling.qmd"
     - "!modules/07_data_subsets_and_summaries.qmd"
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-    #- "!modules/
-
+    #- "modules/08_ggplot_and_the_grammar_of_graphics.qmd"
+    #- "modules/09_visualizing_amounts.qmd"
+    #- "modules/10_visualizing_associations.qmd"
+    #- "!modules/11_spatial_position_and_adjustment.qmd"
+    #- "!modules/12_considerations_in_data_visualization.qmd""
+    - "!modules/13_color_scales_and_palettes.qmd"
+    - "!modules/14_histograms_and_density_plots.qmd"
+    - "!modules/15_coordinates_axes_and_position_scales.qmd"
+    - "!modules/16_statistical_transformations.qmd"
+    - "!modules/17_visualizing_more_distributions.qmd"
+    - "!modules/18_visualizing_uncertainty.qmd"
+    - "!modules/19_visualizing_trends.qmd"
+    - "!modules/20_legends_and_arrangement.qmd"
+    - "!modules/21_designing_perceptually_efficient_visualizations.qmd"
+    - "!modules/22_annotation_and_text.qmd"
+    - "!modules/23_multi_panel_plots_faceting.qmd"
+    - "!modules/24_attentional_control.qmd"
+    - "!modules/25_titles_captions_and_tables.qmd"
+    - "!modules/26_themes.qmd"
+    - "!modules/99_importing_many_files_into_a_single_data_frame.qmd"
 
     #- "!modules/hello.qmd"
     - "!modules/building"
