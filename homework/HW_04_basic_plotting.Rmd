@@ -50,7 +50,7 @@ library(dplyr)
 
 # *Getting Data*
 
-For this homework, you will use the hammer throw data at: "https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.csv"
+For this homework, you will use the hammer throw data at: "https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs/HT.csv"
 
 ```{r}
 
