@@ -62,8 +62,8 @@ website:
             href: homework/HW02.Rmd
           - text: HW 3
             href: homework/HW03.Rmd
-#          - text: HW 4
-#            href: homework/HW04.Rmd
+          - text: HW 4
+            href: homework/HW_04_basic_plotting.Rmd
 #          - text: HW 5
 #            href: homework/HW05.Rmd
 #          - text: HW 6

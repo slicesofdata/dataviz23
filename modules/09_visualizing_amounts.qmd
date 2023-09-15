@@ -39,7 +39,7 @@ A sub goal of the module is also to understand how to map variables in a data fr
 
 Reading should take place in two parts:
 
- - *Prior to class*, the goal should be to familiarize yourself and bring questions to class. The readings from [TFDV](https://clauswilke.com/dataviz) are conceptual and should facilitate readings from [EGDA](https://ggplot2-book.org/) for code implementation.
+ - *Prior to class*, the goal should be to familiarize yourself and bring questions to class. The readings from [FoDV](https://clauswilke.com/dataviz) are conceptual and should facilitate readings from [EGDA](https://ggplot2-book.org/) for code implementation.
  - *After class*, the goal of reading should be to understand and implement code functions as well as support your understanding and help your troubleshooting of problems. 
 
 *Before Class*: First, read to familiarize yourself with the concepts rather than master them. Understand why one would want to visualize data in a particular way and also understand some of the functionality of **{ggplot2}**. I will assume that you attend class with some level of basic understanding of concepts.
