@@ -9,7 +9,7 @@
 <meta name="author" content="Gabriel I. Cook">
 <meta name="dcterms.date" content="2023-09-15">
 
-<title>PSYC167 - Coordinates, axes, and position scales</title>
+<title>PSYC167 - Installing R &amp; RStudio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -200,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/15_coordinates_axes_and_position_scales.html"><strong>Coordinates, axes, and position scales</strong></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/01_installing_r_and_rstudio.html"><strong>Installing R &amp; RStudio</strong></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -229,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/01_installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link">
+  <a href="../modules/01_installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><strong>Installing R &amp; RStudio</strong></span></a>
   </div>
 </li>
@@ -301,7 +301,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/15_coordinates_axes_and_position_scales.html" class="sidebar-item-text sidebar-link active">
+  <a href="../modules/15_coordinates_axes_and_position_scales.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Coordinates, axes, and position scales</strong></span></a>
   </div>
 </li>
@@ -392,9 +392,18 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><strong>Overview</strong></a></li>
   <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
   <ul class="collapse">
+  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks"><strong>Tasks</strong></a></li>
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
   </ul></li>
-  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
+  <li><a href="#determine-the-version-of-your-computers-operating-system" id="toc-determine-the-version-of-your-computers-operating-system" class="nav-link" data-scroll-target="#determine-the-version-of-your-computers-operating-system"><strong>Determine the version of your computer’s operating system</strong></a></li>
+  <li><a href="#download-r" id="toc-download-r" class="nav-link" data-scroll-target="#download-r"><strong>Download R</strong></a></li>
+  <li><a href="#download-rstudio" id="toc-download-rstudio" class="nav-link" data-scroll-target="#download-rstudio"><strong>Download RStudio</strong></a></li>
+  <li><a href="#install-r-and-rstudio-on-your-computer" id="toc-install-r-and-rstudio-on-your-computer" class="nav-link" data-scroll-target="#install-r-and-rstudio-on-your-computer"><strong>Install R and RStudio on your Computer</strong></a>
+  <ul class="collapse">
+  <li><a href="#install-r-first-and-then-install-rstudio." id="toc-install-r-first-and-then-install-rstudio." class="nav-link" data-scroll-target="#install-r-first-and-then-install-rstudio."><em>Install R first and then install RStudio.</em></a></li>
+  </ul></li>
+  <li><a href="#verify-that-rstudio-is-communicating-correctly-with-r" id="toc-verify-that-rstudio-is-communicating-correctly-with-r" class="nav-link" data-scroll-target="#verify-that-rstudio-is-communicating-correctly-with-r"><strong>Verify that RStudio is communicating correctly with R</strong></a></li>
+  <li><a href="#configure-rstudio" id="toc-configure-rstudio" class="nav-link" data-scroll-target="#configure-rstudio"><strong>Configure RStudio</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -403,7 +412,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><strong>Coordinates, axes, and position scales</strong></h1>
+<h1 class="title"><strong>Installing R &amp; RStudio</strong></h1>
 </div>
 
 
@@ -430,39 +439,86 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Under construction.
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.</p>
-</div>
-</div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
+<p>For this course, we will use the <code>R</code> programming language and the <code>RStudio</code> IDE for manipulating data and creating data visualizations.</p>
 </section>
 <section id="to-do" class="level1">
 <h1><strong>To Do</strong></h1>
+<section id="tasks" class="level2">
+<h2 class="anchored" data-anchor-id="tasks"><strong>Tasks</strong></h2>
+<p>The first step is to install these pieces of software so that you can use them.</p>
+<ul>
+<li>Download and Install R</li>
+<li>Download and Install RStudio</li>
+<li>Configure RStudio</li>
+</ul>
+</section>
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings"><strong>Readings</strong></h2>
-<p>Reading should take place in two parts:</p>
 <ul>
-<li><em>Prior to class</em>, the goal should be to familiarize yourself and bring questions to class. The readings from <a href="https://clauswilke.com/dataviz">TFDV</a> are conceptual and should facilitate readings from <a href="https://ggplot2-book.org/">EGDA</a> for code implementation.</li>
-<li><em>After class</em>, the goal of reading should be to understand and implement code functions as well as support your understanding and help your troubleshooting of problems.</li>
+<li><a href="https://psyteachr.github.io/ads-v2/01-intro.html">Intro to R</a></li>
+<li><a href="https://socviz.co/gettingstarted.html#work-in-plain-text-using-rmarkdown">Working with RMarkdown</a></li>
 </ul>
-<p><em>Before Class</em>: First, read to familiarize yourself with the concepts rather than master them. Understand why one would want to visualize data in a particular way and also understand some of the functionality of <strong>{ggplot2}</strong>. I will assume that you attend class with some level of basic understanding of concepts.</p>
-<p><em>Class</em>: In class, some functions and concepts will be introduced and we will practice implementing <strong>{ggplot2}</strong> code. On occasion, there will be an assessment involving code identification, correction, explanation, etc. of concepts addressed in previous modules and perhaps some conceptual elements from this week’s readings.</p>
-<p><em>After Class</em>: After having some hands-on experience with coding in class, homework assignments will involve writing your own code to address some problem. These problems will be more complex, will involving problem solving, and may be open ended. This is where the second pass at reading with come in for you to reference when writing your code. The module content presented below is designed to offer you some assistance working through various coding problems but may not always suffice as a replacement for the readings from <strong>Wickham, Navarro, &amp; Pedersen (under revision)</strong>. <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>.</p>
-<p>https://clauswilke.com/dataviz/coordinate-systems-axes.html</p>
 </section>
 </section>
-<section id="under-construction-content-pending" class="level1">
-<h1><strong>Under construction, content pending</strong></h1>
+<section id="determine-the-version-of-your-computers-operating-system" class="level1">
+<h1><strong>Determine the version of your computer’s operating system</strong></h1>
+<p>Your version of operating system will dictate which version of R to download and install. Make note of your computer’s operating system.</p>
+<p><strong><em>Windows</em></strong> systemsare easier and Windows 10 and 11 operating systems will both use the same R versions.</p>
+<p><strong><em>Macs</em></strong> are somewhat more complicated. The version depends on your cpu. Here is how you can determine:</p>
+<p><a href="https://www.howtogeek.com/706226/how-to-check-if-your-mac-is-using-an-intel-or-apple-silicon-processor/" class="uri">https://www.howtogeek.com/706226/how-to-check-if-your-mac-is-using-an-intel-or-apple-silicon-processor/</a> .</p>
+<p>There will be two cpu options, Intel 64-bit for macOS 10.13 or Apple silicon arm64 for macOS 11 and higher.</p>
+<p><strong>Cloud Options:</strong></p>
+<p>If you do not have a laptop (let me know) or do not have 5GB of hard drive space available on your computer, you might consider a cloud version of the software. One is maintained by Posit (formerly RStudio) and the other is maintained by CMC.</p>
+<p>1.&nbsp;<a href="https://posit.cloud/plans/free" class="uri">https://posit.cloud/plans/free</a> &nbsp;&nbsp;&nbsp;&nbsp;(25 free compute hours a month – make time out)</p>
+<p>2.&nbsp;Remote Desktop Protocol &nbsp;(No limit on compute hours) (contact me if interested)</p>
+</section>
+<section id="download-r" class="level1">
+<h1><strong>Download R</strong></h1>
+<p>Once you know your processor, navigate to <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> and in the “<strong>Download and Install R</strong>” section, select your operating system. You can also select from below and follow the indented sections that follow.</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/bin/linux/">Download R for Linux</a> (<a href="https://cran.r-project.org/bin/linux/debian">Debian</a>, <a href="https://cran.r-project.org/bin/linux/fedora">Fedora/Redhat</a>, <a href="https://cran.r-project.org/bin/linux/ubuntu">Ubuntu)</a></p></li>
+<li><p><a href="https://cran.r-project.org/bin/macosx/">Download R for macOS</a></p></li>
+<li><p><a href="https://cran.r-project.org/bin/windows/">Download R for Windows</a></p></li>
+</ul>
+<pre><code>***Windows*** users should select the **base** version of R and download version **4.3.1** **(no other version)** to your computer. If this version is not on the main page, go to the \"Other Builds\" section and select \"previous releases\" and download the correct version.
+
+***Mac*** users should download either **R-4.3.1.pkg** or **R-4.3.1-x86_64.pkg** version depending on the cpu noted earlier. **Do not** download any version other than 4.3.1 and please do not update throughout the semester.</code></pre>
+</section>
+<section id="download-rstudio" class="level1">
+<h1><strong>Download RStudio</strong></h1>
+<p>Use the urls below to download RStudio and save it to the same directory location on your computer as you saved R. &nbsp;</p>
+<p><strong><em>Windows 10/11</em></strong>: <a href="https://download1.rstudio.org/electron/windows/RStudio-2023.06.2-561.exe" class="uri">https://download1.rstudio.org/electron/windows/RStudio-2023.06.2-561.exe</a></p>
+<p><strong><em>MacOS 10.15+:</em></strong> <a href="https://download1.rstudio.org/electron/macos/RStudio-2023.06.2-561.dmg" class="uri">https://download1.rstudio.org/electron/macos/RStudio-2023.06.2-561.dmg</a></p>
+<p><strong><em>Linux:</em></strong> go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+<p><em>Note:</em> If you have a 32bit operating system, you will need to install an older version: <a href="https://www.rstudio.com/products/rstudio/older-versions/" class="uri">https://www.rstudio.com/products/rstudio/older-versions/</a></p>
+</section>
+<section id="install-r-and-rstudio-on-your-computer" class="level1">
+<h1><strong>Install R and RStudio on your Computer</strong></h1>
+<section id="install-r-first-and-then-install-rstudio." class="level2">
+<h2 class="anchored" data-anchor-id="install-r-first-and-then-install-rstudio."><em>Install R first and then install RStudio.</em></h2>
+<p>Installing should be easy and you can accept all of the defaults although the desktop icons are not needed, especially for R because you will never need it; RStudio will find R for you. You can follow these videos for simple installing.</p>
+<p><em>PC</em>: <a href="https://www.youtube.com/watch?v=_2sewGCA0y4">How to Install R and R Studio on Windows 10/11</a></p>
+<p><em>Mac</em>: <a href="https://www.youtube.com/watch?v=H6Tfgt5gtWQ">Installing R and RStudio on a Mac</a></p>
+<p><strong>Note:</strong> If you leave the desktop icon for R, you can remove that later. You will never need it because RStudio will find R for you.</p>
+<p>##<em>Additional Step for Mac Users:</em></p>
+<p><em>Download and Install XQuartz</em></p>
+<p>Some functions in R require an “X11 Server” and/or libraries associated with an X11 server. Apple does not provide this software with OS X anymore so unfortunately you have to do it on your own via a third-party application called XQuartz for <strong>OS X 10.9 or later</strong>.</p>
+<p>Use the url below to download the XQuartz file and save it to your computer. Follow the same install instructions as above for installing the XQuartz file.</p>
+<p><strong>For macOS 10.9 or later, download this XQuartz file and save it to your computer and install:</strong> <a href="https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg" class="uri">https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg</a></p>
+</section>
+</section>
+<section id="verify-that-rstudio-is-communicating-correctly-with-r" class="level1">
+<h1><strong>Verify that RStudio is communicating correctly with R</strong></h1>
+<p><em>Launch the <strong>RStudio</strong> application.</em></p>
+<p>If RStudio and R are communicating correctly, you should see an RStudio window open with the R console opened which should look similar to that shown below. Your R version should be listed at the top of the console (4.3.1 <strong>Beagle Scouts</strong>).</p>
+</section>
+<section id="configure-rstudio" class="level1">
+<h1><strong>Configure RStudio</strong></h1>
+<p>A.&nbsp;Go to <em>Tools -&gt; Global Options</em> under the <em>General + Basic</em> Tab</p>
+<p>·&nbsp;<strong>R Sessions -&gt; R version:</strong> There should be a path to the installed R version listed if you installed R before R Studio. You should not need to change this unless you have another version installed on your system. If you do have multiple versions, browse to version 4.3.1. Do not update R or any libraries during this course.</p>
+<p>B.&nbsp;<strong>Other options</strong>: Check the other check boxes as indicated in the images below.</p>
 
 
 </section>
