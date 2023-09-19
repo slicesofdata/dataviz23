@@ -72,15 +72,15 @@ website:
 #          - text: Topic 2
 #            href: slides/sample_pres.qmd
           - text: Visualizing Associations
-            href: slides/_sample_quarto_presentation.qmd
+            href: slides/Visualizing_associations.qmd
           - text: Spatial Position and Adjustment
-            href: slides/_sample_quarto_presentation.qmd
-          - text: Spatial Position and Adjustment
-            href: slides/_sample_quarto_presentation.qmd
-          - text: Color Scales and Palettes
-            href: slides/_sample_quarto_presentation.qmd
-          - text: Spatial Position and Adjustment
-            href: slides/_sample_quarto_presentation.qmd
+            href: slides/spatial_position_and_adjustment.qmd
+#          - text: Spatial Position and Adjustment
+#            href: slides/_sample_quarto_presentation.qmd
+#          - text: Color Scales and Palettes
+#            href: slides/_sample_quarto_presentation.qmd
+#          - text: Spatial Position and Adjustment
+#            href: slides/_sample_quarto_presentation.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
 #      - text: "**Exercises**"
