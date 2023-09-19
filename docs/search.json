@@ -1057,6 +1057,13 @@
     "text": "geom_point()\n\nSWIM %&gt;%\n  ggplot(data = ., \n         mapping = aes(x = Distance, y = Time)) +\n  geom_point()"
   },
   {
+    "objectID": "slides/Visualizing_Associations.html#another-example",
+    "href": "slides/Visualizing_Associations.html#another-example",
+    "title": "Visualizing Associations",
+    "section": "Another example",
+    "text": "Another example\n\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Split50)) +\n  geom_point()"
+  },
+  {
     "objectID": "slides/Visualizing_Associations.html#smoothinggeom_smooth",
     "href": "slides/Visualizing_Associations.html#smoothinggeom_smooth",
     "title": "Visualizing Associations",
@@ -1071,20 +1078,6 @@
     "text": "Linear Fit\n\nSWIM %&gt;%\n  filter(., Distance &lt; 1500) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#multiclass-scatterplots",
-    "href": "slides/Visualizing_Associations.html#multiclass-scatterplots",
-    "title": "Visualizing Associations",
-    "section": "Multiclass Scatterplots",
-    "text": "Multiclass Scatterplots\n\nscatterplots with more than 2 variables\ncommunicate relationship with a third variabl\nmapped to an aesthetic like color, size, shape"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-numeric-variable",
-    "href": "slides/Visualizing_Associations.html#mapping-a-numeric-variable",
-    "title": "Visualizing Associations",
-    "section": "Mapping a numeric variable",
-    "text": "Mapping a numeric variable\n\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         \n         ) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point(aes(col = Distance))\n\n\n\n\n\nSWIM %&gt;%\n  filter(., Distance &lt; 1500) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")"
-  },
-  {
     "objectID": "slides/Visualizing_Associations.html#geom_point-when-a-variable-is-a-factor",
     "href": "slides/Visualizing_Associations.html#geom_point-when-a-variable-is-a-factor",
     "title": "Visualizing Associations",
@@ -1092,67 +1085,95 @@
     "text": "geom_point() when a variable is a factor\n\nSWIM %&gt;%\n  filter(., Distance &lt; 1500) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point()"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#make-this-slide-red",
-    "href": "slides/Visualizing_Associations.html#make-this-slide-red",
+    "objectID": "slides/Visualizing_Associations.html#multiclass-scatterplots",
+    "href": "slides/Visualizing_Associations.html#multiclass-scatterplots",
     "title": "Visualizing Associations",
-    "section": "Make this slide Red",
-    "text": "Make this slide Red"
+    "section": "Multiclass Scatterplots",
+    "text": "Multiclass Scatterplots\n\nscatterplots with more than 2 variables\ncommunicate relationship with a third variabl\nmapped to an aesthetic like color, size, shape"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#making-a-slide-incremental",
-    "href": "slides/Visualizing_Associations.html#making-a-slide-incremental",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics",
+    "href": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics",
     "title": "Visualizing Associations",
-    "section": "Making a Slide Incremental",
-    "text": "Making a Slide Incremental\nSay you want to reveal the content of slide piecemeal without rewriting separate slides with previous content.\n\nThen add some content…\n\n\nThen some more content"
+    "section": "Mapping a numeric variable to aesthetics",
+    "text": "Mapping a numeric variable to aesthetics\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         \n         ) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point(mapping = aes(col = Distance))"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#omit-this-slide-visibility-hidden",
-    "href": "slides/Visualizing_Associations.html#omit-this-slide-visibility-hidden",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics-1",
+    "href": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics-1",
     "title": "Visualizing Associations",
-    "section": "Omit This Slide {visibility = “hidden”}",
-    "text": "Omit This Slide {visibility = “hidden”}"
+    "section": "Mapping a numeric variable to aesthetics",
+    "text": "Mapping a numeric variable to aesthetics"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#add-links",
-    "href": "slides/Visualizing_Associations.html#add-links",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics",
+    "href": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics",
     "title": "Visualizing Associations",
-    "section": "Add links",
-    "text": "Add links\n\ncmc\n\n\n\nFirst item\nSecond item"
+    "section": "Mapping a categorical variable to aesthetics",
+    "text": "Mapping a categorical variable to aesthetics\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         \n         ) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point(mapping = aes(col = School))"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#fragments",
-    "href": "slides/Visualizing_Associations.html#fragments",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics-1",
+    "href": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics-1",
     "title": "Visualizing Associations",
-    "section": "Fragments",
-    "text": "Fragments\n\nFade in\n\n\nFade out\n\n\nHighlight red\n\n\nFade in, then out"
+    "section": "Mapping a categorical variable to aesthetics",
+    "text": "Mapping a categorical variable to aesthetics"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#fragments-nesting",
-    "href": "slides/Visualizing_Associations.html#fragments-nesting",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable",
+    "href": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable",
     "title": "Visualizing Associations",
-    "section": "Fragments, nesting",
-    "text": "Fragments, nesting\n\n\n\nFade in &gt; Turn red &gt; Semi fade out"
+    "section": "Mapping a new numeric and a new categorical variable",
+    "text": "Mapping a new numeric and a new categorical variable\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event))"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#fragments-spans",
-    "href": "slides/Visualizing_Associations.html#fragments-spans",
+    "objectID": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable-1",
+    "href": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable-1",
     "title": "Visualizing Associations",
-    "section": "Fragments, spans",
-    "text": "Fragments, spans\nThis is an important sentence!\nMind the gap when riding the rail!"
+    "section": "Mapping a new numeric and a new categorical variable",
+    "text": "Mapping a new numeric and a new categorical variable"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#column-layout",
-    "href": "slides/Visualizing_Associations.html#column-layout",
+    "objectID": "slides/Visualizing_Associations.html#suppress-legend",
+    "href": "slides/Visualizing_Associations.html#suppress-legend",
     "title": "Visualizing Associations",
-    "section": "Column layout",
-    "text": "Column layout\n\n\ncontents…s\n\ncontents…"
+    "section": "Suppress Legend",
+    "text": "Suppress Legend\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    show.legend = F\n    )"
   },
   {
-    "objectID": "slides/Visualizing_Associations.html#output-location",
-    "href": "slides/Visualizing_Associations.html#output-location",
+    "objectID": "slides/Visualizing_Associations.html#suppress-legend-1",
+    "href": "slides/Visualizing_Associations.html#suppress-legend-1",
     "title": "Visualizing Associations",
-    "section": "Output Location",
-    "text": "Output Location\n\n\nlibrary(ggplot2)\n\nmtcars |&gt; \n  ggplot(aes(x = disp, y = mpg)) +\n  geom_point() +\n  geom_smooth(method = \"loess\", formula = \"y~x\")"
+    "section": "Suppress Legend",
+    "text": "Suppress Legend"
+  },
+  {
+    "objectID": "slides/Visualizing_Associations.html#changing-alpha-transparency",
+    "href": "slides/Visualizing_Associations.html#changing-alpha-transparency",
+    "title": "Visualizing Associations",
+    "section": "Changing alpha transparency",
+    "text": "Changing alpha transparency\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    alpha = .4,\n    show.legend = F\n    )"
+  },
+  {
+    "objectID": "slides/Visualizing_Associations.html#changing-alpha-transparency-1",
+    "href": "slides/Visualizing_Associations.html#changing-alpha-transparency-1",
+    "title": "Visualizing Associations",
+    "section": "Changing alpha transparency",
+    "text": "Changing alpha transparency"
+  },
+  {
+    "objectID": "slides/Visualizing_Associations.html#changing-point-position",
+    "href": "slides/Visualizing_Associations.html#changing-point-position",
+    "title": "Visualizing Associations",
+    "section": "Changing point position",
+    "text": "Changing point position\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    alpha = .3,\n    position = position_jitter(),\n    show.legend = F\n    )"
+  },
+  {
+    "objectID": "slides/Visualizing_Associations.html#changing-point-position-1",
+    "href": "slides/Visualizing_Associations.html#changing-point-position-1",
+    "title": "Visualizing Associations",
+    "section": "Changing point position",
+    "text": "Changing point position"
   },
   {
     "objectID": "slides/spatial_position_and_adjustment.html#loading-data",
@@ -1314,96 +1335,5 @@
     "title": "Syllabus",
     "section": "FAQ",
     "text": "FAQ\nIf you have questions about the syllabus, let’s talk about it in class, and/or please create a thread to discuss the question on the discussion board for this course on Blackboard."
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#another-example",
-    "href": "slides/Visualizing_Associations.html#another-example",
-    "title": "Visualizing Associations",
-    "section": "Another example",
-    "text": "Another example\n\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Split50)) +\n  geom_point()"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics",
-    "href": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics",
-    "title": "Visualizing Associations",
-    "section": "Mapping a numeric variable to aesthetics",
-    "text": "Mapping a numeric variable to aesthetics\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         \n         ) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point(mapping = aes(col = Distance))"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics",
-    "href": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics",
-    "title": "Visualizing Associations",
-    "section": "Mapping a categorical variable to aesthetics",
-    "text": "Mapping a categorical variable to aesthetics\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         \n         ) %&gt;%\n  ggplot(., aes(x = factor(Distance), y = Time)) +\n  geom_point(mapping = aes(col = School))"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable",
-    "href": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable",
-    "title": "Visualizing Associations",
-    "section": "Mapping a new numeric and a new categorical variable",
-    "text": "Mapping a new numeric and a new categorical variable\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event))"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#suppress-legend",
-    "href": "slides/Visualizing_Associations.html#suppress-legend",
-    "title": "Visualizing Associations",
-    "section": "Suppress Legend",
-    "text": "Suppress Legend\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    show.legend = F\n    )"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#changing-alpha-transparency",
-    "href": "slides/Visualizing_Associations.html#changing-alpha-transparency",
-    "title": "Visualizing Associations",
-    "section": "Changing alpha transparency",
-    "text": "Changing alpha transparency\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    alpha = .4,\n    show.legend = F\n    )"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#changing-alpha-transparency-1",
-    "href": "slides/Visualizing_Associations.html#changing-alpha-transparency-1",
-    "title": "Visualizing Associations",
-    "section": "Changing alpha transparency",
-    "text": "Changing alpha transparency"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#changing-point-position",
-    "href": "slides/Visualizing_Associations.html#changing-point-position",
-    "title": "Visualizing Associations",
-    "section": "Changing point position",
-    "text": "Changing point position\nSWIM %&gt;%\n  filter(., \n         !is.na(Name),\n         Time &lt; 1000\n         ) %&gt;%\n  ggplot(., aes(x = Distance, y = Time)) +\n  geom_point(\n    aes(size = Split50, col = Event),\n    alpha = .3,\n    position = position_jitter(),\n    show.legend = F\n    )"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics-1",
-    "href": "slides/Visualizing_Associations.html#mapping-a-numeric-variable-to-aesthetics-1",
-    "title": "Visualizing Associations",
-    "section": "Mapping a numeric variable to aesthetics",
-    "text": "Mapping a numeric variable to aesthetics"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics-1",
-    "href": "slides/Visualizing_Associations.html#mapping-a-categorical-variable-to-aesthetics-1",
-    "title": "Visualizing Associations",
-    "section": "Mapping a categorical variable to aesthetics",
-    "text": "Mapping a categorical variable to aesthetics"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable-1",
-    "href": "slides/Visualizing_Associations.html#mapping-a-new-numeric-and-a-new-categorical-variable-1",
-    "title": "Visualizing Associations",
-    "section": "Mapping a new numeric and a new categorical variable",
-    "text": "Mapping a new numeric and a new categorical variable"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#suppress-legend-1",
-    "href": "slides/Visualizing_Associations.html#suppress-legend-1",
-    "title": "Visualizing Associations",
-    "section": "Suppress Legend",
-    "text": "Suppress Legend"
-  },
-  {
-    "objectID": "slides/Visualizing_Associations.html#changing-point-position-1",
-    "href": "slides/Visualizing_Associations.html#changing-point-position-1",
-    "title": "Visualizing Associations",
-    "section": "Changing point position",
-    "text": "Changing point position"
   }
 ]

@@ -38,6 +38,17 @@ SWIM %>%
   geom_point()
 ```
 
+## Another example
+
+```{r}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Split50)) +
+  geom_point()
+```
 
 ## `Smoothing`geom_smooth()`
 
@@ -61,37 +72,7 @@ SWIM %>%
 ```
 
 
-## Multiclass Scatterplots
-
-- scatterplots with more than 2 variables
-- communicate relationship with a third variabl
-- mapped to an aesthetic like color, size, shape
-
-## Mapping a numeric variable
-
-```{r}
-SWIM %>%
-  filter(., 
-         !is.na(Name),
-         Time < 1000
-         
-         ) %>%
-  ggplot(., aes(x = factor(Distance), y = Time)) +
-  geom_point(aes(col = Distance))
-```
-
-```{r}
-SWIM %>%
-  filter(., Distance < 1500) %>%
-  ggplot(., aes(x = Distance, y = Time)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-
-## *`geom_point()` when a variable is a factor*
-
-Point plots can all be used for plotting individual data points for categorical data. 
+## `geom_point()` when a variable is a factor
 
 ```{r}
 SWIM %>%
@@ -101,108 +82,188 @@ SWIM %>%
 ```
 
 
+## Multiclass Scatterplots
+
+- scatterplots with more than 2 variables
+- communicate relationship with a third variabl
+- mapped to an aesthetic like color, size, shape
 
 
-## Make this slide Red  {background-color="red"}
+## Mapping a numeric variable to aesthetics
 
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         
+         ) %>%
+  ggplot(., aes(x = factor(Distance), y = Time)) +
+  geom_point(mapping = aes(col = Distance))
+```
 
-## Making a Slide Incremental
+## Mapping a numeric variable to aesthetics
 
-Say you want to reveal the content of slide piecemeal without rewriting separate slides with previous content.
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         
+         ) %>%
+  ggplot(., aes(x = factor(Distance), y = Time)) +
+  geom_point(mapping = aes(col = Distance))
+```
 
-. . .
+## Mapping a categorical variable to aesthetics
 
-Then add some content...
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         
+         ) %>%
+  ggplot(., aes(x = factor(Distance), y = Time)) +
+  geom_point(mapping = aes(col = School))
+```
 
-. . .
+## Mapping a categorical variable to aesthetics
 
-Then some more content
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         
+         ) %>%
+  ggplot(., aes(x = factor(Distance), y = Time)) +
+  geom_point(mapping = aes(col = School))
+```
 
+## Mapping a new numeric and a new categorical variable
 
-## Omit This Slide {visibility = "hidden"}
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event))
+```
 
-## Add links
+## Mapping a new numeric and a new categorical variable
 
-- [cmc](http://cmc.edu "my tooltip")
-
-
-::: {.incremental}
-
-- First item
-- Second item
-
-:::
-
-
-## Fragments
-
-::: {.fragment}
-Fade in
-:::
-
-::: {.fragment .fade-out}
-Fade out
-:::
-
-::: {.fragment .highlight-red}
-Highlight red
-:::
-
-::: {.fragment .fade-in-then-out}
-Fade in, then out
-:::
-
-# New Section
-
-## Fragments, nesting
-
-::: {.fragment .fade-in}
-::: {.fragment .highlight-red}
-::: {.fragment .semi-fade-out}
-Fade in > Turn red > Semi fade out
-:::
-:::
-:::
-
-
-## Fragments, spans
-
-This is an [important sentence!]{.fragment .highlight-red}
-
-
-Mind the [gap]{.fragment .fade-in} when riding the rail!
-
-# Columns
-
-
-## Column layout
-
-:::: {.columns}
-
-::: {.column width="40%"}
-contents...s
-:::
-
-::: {.column width="60%"}
-contents...
-:::
-
-::::
-
-
-
-## Output Location
-
-```{r}
-#| output-location: column-fragment
-#| code-line-numbers: "|2"
-
-library(ggplot2)
-
-mtcars |> 
-  ggplot(aes(x = disp, y = mpg)) +
-  geom_point() +
-  geom_smooth(method = "loess", formula = "y~x")
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event))
 ```
 
 
+
+## Suppress Legend
+
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    show.legend = F
+    )
+```
+
+## Suppress Legend
+
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    show.legend = F
+    )
+```
+
+
+
+## Changing alpha transparency
+
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    alpha = .4,
+    show.legend = F
+    )
+```
+
+## Changing alpha transparency
+
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    alpha = .4,
+    show.legend = F
+    )
+```
+
+
+## Changing point position
+
+```
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    alpha = .3,
+    position = position_jitter(),
+    show.legend = F
+    )
+```
+
+## Changing point position
+
+```{r, echo=FALSE}
+SWIM %>%
+  filter(., 
+         !is.na(Name),
+         Time < 1000
+         ) %>%
+  ggplot(., aes(x = Distance, y = Time)) +
+  geom_point(
+    aes(size = Split50, col = Event),
+    alpha = .3,
+    position = position_jitter(),
+    show.legend = F
+    )
+```
