@@ -64,13 +64,23 @@ website:
         file: modules/index.qmd
 #      - text: "Content"
 #        file: modules/index.qmd
-#      - text: "**Slides**"
-#        #file: slides/index.qmd
-#        menu:
+      - text: "**Slides**"
+        #file: slides/_sample_quarto_presentation.qmd
+        menu:
 #          - text: Topic 1
 #            href: slides/sample_pres.qmd
 #          - text: Topic 2
 #            href: slides/sample_pres.qmd
+          - text: Visualizing Associations
+            href: slides/_sample_quarto_presentation.qmd
+          - text: Spatial Position and Adjustment
+            href: slides/_sample_quarto_presentation.qmd
+          - text: Spatial Position and Adjustment
+            href: slides/_sample_quarto_presentation.qmd
+          - text: Color Scales and Palettes
+            href: slides/_sample_quarto_presentation.qmd
+          - text: Spatial Position and Adjustment
+            href: slides/_sample_quarto_presentation.qmd
       #- text: "Compendium"
       #  file: compendium/index.qmd
 #      - text: "**Exercises**"
@@ -90,18 +100,18 @@ website:
             href: homework/HW03.Rmd
           - text: HW 4
             href: homework/HW04.Rmd
-#          - text: HW 5
-#            href: homework/HW05.Rmd
-#          - text: HW 6
-#            href: homework/HW06.Rmd
-#          - text: HW 7
-#            href: homework/HW07.Rmd
-#          - text: HW 8
-#            href: homework/HW08.Rmd
-#          - text: HW 9
-#            href: homework/HW09.Rmd
-#          - text: HW 10
-#            href: homework/HW10.Rmd
+          - text: HW 5
+            href: homework/HW05.Rmd
+          - text: HW 6
+            href: homework/HW06.Rmd
+          - text: HW 7
+            href: homework/HW07.Rmd
+          - text: HW 8
+            href: homework/HW08.Rmd
+          - text: HW 9
+            href: homework/HW09.Rmd
+          - text: HW 10
+            href: homework/HW10.Rmd
       - text: "**Data**"
         #file: slides/index.qmd
         menu:
@@ -111,6 +121,8 @@ website:
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/cleaned-cms-top-all-time-2023-swim.csv            
           - text: tfrrs.zip
             href: https://github.com/slicesofdata/dataviz23/raw/main/data/tfrrs.zip
+          - text: Fun Tidy Tuesday Data Sets
+            href: https://github.com/rfordatascience/tidytuesday
      # - text: "Project"
 #          - text: Overview 
 #            href: project/project_overview.qmd
@@ -138,7 +150,8 @@ website:
           - text: More Cheatsheets Here
             href: https://rstudio.github.io/cheatsheets/
       - text: "**DataViz Tools**"
-        href: resources/dataviz_tools.qmd 
+        href: resources/dataviz_tools.qmd
+   
 
     right:
       - icon: github

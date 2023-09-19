@@ -4,6 +4,8 @@ author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
+execute:
+  freeze: true
 # this is a test to fingure out why there is the following error when rendering many quarto files:
 # ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
 ---
@@ -58,6 +60,7 @@ Reading should take place in two parts:
 - **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
 - **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
 - **{ggplot2}**: `r packageVersion("ggplot2")`: for creating data visualization
+- **{SwimmeR}**: `r packageVersion("SwimmeR")`: for processing swim meet data
 
 
 ## **External Functions**
@@ -79,6 +82,7 @@ library(magrittr)
 library(dplyr)
 library(stringr)
 library(ggplot2)
+library(SwimmeR) # was used to clean times
 ```
 
 *Note:* Make note of any warnings that appear when loading libraries. There are some libraries that contain functions with the same names. Be aware that the most recently loaded library function will take precedence. You can avoid confusion using `::` to call a function from a particular library (e.g., `libraryname::functionname()`).
@@ -86,21 +90,12 @@ library(ggplot2)
 
 # **Loading Data**
 
+Let's get the swim data for a CMS.
+
 ```{r}
 SWIM <- readr::read_csv(
-  here::here("data", "cleaned-cms-top-all-time-2023-swim.csv"))
-```
-
-Changing the names to title case can facilitate differentiating types of objects, in this case, column variables in a data frame from a data frame, plot, string, function, or something else.
-
-```{r}
-names(SWIM) <- tools::toTitleCase(names(SWIM))
-```
-
-Take a look:
-
-```{r}
-#view_html(SWIM)
+  here::here("data", "swim", "cleaned-2023-CMS-Invite.csv"))# %>%
+  #filter(., School == "Claremont-Mudd-Scripps-CA")
 ```
 
 Take a glimpse:
@@ -131,19 +126,19 @@ We can take the count of various events in order to plot the amount of something
 
 Let's say we want to plot the number of instances for which an ultimate best occurred in a given year. The data set contains bests for each year rather than best times across history. So for each event, we can figure out which year had the fastest time and count the number of instances per year. Then, using that data frame, we can create a data visualization that communicates the number of all-time-bests across the years.
 
-How many years are in the data? 
+How many events are in the data? 
 
 ```{r}
-length(SWIM$Year)
+length(SWIM$Event)
 ```
 
-Um, that's too many years. Let's get `unique()` instances.
+Um, that's too many events. Let's get `unique()` instances.
 
 ```{r}
-length(unique(SWIM$Year))
+length(unique(SWIM$Event))
 ```
 
-OK, so we are dealing with a total number of `r length(unique(SWIM$Year))` years for Stag and Athena data. We could also examine the number of events per year but that involves more wrangling, so let's make the assumption that the number of swim `Events` is constant. Let's also assume that the `Time` variable is cleaned up correctly or the plots will be inaccurate given the data. We will not wrangle here but you should make note of whether everything looks accurate.
+OK, so we are dealing with a total number of `r length(unique(SWIM$Event))` events for Stag and Athena data. We could also examine the number of events per year but that involves more wrangling, so let's make the assumption that the number of swim `Events` is constant. Let's also assume that the `Time` variable is cleaned up correctly or the plots will be inaccurate given the data. We will not wrangle here but you should make note of whether everything looks accurate.
 
 
 ## **Reduce the data frame to contain the bests**
@@ -167,13 +162,12 @@ Let's assign the new data frame to an object:
 
 ```{r}
 FAST_BY_EVENT <- SWIM %>% 
-  group_by(., Event) %>% 
+  group_by(., Event, School) %>% 
   slice(., which.min(Time)) 
 
 
 FAST_BY_EVENT %>% glimpse(.)
 ```
-
 
 We now have a data frame containing `r dim(FAST_BY_EVENT)[1]` rows.
 
@@ -189,11 +183,11 @@ FAST_BY_EVENT %>%
   #htmlTable::htmlTable()
 ```
 
-Selecting only the `Event` and the `Year`:
+Selecting only the `Event` and the `Team`:
 
 ```{r}
 FAST_BY_EVENT %>% 
-  select(., Event, Year) %>% 
+  select(., Event, Team) %>% 
   knitr::kable() #%>% 
   #htmlTable::htmlTable()
 ```
@@ -248,16 +242,25 @@ Error in f(): ! stat_count() can only have an x or y aesthetic.
 
 We can change the mapping in the base `ggplot()` layer, which will plot bars corresponding to the unique levels of the variable passed to x at a height relative to the frequency of occurrence of those unique levels. 
 
-Checking `?geom_bar`, you will notice that `geom_bar()` has a default `stat = "count"`. This means that the default bar plot will plot the "count", or frequency, of elements in a vector variable. When the count or frequency of a value is 1, the bar height will be 1 on the y axis and if an element appears 5 times in the vector, the bar height will be 5. For a horizontal bar, the bar length, rather than height, will be 5. Looking at `FAST_BY_EVENT$Team`, you will see many instances that will be "Stag" or "Athena". Based on the previous discussion, what might you expect the bar to look like? Answer before seeing the plot or explain why after seeing the plot.
+Checking `?geom_bar`, you will notice that `geom_bar()` has a default `stat = "count"`. This means that the default bar plot will plot the "count", or frequency, of elements in a vector variable. When the count or frequency of a value is 1, the bar height will be 1 on the y axis and if an element appears 5 times in the vector, the bar height will be 5. For a horizontal bar, the bar length, rather than height, will be 5. Looking at `FAST_BY_EVENT$Age`, you will see different ages. Based on the previous discussion, what might you expect the bar to look like? Answer before seeing the plot or explain why after seeing the plot.
 
 
 Let's pass a variable to x:
 
 ```{r}
 FAST_BY_EVENT %>%
-  ggplot(., aes(x = Year)) +
+  ggplot(., aes(x = Age)) +
   geom_bar()
 ```
+
+You will notice that the y-axis variable in the plot is *count*. This variable is not in the data frame. **{ggplot}** calculated the count as the default behavior of `geom_bar()` using the `stat_*()` function associated with `geom_bar()`, with is `stat_count()`. That is where the count comes from. If you pass `stat = "count"`, you will get the same plot because this is the default behavior calling `stat_count()`.
+
+```{r}
+FAST_BY_EVENT %>%
+  ggplot(., aes(x = Age)) +
+  geom_bar()
+```
+
 
 ```{r}
 FAST_BY_EVENT %>%
@@ -265,14 +268,13 @@ FAST_BY_EVENT %>%
   geom_bar()
 ```
 
-
 ```{r}
 FAST_BY_EVENT %>%
   ggplot(., aes(x = Event)) +
   geom_bar()
 ```
 
-Messy. I am not sure that's what we want but you get a feel for what `geom_bar()` is doing.
+Ugly. The bars are all the same height. That's because the counts are the same for all events. This might not be what you expected to see but this is what `geom_bar()` is doing. It operates differently from `geom_col()`.
 
 
 Let's pass a variable to y:
@@ -283,22 +285,22 @@ FAST_BY_EVENT %>%
   geom_bar()
 ```
 
-
 ```{r}
 FAST_BY_EVENT %>%
-  ggplot(., aes(x = Year)) +
+  ggplot(., aes(y = Age)) +
   geom_bar()
 ```
 
-If `geom_bar()` does inherit x and y from `ggplot()`, and if you want the heights of the bars to represent values in the data (e.g., "identity"), use `geom_bar()` and pass `stat = "identity")`. You should see the same plot as shown with passing only `x = Year` except for the inclusion of `Team` information.
+If `geom_bar()` does inherit x and y from `ggplot()`, and if you want the heights of the bars to represent values in the data (e.g., their "identity" as shown in the data frame), use `geom_bar()` and pass `stat = "identity")`. You should see the same plot as shown with passing only `x = Year` except for the inclusion of `Team` information.
 
 ```{r}
+FAST_BY_EVENT
 FAST_BY_EVENT %>%
-  ggplot(., aes(x = Year, y = Team)) +
+  ggplot(., aes(x = Age, y = School)) +
   geom_bar(stat = "identity")
 ```
 
-This plot is ugly. We will work on fixing this later but or now understand that `geom_bar()` and `geom_col()` differ but can be used to do plot same thing.
+This plot is ugly. We will work on fixing this later but or now understand that `geom_bar()` and `geom_col()` differ but can be used to plot the same thing.
 
 
 ### **`geom_col()`**
@@ -335,21 +337,8 @@ Trimming some code:
 
 ```{r}
 FAST_BY_EVENT %>%
-  ggplot(., aes(x = Name, y = Time)
+  ggplot(., aes(Name, Time)
   ) +
-  geom_col()
-```
-
-
-```{r}
-FAST_BY_EVENT %>%
-  ggplot(., aes(x = Year, y = Team)) +
-  geom_col()
-```
-
-```{r}
-FAST_BY_EVENT %>%
-  ggplot(., aes(Year, Time)) +
   geom_col()
 ```
 
@@ -357,14 +346,9 @@ Switching x and y:
 
 ```{r}
 FAST_BY_EVENT %>%
-  ggplot(., aes(x = Team, y = Year)) +
+  ggplot(., aes(Time, y = Name)) +
   geom_col()
 ```
-
-Yuck.
-
-
-
 
 
 ## **Adding Layers**
@@ -372,11 +356,12 @@ Yuck.
 We can take a plot object and add layers that will override defaults. Let's assign the plot to an object to make adding some layers easier, though not necessary.
 
 ```{r}
-fast_by_event_col <- FAST_BY_EVENT %>%
+(fast_by_event_col <- FAST_BY_EVENT %>%
   ggplot(data = ., 
          mapping = aes(x = Name, y = Time)
   ) +
   geom_col()
+)
 ```
 
 Add a `coord_*()` layer, specifically `coord_flip()` to flip the coordinates. Take object, and add layer using `+`:
@@ -429,15 +414,19 @@ Let's just do for each each team by changing the data frame. There are other way
 
 ```{r}
 FAST_BY_EVENT_TEAM <- SWIM %>% 
+  #filter(., Team == "Claremont-Mudd-Scripps-CA") %>%
   group_by(., Team, Event) %>% 
   slice(., which.min(Time)) 
 ```
 
-Filter by `Team` and Plot:
+Filter by `Team` and `School` Plot:
 
 ```{r}
-(fast_be_event_team_col_sta <- FAST_BY_EVENT_TEAM %>%
-  filter(., Team == "Stag") %>%
+(fast_be_event_team_col_men <- FAST_BY_EVENT_TEAM %>%
+  filter(., 
+           Team == "Men",
+           School == "Claremont-Mudd-Scripps-CA"
+         )%>%
    ggplot(data = ., 
          mapping = aes(x = Name, y = Time)
   ) +
@@ -446,12 +435,16 @@ Filter by `Team` and Plot:
   theme_classic() +
   xlab(" ") +
   ylab("Seconds") +
-  ggtitle("Fastest Stags for their event since ?")
+  ggtitle("Fastest Stags")
 )
 
 
-(fast_be_event_team_col_ath <- FAST_BY_EVENT_TEAM %>%
-    filter(., Team == "Athena") %>%
+(fast_be_event_team_col_women <- FAST_BY_EVENT_TEAM %>%
+    filter(., 
+           Team == "Women",
+           School == "Claremont-Mudd-Scripps-CA"
+           ) %>%
+    filter(., Team == "Women") %>%
     ggplot(data = ., 
          mapping = aes(x = Name, y = Time)
     )  +
@@ -460,28 +453,65 @@ Filter by `Team` and Plot:
     theme_classic() +
     xlab(" ") +
     ylab("Seconds") +
-    ggtitle("Fastest Athenas for their event since ?")
+    ggtitle("Fastest Athenas")
 )
 ```
+
+Notice what happens if you plotted `Event` with `Name`:
+
+```{r}
+(fast_be_event_team_col_women <- FAST_BY_EVENT_TEAM %>%
+    filter(., 
+           Team == "Women",
+           School == "Claremont-Mudd-Scripps-CA"
+           ) %>%
+    filter(., Team == "Women") %>%
+    ggplot(data = ., 
+         mapping = aes(x = Event, y = Name)
+    )  +
+    geom_col() +  
+    coord_flip() +
+    theme_classic() +
+    xlab(" ") +
+    ylab("Seconds") +
+    ggtitle("Fastest Athenas")
+)
+```
+
+This probably looks different from your expectation.
+
 
 # **Getting Counts by Summary**
 
 Let's use **{dplyr}** to help us obtain subgroups.
 
 ```{r}
-TOP_BY_YEAR <- SWIM %>%
-  group_by(., Name, Team) %>%
-  summarize(., Count = dplyr::n()) 
+COUNT_BY_SCHOOL <- SWIM %>%
+  group_by(., Event) %>%            # group by event
+  slice(., which.min(Time)) %>%     # get fastest times per event
+  group_by(., School) %>%           # group by school
+  summarize(., Count = dplyr::n())  # get the row count for each school
+ 
 
-head(TOP_BY_YEAR)
+head(COUNT_BY_SCHOOL)
 ```
 
-Filter for a `Team` and plot. Again, using `geom_bar(stat = "identity")` we will plot the actual counts in the data set.
+Again, using `geom_bar(stat = "identity")` we will plot the actual counts in the data set. Remember `geom_bar()` won't allow an x and a y, so we need this argument.
+
+Using `geom_bar()`:
 
 ```{r}
-TOP_BY_YEAR %>%
-  filter(., Team == "Athena") %>%
-  ggplot(., aes(x = Name, y = Count)) +
+COUNT_BY_SCHOOL %>%
+  ggplot(., aes(y = School, x = Count)) +
+  geom_col() +
+  coord_flip()
+```
+
+Using `geom_col()`:
+
+```{r}
+COUNT_BY_SCHOOL %>%
+  ggplot(., aes(y = School, x = Count)) +
   geom_bar(stat = "identity") +
   coord_flip()
 ```
@@ -492,23 +522,45 @@ TOP_BY_YEAR %>%
 
 Let's work from the top using the full `SWIM` datat in order to see the full workflow.
 
-1. Group by team and event type
+1. Group by school and event type
 2. Slice the fastest values 
-3. Then group this data frame by year
+3. Then group this data frame by school and event
 4. Summarize by counting the rows  
 5. Arrange in descending order
 6. Create the plot object and map some aesthetics 
 7. Add a geom layer
 
 
+
+```{r}
+SWIM %>%
+  group_by(., Event) %>% 
+  slice(., which.min(Time)) %>%
+  group_by(., School) %>% 
+  summarize(., Count = dplyr::n()) %>%
+  ggplot(., aes(x = School, y = Count)) +
+  geom_point()
+```
+
 ```{r}
 SWIM %>% 
-  group_by(., Team, Event) %>% 
+  group_by(., Team) %>% 
   slice(., which.min(Time)) %>% 
-  group_by(., Year) %>%
+  group_by(., Team, Event) %>%
   summarize(., Count = dplyr::n()) %>%
+  arrange(., desc(Count)) #%>%
+  ggplot(., aes(x = School, y = Count)) +
+  geom_point()
+```
+
+```{r}
+SWIM %>% 
+  group_by(., School, Team, Event) %>% 
+  slice(., which.min(Time)) %>% 
+  group_by(., School, Event) %>%
+  summarize(., Count = dplyr::n()) #%>%
   arrange(., desc(Count)) %>%
-  ggplot(., aes(x = Year, y = Count)) +
+  ggplot(., aes(x = Event, y = Count)) +
   geom_point()
 ```
 
@@ -516,12 +568,9 @@ Add another geom layer:
 
 ```{r}
 SWIM %>% 
-  group_by(., Team, Event) %>% 
-  slice(., which.min(Time)) %>% 
-  group_by(., Year) %>%
-  summarize(., Count = dplyr::n()) %>%
-  arrange(., desc(Count)) %>%
-  ggplot(., aes(x = Year, y = Count)) +
+  group_by(., School) %>% 
+  summarize(., Time = mean(Time, na.rm = T)) %>%
+  ggplot(., aes(x = School, y = Time)) +
   geom_point() +
   geom_col(fill = "gray")
 ```
@@ -530,12 +579,9 @@ Change the geom layer order and add some color:
 
 ```{r}
 SWIM %>% 
-  group_by(., Team, Event) %>% 
-  slice(., which.min(Time)) %>% 
-  group_by(., Year) %>%
-  summarize(., Count = dplyr::n()) %>%
-  arrange(., desc(Count)) %>%
-  ggplot(., aes(x = Year, y = Count)) +
+  group_by(., School) %>% 
+  summarize(., Time = mean(Time, na.rm = T)) %>%
+  ggplot(., aes(x = School, y = Time)) +
   geom_col(fill = "gray", col = "green") +
   geom_point(col = "red") 
 ```
@@ -552,9 +598,9 @@ In order to see the variables in the data frame, let's create it and then assign
 
 ```{r}
 DAT <- SWIM %>% 
-  group_by(., Team, Event) %>% 
+  group_by(., Event) %>% 
   slice(., which.min(Time)) %>% 
-  group_by(., Year) %>%
+  group_by(., School) %>%
   summarize(., Count = dplyr::n()) %>%
   arrange(., desc(Count)) 
 ```
@@ -563,9 +609,9 @@ We can use `geom_segment()` to create a line segment from a starting x and y pos
 
 ```{r}
 DAT %>%
-  ggplot(., aes(x = Year, y = Count)) +
-  geom_segment(aes(x = Year, 
-                   xend = Year, 
+  ggplot(., aes(x = School, y = Count)) +
+  geom_segment(aes(x = School, 
+                   xend = School, 
                    y = 0, 
                    yend = Count)) +
   geom_point(size = 4, col = "black") +
