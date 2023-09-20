@@ -135,13 +135,13 @@ For example:
 ```
 mutate(., 
   Var1 = "1",
-  Var1 = as.numeric("1"),
+  Var1 = as.numeric(Var1),
   )
 ```
 
 Second, you will also notice that there is a `,` on the second declaration of `Var1`. Whereas this orphan often breaks functions that are looking for you passing other arguments in that position, this comma does not cause a problem for `mutate()`.
 
-(a) Whether you accomplish the problem in one or two lines, fix teh `Mark` variable in the data frame so that you can perfom statistical operations on it.
+(a) Whether you accomplish the problem in one or two lines, fix the `Mark` variable in the data frame so that you can perform statistical operations on it.
 
 ```{r}
 
