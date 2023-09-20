@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../slides/Visualizing_associations.qmd" rel="" target="">
  <span class="dropdown-text">Visualizing Associations</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/Visualizing_associations.qmd" rel="" target="">
+ <span class="dropdown-text">Visualizing Associations file</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -441,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../modules/99_importing_many_files_into_a_single_data_frame.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Importing many files into a single data frame</strong></span></a>
+ <span class="menu-text"><strong>Importing many delimeted files into a single data frame</strong></span></a>
   </div>
 </li>
       </ul>
@@ -487,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#creating-a-stacked-bar-plot" id="toc-creating-a-stacked-bar-plot" class="nav-link" data-scroll-target="#creating-a-stacked-bar-plot"><em>Creating a stacked bar plot</em></a></li>
   <li><a href="#creating-a-grouped-bar-plot" id="toc-creating-a-grouped-bar-plot" class="nav-link" data-scroll-target="#creating-a-grouped-bar-plot"><em>Creating a grouped bar plot</em></a></li>
-  <li><a href="#plotting-a-grid-grob-graphic-object" id="toc-plotting-a-grid-grob-graphic-object" class="nav-link" data-scroll-target="#plotting-a-grid-grob-graphic-object"><em>Plotting a Grid Grob (<strong>G</strong>raphic <strong>Ob</strong>ject)</em></a></li>
+  <li><a href="#plotting-a-grid-grob-graphic-object" id="toc-plotting-a-grid-grob-graphic-object" class="nav-link" data-scroll-target="#plotting-a-grid-grob-graphic-object"><em>Plotting a Grid Grob (<strong>Gr</strong>aphic <strong>Ob</strong>ject)</em></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -666,7 +670,7 @@ Under construction.
 </section>
 <section id="adjusting-point-position" class="level2">
 <h2 class="anchored" data-anchor-id="adjusting-point-position"><strong>Adjusting Point Position</strong></h2>
-<p>There are two main ways of adjusting the spatial position for point plots. One solution is to adjust the position argument within <code>geom_point()</code> and the other is to use a sister function <code>geom_jitter()</code>. However, you adjust your data, you must acknowledge that you are the creator of the graphic and that are are making the decision to change those point positioning. The adjustment will influence how users perceive, attend to, and interpret the visualization you produce and distribute. You must consider the degree of the adjustment and weigh the costs and benefits of “massaging” the data visualized. You also much assume resposibility and accountability for doing so.</p>
+<p>There are two main ways of adjusting the spatial position for point plots. One solution is to adjust the position argument within <code>geom_point()</code> and the other is to use a sister function <code>geom_jitter()</code>. However, you adjust your data, you must acknowledge that you are the creator of the graphic and that are are making the decision to change those point positioning. The adjustment will influence how users perceive, attend to, and interpret the visualization you produce and distribute. You must consider the degree of the adjustment and weigh the costs and benefits of “massaging” the data visualized. You also much assume responsibility and accountability for doing so.</p>
 <ul>
 <li><code>geom_point(position = "jitter")</code></li>
 <li><code>geom_jitter()</code></li>
@@ -740,7 +744,7 @@ Under construction.
 <p><img src="11_spatial_position_and_adjustment_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>You will immediately notice that the x axis has changed. Disregard the label change as that is a simple fix with <code>xlab("Distance")</code> and is irrelevant to this current discussion. Importantly, factorizing the variable will make visible all levels of the factor variable <em>present</em> in the data. For example, you now see 50 which was not displayed before. This outcome illustrates the difference in default <code>scale_*()</code> functions for numeric and categorical data but we will address scale manipulations later. You will also notice that the interval between factor levels is equivalent along the x axis despite them not being numerically equal by nature. That behavior is a tradeoff by default which you can fix should you consider the perceptual implications of this approach problematic.</p>
+<p>You will immediately notice that the x axis has changed. Disregard the label change as that is a simple fix with <code>xlab("Distance")</code> and is irrelevant to this current discussion. Importantly, factorizing the variable will make visible all levels of the factor variable <em>present</em> in the data. For example, you now see 50 which was not displayed before. This outcome illustrates the difference in default <code>scale_*()</code> functions for numeric and categorical data but we will address scale manipulations later. You will also notice that the interval between factor levels is equivalent along the x axis despite them not being numerically equal by nature. That behavior is a trade off by default which you can fix should you consider the perceptual implications of this approach problematic.</p>
 <p>The main point here is to illustrate position manipulation. Let’s use <code>geom_jitter()</code> for comparison.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span></span>
@@ -821,9 +825,9 @@ Under construction.
 <h3 class="anchored" data-anchor-id="reproducing-plots"><em>Reproducing Plots</em></h3>
 <p>You can observe the behavior of the functions used above by replicating the function calls. By doing so, you will see that the position of the points changed across those calls. Although we can <em>replicate</em> a procedure to address overplotting, we can not do so in a way that makes the position reproducible across multiple function calls because of the stochastic function applied to do so.</p>
 <p>By <em>reproduction</em>, we mean that you return the same plot for <em>every single call</em> of the same code. Reproduction minimizes the confusion that occurs when your visualization changes when presented to your audience (including you) on different occasions.</p>
-<section id="setting-a-seed-in-geom_jitter" class="level4">
-<h4 class="anchored" data-anchor-id="setting-a-seed-in-geom_jitter"><em>Setting a seed in <code>geom_jitter()</code></em></h4>
-<p>In order to reproduce point position, use <code>position_jitter()</code> along with <code>seed</code> argument. The seed determines the calculation of the jitter, so setting it will result in returning the same plot every single call.</p>
+<section id="setting-a-seed-in-geom_point" class="level4">
+<h4 class="anchored" data-anchor-id="setting-a-seed-in-geom_point"><em>Setting a seed in <code>geom_point()</code></em></h4>
+<p>In order to reproduce point position instead of replicating something very similar, use <code>position_jitter()</code> along with the <code>seed</code> argument. The seed determines the calculation of the jitter, so setting it will result in returning the same plot every single call.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., </span>
@@ -833,7 +837,8 @@ Under construction.
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>,</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> <span class="dv">15</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="11_spatial_position_and_adjustment_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -844,7 +849,7 @@ Under construction.
 </section>
 <section id="adjusting-point-transparency" class="level2">
 <h2 class="anchored" data-anchor-id="adjusting-point-transparency"><strong>Adjusting Point Transparency</strong></h2>
-<p>When points are oqaque, your only option is to change their position. But changing position means changing the data from identity to something else. This may not be your first line of attack.</p>
+<p>When points are opaque, your only option is to change their position. But changing position means changing the data from identity to something else. This may not be your first line of attack.</p>
 <p>Now that we have set a seed or reproduction, we can also adjust the transparency of the points by passing values from 0 to 1 to the <code>alpha</code> argument. In conjunction with position adjustments, alpha adjustments will facilitate the perception of two points (compared with one) with minimal position adjustment.</p>
 <p>By default points are opaque, <code>alpha = 1</code>:</p>
 <div class="cell">
@@ -1100,7 +1105,7 @@ Under construction.
 </section>
 <section id="bar-position" class="level1">
 <h1><strong>Bar Position</strong></h1>
-<p><strong>{ggplot2}</strong> also makes some decisions about position when plotting bars. The position of the bars along the x axis by default for <code>geom_bar()</code> and <code>geom_col()</code> is <code>position = "stack"</code> (see <code>?geom_bar</code>). When you want to introduce a variable other than x or y, you can introduce it as a new asethetic, for example color. When you do this, the bars for the subgoups will take the same position of x and therefore <em>stack</em> on top of each other by default. Also, by default the stat will be the count, as displayed along the y axis.</p>
+<p><strong>{ggplot2}</strong> also makes some decisions about position when plotting bars. The position of the bars along the x axis by default for <code>geom_bar()</code> and <code>geom_col()</code> is <code>position = "stack"</code> (see <code>?geom_bar</code>). When you want to introduce a variable other than x or y, you can introduce it as a new aesthetic, for example color. When you do this, the bars for the subgroups will take the same position of x and therefore <em>stack</em> on top of each other by default. Also, by default the stat will be the count, as displayed along the y axis.</p>
 <section id="creating-a-stacked-bar-plot" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-stacked-bar-plot"><em>Creating a stacked bar plot</em></h2>
 <p>Let’s add the <code>School</code> variable to the plot using <code>aes(fill = School)</code> to the <code>geom_*()</code> layer:</p>
@@ -1140,12 +1145,12 @@ Under construction.
 <p><img src="11_spatial_position_and_adjustment_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Notice that with stacked bars, you encode the count as the length of the colored rectangle. For the user to compare counts for comparisons, they can use the height <em>position</em> for the first stack only because the bars are on an aligned scale. The other bars in the stack do not have the same starting an ending points. These bars on on an unaligned scale, which makes the decoding task more difficult for the user. In addition to this alignment issue, the bars may also encourage decoding of area, which is also a challing cognitive task that leads to perceptual errors. For discussion of more of these perceptual issues, see <em>Cleveland &amp; McGill (1984). Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods</em>.</p>
+<p>Notice that with stacked bars, you encode the count as the length of the colored rectangle. For the user to compare counts for comparisons, they can use the height <em>position</em> for the first stack only because the bars are on an aligned scale. The other bars in the stack do not have the same starting an ending points. These bars on on an unaligned scale, which makes the decoding task more difficult for the user. In addition to this alignment issue, the bars may also encourage decoding of area, which is also a challenging cognitive task that leads to perceptual errors. For discussion of more of these perceptual issues, see <em>Cleveland &amp; McGill (1984). Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods</em>.</p>
 <p>When you want to facilitate comparisons of bars, you might want to change their positions by creating a grouped bar plot.</p>
 </section>
 <section id="creating-a-grouped-bar-plot" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-grouped-bar-plot"><em>Creating a grouped bar plot</em></h2>
-<p>Stacking is not always the desired outcome. We often want to see the bars for the subgroups. We will need to override the default position. Dodging is a general way to correct for overlapping objects, whether points, bars, boxplots, etc. You can practice using it with <code>geom_point()</code> but we will use it here for bars. Specifically, we will override the default position argument, <code>position = "stacked"</code> and make is <code>position = "dodge"</code> so that the bar positions dodge each other.</p>
+<p>Stacking is not always the desired outcome. We often want to see the bars for the subgroups. We will need to override the default position. Dodging is a general way to correct for overlapping objects, whether points, bars, box plots, etc. You can practice using it with <code>geom_point()</code> but we will use it here for bars. Specifically, we will override the default position argument, <code>position = "stacked"</code> and make is <code>position = "dodge"</code> so that the bar positions dodge each other.</p>
 <p>Dodging a <code>geom_*()</code> like bars, points, or rectangles, will preserve their vertical position while also adjusting their horizontal position.</p>
 <p>Besides the examples illustrated below, you can find more examples in the <a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">tidyverse documentation</a>.</p>
 <p><code>geom_bar(position = "dodge")</code></p>
@@ -1190,7 +1195,7 @@ Under construction.
 </div>
 </section>
 <section id="plotting-a-grid-grob-graphic-object" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-a-grid-grob-graphic-object"><em>Plotting a Grid Grob (<strong>G</strong>raphic <strong>Ob</strong>ject)</em></h2>
+<h2 class="anchored" data-anchor-id="plotting-a-grid-grob-graphic-object"><em>Plotting a Grid Grob (<strong>Gr</strong>aphic <strong>Ob</strong>ject)</em></h2>
 <p>We can take the three objects and arrange them in a grid using <code>gridExtra::arrangeGrob()</code>. We can specify the number of colons and or rows as well. In this case, we can plot them all as a single column and they will appear in the order the plots are added in <code>arrangeGrob()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(d1_plot, </span>

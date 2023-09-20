@@ -180,7 +180,7 @@ SWIM %>%
 
 ## **Adjusting Point Position**
 
-There are two main ways of adjusting the spatial position for point plots. One solution is to adjust the position argument within `geom_point()` and the other is to use a sister function `geom_jitter()`. However, you adjust your data, you must acknowledge that you are the creator of the graphic and that are are making the decision to change those point positioning. The adjustment will influence how users perceive, attend to, and interpret the visualization you produce and distribute. You must consider the degree of the adjustment and weigh the costs and benefits of "massaging" the data visualized. You also much assume resposibility and accountability for doing so.
+There are two main ways of adjusting the spatial position for point plots. One solution is to adjust the position argument within `geom_point()` and the other is to use a sister function `geom_jitter()`. However, you adjust your data, you must acknowledge that you are the creator of the graphic and that are are making the decision to change those point positioning. The adjustment will influence how users perceive, attend to, and interpret the visualization you produce and distribute. You must consider the degree of the adjustment and weigh the costs and benefits of "massaging" the data visualized. You also much assume responsibility and accountability for doing so.
 
 - `geom_point(position = "jitter")`
 - `geom_jitter()`
@@ -253,7 +253,7 @@ SWIM %>%
   geom_point()
 ```
 
-You will immediately notice that the x axis has changed. Disregard the label change as that is a simple fix with `xlab("Distance")` and is irrelevant to this current discussion. Importantly, factorizing the variable will make visible all levels of the factor variable *present* in the data. For example, you now see 50 which was not displayed before. This outcome illustrates the difference in default `scale_*()` functions for numeric and categorical data but we will address scale manipulations later. You will also notice that the interval between factor levels is equivalent along the x axis despite them not being numerically equal by nature. That behavior is a tradeoff by default which you can fix should you consider the perceptual implications of this approach problematic. 
+You will immediately notice that the x axis has changed. Disregard the label change as that is a simple fix with `xlab("Distance")` and is irrelevant to this current discussion. Importantly, factorizing the variable will make visible all levels of the factor variable *present* in the data. For example, you now see 50 which was not displayed before. This outcome illustrates the difference in default `scale_*()` functions for numeric and categorical data but we will address scale manipulations later. You will also notice that the interval between factor levels is equivalent along the x axis despite them not being numerically equal by nature. That behavior is a trade off by default which you can fix should you consider the perceptual implications of this approach problematic. 
 
 The main point here is to illustrate position manipulation. Let's use `geom_jitter()` for comparison.
 
@@ -335,9 +335,9 @@ You can observe the behavior of the functions used above by replicating the func
 By *reproduction*, we mean that you return the same plot for *every single call* of the same code. Reproduction minimizes the confusion that occurs when your visualization changes when presented to your audience (including you) on different occasions. 
 
 
-#### *Setting a seed in `geom_jitter()`*
+#### *Setting a seed in `geom_point()`*
 
-In order to reproduce point position, use `position_jitter()` along with `seed` argument. The seed determines the calculation of the jitter, so setting it will result in returning the same plot every single call.
+In order to reproduce point position instead of replicating something very similar, use `position_jitter()` along with the `seed` argument. The seed determines the calculation of the jitter, so setting it will result in returning the same plot every single call.
 
 ```{r}
 SWIM %>%
@@ -348,7 +348,8 @@ SWIM %>%
   ggplot(., aes(x = Distance, y = Time)) +
   geom_point(position = position_jitter(seed = 167,
                                         height = 0,
-                                        width = 15))
+                                        width = 15)
+             )
 ```
 
 For this reason, I recommend using `geom_point()` over `geom_jitter()`.
@@ -356,7 +357,7 @@ For this reason, I recommend using `geom_point()` over `geom_jitter()`.
 
 ## **Adjusting Point Transparency**
 
-When points are oqaque, your only option is to change their position. But changing position means changing the data from identity to something else. This may not be your first line of attack.
+When points are opaque, your only option is to change their position. But changing position means changing the data from identity to something else. This may not be your first line of attack.
 
 Now that we have set a seed or reproduction, we can also adjust the transparency of the points by passing values from 0 to 1 to the `alpha` argument. In conjunction with position adjustments, alpha adjustments will facilitate the perception of two points (compared with one) with minimal position adjustment.
 
@@ -551,7 +552,7 @@ Another option to overcome overplotting is to create what is known as a  *counts
 
 # **Bar Position** 
 
-**{ggplot2}** also makes some decisions about position when plotting bars. The position of the bars along the x axis by default for `geom_bar()` and `geom_col()` is `position = "stack"` (see `?geom_bar`). When you want to introduce a variable other than x or y, you can introduce it as a new asethetic, for example color. When you do this, the bars for the subgoups will take the same position of x and therefore *stack* on top of each other by default. Also, by default the stat will be the count, as displayed along the y axis.
+**{ggplot2}** also makes some decisions about position when plotting bars. The position of the bars along the x axis by default for `geom_bar()` and `geom_col()` is `position = "stack"` (see `?geom_bar`). When you want to introduce a variable other than x or y, you can introduce it as a new aesthetic, for example color. When you do this, the bars for the subgroups will take the same position of x and therefore *stack* on top of each other by default. Also, by default the stat will be the count, as displayed along the y axis.
 
 ## *Creating a stacked bar plot*
 
@@ -590,14 +591,14 @@ SWIM %>%
   geom_bar()
 ```
 
-Notice that with stacked bars, you encode the count as the length of the colored rectangle. For the user to compare counts for comparisons, they can use the height *position* for the first stack only because the bars are on an aligned scale. The other bars in the stack do not have the same starting an ending points. These bars on on an unaligned scale, which makes the decoding task more difficult for the user. In addition to this alignment issue, the bars may also encourage decoding of area, which is also a challing cognitive task that leads to perceptual errors. For discussion of more of these perceptual issues, see *Cleveland & McGill (1984). Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods*.
+Notice that with stacked bars, you encode the count as the length of the colored rectangle. For the user to compare counts for comparisons, they can use the height *position* for the first stack only because the bars are on an aligned scale. The other bars in the stack do not have the same starting an ending points. These bars on on an unaligned scale, which makes the decoding task more difficult for the user. In addition to this alignment issue, the bars may also encourage decoding of area, which is also a challenging cognitive task that leads to perceptual errors. For discussion of more of these perceptual issues, see *Cleveland & McGill (1984). Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods*.
 
 When you want to facilitate comparisons of bars, you might want to change their positions by creating a grouped bar plot.
 
 
 ## *Creating a grouped bar plot*
 
-Stacking is not always the desired outcome. We often want to see the bars for the subgroups. We will need to override the default position. Dodging is a general way to correct for overlapping objects, whether points, bars, boxplots, etc. You can practice using it with `geom_point()` but we will use it here for bars. Specifically, we will override the default position argument, `position = "stacked"` and make is `position = "dodge"` so that the bar positions dodge each other. 
+Stacking is not always the desired outcome. We often want to see the bars for the subgroups. We will need to override the default position. Dodging is a general way to correct for overlapping objects, whether points, bars, box plots, etc. You can practice using it with `geom_point()` but we will use it here for bars. Specifically, we will override the default position argument, `position = "stacked"` and make is `position = "dodge"` so that the bar positions dodge each other. 
 
 Dodging a `geom_*()` like bars, points, or rectangles, will preserve their vertical position while also adjusting their horizontal position. 
 
@@ -654,7 +655,7 @@ d3_plot <- SWIM %>%
 ```
 
 
-## *Plotting a Grid Grob (**G**raphic **Ob**ject)*
+## *Plotting a Grid Grob (**Gr**aphic **Ob**ject)*
 
 We can take the three objects and arrange them in a grid using `gridExtra::arrangeGrob()`. We can specify the number of colons and or rows as well. In this case, we can plot them all as a single column and they will appear in the order the plots are added in `arrangeGrob()`.
 
