@@ -73,8 +73,8 @@ website:
 #            href: slides/sample_pres.qmd
           - text: Visualizing Associations
             href: slides/Visualizing_associations.qmd
-          - text: Visualizing Associations file
-            file: slides/Visualizing_associations.qmd
+          - text: Visualizing Associations (html)
+            file: slides/Visualizing_associations.html
 #          - text: Spatial Position and Adjustment
 #            href: slides/spatial_position_and_adjustment.qmd
 #          - text: Spatial Position and Adjustment
