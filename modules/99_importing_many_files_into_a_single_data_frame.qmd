@@ -1,5 +1,5 @@
 ---
-title: "**Importing many files into a single data frame**"
+title: "**Importing many delimeted files into a single data frame**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -68,7 +68,7 @@ The tfrrs data are not all that clean. You can use the logic provided below to:
 2. Read them and combine them into a single data frame
 3. Write out that event uber event data frame.
 4. Combine these event .csv's to an uber data frame
-4. Write out the uber data frame 
+4. Write out the uber data frame (use `saveRDS()` if you make any changes to variable type (e.g., factor))
 
 The more events you can put in a single data frame, the easier your plotting will be in **{ggplot}** but remember you can also pass separate data frames at the `geom_*()` layer. That said, combining as much as you can might be most helpful. I would recommend dealing first with the field events before dealing with the track events because of the time variable.
 
@@ -91,7 +91,7 @@ DT <- list.files(here::here("data", "tfrrs"),
            ) %>% 
   vroom::vroom(.)
 
-readr::write_csv(DT, here::here("data", "tfrrs", "DT.csv"))
+saveRDS(DT, here::here("data", "tfrrs", "DT.Rds"))
 ```
 
 
@@ -104,31 +104,30 @@ HT <- list.files(here::here("data", "tfrrs"),
            ) %>% 
   vroom::vroom(.)
 
-readr::write_csv(HT, here::here("data", "tfrrs", "HT.csv"))
+saveRDS(HT, here::here("data", "tfrrs", "HT.Rds"))
 ```
 
 
 ## **Get the Event Files and Combine**
 
-For some events, the columns may differ, so you might get an error. If you review the names of columns and locate the pesky file(s), you can remove any columns from the data, like the `"Wind"` column, or others you don't want. 
-
-After aggregating by event, you can combine the events, for example, combine the field events into a single data frame. Just make sure that you have a vector of names (e.g., `c()`) that you pass into the `here()` call because remember, those file names should be saved in the `/data/tfrrs/` path specified in `here()`. 
-
-```{r}
-FIELD <- vroom::vroom(here::here("data", "tfrrs", c("DT.csv", "HT.csv")))
-```
-
-Alternatively, if you have the data frame objects still in memory, pass the data frames to `dplyr::bind_rows()` which will add the rows of the second data frame below the first data frame and then 
+For some events, the columns may differ, so you might get an error. If you review the names of columns and locate the pesky `dplyr::select()` columns that you do want. If you have not removed the data frame objects just pass those to `dplyr::bind_rows()`, which will add the rows of the second data frame below the first data frame so that you have a single data frame.
  
 ```{r}
-FIELD <- dplyr::bind_rows(DT, HT, DT, HT)
+FIELD <- dplyr::bind_rows(DT, HT)
 ```
 
 ## **Save Data**
 
-And then combine and write to an uber field event `.csv`. 
+And then combine and write to an uber field event `.csv` or `.Rds` file. 
  
 ```{r}
-readr::write_csv(FIELD, here::here("data", "tfrrs", "TFRRS_FIELD.csv"))
+saveRDS(FIELD, here::here("data", "tfrrs", "TFRRS_FIELD.Rds"))
+```
+
+
+# **Session Information**
+
+```{r}
+sessionInfo()
 ```
 
