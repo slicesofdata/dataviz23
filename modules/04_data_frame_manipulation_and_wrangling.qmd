@@ -422,6 +422,69 @@ Select variables which DO NOT contain character "g":
 DAT %>% select(., -contains('g'))
 ```
 
+
+Select variables containing a regular expression, use `matches()`:
+
+`.*` will grab all names because it means any character and any number of times
+
+```{r}
+DAT %>% select(., matches(".*"))
+```
+
+`\\d` will grab all variables containing a digit:
+
+```{r}
+DAT %>% 
+  mutate(., 
+         var_1    = 1,
+         var_11   = 1,
+         var_3    = 1,
+         var1_var = 1
+         ) %>%
+  select(., matches("\\d"))
+```
+
+`v.*\\d` will grab all variables that start with v and then contain any characters which are followed by a digit:
+
+```{r}
+DAT %>% 
+    mutate(., 
+         var_1    = 1,
+         var_11   = 1,
+         var_3    = 1,
+         var1_var = 1
+         ) %>%
+  select(., matches("v.*\\d"))
+```
+
+`\\d$` will grab all variables ending in a digit (`$` means end):
+
+```{r}
+DAT %>% 
+    mutate(., 
+         var_1    = 1,
+         var_11   = 1,
+         var_3    = 1,
+         var1_var = 1
+         ) %>%
+  select(., matches("\\d$"))
+
+```
+
+You can also negate all regular expression matches if you want to exclude:
+
+```{r}
+DAT %>%
+      mutate(., 
+         var_1    = 1,
+         var_11   = 1,
+         var_3    = 1,
+         var1_var = 1
+         ) %>%
+  select(., -matches("\\d$"))
+```
+
+
 Note: The functions will return lowercase and uppercase variable name matches because the default behavior is `ignore.case = TRUE`. Set to `FALSE` if you want to perform precise surgery on the variables.  
 
 
