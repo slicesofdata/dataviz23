@@ -1,5 +1,5 @@
 ---
-title: "**Importing many delimeted files into a single data frame**"
+title: "**Importing many delimited files into a single data frame**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
