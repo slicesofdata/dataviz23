@@ -227,7 +227,7 @@ When you edit files (e.g., made changes and saved the file), the file will be de
      * A window will pop up showing some of the edits to the file
      * A window for *Commit message* will also appear for adding your message. This window is where you want to be.
      
-4. In that window, type your commit message 
+4. Type your commit message in that window
      * Your message should be clear and useful to remind your future self or colleagues of the edits but not be overly wordy. 
 
 5. Click Commit to commit the change
@@ -254,13 +254,13 @@ colFmt <- function(x,color) {
 
 Note: You will click the `r colFmt("Blue", 'blue')` Arrow to *Pull* the changes *down* from the remote repository what were pushed there by your collaborators
 
-Check Staged and click Commit
-
 
 ## **Other Resources**
 
 
-1. Git Clients: [GitKraken](https://www.gitkraken.com/)
+1. Git Client: 
+
+Git clients work like the RStudio Gui option described above but likely much better. One client is [GitKraken](https://www.gitkraken.com/).
      * If you find the *Terminal* command line daunting or limiting, I might recommend a Git Client to use as I am not a big fan of the RStudio interface.
      * GitKraken is a good option and they have lots of tutorials on their website. GitKraken is seamless to set up. Install, connect your GitHub account, select your repo to add, and voilà. You can stage, commit, and push from there.  
 
