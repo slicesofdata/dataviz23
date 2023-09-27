@@ -140,7 +140,7 @@ You will then paste your PAT here and press return/enter. If there are options, 
     https://github.com/slicesofdata/dataviz23-lawson.git
 ```
 
-3. When you create the project, a directory will be created, a name will auto populate (e.g., 'dataviz23-stewart'). If you change the name, name it something that you will know as your team project. In order to keep the class organized, I might suggest you create the project in your PSYC167 course directory. You should already have a R project for you homework called something like `homework.Rproj` in that course directory.
+3. When you create the project, a directory will be created, a name will auto populate (e.g., 'dataviz23-stewart'). If you change the name, name it something that you will know as your team project. In order to keep the class organized, I might suggest you create the project in your PSYC167 course directory. You should already have a R project for you homework called something like `homework.Rproj` in that course directory. *WARNING:* Do not create the project inside of an existing project's directory.
 
     * Note: I recommend that you also select *"Open in new session"* in order to compartmentalize projects. When you work on the team project, open the project. When you work on your homework or other class exercises, open your *homework* project.
 
