@@ -194,8 +194,8 @@ There are three main parts to Git Workflow:
         * `$ git push`
      * If you navigate to your GitHub account in your web browser, you will see the changes there as soon as they arrive. Congrats!
 
-6. **Changing, Committing, and Pushing Again**
-     * OK, that file with your name is not needed for the project. Delete it from the project directory and then add the change, commit the change with message "deleted my silly file" and *push* changes. 
+6. **Practice (Yes, seriously): Changing, Committing, and Pushing Again**
+     * You know that file with your name is not needed for the project. Delete it from the project as you normally would delete a file (no need to use the Terminal) and then *add* the change, *commit* the change with message "deleted my silly file", and *push* changes. 
      * If for some reason, your push did not work, you may need to specify the project branch. Branching is beyond the scope of this course. If team members are working on separate tasks, their code will be compartmentalized so you can use the main branch.
         * You can set the branch to the main branch at the *Terminal* using `git branch -M main`.
         * `$ git branch -M main`
