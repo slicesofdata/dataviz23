@@ -94,7 +94,8 @@ There are two ways you can set up, either using R (console) or the command line 
 The **{usethis}** library will make connecting your `R` project to your github account simple. This library should be installed as part of the packages from the start of the course. You will use `usethis::use_git_config()` to configure your GitHub account  (see earlier) with Git on your computer. In the below example, you need to pass two arguments, your `user.name` and `user.email` attached to your GitHub account and then execute the modified `R` code:
 
 ```
-usethis::use_git_config(user.name = "Jane Git", user.email = "jane_git@gitrdone.com")
+usethis::use_git_config(user.name = "Jane Git", 
+                        user.email = "jane_git@gitrdone.com")
 ```
 
 

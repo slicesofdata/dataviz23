@@ -564,7 +564,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="configuring-git-and-github"><strong>Configuring Git and GitHub</strong></h2>
 <p>There are two ways you can set up, either using R (console) or the command line (terminal). My recommendation is to use R because that is where you are likely most familiar. We will use the <strong>{usethis}</strong> library to help you.</p>
 <p>The <strong>{usethis}</strong> library will make connecting your <code>R</code> project to your github account simple. This library should be installed as part of the packages from the start of the course. You will use <code>usethis::use_git_config()</code> to configure your GitHub account (see earlier) with Git on your computer. In the below example, you need to pass two arguments, your <code>user.name</code> and <code>user.email</code> attached to your GitHub account and then execute the modified <code>R</code> code:</p>
-<pre><code>usethis::use_git_config(user.name = "Jane Git", user.email = "jane_git@gitrdone.com")</code></pre>
+<pre><code>usethis::use_git_config(user.name = "Jane Git", 
+                        user.email = "jane_git@gitrdone.com")</code></pre>
 </section>
 <section id="creating-a-personal-access-token-pat-for-github" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-personal-access-token-pat-for-github"><strong>Creating a Personal Access Token (PAT) for GitHub</strong></h2>
