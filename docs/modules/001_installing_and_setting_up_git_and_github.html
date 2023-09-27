@@ -447,6 +447,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#creating-a-version-control-project-in-rstudio" id="toc-creating-a-version-control-project-in-rstudio" class="nav-link" data-scroll-target="#creating-a-version-control-project-in-rstudio"><strong>Creating a Version Control Project in RStudio</strong></a></li>
   <li><a href="#git-workflow-basics" id="toc-git-workflow-basics" class="nav-link" data-scroll-target="#git-workflow-basics"><strong>Git Workflow Basics</strong></a></li>
   <li><a href="#making-local-file-changes-committing-and-pushing-to-github" id="toc-making-local-file-changes-committing-and-pushing-to-github" class="nav-link" data-scroll-target="#making-local-file-changes-committing-and-pushing-to-github"><strong>Making Local File Changes, Committing, and Pushing to GitHub</strong></a></li>
+  <li><a href="#using-the-git-tab-in-your-rstudio-pane" id="toc-using-the-git-tab-in-your-rstudio-pane" class="nav-link" data-scroll-target="#using-the-git-tab-in-your-rstudio-pane"><strong>Using the Git Tab in your RStudio Pane</strong></a></li>
   <li><a href="#other-resources" id="toc-other-resources" class="nav-link" data-scroll-target="#other-resources"><strong>Other Resources</strong></a></li>
   </ul>
 </nav>
@@ -683,6 +684,31 @@ ul.task-list li input[type="checkbox"] {
 <li>You should find the changes appear in your local project directory.</li>
 </ul></li>
 </ol>
+</section>
+<section id="using-the-git-tab-in-your-rstudio-pane" class="level2">
+<h2 class="anchored" data-anchor-id="using-the-git-tab-in-your-rstudio-pane"><strong>Using the Git Tab in your RStudio Pane</strong></h2>
+<p>If you do not use the Terminal to add, commit, and push, you can also use Git with RStudio, though I tend to find this creates an annoying lag when there are lots of files.</p>
+<p>When you edit files (e.g., made changes and saved the file), the file will be detected in the project if you have set up Git. The changes detected will be listed in the window for this tab. You can then stage, commit the changes, push the changes using this RStudio GUI.</p>
+<ol type="1">
+<li><p>Click the Git tab</p></li>
+<li><p>Check the box under <em>Staged</em> next to the file</p>
+<ul>
+<li>Note: There may be a delay.</li>
+</ul></li>
+<li><p>Click the <em>Commit</em> icon on the toolbar directly above <em>Status</em></p>
+<ul>
+<li>A window will pop up showing some of the edits to the file</li>
+<li>A window for <em>Commit message</em> will also appear for adding your message. This window is where you want to be.</li>
+</ul></li>
+<li><p>In that window, type your commit message</p>
+<ul>
+<li>Your message should be clear and useful to remind your future self or colleagues of the edits but not be overly wordy.</li>
+</ul></li>
+<li><p>Click Commit to commit the change</p></li>
+<li><p>Click the <font color="lime">Green</font> Arrow to <em>Push</em> your committed change <em>up</em> to the remote repository.</p></li>
+</ol>
+<p>Note: You will click the <font color="blue">Blue</font> Arrow to <em>Pull</em> the changes <em>down</em> from the remote repository what were pushed there by your collaborators</p>
+<p>Check Staged and click Commit</p>
 </section>
 <section id="other-resources" class="level2">
 <h2 class="anchored" data-anchor-id="other-resources"><strong>Other Resources</strong></h2>

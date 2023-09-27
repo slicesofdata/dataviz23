@@ -214,25 +214,46 @@ There are three main parts to Git Workflow:
 
 ## **Using the Git Tab in your RStudio Pane**
 
-You can also use Git with RStudio, though I tend to find this more challenging when there are lots of files. 
+If you do not use the Terminal to add, commit, and push, you can also use Git with RStudio, though I tend to find this creates an annoying lag when there are lots of files. 
 
 When you edit files (e.g., made changes and saved the file), the file will be detected in the project if you have set up Git. The changes detected will be listed in the window for this tab. You can then stage, commit the changes, push the changes using this RStudio GUI.
 
 1. Click the Git tab
 
 2. Check the box under *Staged* next to the file
+     * Note: There may be a delay.
 
-3. Click Commit
+3. Click the *Commit* icon on the toolbar directly above *Status*
+     * A window will pop up showing some of the edits to the file
+     * A window for *Commit message* will also appear for adding your message. This window is where you want to be.
+     
+4. In that window, type your commit message 
+     * Your message should be clear and useful to remind your future self or colleagues of the edits but not be overly wordy. 
 
-4. Type your message about what you did in this Commit message
+5. Click Commit to commit the change
 
-5. Click Commit
+```{r include=FALSE}
+colFmt <- function(x,color) {
+  
+  outputFormat <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+  
+  if(outputFormat == 'latex') {
+    ret <- paste("\\textcolor{",color,"}{",x,"}",sep="")
+  } else if(outputFormat == 'html') {
+    ret <- paste("<font color='",color,"'>",x,"</font>",sep="")
+  } else {
+    ret <- x
+  }
+  
+  return(ret)
+}
 
-Create a new Rmd file
-Click File -> New File -> R Markdown
-Edit the file and change the title
-Save the file
-Commit the new Rmd file
+```
+
+6. Click the `r colFmt("Green", 'lime')` Arrow to *Push* your committed change *up* to the remote repository.
+
+Note: You will click the `r colFmt("Blue", 'blue')` Arrow to *Pull* the changes *down* from the remote repository what were pushed there by your collaborators
+
 Check Staged and click Commit
 
 
