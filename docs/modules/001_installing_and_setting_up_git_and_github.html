@@ -547,19 +547,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="checking-git-setup-in-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="checking-git-setup-in-rstudio"><strong>Checking Git Setup in RStudio</strong></h2>
-<p>Tell RStudio where to find the Git program.</p>
+<p>You will need to tell RStudio where to find the Git program as this may not be recognize automatically.</p>
 <ol type="1">
-<li>In RStudio, go to <strong>Tools &gt; Global Options</strong> and click on Git/SVN</li>
-<li>Check the option to <em>Enable version control interface for RStudio projects</em> if not selected.</li>
-<li>Find the path to the Git program executable that was installed in an earlier step.
+<li><p>Find the path to the Git program executable that was installed in an earlier step.</p>
 <ul>
-<li>In the <em>Terminal</em> in RStudio (not the R console), you could type <code>where git</code> on Windows or <code>which git</code> on Mac/Linux and you might find the path easily.
-<ul>
-<li>For Windows Users, this is likely in <code>C:/Program Files (x86)/Git/bin/git.exe</code> or in <code>C:/Program Files/Git/bin/git.exe</code></li>
-<li>For Linux/OS X Users, the path should be something like: <code>/usr/bin/git</code></li>
+<li>In the <em>Terminal</em> in RStudio (not the R console), type: <code>where git</code> on Windows or <code>which git</code> on Mac/Linux and you might find the path easily. If there are more than one paths listed, just make note of one of them.</li>
+<li>If for some reason you don’t see a path listed using that approach, type: <code>Sys.which("git")</code> in your R console. The path here will likely be truncated so you will have to fill in the gaps when performing the next step.</li>
 </ul></li>
-</ul></li>
-<li>Set the path to the Git program executable if not there. Click <em>Apply</em> and <em>OK</em>.</li>
+<li><p>In RStudio, go to <strong>Tools &gt; Global Options</strong> and click on left side bar menu item <em>Git/SVN</em>.</p></li>
+<li><p>Select the option at the top to <em>Enable version control interface for RStudio projects</em> if it is not selected.</p></li>
+<li><p>Set the path to the Git executable if it is not already there. Browse to the path to where Git.exe installed on your computer. Windows Users should make note that this path should be a path containing <code>Git.exe</code> and <strong>not</strong> a path containing <code>git-bash.exe</code>.</p></li>
+<li><p>Click <em>Apply</em> and click <em>OK</em>.</p></li>
 </ol>
 </section>
 <section id="configuring-git-and-github" class="level2">

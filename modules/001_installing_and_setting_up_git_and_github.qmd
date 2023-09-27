@@ -69,20 +69,23 @@ RStudio integrates support for Git but this interface is a little clunky. You ca
 3. Send your PM your GitHub username. Your PM will send those to me and I will add you to a private repo. Once you are added to the repo, you can do the next step.
 
 
-
 ## **Checking Git Setup in RStudio**
 
-Tell RStudio where to find the Git program.
+You will need to tell RStudio where to find the Git program as this may not be recognize automatically.
 
-1. In RStudio, go to **Tools > Global Options** and click on Git/SVN
-2. Check the option to *Enable version control interface for RStudio projects* if not selected.
-3. Find the path to the Git program executable that was installed in an earlier step.
-     * In the *Terminal* in RStudio (not the R console), you could type `where git` on Windows or `which git` on Mac/Linux and you might find the path easily.
-       - For Windows Users, this is likely in `C:/Program Files (x86)/Git/bin/git.exe` or in `C:/Program Files/Git/bin/git.exe` 
-       - For Linux/OS X Users, the path should be something like: `/usr/bin/git`
+1. Find the path to the Git program executable that was installed in an earlier step.
+     * In the *Terminal* in RStudio (not the R console), type: `where git` on Windows or `which git` on Mac/Linux and you might find the path easily. If there are more than one paths listed, just make note of one of them. 
+     * If for some reason you don't see a path listed using that approach, type:  `Sys.which("git")` in your R console. The path here will likely be truncated so you will have to fill in the gaps when performing the next step.
+     
+2. In RStudio, go to **Tools > Global Options** and click on left side bar menu item *Git/SVN*.
 
-4. Set the path to the Git program executable if not there. Click *Apply* and *OK*.
+2. Select the option at the top to *Enable version control interface for RStudio projects* if it is not selected.
 
+3. Set the path to the Git executable if it is not already there. Browse to the path to where Git.exe installed on your computer. Windows Users should make note that this path should be a path containing `Git.exe` and **not** a path containing `git-bash.exe`.
+
+4. Click *Apply* and click *OK*.
+
+ 
  
 ## **Configuring Git and GitHub**
 
