@@ -75,7 +75,7 @@ You will need to tell RStudio where to find the Git program as this may not be r
 
 1. Find the path to the Git program executable that was installed in an earlier step.
      * In the *Terminal* in RStudio (not the R console), type: `where git` on Windows or `which git` on Mac/Linux and you might find the path easily. If there are more than one paths listed, just make note of one of them. 
-     * If for some reason you don't see a path listed using that approach, type:  `Sys.which("git")` in your R console. The path here will likely be truncated so you will have to fill in the gaps when performing the next step.
+     * If for some reason you don't see a path listed using that approach, type:  `Sys.which("git")` in your R console. The path here will likely be truncated so you will have to fill in the gaps when performing the step to set the path.
      
 2. In RStudio, go to **Tools > Global Options** and click on left side bar menu item *Git/SVN*.
 
