@@ -211,6 +211,31 @@ There are three main parts to Git Workflow:
      * You should find the changes appear in your local project directory.
 
 
+
+## **Using the Git Tab in your RStudio Pane**
+
+You can also use Git with RStudio, though I tend to find this more challenging when there are lots of files. 
+
+When you edit files (e.g., made changes and saved the file), the file will be detected in the project if you have set up Git. The changes detected will be listed in the window for this tab. You can then stage, commit the changes, push the changes using this RStudio GUI.
+
+1. Click the Git tab
+
+2. Check the box under *Staged* next to the file
+
+3. Click Commit
+
+4. Type your message about what you did in this Commit message
+
+5. Click Commit
+
+Create a new Rmd file
+Click File -> New File -> R Markdown
+Edit the file and change the title
+Save the file
+Commit the new Rmd file
+Check Staged and click Commit
+
+
 ## **Other Resources**
 
 
