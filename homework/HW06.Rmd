@@ -109,7 +109,7 @@ Find out the official team colors for the CMS Athletics (try a color dropper, li
 
 ```
 
-2. Create a third palette that starts with the same color but does not blend. Instead, make it lighter.
+3. Create a third palette that starts with the same color but does not blend. Instead, make it lighter.
 
 ```{r}
 
