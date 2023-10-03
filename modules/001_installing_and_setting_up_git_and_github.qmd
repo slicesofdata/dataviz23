@@ -7,6 +7,8 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 ```{r}
 #| label: load-packages
 #| include: false
+# see other examples for reverting changes
+#https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html
 ```
 
 ## **Overview**

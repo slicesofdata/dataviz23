@@ -23,3 +23,4 @@ view_html <- function(object, rows = F, show = 100,...) {
     
   }
 }
+	

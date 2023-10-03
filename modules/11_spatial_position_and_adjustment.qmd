@@ -63,7 +63,6 @@ source(here::here("r", "my_functions.R"))
 
 ## **Libraries**
 
-- **{here}**: `r packageVersion("here")`: for path management
 - **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
 - **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
 - **{ggplot2}** `r packageVersion("ggplot2")`: for plotting
@@ -82,8 +81,11 @@ library(ggplot2)
 For this exercise, we will use some data from a 2023 CMS swim meet located at: "https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv".
 
 ```{r}
-SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv", show_col_types = F)
+SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv", 
+                        show_col_types = F)
 ```
+
+
 
 # **Point Position in `geom_point()`**
 
@@ -595,6 +597,32 @@ Notice that with stacked bars, you encode the count as the length of the colored
 
 When you want to facilitate comparisons of bars, you might want to change their positions by creating a grouped bar plot.
 
+## *Stacking with `position = "fill"`*
+
+A problem with stacking is that the counts are raw and are not conditionalized on all the  
+
+Using `position = "fill"` will stretch the bars so that the counts are relative to the distribution.
+
+```{r}
+plot1 <- SWIM %>%
+  ggplot(data = ., 
+         mapping = aes(x = School, 
+                       fill = Event)
+         ) +
+  geom_bar() 
+
+plot2 <- SWIM %>%
+  ggplot(data = ., 
+         mapping = aes(x = School, 
+                       fill = Event
+                       )
+         ) +
+  geom_bar(position = "fill", ) 
+
+plot(gridExtra::arrangeGrob(plot1, plot2, ncol = 1))
+```
+
+
 
 ## *Creating a grouped bar plot*
 
@@ -668,4 +696,8 @@ plot(gridExtra::arrangeGrob(d1_plot,
 ```
 
 
- 
+# **Session Info**
+
+```{r, echo = FALSE}
+sessionInfo()
+```

@@ -179,9 +179,12 @@ There are other applications too but we cannot get into them all here.
 
 # **What is a Color Palette?**
 
+First, just in base R, there are `r length(colors())` colors, which you can check out using `colors()` and `demo("colors")`.
+
 Well, let's see:
 
 ```{r}
+?palette
 palette()
 ```
 
@@ -197,6 +200,69 @@ ggplot(data = data.frame(x = 1:8,
   ) + coord_flip() + theme_classic() + 
   xlab("") + ylab("") + theme(axis.text.x = element_blank())
 ```
+
+
+You can also 
+```{r}
+palette.colors(n = 5, 
+               palette = "Okabe-Ito", 
+               alpha = .5, 
+               recycle = FALSE
+               )
+
+get_palette <- function(n = 5, 
+                        palette = "Okabe-Ito", 
+                        alpha = 1, 
+                        plot = TRUE, 
+                        tile_size = 5) {
+  
+  pal = palette.colors(n = n, 
+               palette = palette, 
+               alpha = alpha, 
+               recycle = FALSE
+               )
+  
+  if (plot) {
+    (p <- ggplot(data = data.frame(x = 1:n, 
+                             y = rep(1, n), 
+                             names = pal),
+           mapping = aes(x = names, y = y)
+           ) +
+    geom_tile(aes(fill = pal, size = tile_size),
+              alpha = alpha, show.legend = FALSE) + 
+      coord_flip() + theme_classic() + 
+      xlab("") + ylab("") + 
+      theme(axis.text.x = element_blank()) 
+    )
+  }
+  #print(pal); 
+  return(pal)
+  }
+
+```
+
+```{r, include=F}
+#two critical conditions for designing sequential color scales that can represent data values: 
+#1 - The colors need to clearly indicate which data values are larger or smaller than which other ones, 
+#2 - the differences between colors need to visualize the corresponding differences between data values. 
+#Unfortunately, several existing color scales—including very popular ones—violate one or both of these conditions. 
+```
+
+
+```{r}
+get_palette(n = 5, palette = "Okabe-Ito", alpha = .4, plot = F)
+```
+
+The colors will change if you change the alpha.
+
+```{r}
+get_palette(n = 8, palette = "Okabe-Ito", alpha = .5, plot = T)
+```
+
+```{r}
+get_palette(n = 8, palette = "Okabe-Ito", alpha = .2, plot = T)
+```
+
 
 ## **Color Scales Built into {ggplot2}** 
 
