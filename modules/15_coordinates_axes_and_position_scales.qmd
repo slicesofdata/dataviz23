@@ -85,6 +85,7 @@ For any graphical data visualization to be created, it must fall within some def
 To plot a single bar as narrow as a single pixel (technically a line), some position needs to be determined on the x-axis for the bar location and on the y-axis for its terminal height. That xy location for that specification is very much just a point until the bar (line) extends to some terminal location, typically at the x-axis. When the bar width is greater than a single pixel, then the thickness defines more positions but are needed nonetheless. When there are two or more bars, each likely needs its own position so that they are not stacked on top of each other. Similarly, points for scatter plots also need positions in space to represent their x and y positions. 
 
 
+
 ## **The Cartesian Coordinate System**
 
 The coordinate system described above is that Cartesian coordinate system, within which locations are specified by positions on the x and y axis corresponding to specific values determined by x and y as single values or specified by sets of values belonging to x and y. Because axes themselves are lines and represent continuous position scales, they stretch in real numbers beyond 0 in both directions, resulting in four quadrants of the coordinate system. Thus, x and y axes can contain both positive and negative real numbers. The visualization, however, needs axis limits in order to define the space along x and y for the data to appear. As you are familiar, many plots limit x and y axes to a value of 0 on the low end and some other value on the upper end. Data that exist outside of the define plot axis limits will not be depicted in the plot.
@@ -94,6 +95,149 @@ A plot depicting values from x and y variables from the same unit system should 
 When the variables are on different scales, however, either x or y axis could be stretched or compressed for a different perspective depending on the goal so storytelling. As long as one is not trying to bias their audience in a way to mislead them, a favorable aspect ratio could be one with good aesthetics. A plot with balance is always appealing. Something too wide or too tall may just appear odd. In general, an aspect ratio should be chosen that communicates important aspects of differences in position are noticeable.
 
 When plots (e.g., `geom_()`s) use statistical transformations (e.g., jittering), you should consider carefully the influence of the data position relative to the actual data. Fine tuned these transformations to ensure the the visualize data are most true to the actual data to reduce bias.  
+
+
+## **Coordinate Functions: `coord_*()`**
+
+There are a variety of `coord_()` layer functions for . By default, plots already have a `coord_cartesian()` layer.  Also, the x-axis is oriented horizontally and the y-axis is oriented vertically. By tradition, predictor variables assume the x-axis orientation, whereas outcome variables assume the y-axis. 
+
+### **`coord_flip()`**
+
+`coord_flip()` is used to flip the Cartesian coordinate system such that the x and y axis swap positions. Flipping may facilitate plot perception, for example, when bar length rather than height either makes more sense or supports comparisons. Outcome variables that are natively perceived in terms of length rather than height may also benefit from plotting the outcome variable along the x axis.
+
+```{r}
+SWIM %>% 
+  filter(Distance == 100) %>%
+  group_by(Event) %>%
+  summarize(Time = mean(Time)) %>%
+  ggplot(data = .,
+         mapping = aes(x = Event, y = Time)) +
+  geom_col() +
+  coord_flip()
+```
+
+
+
+###  **`coord_fixed()`**
+
+When ensuring the aspect ratio of the coordinate system is important, `coord_fixed()` will prove helpful. 
+
+The most important parameter of the function is `ratio`, which by default is set to `ratio = 1`. The ratio represents the aspect ratio, expressed as `y / x`. Thus, the number of units on the y-axis that are equivalent to one unit on the x-axis. Thus, `ratio = 1` ensures that one unit on the x-axis equates to 1 unit on the y-axis. 
+
+You can easily modify this to a different value, for example, `1.5`, `2` or `10` to make the y axis longer than the x axis by this ratio. If you wish to make the y axis shorted, use a value or fraction to be less than 1 (e.g., `1/5`). In addition, `xlim` and `ylim` parameters can be set in this layer.
+
+To illustrate, let's set the two axis limits to begin and end at the same values using `xlim()` and `ylim()`. Both require a two element vector. In addition, the default ratio is `ratio = 1`.
+
+```{r}
+SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point() +
+  xlim(0, 60) +
+  ylim(0, 60) +
+  #coord_equal()
+  coord_fixed(ratio = 1)
+```
+
+Setting `ratio = 2`:
+
+```{r}
+SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point() +
+  xlim(0, 60) +
+  ylim(0, 60) +
+  coord_fixed(ratio = 2)
+```
+
+You see that the plot is now lengthened `2:1` in favor of the y-axis. 
+
+
+But the function might not work exactly as you expect. For example, if you axis limits are not set to be the same, but rather x is twice that of y, then a ratio of `1` behaves perhaps a little different from what you might think. 
+
+```{r}
+expand_plot <- SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point()
+
+noexpand_plot <- SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point() +
+  # do not expand axis (no padding))
+  coord_cartesian(expand = FALSE)
+
+suppressMessages(
+  plot(
+    gridExtra::arrangeGrob(expand_plot, noexpand_plot, ncol = 1))
+)
+```
+
+Be careful 
+
+```{r}
+noexpand_plot2 <- SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point() +
+  # do not expand axis (no padding))
+  #coord_cartesian(expand = FALSE) +
+  #coord_cartesian(expand = FALSE,
+  #                xlim = c(0, 40),
+  #                ylim = c(0, 80)
+  #                ) +
+  coord_fixed(ratio = 1, 
+              xlim = c(0, 40), 
+              ylim = c(0, 80)
+              )
+  #scale_y_continuous(expand = c(0, 0))
+
+suppressMessages(
+  plot(
+    gridExtra::arrangeGrob(expand_plot, 
+                           noexpand_plot,
+                           noexpand_plot2,
+                           ncol = 1))
+)
+```
+
+
+# coord_fixed(ratio = 1) +
+  
+  scale_x_continuous(n.breaks = 10) + #+ # breaks = seq(24, 40, 1)) +
+  scale_y_continuous(expand = c(0, 0),
+                     n.breaks = 20) +
+  # do not expand axis (no padding))
+  coord_cartesian(expand = FALSE)
+   
+#scale_x_continuous(breaks = seq(45, 40, 1))
+
+?scale_y_continuous
+```
+
+Adjusting the breaks 
+
+
+### **`coord_equal()`**
+
+
+```{r}
+SWIM %>% 
+  filter(Distance == 100) %>%
+  ggplot(data = .,
+         mapping = aes(x = Split50, y = Time)) +
+  geom_point() +
+  xlim(0, 60) +
+  ylim(0, 60) +
+  coord_equal()
+```
 
 
 ## **Nonlinear scales**
@@ -159,7 +303,6 @@ plot(gridExtra::arrangeGrob(plot1, plot2, ncol = 1))
 ```
 
 The previous modules are replete with plots containing this problem that compromises your ability to interpret the plot. At the time we introduced those plots, ways to address this problem were not introduced. This module addresses scale and axis adjustments.  
-
 
 
 # **Counts, Proportions, and Percentages**
@@ -430,7 +573,7 @@ SWIM %>%
 Then select a subset by level:
 
 ```
-scale_x_discrete(limits = c("Fair", "Ideal"))
+scale_x_discrete(limits = c("Freestyle", "Butterfly"))
 ```
 
 Alternatively, if you don't want to reference a long function like `scale_x_discrete()`, there are shorthand functions for limits which you could just add as layers to the plot.

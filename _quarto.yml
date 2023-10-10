@@ -107,7 +107,7 @@ website:
           - text: HW 6
             href: homework/HW06.Rmd
           - text: HW 7
-            href: homework/HW07.Rmd
+            file: homework/HW07.Rmd
           - text: HW 8
             href: homework/HW08.Rmd
           - text: HW 9
@@ -151,6 +151,8 @@ website:
             href: cheatsheets/Data_Science_With_R_Workflow.pdf 
           - text: More Cheatsheets Here
             href: https://rstudio.github.io/cheatsheets/
+          - text: Quarto Cheat Sheet (what Quarto Files Look Like)
+            href: https://images.datacamp.com/image/upload/v1676540721/Marketing/Blog/Quarto_Cheat_Sheet.pdf
       - text: "**DataViz Tools**"
         href: resources/dataviz_tools.qmd
    
