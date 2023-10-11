@@ -421,7 +421,7 @@ SWIM %>%
 ```
 
 
-The `mean` column still have different value but they are replicated on rows with the same `Event` group. This is because the data are grouped that way. 
+The `mean` column still has different values but they are replicated on rows with the same `Event` group. This is because the data are grouped that way. 
 
 
 #### Revisiting `.groups = "drop"`:
@@ -496,7 +496,7 @@ We can now also consider ways to create column variables and a corresponding gro
 
 `group_by()` is not designed to create new variables but rather create groups. The function, however, does not require variables in a data frame in order to group based on their levels or differences in values.  
 
-### **group_by() using a function**
+### **`group_by()` using a function**
 
 Heretofore, we have grouped by column variables in a data frame. But you can also group in other ways, for example, by a variable calculated by a function. For example, if you wanted to group by standard deviations, you could calculated the standard deviation `(Score-mean(Score)) / sd(Score)` for each student and then `cut()` that variable into groups. `cut` will take a numeric vector variable and turn it into a factor variable of *n* groups as determined by what you pass to `breaks`. There is also an argument to make the factor ordered if you wish, `ordered_result = TRUE` but the default behavior does not order the factor.  You can also change the level labels if you inspect the function.
 
@@ -589,6 +589,8 @@ Notice in the console, that both `School` and `District` are included in the gro
 # Groups:   School, District [5]
 ```
 
+
+
 ## **Why Care About Grouping Structure**
 
 Well, the functions you apply to a grouped tibble will sometimes lead to calculations that are not what you intend. We provided some examples earlier but given the importance of the issue, we may benefit from another example. 
@@ -647,14 +649,6 @@ DATA %>%
 Yes! `Mean_of_all` is now a true grand mean based on all of the data with no grouping at all. Comparing `Mean_of_all` to `School_Mean` provides two classifications. 
 
 
-# **How to Retain Variables for Aggregated Data**
-
-If you group on a column of factor there may be levels of the factor that are not currently present in the data. If you group on this column, by default those non-present levels are dropped and not included as groups. To change this so that all levels appear as groups (even if not present in the data), set `.drop = FALSE` in your `group_by()` command.
-
-```{r}
-school_grouped %>%
-  group_by(District)
-```
 
 
 ## **Variable loss with `summarize()`**
@@ -688,7 +682,7 @@ DATA %>%
 ```
 
 
-## **An alternative to `summarize()`: `reframe`()`**
+## **An alternative to `summarize()`: `reframe()`**
 
 
 Instead, you can use `reframe()`, which allows for previous functionality of `summarize()` that is now deprecated.  

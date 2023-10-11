@@ -498,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#new-variable-columns" id="toc-new-variable-columns" class="nav-link" data-scroll-target="#new-variable-columns"><strong>New Variable Columns</strong></a>
   <ul class="collapse">
-  <li><a href="#group_by-using-a-function" id="toc-group_by-using-a-function" class="nav-link" data-scroll-target="#group_by-using-a-function"><strong>group_by() using a function</strong></a></li>
+  <li><a href="#group_by-using-a-function" id="toc-group_by-using-a-function" class="nav-link" data-scroll-target="#group_by-using-a-function"><strong><code>group_by()</code> using a function</strong></a></li>
   </ul></li>
   <li><a href="#adddrop-grouping-variable-columns" id="toc-adddrop-grouping-variable-columns" class="nav-link" data-scroll-target="#adddrop-grouping-variable-columns"><strong>Add/drop Grouping Variable Columns</strong></a>
   <ul class="collapse">
@@ -506,11 +506,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#why-care-about-grouping-structure" id="toc-why-care-about-grouping-structure" class="nav-link" data-scroll-target="#why-care-about-grouping-structure"><strong>Why Care About Grouping Structure</strong></a></li>
   </ul></li>
-  <li><a href="#ungroup" id="toc-ungroup" class="nav-link" data-scroll-target="#ungroup"><strong>ungroup()</strong></a></li>
-  <li><a href="#how-to-retain-variables-for-aggregated-data" id="toc-how-to-retain-variables-for-aggregated-data" class="nav-link" data-scroll-target="#how-to-retain-variables-for-aggregated-data"><strong>How to Retain Variables for Aggregated Data</strong></a>
+  <li><a href="#ungroup" id="toc-ungroup" class="nav-link" data-scroll-target="#ungroup"><strong>ungroup()</strong></a>
   <ul class="collapse">
   <li><a href="#variable-loss-with-summarize" id="toc-variable-loss-with-summarize" class="nav-link" data-scroll-target="#variable-loss-with-summarize"><strong>Variable loss with <code>summarize()</code></strong></a></li>
-  <li><a href="#an-alternative-to-summarize-reframe" id="toc-an-alternative-to-summarize-reframe" class="nav-link" data-scroll-target="#an-alternative-to-summarize-reframe"><strong>An alternative to <code>summarize()</code>: <code>reframe</code>()`</strong></a></li>
+  <li><a href="#an-alternative-to-summarize-reframe" id="toc-an-alternative-to-summarize-reframe" class="nav-link" data-scroll-target="#an-alternative-to-summarize-reframe"><strong>An alternative to <code>summarize()</code>: <code>reframe()</code></strong></a></li>
   <li><a href="#retaining-distinct-data-after-mutate-using-distinct" id="toc-retaining-distinct-data-after-mutate-using-distinct" class="nav-link" data-scroll-target="#retaining-distinct-data-after-mutate-using-distinct"><strong>Retaining distinct data after <code>mutate()</code> using distinct()`</strong></a></li>
   </ul></li>
   <li><a href="#visualizing-data" id="toc-visualizing-data" class="nav-link" data-scroll-target="#visualizing-data"><strong>Visualizing Data</strong></a></li>
@@ -1080,7 +1079,7 @@ women old    x</code></pre>
 14 Medley            200  104.  104. </code></pre>
 </div>
 </div>
-<p>The <code>mean</code> column still have different value but they are replicated on rows with the same <code>Event</code> group. This is because the data are grouped that way.</p>
+<p>The <code>mean</code> column still has different values but they are replicated on rows with the same <code>Event</code> group. This is because the data are grouped that way.</p>
 </section>
 <section id="revisiting-.groups-drop" class="level4">
 <h4 class="anchored" data-anchor-id="revisiting-.groups-drop">Revisiting <code>.groups = "drop"</code>:</h4>
@@ -1257,7 +1256,7 @@ women old    x</code></pre>
 <h2 class="anchored" data-anchor-id="new-variable-columns"><strong>New Variable Columns</strong></h2>
 <p><code>group_by()</code> is not designed to create new variables but rather create groups. The function, however, does not require variables in a data frame in order to group based on their levels or differences in values.</p>
 <section id="group_by-using-a-function" class="level3">
-<h3 class="anchored" data-anchor-id="group_by-using-a-function"><strong>group_by() using a function</strong></h3>
+<h3 class="anchored" data-anchor-id="group_by-using-a-function"><strong><code>group_by()</code> using a function</strong></h3>
 <p>Heretofore, we have grouped by column variables in a data frame. But you can also group in other ways, for example, by a variable calculated by a function. For example, if you wanted to group by standard deviations, you could calculated the standard deviation <code>(Score-mean(Score)) / sd(Score)</code> for each student and then <code>cut()</code> that variable into groups. <code>cut</code> will take a numeric vector variable and turn it into a factor variable of <em>n</em> groups as determined by what you pass to <code>breaks</code>. There is also an argument to make the factor ordered if you wish, <code>ordered_result = TRUE</code> but the default behavior does not order the factor. You can also change the level labels if you inspect the function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
@@ -1517,39 +1516,14 @@ women old    x</code></pre>
 </div>
 </div>
 <p>Yes! <code>Mean_of_all</code> is now a true grand mean based on all of the data with no grouping at all. Comparing <code>Mean_of_all</code> to <code>School_Mean</code> provides two classifications.</p>
-</section>
-<section id="how-to-retain-variables-for-aggregated-data" class="level1">
-<h1><strong>How to Retain Variables for Aggregated Data</strong></h1>
-<p>If you group on a column of factor there may be levels of the factor that are not currently present in the data. If you group on this column, by default those non-present levels are dropped and not included as groups. To change this so that all levels appear as groups (even if not present in the data), set <code>.drop = FALSE</code> in your <code>group_by()</code> command.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>school_grouped <span class="sc">%&gt;%</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 11 × 4
-# Groups:   District [3]
-   Student      Score School District
-   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   
- 1 Jim             80 A      West    
- 2 Sally           85 A      West    
- 3 June            79 B      West    
- 4 Mildred         80 B      West    
- 5 Tilford         81 C      East    
- 6 Beavis          91 C      East    
- 7 Herman          89 C      East    
- 8 Peppa           60 D      North   
- 9 Kay             65 D      North   
-10 Jake            67 E      North   
-11 Name Missing    65 E      North   </code></pre>
-</div>
-</div>
 <section id="variable-loss-with-summarize" class="level2">
 <h2 class="anchored" data-anchor-id="variable-loss-with-summarize"><strong>Variable loss with <code>summarize()</code></strong></h2>
 <p>Because <code>summarize()</code> returns a tibble based on the grouping structure, you will lose all variables that are not in the grouping structure. By design, it no longer allows you to return a data frame with duplicated rows based on the variables passed to <code>group_by()</code>.</p>
 <p>Returning to the school data, what this means, is that you cannot retain the <code>School</code> if you group by the <code>District</code> in order to obtain averages by district.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   District  Mean
@@ -1561,9 +1535,9 @@ women old    x</code></pre>
 </div>
 <p>If you try to add <code>School</code> to <code>group_by()</code>, then you will only obtain the averages by schools within districts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School, District) <span class="sc">%&gt;%</span></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School, District) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'School'. You can override using the
 `.groups` argument.</code></pre>
@@ -1588,15 +1562,15 @@ women old    x</code></pre>
           )</code></pre>
 </section>
 <section id="an-alternative-to-summarize-reframe" class="level2">
-<h2 class="anchored" data-anchor-id="an-alternative-to-summarize-reframe"><strong>An alternative to <code>summarize()</code>: <code>reframe</code>()`</strong></h2>
+<h2 class="anchored" data-anchor-id="an-alternative-to-summarize-reframe"><strong>An alternative to <code>summarize()</code>: <code>reframe()</code></strong></h2>
 <p>Instead, you can use <code>reframe()</code>, which allows for previous functionality of <code>summarize()</code> that is now deprecated.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score),</span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>          School,</span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>          Student</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Score),</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>          School,</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>          Student</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 4
    District  Mean School Student     
@@ -1616,22 +1590,22 @@ women old    x</code></pre>
 </div>
 <p>Remember that the operations in <code>summarize()</code>, <code>mutate()</code>, and <code>reframe()</code> all depend on the grouping structure. If you wanted to add variables, you would need to group a different way and you would need to add all variables into <code>summarize()</code> every step of the way.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score),</span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>          School, </span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>          Student,</span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>          Score</span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>          ) <span class="sc">%&gt;%</span></span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score),</span>
-<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>          School, </span>
-<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>          Student,</span>
-<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>          Score,</span>
-<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>          District_Mean</span>
-<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>          ) <span class="sc">%&gt;%</span></span>
-<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score),</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>          School, </span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>          Student,</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>          Score</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>          ) <span class="sc">%&gt;%</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score),</span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>          School, </span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>          Student,</span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>          Score,</span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>          District_Mean</span>
+<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>          ) <span class="sc">%&gt;%</span></span>
+<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 5
    School School_Mean Student      Score District_Mean
@@ -1654,11 +1628,11 @@ women old    x</code></pre>
 <h2 class="anchored" data-anchor-id="retaining-distinct-data-after-mutate-using-distinct"><strong>Retaining distinct data after <code>mutate()</code> using distinct()`</strong></h2>
 <p>This is just too tedious. Your better option is <code>mutate()</code> as all variables will be added to the full data frame. All variables are neatly and logically appended to the right hand side of the data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 6
 # Groups:   School [5]
@@ -1693,10 +1667,10 @@ DATA %&gt;%
 <p>If you wish those variables to remain, you have a couple of options. The first would be to use <code>mutate()</code>.</p>
 <p>Notice, however, that if you want to extract the summaries from the large data frame as you would have had you used <code>summarize()</code> , you cannot just <code>select()</code> your column of interest because the repetitions will exist for each row in the data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"School"</span>, <span class="st">"District_Mean"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"School"</span>, <span class="st">"District_Mean"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Adding missing grouping variables: `District`</code></pre>
 </div>
@@ -1720,10 +1694,10 @@ DATA %&gt;%
 </div>
 <p>You can obtain the rows that are <code>distinct()</code> (unique) and then <code>pick()</code> the ones to keep.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(., <span class="fu">pick</span>(<span class="fu">c</span>(<span class="st">"District"</span>, <span class="st">"District_Mean"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(District) <span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">District_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(., <span class="fu">pick</span>(<span class="fu">c</span>(<span class="st">"District"</span>, <span class="st">"District_Mean"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
 # Groups:   District [3]
@@ -1736,10 +1710,10 @@ DATA %&gt;%
 </div>
 <p>But you will need to <code>ungroup()</code> before <code>distinct()</code> because, as we have mentioned before, all subsequent functions other than <code>group_by()</code> will maintain the previous grouping structure by default.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(School) <span class="sc">%&gt;%</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">School_Mean =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 5
    Student      Score School District School_Mean
@@ -1764,48 +1738,48 @@ DATA %&gt;%
 <p>Visualizations of data aggregated differently will also convey information differently. The four variants of the data presented as bars communicate</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Note: When you create <code>geom_bar()</code> or <code>geom_col()</code> plots, the bar <code>width</code> will change depending on the number of the bars in the plot. A legend position will also affect bar width. Thus, the four resulting visualizations will contain different bar widths even if set to the same value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>avg_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Score =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Average =</span> <span class="st">"Average"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Average, Score)) <span class="sc">+</span></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  </span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"A"</span>)</span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>district_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(District, Score)) <span class="sc">+</span></span>
-<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"B"</span>)</span>
-<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a>school_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
-<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(School, Score)) <span class="sc">+</span></span>
-<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb106-19"><a href="#cb106-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb106-20"><a href="#cb106-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"C"</span>) </span>
-<span id="cb106-21"><a href="#cb106-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-22"><a href="#cb106-22" aria-hidden="true" tabindex="-1"></a>school_district_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
-<span id="cb106-23"><a href="#cb106-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(School, Score, <span class="at">col =</span> District)) <span class="sc">+</span></span>
-<span id="cb106-24"><a href="#cb106-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb106-25"><a href="#cb106-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb106-26"><a href="#cb106-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb106-27"><a href="#cb106-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"D"</span>)  </span>
-<span id="cb106-28"><a href="#cb106-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-29"><a href="#cb106-29" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(</span>
-<span id="cb106-30"><a href="#cb106-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(avg_plot, </span>
-<span id="cb106-31"><a href="#cb106-31" aria-hidden="true" tabindex="-1"></a>                            district_plot, </span>
-<span id="cb106-32"><a href="#cb106-32" aria-hidden="true" tabindex="-1"></a>                            school_plot, </span>
-<span id="cb106-33"><a href="#cb106-33" aria-hidden="true" tabindex="-1"></a>                            school_district_plot, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb106-34"><a href="#cb106-34" aria-hidden="true" tabindex="-1"></a>     )</span>
-<span id="cb106-35"><a href="#cb106-35" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>avg_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(., <span class="at">Score =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Average =</span> <span class="st">"Average"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Average, Score)) <span class="sc">+</span></span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  </span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"A"</span>)</span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a>district_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
+<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(District, Score)) <span class="sc">+</span></span>
+<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb104-13"><a href="#cb104-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb104-14"><a href="#cb104-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"B"</span>)</span>
+<span id="cb104-15"><a href="#cb104-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-16"><a href="#cb104-16" aria-hidden="true" tabindex="-1"></a>school_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
+<span id="cb104-17"><a href="#cb104-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(School, Score)) <span class="sc">+</span></span>
+<span id="cb104-18"><a href="#cb104-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb104-19"><a href="#cb104-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb104-20"><a href="#cb104-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"C"</span>) </span>
+<span id="cb104-21"><a href="#cb104-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-22"><a href="#cb104-22" aria-hidden="true" tabindex="-1"></a>school_district_plot <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span></span>
+<span id="cb104-23"><a href="#cb104-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(School, Score, <span class="at">col =</span> District)) <span class="sc">+</span></span>
+<span id="cb104-24"><a href="#cb104-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb104-25"><a href="#cb104-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb104-26"><a href="#cb104-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb104-27"><a href="#cb104-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">tag =</span> <span class="st">"D"</span>)  </span>
+<span id="cb104-28"><a href="#cb104-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-29"><a href="#cb104-29" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(</span>
+<span id="cb104-30"><a href="#cb104-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(avg_plot, </span>
+<span id="cb104-31"><a href="#cb104-31" aria-hidden="true" tabindex="-1"></a>                            district_plot, </span>
+<span id="cb104-32"><a href="#cb104-32" aria-hidden="true" tabindex="-1"></a>                            school_plot, </span>
+<span id="cb104-33"><a href="#cb104-33" aria-hidden="true" tabindex="-1"></a>                            school_district_plot, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb104-34"><a href="#cb104-34" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb104-35"><a href="#cb104-35" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1815,13 +1789,13 @@ DATA %&gt;%
 <p>For this example, we will add two new variables to the data frame and then map each to the full data and the group data, respectively.</p>
 <p>First, let’s look at different shapes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">show_point_shapes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">show_point_shapes</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for y is already present.
 Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1830,49 +1804,49 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <p>Let’s say that we want a plot that contains all of the data points jittered as well as the group means jittered so they don’t overlap. If we want one data frame to handle it, we will need to <code>mutate()</code> the group means following <code>group_by(Event, School)</code>. In the event that there happen to be exact or very similar means for the Schools, we will want to jitter the group means using <code>position = position_jitter(height = 0, width = .1)</code>.</p>
 <p>Let’s see what happens. But to lead into another step, we will just assign a new data frame to <code>SWIM_NEW</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>SWIM_NEW <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">School =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"Clare"</span>), <span class="st">"CMS"</span>, <span class="st">"PP"</span>),</span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape  =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape2 =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">21</span>, <span class="dv">24</span>),</span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
-<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
-<span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
-<span id="cb109-11"><a href="#cb109-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>SWIM_NEW <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Time <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">School =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"Clare"</span>), <span class="st">"CMS"</span>, <span class="st">"PP"</span>),</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape  =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape2 =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">21</span>, <span class="dv">24</span>),</span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
+<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then pass to <code>ggplot()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>full_identity_plot <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Event)</span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
-<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Time, </span>
-<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> Shape</span>
-<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a>                           ),</span>
-<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="fl">1.2</span>, <span class="co"># make a little thinker</span></span>
-<span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span>,   <span class="co"># a little transparent</span></span>
-<span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
-<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
-<span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>)</span>
-<span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = Mean)</span></span>
-<span id="cb110-15"><a href="#cb110-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Mean, </span>
-<span id="cb110-16"><a href="#cb110-16" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> Shape2   <span class="co"># filled </span></span>
-<span id="cb110-17"><a href="#cb110-17" aria-hidden="true" tabindex="-1"></a>                           ), </span>
-<span id="cb110-18"><a href="#cb110-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey50"</span>,   <span class="co"># fill color</span></span>
-<span id="cb110-19"><a href="#cb110-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,          <span class="co"># larger size</span></span>
-<span id="cb110-20"><a href="#cb110-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>,         <span class="co"># opaque</span></span>
-<span id="cb110-21"><a href="#cb110-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span>
-<span id="cb110-22"><a href="#cb110-22" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
-<span id="cb110-23"><a href="#cb110-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb110-24"><a href="#cb110-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_identity</span>() <span class="sc">+</span>    <span class="co"># use the actual values in the mapped variable</span></span>
-<span id="cb110-25"><a href="#cb110-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">CMS (cicle),  PP (triangle); Mean (filled)"</span>)</span>
-<span id="cb110-26"><a href="#cb110-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-27"><a href="#cb110-27" aria-hidden="true" tabindex="-1"></a>full_identity_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>full_identity_plot <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Event)</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Time, </span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> Shape</span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>                           ),</span>
+<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="fl">1.2</span>, <span class="co"># make a little thinker</span></span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span>,   <span class="co"># a little transparent</span></span>
+<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
+<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
+<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>)</span>
+<span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = Mean)</span></span>
+<span id="cb108-15"><a href="#cb108-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Mean, </span>
+<span id="cb108-16"><a href="#cb108-16" aria-hidden="true" tabindex="-1"></a>                           <span class="at">shape =</span> Shape2   <span class="co"># filled </span></span>
+<span id="cb108-17"><a href="#cb108-17" aria-hidden="true" tabindex="-1"></a>                           ), </span>
+<span id="cb108-18"><a href="#cb108-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey50"</span>,   <span class="co"># fill color</span></span>
+<span id="cb108-19"><a href="#cb108-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,          <span class="co"># larger size</span></span>
+<span id="cb108-20"><a href="#cb108-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>,         <span class="co"># opaque</span></span>
+<span id="cb108-21"><a href="#cb108-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>)</span>
+<span id="cb108-22"><a href="#cb108-22" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb108-23"><a href="#cb108-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb108-24"><a href="#cb108-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_identity</span>() <span class="sc">+</span>    <span class="co"># use the actual values in the mapped variable</span></span>
+<span id="cb108-25"><a href="#cb108-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">CMS (cicle),  PP (triangle); Mean (filled)"</span>)</span>
+<span id="cb108-26"><a href="#cb108-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-27"><a href="#cb108-27" aria-hidden="true" tabindex="-1"></a>full_identity_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="the-jitter-problem-with-full-data-frame" class="level2">
@@ -1880,20 +1854,20 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <p>Jittering takes place at the row level. Because the full data frame is used, each row plotted gets jitter. This means that the group mean that is on each row (redundant per group) is plotted. In such cases, you might be better off using one data frame for the full plot and a summarized data frame for the other plot. You can define the data frame in <code>ggplot()</code> or in the specific <code>geom_point()</code>. In this example, we will define it in <code>ggplot()</code> along with aesthetics. This will be inherited by default for the first <code>geom_point()</code> and then we can specify for the second <code>geom_point()</code>.</p>
 <p>Because there are different data frames, <code>Time</code> can be used in both data sets. There is no need to have two different variables as there is for the full data set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>SWIMMEAN <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
-<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Time =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and we need to add a shape too</span></span>
-<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape  =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">21</span>, <span class="dv">24</span>) <span class="co"># filled</span></span>
-<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>SWIMMEAN <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Time =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and we need to add a shape too</span></span>
+<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shape  =</span> <span class="fu">ifelse</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(School, <span class="st">"CMS"</span>), <span class="dv">21</span>, <span class="dv">24</span>) <span class="co"># filled</span></span>
+<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'Event'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>SWIMMEAN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>SWIMMEAN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 4
    Event        School  Time Shape
@@ -1914,46 +1888,46 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 <p>Notice that this data frame contains only four variables: <code>Event</code>, <code>School</code>, <code>Time</code>, and <code>Shape</code>. All aesthetics for a plot using that data set will be constrained to those variables. Because both data frames contain them, we can just add the aesthetics to the plot object rather than the geom.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>subset_identity_plot <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
-<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
-<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Event,</span>
-<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time, </span>
-<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shape =</span> Shape</span>
-<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
-<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time) from SWIM</span></span>
-<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
-<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
-<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
-<span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">8</span>,</span>
-<span id="cb115-13"><a href="#cb115-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
-<span id="cb115-14"><a href="#cb115-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb115-15"><a href="#cb115-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = Time) from SWIMMEAN</span></span>
-<span id="cb115-16"><a href="#cb115-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> SWIMMEAN,</span>
-<span id="cb115-17"><a href="#cb115-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb115-18"><a href="#cb115-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey60"</span>,</span>
-<span id="cb115-19"><a href="#cb115-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
-<span id="cb115-20"><a href="#cb115-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>,</span>
-<span id="cb115-21"><a href="#cb115-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">3</span>)</span>
-<span id="cb115-22"><a href="#cb115-22" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
-<span id="cb115-23"><a href="#cb115-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb115-24"><a href="#cb115-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_identity</span>() <span class="sc">+</span></span>
-<span id="cb115-25"><a href="#cb115-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">CMS (cicle),  PP (triangle); Mean (filled)"</span>)</span>
-<span id="cb115-26"><a href="#cb115-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-27"><a href="#cb115-27" aria-hidden="true" tabindex="-1"></a>subset_identity_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>subset_identity_plot <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> ., </span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Event,</span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time, </span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shape =</span> Shape</span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time) from SWIM</span></span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">8</span>,</span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = Time) from SWIMMEAN</span></span>
+<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> SWIMMEAN,</span>
+<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"grey60"</span>,</span>
+<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
+<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb113-21"><a href="#cb113-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">3</span>)</span>
+<span id="cb113-22"><a href="#cb113-22" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb113-23"><a href="#cb113-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb113-24"><a href="#cb113-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_identity</span>() <span class="sc">+</span></span>
+<span id="cb113-25"><a href="#cb113-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">CMS (cicle),  PP (triangle); Mean (filled)"</span>)</span>
+<span id="cb113-26"><a href="#cb113-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-27"><a href="#cb113-27" aria-hidden="true" tabindex="-1"></a>subset_identity_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Both plots together:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(</span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(full_identity_plot, </span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>                       subset_identity_plot, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
-<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(full_identity_plot, </span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>                       subset_identity_plot, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>What you see in the second plot is what you might expect. Remember, that if you want to pass a grouping variable summary as an additional layer of a plot, you might be better off creating a separate data frame and pass it separately.</p>
@@ -1961,65 +1935,65 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <section id="examples-of-color-versions" class="level2">
 <h2 class="anchored" data-anchor-id="examples-of-color-versions"><strong>Examples of Color Versions</strong></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>color_plot1 <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span></span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MeanTime =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
-<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb117-6"><a href="#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Event, </span>
-<span id="cb117-7"><a href="#cb117-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> Time, </span>
-<span id="cb117-8"><a href="#cb117-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> School, </span>
-<span id="cb117-9"><a href="#cb117-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> School</span>
-<span id="cb117-10"><a href="#cb117-10" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb117-11"><a href="#cb117-11" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb117-12"><a href="#cb117-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
-<span id="cb117-13"><a href="#cb117-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
-<span id="cb117-14"><a href="#cb117-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
-<span id="cb117-15"><a href="#cb117-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
-<span id="cb117-16"><a href="#cb117-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">1</span>,</span>
-<span id="cb117-17"><a href="#cb117-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
-<span id="cb117-18"><a href="#cb117-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
-<span id="cb117-19"><a href="#cb117-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
-<span id="cb117-20"><a href="#cb117-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb117-21"><a href="#cb117-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = MeanTime)</span></span>
-<span id="cb117-22"><a href="#cb117-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> MeanTime), </span>
-<span id="cb117-23"><a href="#cb117-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
-<span id="cb117-24"><a href="#cb117-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span></span>
-<span id="cb117-25"><a href="#cb117-25" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
-<span id="cb117-26"><a href="#cb117-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb117-27"><a href="#cb117-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">Means are closed circles"</span>)</span>
-<span id="cb117-28"><a href="#cb117-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-29"><a href="#cb117-29" aria-hidden="true" tabindex="-1"></a>color_plot2 <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
-<span id="cb117-30"><a href="#cb117-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
-<span id="cb117-31"><a href="#cb117-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
-<span id="cb117-32"><a href="#cb117-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MeanTime =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
-<span id="cb117-33"><a href="#cb117-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb117-34"><a href="#cb117-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Event, </span>
-<span id="cb117-35"><a href="#cb117-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> Time, </span>
-<span id="cb117-36"><a href="#cb117-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> School, </span>
-<span id="cb117-37"><a href="#cb117-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> School</span>
-<span id="cb117-38"><a href="#cb117-38" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb117-39"><a href="#cb117-39" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb117-40"><a href="#cb117-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
-<span id="cb117-41"><a href="#cb117-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
-<span id="cb117-42"><a href="#cb117-42" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
-<span id="cb117-43"><a href="#cb117-43" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
-<span id="cb117-44"><a href="#cb117-44" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
-<span id="cb117-45"><a href="#cb117-45" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
-<span id="cb117-46"><a href="#cb117-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb117-47"><a href="#cb117-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = MeanTime)</span></span>
-<span id="cb117-48"><a href="#cb117-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> MeanTime), </span>
-<span id="cb117-49"><a href="#cb117-49" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">1</span>,</span>
-<span id="cb117-50"><a href="#cb117-50" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
-<span id="cb117-51"><a href="#cb117-51" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
-<span id="cb117-52"><a href="#cb117-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span></span>
-<span id="cb117-53"><a href="#cb117-53" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
-<span id="cb117-54"><a href="#cb117-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb117-55"><a href="#cb117-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">Means are open circles"</span>)</span>
-<span id="cb117-56"><a href="#cb117-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-57"><a href="#cb117-57" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(color_plot1, color_plot2, <span class="at">ncol =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>color_plot1 <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span></span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MeanTime =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Event, </span>
+<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> Time, </span>
+<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> School, </span>
+<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> School</span>
+<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb115-12"><a href="#cb115-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
+<span id="cb115-13"><a href="#cb115-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
+<span id="cb115-14"><a href="#cb115-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
+<span id="cb115-15"><a href="#cb115-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
+<span id="cb115-16"><a href="#cb115-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">1</span>,</span>
+<span id="cb115-17"><a href="#cb115-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
+<span id="cb115-18"><a href="#cb115-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
+<span id="cb115-19"><a href="#cb115-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb115-20"><a href="#cb115-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb115-21"><a href="#cb115-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = MeanTime)</span></span>
+<span id="cb115-22"><a href="#cb115-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> MeanTime), </span>
+<span id="cb115-23"><a href="#cb115-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb115-24"><a href="#cb115-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span></span>
+<span id="cb115-25"><a href="#cb115-25" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb115-26"><a href="#cb115-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb115-27"><a href="#cb115-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">Means are closed circles"</span>)</span>
+<span id="cb115-28"><a href="#cb115-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-29"><a href="#cb115-29" aria-hidden="true" tabindex="-1"></a>color_plot2 <span class="ot">&lt;-</span> SWIM_NEW <span class="sc">%&gt;%</span></span>
+<span id="cb115-30"><a href="#cb115-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group both (creates nxm subsets)</span></span>
+<span id="cb115-31"><a href="#cb115-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Event, School) <span class="sc">%&gt;%</span> </span>
+<span id="cb115-32"><a href="#cb115-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MeanTime =</span> <span class="fu">mean</span>(Time)) <span class="sc">%&gt;%</span></span>
+<span id="cb115-33"><a href="#cb115-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb115-34"><a href="#cb115-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Event, </span>
+<span id="cb115-35"><a href="#cb115-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> Time, </span>
+<span id="cb115-36"><a href="#cb115-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> School, </span>
+<span id="cb115-37"><a href="#cb115-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> School</span>
+<span id="cb115-38"><a href="#cb115-38" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb115-39"><a href="#cb115-39" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb115-40"><a href="#cb115-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot all data (y = Time)</span></span>
+<span id="cb115-41"><a href="#cb115-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">167</span>, </span>
+<span id="cb115-42"><a href="#cb115-42" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">height =</span> <span class="dv">0</span>, </span>
+<span id="cb115-43"><a href="#cb115-43" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">width =</span> .<span class="dv">2</span>),</span>
+<span id="cb115-44"><a href="#cb115-44" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
+<span id="cb115-45"><a href="#cb115-45" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb115-46"><a href="#cb115-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb115-47"><a href="#cb115-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a layer using the grouped data (y = MeanTime)</span></span>
+<span id="cb115-48"><a href="#cb115-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> MeanTime), </span>
+<span id="cb115-49"><a href="#cb115-49" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">1</span>,</span>
+<span id="cb115-50"><a href="#cb115-50" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb115-51"><a href="#cb115-51" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
+<span id="cb115-52"><a href="#cb115-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">4</span></span>
+<span id="cb115-53"><a href="#cb115-53" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb115-54"><a href="#cb115-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb115-55"><a href="#cb115-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Caption illustration:</span><span class="sc">\n</span><span class="st">Means are open circles"</span>)</span>
+<span id="cb115-56"><a href="#cb115-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-57"><a href="#cb115-57" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gridExtra<span class="sc">::</span><span class="fu">arrangeGrob</span>(color_plot1, color_plot2, <span class="at">ncol =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -2029,23 +2003,23 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <p>If size is a constant, this likely will not be a problem. If, however, size is mapped to a variable, then then you have a perceptual challenge related to difficulty with comparing area. See <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1984.10478080">Cleveland &amp; McGill (1984)</a>. Moreover, because the area of a circle is proportional to the square of its radius, doubling the point size increases area fourfold.</p>
 <p>Here is an example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> </span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">data.frame</span>(<span class="at">x     =</span> <span class="dv">0</span>, </span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y     =</span> <span class="dv">0</span>, </span>
-<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">panel =</span> <span class="fu">c</span>(<span class="st">"Size = 13"</span>, <span class="st">"Size = 26"</span>), </span>
-<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">size =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">26</span>)),</span>
-<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(x, y, <span class="at">size =</span> size)</span>
-<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span> </span>
-<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
-<span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb118-13"><a href="#cb118-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_identity</span>() <span class="sc">+</span></span>
-<span id="cb118-14"><a href="#cb118-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>panel) <span class="sc">+</span> </span>
-<span id="cb118-15"><a href="#cb118-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> </span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">data.frame</span>(<span class="at">x     =</span> <span class="dv">0</span>, </span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y     =</span> <span class="dv">0</span>, </span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">panel =</span> <span class="fu">c</span>(<span class="st">"Size = 13"</span>, <span class="st">"Size = 26"</span>), </span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">size =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">26</span>)),</span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(x, y, <span class="at">size =</span> size)</span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span> </span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_identity</span>() <span class="sc">+</span></span>
+<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>panel) <span class="sc">+</span> </span>
+<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid" width="672"></p>
+<p><img src="16_statistical_transformations_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
