@@ -21,10 +21,6 @@ A team of students will work with a project liaison to develop the project and w
 * Worklogs
 
 
-## **Project Description**
-
-For the data visualization project, your team will writ code in order to analyze data and create data visualizations in order to communicate a story that would address the client's interest in determining whether COVID has influenced athlete performance. Given the constraints of data to inform this specific question, the project will involve data exploration to tell a story about athlete performance. Given the client has little information about athlete performance, including data visualizations, this exploration allows for a healthy dose of flexibility in team creativity. This open element will also allow teams to develop ideas independently, thereby producing stories that will likely diverge wildly from each other, making the project an exciting foray into data storytelling for many students.
-
 ## **Project Evaluation**
 
 The project has different components representing it at various stages (e.g., midterm presentation, final presentation and report). See those sections specifically but the following general items will be important to consider.
