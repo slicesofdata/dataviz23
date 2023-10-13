@@ -1,0 +1,37 @@
+---
+title: "**Final report**"
+author: "Gabriel I. Cook"
+#date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+execute:
+  enabled: true
+---
+
+
+**NOTE: This page is in progress and will be officially completed with this this message is removed.**
+
+
+# **Overview**
+
+The final report is to be created in R Markdown and knit as a Pdf or Word document.
+An example starter file will be provided.
+
+# **Elements to Focus On**
+
+## **Telling a Story**
+
+
+# **Stakeholders**
+
+Identify the stakeholders for your project. For example, include you liaison, professor, athletic director, college, etc. for whom the final work will be submitted.  
+
+
+
+# **Evaluation and Generalized Rubric**
+
+More detail will be added here similar to the **Midterm Presentation**.
+
+Note: Liaison's will also participate in evaluating all teams. The team with the most impressive project (e.g., most clear, most useful and actionable, most interesting, most thought provoking, etc.) will receive bonus points.
+
+
