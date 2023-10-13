@@ -9,7 +9,7 @@
 <meta name="author" content="Gabriel I. Cook">
 <meta name="dcterms.date" content="2023-10-13">
 
-<title>PSYC167 - Visualizing uncertainty</title>
+<title>PSYC167 - Midterm presentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -247,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../modules/index.html">Modules</a></li><li class="breadcrumb-item"><a href="../modules/18_visualizing_uncertainty.html"><strong>Visualizing uncertainty</strong></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../project/index.html">Project</a></li><li class="breadcrumb-item"><a href="../project/04_project_midterm.html"><strong>Midterm presentation</strong></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -366,7 +366,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../modules/18_visualizing_uncertainty.html" class="sidebar-item-text sidebar-link active">
+  <a href="../modules/18_visualizing_uncertainty.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong>Visualizing uncertainty</strong></span></a>
   </div>
 </li>
@@ -443,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../project/04_project_midterm.html" class="sidebar-item-text sidebar-link">
+  <a href="../project/04_project_midterm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><strong>Midterm presentation</strong></span></a>
   </div>
 </li>
@@ -472,11 +472,32 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><strong>Overview</strong></a></li>
-  <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
+  <li><a href="#elements-not-to-worry-about" id="toc-elements-not-to-worry-about" class="nav-link" data-scroll-target="#elements-not-to-worry-about"><strong>Elements Not to Worry about</strong></a></li>
+  <li><a href="#elements-to-focus-on" id="toc-elements-to-focus-on" class="nav-link" data-scroll-target="#elements-to-focus-on"><strong>Elements to Focus On</strong></a>
   <ul class="collapse">
-  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
+  <li><a href="#data-cleaning-and-variable-creation" id="toc-data-cleaning-and-variable-creation" class="nav-link" data-scroll-target="#data-cleaning-and-variable-creation"><strong>Data Cleaning and Variable Creation</strong></a>
+  <ul class="collapse">
+  <li><a href="#general-data-cleaning" id="toc-general-data-cleaning" class="nav-link" data-scroll-target="#general-data-cleaning"><em>General Data Cleaning</em></a></li>
+  <li><a href="#data-summaries-for-plots" id="toc-data-summaries-for-plots" class="nav-link" data-scroll-target="#data-summaries-for-plots"><em>Data Summaries for Plots</em></a></li>
   </ul></li>
-  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
+  <li><a href="#data-visualizations-story-telling-with-pictures" id="toc-data-visualizations-story-telling-with-pictures" class="nav-link" data-scroll-target="#data-visualizations-story-telling-with-pictures"><strong>Data Visualizations: Story Telling with Pictures</strong></a>
+  <ul class="collapse">
+  <li><a href="#plot-introduction" id="toc-plot-introduction" class="nav-link" data-scroll-target="#plot-introduction"><em>Plot Introduction</em></a></li>
+  <li><a href="#plot-reveal-and-explanation" id="toc-plot-reveal-and-explanation" class="nav-link" data-scroll-target="#plot-reveal-and-explanation"><em>Plot Reveal and Explanation</em></a></li>
+  <li><a href="#plot-discussion" id="toc-plot-discussion" class="nav-link" data-scroll-target="#plot-discussion"><em>Plot Discussion</em></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#presentation-medium" id="toc-presentation-medium" class="nav-link" data-scroll-target="#presentation-medium"><strong>Presentation Medium</strong></a></li>
+  <li><a href="#stakeholders" id="toc-stakeholders" class="nav-link" data-scroll-target="#stakeholders"><strong>Stakeholders</strong></a></li>
+  <li><a href="#evaluation-and-generalized-rubric" id="toc-evaluation-and-generalized-rubric" class="nav-link" data-scroll-target="#evaluation-and-generalized-rubric"><strong>Evaluation and Generalized Rubric</strong></a>
+  <ul class="collapse">
+  <li><a href="#data-cleaning-and-variable-creation-20-pts" id="toc-data-cleaning-and-variable-creation-20-pts" class="nav-link" data-scroll-target="#data-cleaning-and-variable-creation-20-pts"><em>Data Cleaning and Variable Creation (20 pts)</em></a></li>
+  <li><a href="#data-visualizations-story-telling-with-pictures-40-pts" id="toc-data-visualizations-story-telling-with-pictures-40-pts" class="nav-link" data-scroll-target="#data-visualizations-story-telling-with-pictures-40-pts"><em>Data Visualizations: Story Telling with Pictures (40 pts)</em></a></li>
+  <li><a href="#presentation-characteristics-20-pts" id="toc-presentation-characteristics-20-pts" class="nav-link" data-scroll-target="#presentation-characteristics-20-pts"><em>Presentation Characteristics (20 pts)</em></a></li>
+  <li><a href="#team-and-team-member-evaluation-5-pts" id="toc-team-and-team-member-evaluation-5-pts" class="nav-link" data-scroll-target="#team-and-team-member-evaluation-5-pts"><em>Team and Team Member Evaluation (5 pts)</em></a></li>
+  <li><a href="#self-evaluation-5-pts" id="toc-self-evaluation-5-pts" class="nav-link" data-scroll-target="#self-evaluation-5-pts"><em>Self Evaluation (5 pts)</em></a></li>
+  </ul></li>
+  <li><a href="#presentation-tips" id="toc-presentation-tips" class="nav-link" data-scroll-target="#presentation-tips"><strong>Presentation Tips</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -485,7 +506,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><strong>Visualizing uncertainty</strong></h1>
+<h1 class="title"><strong>Midterm presentation</strong></h1>
 </div>
 
 
@@ -512,42 +533,157 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Under construction.
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This page is a work in progress and may contain areas that need more detail or that required syntactical, grammatical, and typographical changes. If you find some part requiring some editing, please let me know so I can fix it for you.</p>
-</div>
-</div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
+<p>After having several weeks to investigate and examine your data, brainstorm potential key items to address, identify potential story lines, and create some data visualizations, the next step is to present to the class. You goal for the midterm presentation will be to present and discuss data visualizations, or variants thereof, that could find their way into the end-of-semester final presentation and report deliverable.</p>
+<p>You will be evaluated on you and your team’s ability to convey the steps taken to clean up the data in service of creating some plots as well as share a decision-making journey of plot creation. Any variables that needed to be fixed or modified, factorized, computed anew, or summarized in some way can resulted in one single starting data frame/tibble and likely some smaller data summaries. Teams taking different approaches, or who are guided by liaisons who have different interests, will end up with different data, different data visualizations, and different stories. Include code where appropriate to communicate how you achieved your goals.</p>
+<p>At this stage in the project, the important point is that all team members should be working with data, challenge themselves to think about data, and practice using <strong>{ggplot}</strong> for creating data visualizations. Thus, <strong>all team members must have two plots</strong>, even if those plots communicate detailed variants of the same performance metric. By plot variants, mean <em>Same Data, Different Stories</em>. Variant plots use the same data but are visualized differently in order to facilitate different comparisons, use additional date to provide a more nuanced or detailed interpretation, use different levels/grouping of exiting variables, or use a different scaling structures, etc. Alternatively, the two plots could visualize different metrics obtained from the data, different calculations of a metric, compare different calculations, etc. to represent depths to data inquiry.<br>
+An example is <a href="https://flowingdata.com/2017/01/24/one-dataset-visualized-25-ways/"></a></p>
 </section>
-<section id="to-do" class="level1">
-<h1><strong>To Do</strong></h1>
-<section id="readings" class="level2">
-<h2 class="anchored" data-anchor-id="readings"><strong>Readings</strong></h2>
-<p>Reading should take place in two parts:</p>
+<section id="elements-not-to-worry-about" class="level1">
+<h1><strong>Elements Not to Worry about</strong></h1>
+<p>At this point in the semester, you are familiar with creating some out-of-the box staple data visualizations. You are also familiar with some functionality to dress up those visualizations using different aesthetics (whether appropriate or not for any given plot). You also know how to adjust some positioning and scaling elements. There is, however, a lot that of detailing and plot variants that we have not yet addressed.</p>
+<p>You should not worry about the details in modules (like those below) we have not covered and worrying about them will not play a role in evaluation. You should focus on modules we have covered. Focusing on these elements will result in a trade off with addressing other important elements related to the data visualization. decision-making process.</p>
 <ul>
-<li><em>Prior to class</em>, the goal should be to familiarize yourself and bring questions to class. The readings from <a href="https://clauswilke.com/dataviz">TFDV</a> are conceptual and should facilitate readings from <a href="https://ggplot2-book.org/">EGDA</a> for code implementation.</li>
-<li><em>After class</em>, the goal of reading should be to understand and implement code functions as well as support your understanding and help your troubleshooting of problems.</li>
+<li>Uncertainty/Variability</li>
+<li>Small multiples and facet plots</li>
+<li>Legends</li>
+<li>Titles, subtitles, general axis editing/removal, etc.</li>
+<li>Annotation, text, figure captions, etc.</li>
+<li>Drawing attention to elements, direct labeling, etc.</li>
+<li>Figure design and themes, making elements more visible/legible, removing labels, changing fonts, etc.</li>
 </ul>
-<p><em>Before Class</em>: First, read to familiarize yourself with the concepts rather than master them. Understand why one would want to visualize data in a particular way and also understand some of the functionality of <strong>{ggplot2}</strong>. I will assume that you attend class with some level of basic understanding of concepts.</p>
-<p><em>Class</em>: In class, some functions and concepts will be introduced and we will practice implementing <strong>{ggplot2}</strong> code. On occasion, there will be an assessment involving code identification, correction, explanation, etc. of concepts addressed in previous modules and perhaps some conceptual elements from this week’s readings.</p>
-<p><em>After Class</em>: After having some hands-on experience with coding in class, homework assignments will involve writing your own code to address some problem. These problems will be more complex, will involving problem solving, and may be open ended. This is where the second pass at reading with come in for you to reference when writing your code. The module content presented below is designed to offer you some assistance working through various coding problems but may not always suffice as a replacement for the readings from <strong>Wickham, Navarro, &amp; Pedersen (under revision)</strong>. <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>.</p>
+</section>
+<section id="elements-to-focus-on" class="level1">
+<h1><strong>Elements to Focus On</strong></h1>
+<section id="data-cleaning-and-variable-creation" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning-and-variable-creation"><strong>Data Cleaning and Variable Creation</strong></h2>
+<p>You should communicate steps taken to clean data to fulfill sub-goals for different plots. I recommend sharing your code. The audience should understand the code and may have the capacity to identify errors.</p>
+<section id="general-data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="general-data-cleaning"><em>General Data Cleaning</em></h3>
 <ul>
-<li><a href="https://clauswilke.com/dataviz/visualizing-uncertainty.html">Wilke (2019). <em>Fundamentals of Data Visualization</em>. Visualizing uncertainty</a></li>
-<li><a href="https://ggplot2-book.org/statistical-summaries#sec-uncertainty">Wickham, Navarro, &amp; Pedersen (under revision). <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>. Uncertainty</a></li>
+<li>Communicate steps taken to clean data to fulfill sub-goals</li>
+<li>Communicate how you modified variables and/or computed variables of interest</li>
+<li>Communicate any usage of <strong>{dplyr}</strong> functions like <code>group_by()</code>, <code>mutate()</code>, <code>filter()</code>, <code>ungroup()</code>, or other functions from <strong>{stringr}</strong>, <strong>{tidyr}</strong> or otherwise for merging/joining, adding new variables, etc.</li>
+</ul>
+</section>
+<section id="data-summaries-for-plots" class="level3">
+<h3 class="anchored" data-anchor-id="data-summaries-for-plots"><em>Data Summaries for Plots</em></h3>
+<ul>
+<li>Communicate how you calculated and/or obtained summary metrics</li>
+<li>Communicate any usage of functions like <code>group_by()</code>, <code>summarize()</code>, <code>filter()</code>, or <code>ungroup()</code> to ensure your data are computed correctly</li>
 </ul>
 </section>
 </section>
-<section id="under-construction-content-pending" class="level1">
-<h1><strong>Under construction, content pending</strong></h1>
+<section id="data-visualizations-story-telling-with-pictures" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualizations-story-telling-with-pictures"><strong>Data Visualizations: Story Telling with Pictures</strong></h2>
+<ul>
+<li>Convey performance metrics using data visualizations</li>
+<li>Walk audience through an explanation of the visualizations</li>
+<li>Convey why you chose the data to plot and why you chose the plot to convey the data</li>
+<li>Communicate plot limitations and intended amendments along with reasons why</li>
+</ul>
+<p>A plot is chosen as a visual aid for a talk, paper, news article, etc. for various reasons:</p>
+<ul>
+<li>was the only plot created</li>
+<li>was the only plot known how to create</li>
+<li>was the best of several plots created</li>
+</ul>
+<p>Each data visualization must serve a goal for your audience. You should consider how you intend to talk about the visualization to your audience when you create it. If there are different ways to talk about the same data and more than one variant facilitates that communications, you may consider creating more than one.</p>
+<p>You should stumble upon neither that goal nor the the geom type used to communicate that goal. Are you trying to communicate comparisons of some sort? If so, does the plot make that particular comparison easy?</p>
+<section id="plot-introduction" class="level3">
+<h3 class="anchored" data-anchor-id="plot-introduction"><em>Plot Introduction</em></h3>
+<p>Before revealing your plot, set the stage for its intent. Use words. In your final report, you will be telling a story about the data. You will not just present plots and talk about them. For example, you make introduce a research question that the plot will either help answer or provide information about examining further. After walking the reader through the problem, you will reference a figure containing the plot. For the midterm presentation, you will similarly introduce a question that the plot will help address. Mention the data that the plot visualizes. Are these data minimums, maximums, means, medians, measures of variability, etc. Do the data represent groups of people? Do they include dates? Think of this step as a topic slide before presenting the plot. Your topic title should be brief and clear and you should fill in any more detail with words. This step will set the stage for the audience to understand what data you would be presenting before you throw a plot in their face.</p>
+</section>
+<section id="plot-reveal-and-explanation" class="level3">
+<h3 class="anchored" data-anchor-id="plot-reveal-and-explanation"><em>Plot Reveal and Explanation</em></h3>
+<p>You should make sure that you walk the reader through the data visualization. Be explicit about what the axes represent and what any aesthetics represent so that the audience does not have to figure this out. In other words, do not just present the plot and say “we can see there are differences in metric X across time”. Instead, say something more clear like: “This plot visualizes data about Event X for Group/Person/year Y. Along the horizontal axis is… a long the y axis is…. You can see that the average range of times/distances for Event X decreases as athletes’ move through class ranks (e.g, FR to SR). This pattern in the data suggests that…”. You get the point.</p>
+</section>
+<section id="plot-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="plot-discussion"><em>Plot Discussion</em></h3>
+<p>For each plot you should:</p>
+<ul>
+<li>explain why you selected this plot as the data visualization of choice to communicate the element of data being communicated</li>
+<li>incorporate information from readings about why you have chosen this plot type</li>
+<li>explain what modifications you made to the plot (feel free to share code)</li>
+<li>explain limitations that the plot contains</li>
+<li>share your future goals to:
+<ul>
+<li>replace the plot with a completely new plot for reason X</li>
+<li>modify it in one or various ways to solve limitation X, Y, and X</li>
+<li>leave plot as is/explain why the plot needs no work</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="presentation-medium" class="level1">
+<h1><strong>Presentation Medium</strong></h1>
+<p>You can use any slide-presentation tool you wish. You will just need to provide me with: * a printed version of the slide deck for class time and * an electronic pdf of the slide deck before or after the presentation.</p>
+</section>
+<section id="stakeholders" class="level1">
+<h1><strong>Stakeholders</strong></h1>
+<p>Identify the stakeholders for your project. For example, include you liaison, professor, athletic director, college, etc. for whom the final work will be submitted.</p>
+</section>
+<section id="evaluation-and-generalized-rubric" class="level1">
+<h1><strong>Evaluation and Generalized Rubric</strong></h1>
+<section id="data-cleaning-and-variable-creation-20-pts" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning-and-variable-creation-20-pts"><em>Data Cleaning and Variable Creation (20 pts)</em></h2>
+<ul>
+<li>Communicate steps taken to clean data to fulfill sub-goals</li>
+<li>Communicate how you modified variables and/or computed variables of interest</li>
+<li>Communicate any usage of functions to ensure your data are computed correctly</li>
+<li>Communicate any aggregation methods and summary data frames per plot</li>
+</ul>
+</section>
+<section id="data-visualizations-story-telling-with-pictures-40-pts" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualizations-story-telling-with-pictures-40-pts"><em>Data Visualizations: Story Telling with Pictures (40 pts)</em></h2>
+<ul>
+<li><em>Plot Introduction (5 pts)</em></li>
+<li><em>Plot Reveal and Explanation (20 pts)</em></li>
+<li><em>Plot Discussion (15 pts)</em></li>
+</ul>
+</section>
+<section id="presentation-characteristics-20-pts" class="level2">
+<h2 class="anchored" data-anchor-id="presentation-characteristics-20-pts"><em>Presentation Characteristics (20 pts)</em></h2>
+<ul>
+<li><em>Clarity (5pts)</em>: well-explained; easy to follow/understand; ability to communicate points effectively</li>
+<li><em>Organization (5pts)</em>: structured logically; ability to walk audience through some story line or the a story about plot decision processes</li>
+<li><em>Thoroughness (5pts)</em>: all relevant issues discussed thoroughly</li>
+<li><em>Presentation Style (5pts)</em>: degree of preparedness and polish in presentation; smooth and rehearsed; minimum of reading; well-paced; slide quality</li>
+</ul>
+</section>
+<section id="team-and-team-member-evaluation-5-pts" class="level2">
+<h2 class="anchored" data-anchor-id="team-and-team-member-evaluation-5-pts"><em>Team and Team Member Evaluation (5 pts)</em></h2>
+<ul>
+<li>Evaluation of personal contributions toward the project as evaluated by other team members (claims partially validated using on-time weekly report submissions).</li>
+<li>The audience (your client) will also provide an overall review for the team and individual team members.</li>
+</ul>
+</section>
+<section id="self-evaluation-5-pts" class="level2">
+<h2 class="anchored" data-anchor-id="self-evaluation-5-pts"><em>Self Evaluation (5 pts)</em></h2>
+<p>Evaluation of your personal contributions toward the project as evaluated by yourself (claims partially validated using on-time weekly report submissions).</p>
+</section>
+</section>
+<section id="presentation-tips" class="level1">
+<h1><strong>Presentation Tips</strong></h1>
+<ul>
+<li><p><em>Dress</em>: You should dress appropriately for a talk. You do not need to dress up but you also should not wear clothing with words, logos, etc. that the audience would read or be distracted seeing.</p></li>
+<li><p><em>Team members and order</em>. You you should create your presentation so that team members have duties or goals. Consider strengths, accomplished tasks, etc. If two team members are presenting plots on metric X, have consider grouping them together rather than in some other arbitrary order.</p></li>
+<li><p><em>Communication</em> You should practice your presentation as a team to understand the timing, passing off of the microphone (the same holds if there is not physical mic), etc. Team members should be introduced on first instance of the mic pass off (include 3 things: their name, team role, and what they will talk about, and then pass the mic). Practice will ensure you know who is speaking, in what order, and about what. Lining up in order of speaking also reduces confusion and facilities mic passing. Practice also ensures that you know what you are presenting. You don’t have to read what your slide says. When you don’t practice, you end up reading, so practice. Lack of practice is typically apparent.</p>
+<ul>
+<li><p>Speak to your audience. Look them in the eyes, tell them about the journey. In other words, don’t just read from your slides.</p></li>
+<li><p>Do not overwhelm your audience with too much information, especially verbal information. Doing so causes people to read your slides or look at slide content you are not talking about at the moment. You are the presenter and your slides are your visual aides used to support what you communicate.</p>
+<ol type="a">
+<li><p>Present slides topically; do not mix unrelated content; use relevant headers, etc.</p></li>
+<li><p>Present summary points rather than full sentence content. Communicate in sentences but don’t present complete sentences on slides unless imperative for communicating a specific point.</p></li>
+<li><p>Present each point separately. Do no present all slide content (e.g., points a, b, c) communicating specific points (e.g., a). Doing so prevents your audience from paying attention to you; causes cognitive interference.</p></li>
+<li><p>Use a tool (e.g., pointer, finger, etc.) to direct attention to necessary elements of slides, especially when a slide contains multiple pieces of information. Doing so will reduce unnecessary confusion from some audience members because they will not be looking at the incorrect content.</p></li>
+<li><p>Introduce team members, their role, etc. when passing the the mic. Your audience/client should be reminded of who the team member is and what their role was.</p></li>
+<li><p>Do not include a “Thank you” slide. Instead, make a summary slide for your audience to order to remind them of questions they had or to serve as a basis for formulating questions.</p></li>
+</ol></li>
+</ul></li>
+</ul>
 
 
 </section>

@@ -64,6 +64,10 @@ website:
         file: modules/index.qmd
 #      - text: "Content"
 #        file: modules/index.qmd
+#        
+      - text: "**Project**"
+        file: project/index.qmd # will reference subdirs
+        
       - text: "**Slides**"
         #file: slides/_sample_quarto_presentation.qmd
         menu:
@@ -89,8 +93,7 @@ website:
 #        file: exercises/exercises.qmd
       #- text: "**Readings**"
       #  href: resources/dataviz_readings.qmd
-      - text: "**Project**"
-        file: project/project.qmd
+
       - text: "**Homework**"
         #file: slides/index.qmd
         menu:
@@ -174,6 +177,7 @@ website:
       contents:
         - syllabus/syllabus.qmd
         - auto: modules
+        - auto: project
         
         #- compendium
 

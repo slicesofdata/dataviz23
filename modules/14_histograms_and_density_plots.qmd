@@ -3,6 +3,9 @@ title: "**Histograms and density plots**"
 author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+execute:
+  enabled: true
 ---
 
 ```{r}

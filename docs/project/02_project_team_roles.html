@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Gabriel I. Cook">
 
-<title>PSYC167 - Project</title>
+<title>PSYC167 - Team membership and roles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,10 +64,10 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="../css/nav.css">
 <link rel="stylesheet" href="../css/styles.css">
-<link rel="stylesheet" href="css/styles.scss">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,12 +89,16 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><strong>Home</strong></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../syllabus/syllabus.html" rel="" target="">
+    <a class="nav-link active" href="../syllabus/syllabus.html" rel="" target="" aria-current="page">
  <span class="menu-text"><strong>Syllabus</strong></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../modules/index.html" rel="" target="">
  <span class="menu-text"><strong>Modules</strong></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../project/index.html" rel="" target="">
+ <span class="menu-text"><strong>Project</strong></span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-slides" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
@@ -110,10 +115,6 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="../project/project.html" rel="" target="" aria-current="page">
- <span class="menu-text"><strong>Project</strong></span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-homework" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text"><strong>Homework</strong></span>
@@ -240,30 +241,240 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../project/index.html">Project</a></li><li class="breadcrumb-item"><a href="../project/02_project_team_roles.html"><strong>Team membership and roles</strong></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus/syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Syllabus</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../modules/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/001_installing_and_setting_up_git_and_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Installing and Setting Up Git and GitHub for R</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/01_installing_r_and_rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Installing R &amp; RStudio</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/02_graphical_perception.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Graphical perception</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/03_reading_data_files.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Reading data files</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/04_data_frame_manipulation_and_wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Data frame manipulation and wrangling</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/07_data_subsets_and_summaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Data subsets and summaries</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/08_ggplot_and_the_grammar_of_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>{ggplot} and the grammar of graphics</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/10_visualizing_associations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing associations</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/11_spatial_position_and_adjustment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Spatial position and adjustment</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/12_considerations_in_data_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Considerations in data visualization</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/13_color_scales_and_palettes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Color scales and palettes</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/14_histograms_and_density_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Histograms and density plots</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/15_coordinates_axes_and_position_scales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Coordinates, axes, and position scales</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/16_statistical_transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Statistical transformations</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/17_visualizing_more_distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing more distributions</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/18_visualizing_uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing uncertainty</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/19_visualizing_trends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Visualizing trends</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/20_legends_and_arrangement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Legends and arrangement</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/21_designing_perceptually_efficient_visualizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Designing perceptually-efficient visualizations</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/22_annotation_and_text.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Annotation and text</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/23_multi_panel_plots_faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Multi-panel plots: Faceting</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/24_attentional_control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Attentional control</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/25_titles_captions_and_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Title, Captions, and Tables</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/26_themes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Figure Design &amp; Themes</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../modules/99_importing_many_files_into_a_single_data_frame.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Importing many delimited files into a single data frame</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../project/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../project/02_project_team_roles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><strong>Team membership and roles</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../project/04_project_midterm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Midterm presentation</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../project/08_project_final.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Final presentation</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../project/10_project_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Final report</strong></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-description" id="toc-project-description" class="nav-link active" data-scroll-target="#project-description"><strong>Project Description</strong></a>
+  <li><a href="#team-roles" id="toc-team-roles" class="nav-link active" data-scroll-target="#team-roles"><strong>Team Roles</strong></a>
   <ul class="collapse">
-  <li><a href="#project-roles" id="toc-project-roles" class="nav-link" data-scroll-target="#project-roles"><strong>Project Roles</strong></a></li>
-  </ul></li>
-  <li><a href="#project-grading" id="toc-project-grading" class="nav-link" data-scroll-target="#project-grading"><strong>Project Grading</strong></a></li>
-  <li><a href="#presentation" id="toc-presentation" class="nav-link" data-scroll-target="#presentation"><strong>Presentation</strong></a>
-  <ul class="collapse">
-  <li><a href="#presentation-characteristics" id="toc-presentation-characteristics" class="nav-link" data-scroll-target="#presentation-characteristics"><strong>Presentation Characteristics</strong></a></li>
-  <li><a href="#presentation-tips" id="toc-presentation-tips" class="nav-link" data-scroll-target="#presentation-tips"><strong>Presentation Tips</strong></a></li>
-  </ul></li>
-  <li><a href="#weekly-worklogreport" id="toc-weekly-worklogreport" class="nav-link" data-scroll-target="#weekly-worklogreport"><strong>Weekly Worklog/Report</strong></a>
-  <ul class="collapse">
-  <li><a href="#frequency-of-worklog" id="toc-frequency-of-worklog" class="nav-link" data-scroll-target="#frequency-of-worklog"><strong>Frequency of Worklog</strong></a></li>
-  <li><a href="#contents-of-worklog" id="toc-contents-of-worklog" class="nav-link" data-scroll-target="#contents-of-worklog"><strong>Contents of Worklog</strong></a></li>
+  <li><a href="#project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication." id="toc-project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication." class="nav-link" data-scroll-target="#project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication.">1. <em>Project Manager (PM)</em>: The project manager helps with organization of the project and is the point person for communication.</a></li>
+  <li><a href="#reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing." id="toc-reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing." class="nav-link" data-scroll-target="#reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing.">2. <em>Reporting Lead (RL)</em>: The reporting lead(s) helps with organization of the reporting documents (e.g., slides, report) and revision of writing.</a></li>
+  <li><a href="#coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended." id="toc-coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended." class="nav-link" data-scroll-target="#coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended.">3. <em>Coding Lead (CL)</em>: The coding lead(s) helps with organization and management of the project code elements (e.g., project, code, associated files, GitHub repo (recommended)).</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -273,13 +484,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><strong>Project</strong></h1>
+<h1 class="title"><strong>Team membership and roles</strong></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriel I. Cook </p>
+          </div>
+  </div>
     
   
     
@@ -288,16 +505,13 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="project-description" class="level2">
-<h2 class="anchored" data-anchor-id="project-description"><strong>Project Description</strong></h2>
-<p>For the data visualization project, your team will writ code in order to analyze data and create data visualizations in order to communicate a story that would address the client’s interest in determining whether COVID has influenced athlete performance. Given the constraints of data to inform this specific question, the project will involve data exploration to tell a story about athlete performance. Given the client has little information about athlete performance, including data visualizations, this exploration allows for a healthy dose of flexibility in team creativity. This open element will also allow teams to develop ideas independently, thereby producing stories that will likely diverge wildly from each other, making the project an exciting foray into data storytelling for many students.</p>
-<section id="project-roles" class="level3">
-<h3 class="anchored" data-anchor-id="project-roles"><strong>Project Roles</strong></h3>
+<section id="team-roles" class="level2">
+<h2 class="anchored" data-anchor-id="team-roles"><strong>Team Roles</strong></h2>
 <p>Project roles help streamline events, assist delegation, allow for some accountability, and reduce workload overlap. Project roles are designed to help keep the project organized and reduce confusion about what project elements team members are taking on. Team roles should be decided upon in a way that maximizes member ability so that task demands are equal across team members. These roles provide some guidelines but do not obviate members from contributing to and participating in other tasks subsumed under specific roles. In other words, when the Project Manager falls ill, another team member should step up to facilitate any necessary communication between the liaison of me. Likewise, the Coding Lead would step in to help the Writing Lead revise writing when necessary. Similarly, the Writing Lead or Project Manager should help the Coding Lead with organizing code when appropriate. All team members have have the same goal, which is to develop, code, and communicate the project to the liaison. All members will code, organize, and write and may take lead on sections with which they are most familiar or most qualified in addressing.</p>
 <p>If the team decides to create roles different from those suggested below, please just let me know.</p>
 <p><strong>Suggested Roles:</strong></p>
-<section id="project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication." class="level4">
-<h4 class="anchored" data-anchor-id="project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication.">1. <em>Project Manager (PM)</em>: The project manager helps with organization of the project and is the point person for communication.</h4>
+<section id="project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication." class="level3">
+<h3 class="anchored" data-anchor-id="project-manager-pm-the-project-manager-helps-with-organization-of-the-project-and-is-the-point-person-for-communication.">1. <em>Project Manager (PM)</em>: The project manager helps with organization of the project and is the point person for communication.</h3>
 <ul>
 <li>Communicating with course faculty and liaison(s);</li>
 <li>Scheduling and reminding the team meetings and meetings with liaison;</li>
@@ -310,8 +524,8 @@ ul.task-list li input[type="checkbox"] {
 <li>The Project Manager is not responsible to reminding team members to complete their tasks or complete worklogs.</li>
 </ul>
 </section>
-<section id="reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing." class="level4">
-<h4 class="anchored" data-anchor-id="reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing.">2. <em>Reporting Lead (RL)</em>: The reporting lead(s) helps with organization of the reporting documents (e.g., slides, report) and revision of writing.</h4>
+<section id="reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing." class="level3">
+<h3 class="anchored" data-anchor-id="reporting-lead-rl-the-reporting-leads-helps-with-organization-of-the-reporting-documents-e.g.-slides-report-and-revision-of-writing.">2. <em>Reporting Lead (RL)</em>: The reporting lead(s) helps with organization of the reporting documents (e.g., slides, report) and revision of writing.</h3>
 <ul>
 <li>1 or 2 members</li>
 <li>Planning, guiding, and leading report writing;</li>
@@ -324,8 +538,8 @@ ul.task-list li input[type="checkbox"] {
 <li>The Reporting Team is not responsible to all writing.</li>
 </ul>
 </section>
-<section id="coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended." class="level4">
-<h4 class="anchored" data-anchor-id="coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended.">3. <em>Coding Lead (CL)</em>: The coding lead(s) helps with organization and management of the project code elements (e.g., project, code, associated files, GitHub repo (recommended)).</h4>
+<section id="coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended." class="level3">
+<h3 class="anchored" data-anchor-id="coding-lead-cl-the-coding-leads-helps-with-organization-and-management-of-the-project-code-elements-e.g.-project-code-associated-files-github-repo-recommended.">3. <em>Coding Lead (CL)</em>: The coding lead(s) helps with organization and management of the project code elements (e.g., project, code, associated files, GitHub repo (recommended)).</h3>
 <ul>
 <li>1 or 2 members</li>
 <li>Creating and maintaining organization of the project code (e.g., directories, sourced scripts, etc.)</li>
@@ -339,75 +553,6 @@ ul.task-list li input[type="checkbox"] {
 <li>The Coding Team is not responsible for all coding.</li>
 </ul>
 <p>Based on abilities and interests of team members, the team should determine how many individuals to assign to a given role, or determine other appropriate roles given the abilities of the team members. There should be unanimity in these decisions. I will not assign you to roles.</p>
-</section>
-</section>
-</section>
-<section id="project-grading" class="level2">
-<h2 class="anchored" data-anchor-id="project-grading"><strong>Project Grading</strong></h2>
-<ul>
-<li>Quality of project deliverable documents (e.g., organization, coherence, story, coding clarity/organiation, plots, etc.)</li>
-<li>Professionalism (e.g., liaison meeting etiquette and responsibility, timely discord communication, non-tardy attendance at weekly team meeting, weekly worklogs, feedback from liaison, etc.)</li>
-<li>Peer evaluation (e.g., contributions, team player, etc.)</li>
-</ul>
-<p>Note: Liaison’s will also participate in evaluating all teams. The team with the most impressive project (e.g., most clear, most useful and actionable, most interesting, most thought provoking, etc.) will receive bonus points.</p>
-</section>
-<section id="presentation" class="level2">
-<h2 class="anchored" data-anchor-id="presentation"><strong>Presentation</strong></h2>
-<section id="presentation-characteristics" class="level3">
-<h3 class="anchored" data-anchor-id="presentation-characteristics"><strong>Presentation Characteristics</strong></h3>
-<ol type="1">
-<li><p><em>Clarity</em>: well-explained; easy to follow/understand; ability to communicate points effectively</p></li>
-<li><p><em>Organization</em>: structured logically; ability to walk audience through the data journey and communicate a story interpretation about data</p></li>
-<li><p><em>Thoroughness</em>: all relevant issues discussed thoroughly</p></li>
-<li><p><em>Presentation Style</em>: degree of preparedness and polish in presentation; smooth and rehearsed; minimum of reading; well-paced; slide quality</p></li>
-</ol>
-</section>
-<section id="presentation-tips" class="level3">
-<h3 class="anchored" data-anchor-id="presentation-tips"><strong>Presentation Tips</strong></h3>
-<ul>
-<li>Speak to your audience. Look them in the eyes, tell them about the journey. In other words, don’t just read from your slides.</li>
-<li>Do not overwhelm your audience with too much information, especially verbal information. Doing so causes people to read your slides or look at slide content you are not talking about at the moment. You are the presenter and your slides are your visual aides used to support what you communicate. Elaboration can occur in the written deliverable.
-<ul>
-<li>Present slides topically; do not mix unrelated content; use relevant headers, etc.</li>
-<li>Present summary points on slides rather than full sentences. Communicate to your audience in sentences but don’t present complete sentences on slides unless imperative for communicating a specific point.</li>
-<li>Present each point separately; do not present all slide content at once (e.g., points a, b, c); communicate specific points (e.g., a) to your audience. Presenting all points at once prevents your audience from paying attention to you and causes cognitive interference/distraction.</li>
-<li>Use a tool (e.g., pointer, etc.) to direct attention to necessary elements of slides, especially when a slide contains multiple pieces of information. Doing so will reduce unnecessary confusion from some audience members because they will not be looking at the incorrect content.</li>
-</ul></li>
-<li>Introduce team members, their role, etc. when “passing the the mic”. Your client should be reminded of who the team member is and what their role was.</li>
-</ul>
-</section>
-</section>
-<section id="weekly-worklogreport" class="level2">
-<h2 class="anchored" data-anchor-id="weekly-worklogreport"><strong>Weekly Worklog/Report</strong></h2>
-<p>Tracking individual and team goals weekly ensures progress toward the goal, commitment to the project, accountability for oneself, and a record of accomplishments.</p>
-<p>The Project Manager should inquire with the team about the best way to submit worklogs or transparency and review. This could be a Google Doc File, a spreadsheet, or even a Google From that contains questions to answer, which then get dumped into a Google Spreadsheet for all to review.</p>
-<section id="frequency-of-worklog" class="level3">
-<h3 class="anchored" data-anchor-id="frequency-of-worklog"><strong>Frequency of Worklog</strong></h3>
-<p>Worklogs are to be completed by <em>end-of-day following the team meeting</em>, after communicating future goals (distributed equally) to other team members. Please make public for me to review. Meetings should be physical to facilitate team cohesion and conversation, and limit silly technical issues that just waste meeting time.</p>
-</section>
-<section id="contents-of-worklog" class="level3">
-<h3 class="anchored" data-anchor-id="contents-of-worklog"><strong>Contents of Worklog</strong></h3>
-<p>Worklogs should contain information about the reporting date, the team member reporting, that member’s previous week accomplishments, and that member’s future week goals</p>
-<ol type="1">
-<li>For the past week, I accomplished the following specific goals for my team:</li>
-</ol>
-<ul>
-<li>This…</li>
-<li>That…</li>
-<li>And the other…</li>
-</ul>
-<ol start="2" type="1">
-<li><p>For this past week, the number of hours allocated toward those goals was: ___</p></li>
-<li><p>For this coming week, my specific goals for the team include:</p></li>
-</ol>
-<ul>
-<li>This…</li>
-<li>That…</li>
-<li>And the other…</li>
-</ul>
-<ol start="4" type="1">
-<li>If relevant, any items to discuss with liaison.</li>
-</ol>
 
 
 </section>
