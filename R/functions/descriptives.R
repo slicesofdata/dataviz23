@@ -16,4 +16,4 @@ f <- function(data, group) {
     count() 
 }
 
-f(SWIM, all_of("Time")) 
+#f(SWIM, all_of("Time")) 

@@ -78,32 +78,47 @@ ordered_names <- c("installing_r_and_rstudio.qmd",
                    #"installing_git_and_github_desktop.qmd",
                    #"project_management_with_here.qmd",  #                   "module_starter_page.qmd"#,
                    "graphical_perception.qmd", 
+                   
                    "reading_data_files.qmd",
                    "data_frame_manipulation_and_wrangling.qmd",
                    "data_subsets_and_summaries.qmd", 
+                   
                    "ggplot_and_the_grammar_of_graphics.qmd",
                    "visualizing_amounts.qmd",
                    #"geom_bar.qmd", 
+                   
                    "visualizing_associations.qmd",
                    "spatial_position_and_adjustment.qmd",
+                   
                    "considerations_in_data_visualization.qmd",
                    #"geom_point.qmd",
                    #"geom_col.qmd",
                    "color_scales_and_palettes.qmd",
-                   "statistical_transformations.qmd",
-                   "coordinates_axes_and_position_scales.qmd",
+                   
                    "histograms_and_density_plots.qmd",
+                   "coordinates_axes_and_position_scales.qmd",
+                   
+                   "statistical_transformations.qmd",
+                   # "more_data_wrangling",
+                   
                    "visualizing_more_distributions.qmd",
+                   
                    "visualizing_uncertainty.qmd",
+                   
                    "visualizing_trends.qmd",
                    # "geom_line.qmd",
                    "legends_and_arrangement.qmd", 
+                   
                    "annotation_and_text.qmd",
                    "designing_perceptually_efficient_visualizations.qmd",
+                   
                    "attentional_control.qmd", 
                    "multi_panel_plots_faceting.qmd"
 #                   "animation.qmd",
 #                   "hello.qmd"
+#                   
+# THESE NEED TO be titled correctly with the files in the directory. Some out of order. 
+# Some missing. Some names                    
                    ) 
 
 page_reorder(ord_name_ext = ordered_names, 

@@ -115,8 +115,8 @@ website:
             href: homework/HW08.Rmd
           - text: HW 9
             href: homework/HW09.Rmd
-          - text: HW 10
-            href: homework/HW10.Rmd
+      #    - text: HW 10
+      #      href: "https://raw.githubusercontent.com/slicesofdata/dataviz23/main/homework/HW10.Rmd")
       - text: "**Data**"
         #file: slides/index.qmd
         menu:

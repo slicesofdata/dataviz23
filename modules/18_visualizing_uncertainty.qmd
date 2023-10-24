@@ -4,15 +4,13 @@ author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
-execute:
-  enabled: true
+# this is a test to fingure out why there is the following error when rendering many quarto files:
+# ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
 ---
 
 ```{r}
 #| label: load-packages
 #| include: false
-
-
 ```
 
 ::: callout-important
@@ -24,9 +22,11 @@ This page is a work in progress and may contain areas that need more detail or t
 
 # **Overview**
 
+In this module, we 
+If you like using formulas for plotting, you should check out [**{ggformula}**](https://www.mosaic-web.org/ggformula/reference/gf_linerange.html).
+
 
 # **To Do**
-
 
 ## **Readings**
 
@@ -45,5 +45,1302 @@ Reading should take place in two parts:
 - [Wickham, Navarro, & Pedersen (under revision). *ggplot2: Elegant Graphics for Data Analysis (3e)*. Uncertainty](https://ggplot2-book.org/statistical-summaries#sec-uncertainty)
 
 
-# **Under construction, content pending**
+## **External Functions**
+
+Provided in class:
+
+`view_html()`: for viewing data frames in html format, from `/r/my_functions.R` 
+
+You can use this in your own work space but I am having a challenge rendering this of the website, so I'll default to `print()` on occasion.
+
+```{r}
+source(here::here("r", "my_functions.R"))
+```
+
+## **Custom Functions**
+
+We will use some custom functions to handle some tasks this module. For rnow, let's create a simple function that will cycle through a palette based on the length of the variable being passed to the color or fill scale. The function will `rep()`etc n `colors` until the vector contains enough colors for
+
+```{r}
+scale_cycle <- function(scale_var, colors) {
+  return(
+    rep(colors, ((length(scale_var)) + 1) / length(colors) )
+    )
+}
+```
+
+```{r}
+scale_cycle(scale_var = c("a", "b", "a", "b") ,
+            colors = c("cornflowerblue", "magenta"))
+```
+
+
+## **Libraries**
+
+- **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
+- **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
+- **{ggplot2}** `r packageVersion("ggplot2")`: for plotting
+- **{ggdist}** `r packageVersion("ggdist")`: for plotting distributions
+- **{distributional}** `r packageVersion("distributional")`: for plotting distributional information
+- **{tidyr}** `r packageVersion("tidyr")`: for tidying up models
+- **{broom}** `r packageVersion("broom")`: for cleaning up models
+
+
+
+## **Load libraries**
+
+```{r message=FALSE}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(tidyr)
+library(ggplot2)
+library(broom)
+library(distributional)
+```
+
+
+# **Loading Data**
+
+For this exercise, we will use some data from a 2023 CMS swim meet located at: "https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv".
+
+```{r}
+SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv",
+                        show_col_types = F)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+## Some othere data
+
+#HT_SUM <- readRDS("C:/Users/gcook/Sync/git/dataviz23/data/tfrrs/HT_SUM.Rds")
+# HT <- readRDS("C:/Users/gcook/Sync/git/dataviz23/data/tfrrs/HT.Rds")
+# 
+AT <- readRDS(here::here("data", "swim", "cleaned_cms_top_all_time_2023.Rds"))
+#AT <- readRDS("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned_cms_top_all_time_2023.Rds")
+
+HT <- readRDS(here::here("data", "tfrrs", "HT.Rds"))
+```
+
+
+
+# **Measurement**
+
+Measurement is the systematic assignment of numbers to an event, or object, based on the properties inherent in that event, or object.
+For example, the properties of an apple may be its color, size, shape, sweetness, acidity, texture, etc. The properties of an individual may be ones height, weight, BMI, genetics, hair color, eye color, graphical literacy, decision-making ability, working-memory capacity, etc. 
+
+Statistical research is the pursuit of understanding the systematic relationships between events that vary.
+
+
+A key goal of statistics is to understand the systematic relationship between predictor and outcome variables. If fact, we don't really need statistics at all if there is no variability in measurement from person to person, event to event, or sample to sample.  
+
+# **Tables**
+
+Though tabular representations of data are visualizations, they are not what many think of when they think of data visualizations. Tables, however, are excellent when you need to convey exact numbers for examples, population statistics, prices, etc. Although we will likely address more table libraries and functions, the **{kableExtra}** library builds on the `knitr::kable` function for adding some detailing to table objects. In the event that you need to create a simple table, the custom function below uses `kableExtra::kbl` and `kableExtra::classic` to add decorative details to a table. The function takes a data frame, `x`, allows for adding a `caption`, `aligns` the caption (right by default), and specifies the `html_font` for the plot (default is Calibri). We will illustrate the function usage in a moment.
+
+```{r}
+table_kbl <- function(
+  x, 
+  caption = NULL, 
+  align = "r",
+  html_font = "Calibri",
+  footnote = NULL,
+  ...
+  ) {
+       if (!require(kableExtra) ) {
+         install.packages("kableExtra", dep = T) 
+         }
+  x |>      
+       kableExtra::kbl(caption = caption, 
+                       align = align
+                       ) |>
+       kableExtra::kable_classic(full_width = F, 
+                                 html_font = html_font
+                                 ) |>
+       kableExtra::footnote(footnote)
+}
+```
+
+# **Counts or Freqencies**
+
+We have seen before that we can obtain frequency counts from the data for plotting. The approach taken was using `summarize()` to create a new `Count` variable as seen here.
+
+```{r, message=FALSE}
+SWIM |>
+  group_by(Team, Event) |>
+  summarize(Count = dplyr::n()) |>
+  ungroup() |>
+  arrange(desc(Count), desc(Event)) |>
+  table_kbl(caption = "Event participation in 2023", 
+            align = "r", 
+            html_font = "Times New Roman",
+            footnote = "Sorted by count"
+            )
+```
+
+Notice that we can `arrange()` the data frame before passing to the function if we wanted something other than the default grouping order from `group_by()`.
+
+An alternative to the steps of `group_by()` and `summarize()` is to use `count()` rather than summarize. Like `summarize()`, the grouping structure is preserved, so we will keep the practice to `ungroup()` even though we are just passing to a table. If you choose not to `ungroup()`, make sure you do when your returned data frame is saved as an object in memory, saved to disk, or involves other variable mutations.
+
+```{r}
+SWIM |>
+  group_by(Team, Event) |>
+  count() |>
+  ungroup() |>
+  arrange(desc(n), desc(Event)) |>
+  table_kbl(caption = "Event participation in 2023", 
+            align = "r", 
+            html_font = "Times New Roman",
+            footnote = "Sorted by count"
+            )
+```
+
+Though `geom_bar()` creates counts for you by default, `geom_col()` can map the counts to `x` or `y` aesthetics. `geom_col()` makes the most sense in this case. 
+
+```{r}
+SWIM |>
+  group_by(Team, Event) |>
+  count() |>
+  ungroup() |>
+  filter(Event == "Freestyle") |>
+  ggplot(mapping = aes(x = Team, y = n)
+         ) + 
+  geom_col() +
+  labs(title = "Event participation in 2023", y = "Number of Athletes")
+```
+
+If we did not want a bar plot, we could also make a *lollipop* plot, which will is basically a multi-layered plot that combines a `geom_point()` and a `geom_segment()`. Although this plot instance does not show some real-estate saving components of these plot types, we can make a slight detour into visual perception and attention. 
+
+```{r}
+SWIM |>
+  group_by(Team, Event) |>
+  count() |>
+  ungroup() |>
+  filter(Event == "Freestyle") |>
+  ggplot(mapping = aes(x = Team, y = n)) + 
+  geom_point(size = 6) +
+  geom_segment(aes(x = Team, 
+                   xend = Team, 
+                   y = 0, 
+                   yend = n
+                   ),
+               linewidth = 1
+               ) +
+  labs(title = "Event participation in 2023", y = "Number of Athletes")
+```
+
+All visual scenes contain a *figure* and a *ground*. For plots, the figure are the plot elements and the ground (background) is the theme on which the plot is plotted; it's what's not the plot. The eye is detecting contrast, or luminance contrast, from the light reflected from the figure of the plot compared to the light reflected from the ground. The contrast represents the difference between the or darker areas of interest (e.g., bars, points, lines, etc.) and lighter areas (the ground).
+
+Visually, the figure elements of lollipop plots provide contrast between the points (figure) and the background (ground) which is specific to the vertical position (y-axis) of the points. Bar plots also have contrast luminance between the bars (figure) and the background but this contrast is not specific to the vertical height of the bar represented by terminating the horizontal edge. Rather, there is contrast along the sides and bottom of the bar as well. Moreover, the luminance contrast is not the same for all bars because longer bars have associated more contrast. For more on such issues, see [NASA Ames](https://colorusage.arc.nasa.gov/design_lum_0.php#1) discussing or [Mozilla's developer page](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_Colors_and_Luminance) on the issue.
+
+
+## **Interim Summary**
+
+There are a few details here worth noting given the comparisons here. First, the bar plot and the table take up about the same page real estate yet the table conveys much more information. A table can be used to provide a lot of detail whereas a plot may allow a lot of detailing . Yes, we can create stacked or grouped bar plots to take up the same real estate but you should always ask what your the goal is for a plot and whether the plot is the best medium for visualizing data. 
+
+Second, the important aspect of the data presented in the table and the bar plot is that the number of events does not vary for a given grouping. Yes, the counts change across the team groupings and likely across years but for this year, event, and teams, the height of the bars do not vary. Where data do not vary, bar plots are a good choice.
+
+Third, plots are visual objects that are processed by the visual system. Plot elements will affect how the visual system processes items, directs attention exogenously (bottom-up) rather than endogenously (top-down) which may have lasting influences on plot memorability. 
+
+
+# **Variability and Uncertainty in Data**
+
+When we deal with variables, rather than constants, we have variability. By definition, variables represent events that can be counted or measured and may take on different values. Variables are not constants. Whereas constants introduce no ambiguity, variability, or uncertainty, variables capture differences in measurement of event properties. These differences, or changes, in measurement value may occur from context to context, person to person, time to time, etc. When all individuals perform the same on some measurable event (e.g., math accuracy, long jump, money in pocket, etc.) there is no variability. By contrast, differences in measurement across individuals can reflect uncertainty about performance. 
+
+To the extent that an individual differs in number of millimeters jumped in 10 attempts of the standing broad jump, there is variability and uncertainty in this ability. Similarly, differences in the number of millimeters jumped by 10 individuals reveals differences or variability among individuals (plus or minus other influences affecting a single jumping instance). To the extent that differences among individuals are not the result of random influence, they must be due to other measurable properties (e.g., age, height, weight, strength, balance, motor coordination, angle of knee flexion, angle of hip flexion, take-off velocity, preparation, push-off, and float, etc.). 
+
+Of course, all jumping events can be aggregated in an effort to summarize and estimate the central tendency of jumping ability (e.g., mean, median, mode) but this aggregation process does not remove the change in measurement from jump to jump called variability.
+
+## **Point Estimates**
+
+We can filter or an event, group the data, and summarize by groups using means in order to plot those mean point estimates are bars. This is the traditional, though not personally recommended, approach to plotting data in various disciplines. This will serve as a starting point for plots.
+
+```{r}
+SWIM |>
+  group_by(Team, Event) |>
+  summarize(Mean = mean(Time)) |>
+  ungroup() |>
+  ggplot(aes(x = Team, y = Mean)) + 
+  geom_col() +
+  labs(title = "Mean Freestyle Swim Time", y = "Seconds")
+```
+
+Compared with the count data, the means are simply *point estimates* of the central tendency for sample data which are often used in service of estimating unknown population parameters. This is why a mean is called a [point estimate](https://en.wikipedia.org/wiki/Point_estimation) as it estimate a single value, or point, of a distribution. Plotting means does not provide information about variability in the sample data or in the uncertainty around the mean's ability to estimate the sample's center generally and more specifically its corresponding population parameter.
+
+## **Visualizing Variability**
+
+Whereas point estimates provide statistical information about central tendency and are represented visually using points, bars, or boxes, *interval estimates* and dispersion measures like standard deviations, standard errors of the mean, confidence intervals, etc. are represented using vertical lines, crossbars, or error bars. **{ggplot2}** has four geoms for visualizing statistical measures of variability: `geom_crossbar()`, `geom_errorbar()`, `geom_linerange()`, `geom_pointrange()`. *Note:* Legends may be hidden for illustrative purposes.  
+
+
+### **A `descriptives()` function** 
+
+In order to create some visualizations, we will first summarize the data and then create a base plot to overlay different metrics for examples. We could use `group_by()`, `summarize()`, and `ungroup()` but you can always create your own functions to perform these redundant operations. 
+
+In order to summarize the data, we will use a custom function I wrote and named  `descriptives()`, which serves as a "Offiziersmesser" ("officer's knife", aka [Swiss Army Knife](https://en.wikipedia.org/wiki/Swiss_Army_knife)), type function for descriptive statistics. This function takes a vector or a data frame and returns the n, mean, trimmed mean, median, standard deviation, standard error, skewness, kurtosis, sum, minimum, maximum, range, interquartile range, median absolute deviation, and confidence interval values for a numeric vector. Both `trim` and `conf` can be adjusted as needed.
+
+We will also calculate the range of years in order to facilitate the axis scale. And we will also make a simple function to cycle though some colors for making the points in the adjacent years easier to distinguish. We only need to colors for contrasting adjacent years, 
+
+How does `descriptives()` work? There are there parts. 
+
+- `data`: the data object, which can be a vector or a data frame/tibble
+- `groupby`: the grouping parameter leveraging `group_by()`
+- `var`: the outcome variable vector for describing statistically
+
+You can source the function this way:
+
+```{r}
+source("https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R")
+```
+
+Let's get the `descriptives()` for the `SWIM` data, grouped by `Team` and `Event` for `Time`.
+
+```{r}
+descriptives(data = SWIM, 
+             groupby = c(Team, Event), 
+             var = Time
+             )
+```
+
+All metrics are lowercase, so if passing the returned object to `ggplot()`, we can plot the data by mapping `mapping = aes(x = Team, y = mean)`. 
+
+```{r}
+descriptives(SWIM, groupby = c(Team, Event), var = Time) |>
+  filter(Event == "Freestyle") |>
+  group_by(Team) |>
+  ggplot(mapping = aes(x = Team, y = mean)
+         ) + 
+  geom_col() +
+  labs(title = "Mean Freestyle Swim Time", y = "Seconds")
+```
+
+Let's assign the returned descriptive statistics to an object for future plots.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+HT_summary <- descriptives(HT, groupby = c(Season, Team), var = Mark)
+year_range <- range(HT$Season)
+```
+
+```{r}
+SWIM_summary <- descriptives(SWIM, groupby = c(Team, Event), var = Time)
+```
+
+
+For the base plot, the one thing that we will want to ensure is to map `y = mean` and `x = Event` from the summarized data frame. Keep in mind that the variables from `descriptives()` are lowercase. We will, however, map other variables to aesthetics as well and in later specific `geom_*()`s.
+
+```
+mapping = aes(x = Event, 
+              y = mean, 
+              fill = Team,
+              col = Team,
+              shape = Team
+              )
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot <- HT_summary %>%
+  ggplot(data = ., 
+         mapping = aes(x = Season, 
+                       y = mean, 
+                       fill = Team,
+                       col = as.character(Season), # for alternating colors
+                       shape = Team
+                       #group = Team
+                       )
+         ) +
+  scale_x_continuous(name = NULL, breaks = seq(year_range[1], year_range[2], 1)) + 
+  scale_y_continuous(name = "Meters", breaks = seq(0, max(HT_summary$mean + 20), 2)) +
+  #scale_color_discrete() #+
+  #colorspace::scale_color_discrete_diverging(palette = "Berlin") +
+  scale_color_manual(values = scale_cycle(HT$Season, c("cornflowerblue", "grey40"))) +
+  theme_minimal() +
+  theme(legend.position = "none")
+  #geom_bar(stat = "identity", 
+  #         color = "black", 
+  #         position = position_dodge2(preserve = "single")
+  #         ) +
+```
+
+```{r}
+swim_base_plot <- SWIM_summary %>%
+  ggplot(data = ., 
+         mapping = aes(x = Event, 
+                       y = mean, 
+                       fill = Team,
+                       col = Team,
+                       shape = Team
+                       ),
+         position = position_dodge2(width = 1)
+         ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+
+### `geom_pointrange()`:
+
+A `geom_pointrange()` is quite simply a combination of a `geom_point()` and a `geom_line()`. It also provides more detail than a `geom_linerange()`, which is just a line connecting two points. For both geoms, you will need to specify where the line along the y axis starts and where it ends by mapping variables to `ymin` and `ymax`. For these examples, the values will be obtained using `descriptives()` but you could use **{{dplyr}}** to subset and summarize the data too. If you want to map other `aes()`thetics, for example, shape or color, you can do that as well. 
+
+```
+geom_pointrange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  fatten = 4,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+```
+
+#### `geom_pointrange()` with standard deviation
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot + geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                          ymax = mean + sd),
+                            alpha = .8
+                            )
+```
+
+```{r}
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                ymax = mean + sd
+                                ),
+                  alpha = .8
+                  )
+```
+
+One positioning issue that you will experience with `geom_point()` or `geom_pointrange()` relates to mapping a third variable to `col`, `fill`, or `shape` which were all mapped to `Team`. You have seen points plotted with these aesthetics before and addressed overplotting before by jittering them. When using `geom_pointrange()`, you can immediately notice a similar challenge; the points corresponding to the same x-axis position may have overlapping error variability lines. Because the lines are so thin, adjusting opacity will not really fix the problem. 
+
+```{r}
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                ymax = mean + sd
+                                ),
+                  alpha = .8
+                  )
+```
+
+Adjusting positioning using `position = position_jitter()` will move the change point position but will do so that will be inconsistent across the x variable, whether categorical or numeric creating asymmetrical positioning. 
+
+```{r}
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                ymax = mean + sd
+                                ),
+                  alpha = .8,
+                  position = position_jitter()
+                  )
+```
+
+The problem is that jitter functions apply a random jittering for each level of x here. Setting the `seed` for the process will ensure consistency every function call but *will not ensure* consistency across each level of the x variable as seen in the plot.  
+
+
+When you really just want the points be get out of each others way, you can use `position = position_dodge2()` to make the points dodge side-to-side from the central positioning in a symmetrical manner. `position_dodge2()` relative to `position_dodge()` also does not require a `group` to be defined in the `geom_*()` or the global `ggplot()` object. However, you will likely need to set `width` to a value of 1 or less when your x variable is categorical in order to avoid something unappealing. Here are some examples.
+
+```{r}
+suppressMessages(
+  plot(
+    gridExtra::arrangeGrob(
+  
+      swim_base_plot + 
+        geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                      ymax = mean + sd
+                                      ),
+                        alpha = .8,
+                        position = position_dodge2(width = 2)
+                        ) +
+  labs(title = "position_dodge2(width = 2)",
+       tag = "A"),
+  
+  swim_base_plot + 
+    geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                  ymax = mean + sd,
+                                  col = Team),
+                  alpha = .8,
+                  position = position_dodge2(width = 1)
+                  ) +
+    labs(title = "position_dodge2(width = 1)", tag = "B"),
+  
+  swim_base_plot + 
+    geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                  ymax = mean + sd,
+                                  col = Team),
+                    alpha = .8,
+                    position = position_dodge2(width = .5)
+                    ) +
+    labs(title = "position_dodge2(width = .5)", tag = "C"),
+  
+  swim_base_plot + 
+    geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                  ymax = mean + sd,
+                                  col = Team),
+                  alpha = .8,
+                  position = position_dodge2(width = .25)
+                  ) +
+    labs(title = "position_dodge2(width = .25)", tag = "D"),
+  
+  ncol = 2
+)))
+```
+
+**Plot A** will not achieve the dodge you desire and something something too small may not lead to enough change in position. **Plot Β** solves the issue but is challenged by the Gestalt perceptional grouping principle of [proximity](https://en.wikipedia.org/wiki/Principles_of_grouping). If you are curious about these principles in UX design [Nielsen Norman Group](https://www.nngroup.com/articles/gestalt-proximity/) also has a post on this issue. The dodging associated with `width = 1` does not facilitate the grouping of `Team` at each level of `Event` because the spacing between `Team`s for each event is the same as the spacing of `Team`s across `Event`s. Reduce the dodge so that proximity grouping facilitates plot perception and interpretation. Keep in mind that plot aspect ratios (see [here](https://ggplot2.tidyverse.org/reference/coord_fixed.html)) can also affect positioning and proximity in some cases. 
+
+#### `geom_pointrange()` with standard error
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot + geom_pointrange(mapping = aes(ymin = mean - se, 
+                                          ymax = mean + se)
+                            )
+
+base_plot + geom_pointrange(mapping = aes(ymin = mean - se, 
+                                          ymax = mean + se),
+                            position = position_dodge2(width = 1)
+                            ) +
+  labs(title = "Mean Throwing Distances for Stags and Athenas by Season",
+       caption = "lines represent standard deviations from the mean")
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = mean - se, 
+                                ymax = mean + se
+                                )
+                  )
+
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = mean - se, 
+                                ymax = mean + se
+                                ),
+                  position = position_dodge2(width = .5)
+                  ) +
+  labs(title = "Mean Times for Stags and Athenas by Event",
+       caption = "lines represent standard errors of the mean\ncircle = Athena"
+       )       
+```
+
+
+`geom_pointrange()` confidence intervals
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot + 
+  geom_pointrange(mapping = aes(ymin = ci.99l, 
+                                ymax = ci.99u
+                                ),
+                  position = position_dodge2(width = 1)
+  ) +
+  coord_flip()
+```
+
+```{r}
+swim_base_plot + 
+  geom_pointrange(mapping = aes(ymin = ci.99l, 
+                                ymax = ci.99u
+                                ),
+                  linewidth = .7,  # make the line more prominent
+                  position = position_dodge2(width = .5)
+  ) +
+  coord_flip() +
+  labs(title = "Mean Times for Stags and Athenas by Event",
+       caption = "lines represent 99% confidence intervals\ncircle = Athena"
+       )   
+```
+
+
+### `geom_linerange()`:
+
+A `geom_linerange()` simply visualizes a line plot that starts at one value and ends at another value.
+
+```
+geom_linerange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot + geom_linerange(aes(ymin = min, ymax = max, col = Team))
+```
+
+```{r}
+swim_base_plot + 
+  geom_linerange(mapping = aes(ymin = min, 
+                               ymax = max
+                               ),
+                 linewidth = 1  # make the line more prominent
+                 )
+```
+
+Such a visualization shows clearly where the data start and stop and allow for comparisons. You can also see when data were missing for `Event`s. Out of the box, the bars will overlap, which will require some adjustment. 
+
+`geom_linerange()` with standard deviation
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot + 
+  geom_linerange(mapping = aes(ymin = ci.99l, ymax = ci.99u, col = Team),
+                 position = position_dodge(width = 1)
+                 ) +
+  #scale_y_continuous(breaks = seq(0, max(HT_summary$max)+4, 2)) +
+  labs(title = "",
+       caption = ""
+       )
+```
+
+```{r}
+swim_base_plot + 
+  geom_linerange(mapping = aes(ymin = ci.99l, 
+                               ymax = ci.99u
+                               ),
+                 linewidth = 1,
+                 position = position_dodge2(width = .5)
+                 ) +
+  coord_flip() +
+  labs(title = "Mean Times for Stags and Athenas by Event",
+       caption = "lines represent standard errors of the mean\nred = Athena"
+       )   
+```
+
+Compared with `geom_pointrange()`, `geom_linerange()` only creates a perceptual grouping based on color. Because there are no points to plot, you cannot also change the `shape` of the points in order to make the grouping of `Team` redundant with color and point shape. Redundant encoding is something we will address in another module on **designing perceptually-efficient visualizations**). If you wish to achieve this redundancy, you will need to vary the `lintetype`. You can map the aesthetic to `Team`, set it specifically with `scale_linetype_manual()`, or code the linetype into the data frame and use `scale_linetype_identity()`. You can specify `linetype` by name or by number:  0 ("blank"), 1 ("solid"), 2 ("dashed"), 3, 4, 5, 6, etc. When passing `values` in `scale_linetype_manual()`, keep in mind this is a vector and vectors can be numeric or character but not both so you cannot mix numbers and strings for linetypes.
+
+
+For more on linetype, read [here](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html)
+
+```{r}
+swim_base_plot + 
+  geom_linerange(mapping = aes(ymin = ci.99l, 
+                               ymax = ci.99u,
+                               linetype = Team
+                               ),
+                 linewidth = 1,
+                 position = position_dodge2(width = .5)
+                 ) +
+  scale_linetype_manual(values = c(Men = "dotted", Women = "longdash", Mixed = "solid")) +
+  coord_flip() +
+  
+  labs(title = "Mean Times for Stags and Athenas by Event",
+       caption = "lines represent standard errors of the mean\nred = Athena"
+       )   
+```
+
+### `geom_errorbar()`:
+
+Error bars are likely the most familiar visual form of of uncertainty you see in data visualization. Error bars represent the measurable error associated with data cases deviating from the distribution's mean and is most typically the [*standard error of the mean*](https://en.wikipedia.org/wiki/Standard_error). Without delving too deeply into concepts of statistics, the standard error of the mean is calculated as `standard deviation / square root of the sample size`. Although there are libraries like **{plotrix}** containing functions for it, its calculation is so simple you don't need to bother with external libraries. 
+
+The `describe()` function calculates it as `se`.
+
+`geom_errorbar()` will require setting the `ymin` and `ymax` values for the error bars. Because the `se` reflects error around the `mean`, we will need to add and subtract the `se` to and from the `mean` in order to determine its upper and lower limits.
+
+```{r}
+swim_base_plot + 
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              )
+                )
+```
+
+Out of the box, the bars will overlap and they will can been quite large, thus requiring some adjustment. We will `position_dodge2()` the bars to prevent overlapping, change the `linewidth` to be more prominent, set the `col` to be the same (for now)
+
+```{r}
+swim_base_plot + 
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              ),
+                position = position_dodge2(width = .2),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+  )
+```
+
+
+
+Before even adding error bars, this `geom_col()` represents an excellent example of a pesky problem with out-of-the-box plots containing missing data. In any given data set, you might not have perfectly tidy data frames with data for all variable x variable combinations. For example, you might have data on the number of steps you walk during the morning and the afternoon (two levels of a time factor) for every day of the week (7 measures of another time variable) and you would have 2 x 7 = 14 bars to present in a plot. But if on Saturdays you sleep in past noon, you never have any data for the morning on Saturdays and you will have only 13 bars for your plot. 
+
+The above plot illustrates what `geom_col()` does when you have this data imbalance. When both bars are missing, you will see an empty space on the plot. You see that for 2021. But when only half the data are present, a single bar usurps the space of two bars. 
+
+
+#### *Making bars the same width**
+
+When you read the docs for `position_dodge()` or `position_dodge2()`, you see that you can set a `preserve` argument (e.g., *"should dodging preserve the "total" width of all elements at a position, or the width of a "single" element?"*). Clearly, we want to fix the width using `preserve = "single"`. The way that `position_dodge()` and `position_dodge2()` handle this aesthetically differs so we can use both for comparison. You can decide what looks better for your own plots. 
+
+```{r}
+suppressMessages(
+  plot(
+    gridExtra::arrangeGrob(
+    swim_base_plot + 
+      geom_col(position = position_dodge(preserve = "single")) +
+      labs(title = 'position_dodge(preserve = "single"))',
+           tag = "A"
+           ),
+    swim_base_plot +
+      geom_col(position = position_dodge2(preserve = "single")) +
+      labs(title = 'position_dodge2(preserve = "single"))',
+           tag = "B"
+           ),
+    ncol = 1
+  )))
+```
+
+The bars are now all the same width. For `position_dodge2()`, the single bar is center-aligned whereas `position_dodge()` aligns it to the left. `position_dodge2()` seems like a better option.
+
+
+## Add the error bars using `geom_errorbar()`:
+
+We now will add the error bars to the plot. Just as we did for `geom_linerange()`, we will map the `ymin` and `ymax` to the for the line to terminate.
+
+
+#### *Bars with Standard Errors*
+
+```{r}
+swim_base_plot +
+  geom_col(position = position_dodge2(preserve = "single")) +
+  scale_fill_manual(values = c(Women = "firebrick", 
+                               Men = "cornflowerblue", 
+                               Medley = "grey60"
+                               )
+                    ) +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              )
+                )
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot +
+  geom_col(position = position_dodge2(preserve = "single")) +
+  scale_fill_manual(values = scale_cycle(HT$Season, c("firebrick", "grey90"))) +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              )
+                )
+```
+
+
+OK, This is hideous! The error bars are not positioned with the bars and they are rather wide. To address the positioning, remember that we dodged the bars/columns, specifically using `position_dodge2(preserve = "single")`, so we need to similarly adjust the positioning for the error bars. 
+
+```{r}
+swim_base_plot +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = .9,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+  scale_fill_manual(values = c(Women = "firebrick", 
+                               Men = "cornflowerblue", 
+                               Medley = "grey60"
+                               )
+                    ) +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              ),
+                position = position_dodge2(preserve = "single", width = 1),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+                )
+
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = .7,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+  scale_fill_manual(values = scale_cycle(HT$Season, c("firebrick", "grey90"))) +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              ),
+                position = position_dodge2(preserve = "single", width = 1),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+                )
+
+```
+
+Just remember that with multi-layered plots, the layers are added on top of existing ones. Starting with `geom_errorbar()` and then adding `geom_col()` will result in the lower portion of the error bars behind masked by the columns, especially if `alpha = 1`.
+
+```{r}
+swim_base_plot +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              ),
+                position = position_dodge2(preserve = "single", width = 1),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+                ) +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = 1,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+  scale_fill_manual(values = c(Women = "firebrick", 
+                               Men = "cornflowerblue", 
+                               Medley = "grey60"
+                               )
+                    )
+```
+
+
+### *Confidence Intervals*
+
+We will create the same plot using confidence intervals.
+
+```{r}
+swim_base_plot +
+  geom_errorbar(mapping = aes(ymin = mean - se, 
+                              ymax = mean + se
+                              ),
+                position = position_dodge2(preserve = "single", width = 1),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+                ) +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = .7,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+
+  scale_fill_manual(values = c(Women = "firebrick", 
+                               Men = "cornflowerblue", 
+                               Mixed = "grey60"
+                               )
+                    ) +
+  labs(title = "Mean Time for Events in 2023",
+       tag = "",
+       x = NULL, y = "Seconds",
+       caption = "M = blue, F = red, Medley = grey\nbars = 99% CI"
+      )
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+base_plot +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = .7,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+  scale_fill_manual(values = scale_cycle(HT$Season, c("grey20", "grey90"))) +
+  geom_errorbar(mapping = aes(ymin = ci.99l, 
+                              ymax = ci.99u
+                              ),
+                position = position_dodge2(preserve = "single", width = 1),
+                col = "black",   # set them to all be the same color
+                linewidth = .6
+                ) +
+  labs(title = "Mean Distance for Teams Across Seasons",
+       tag = "",
+       caption = "Stags = light bars; 99% CI"
+         )
+
+```
+
+
+
+# **Models**
+
+Statistical models also have associated uncertainty because they are built on the data that have natural variability. We have seems some of this variability and uncertainty of models in the module on **visualizing associations**. 
+
+Let's build a model, however, and then see it's associated uncertianty.
+
+```{r}
+FREE_100 <- SWIM |>
+  filter(Event == "Freestyle") |>
+  filter(Team != "Mixed") |>
+  filter(Distance == 100) |>
+  filter(Time < 500)
+```
+
+Let's not worry about whether a linear or nonlinear model is a better fit of the data and let's not worry about the differences in variable relationship differs for `Team`s. Let's just build a linear model to predict `Time` from `Split50` to illustrate a point. 
+
+```{r}
+fit <- lm(Time ~ Split50, data = FREE_100) 
+
+fit |>
+  broom::tidy() |>
+  table_kbl()
+```
+
+*Standardizing model coefficients*. Interpreting statistics is not the focus of this set of modules. To understand more about interpreting model coefficients and standardized coefficients, see this [tutorial](https://murraylax.org/rtutorials/multregression_standardized.html#standardized-regression) or search the web for others.
+
+## **Model Uncertainty Using a Table**
+
+```{r}
+lm.beta::lm.beta(fit) |>
+  broom::tidy() |>
+  table_kbl()
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# taking the model and coercing into LaTeX and HTML tables
+lm.beta::lm.beta(fit) |>
+  lm.beta::xtable.lm.beta()
+```
+
+The tables contain the model coefficients to quantify elements like the linear relationship between the variables, the error or **uncertainty** in the model fit, etc. We can see that `Split50` predicts the `Time` for the 100 Freestyle. The association is not perfect, however. There is some error, or uncertainty, in the model as indicated by the model `std.error`. 
+
+*Confidence Intervals for Model Fit*
+
+```{r}
+confint(fit) |>
+  table_kbl()
+
+lm.beta::lm.beta(fit) |>
+  confint() |>
+  table_kbl()
+```
+
+
+## **Model Uncertainty Using a Plot**
+
+Let's apply `geom_smoth()` to add a fit line.
+
+```{r}
+plot_lm <- FREE_100 |>
+  ggplot(mapping = aes(
+    x = Split50,
+    y = Time
+  )) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm", 
+              fullrange = TRUE,
+              col = "black",
+              fill = "firebrick"
+              ) +
+  theme_light()
+
+plot_lm
+```
+
+We can see the linear model fit as a line and the shaded area around that fit line indicates uncertainty of the model parameters. Because the model is not perfect, there is uncertainty about the true fit. Looking at `?geom_smooth`, you will see the argument for `level = 0.95` which helps define the uncertainty to visualize. Specifically, it defines the width of the shaded bands around the linear regression line in the plot. The bands represent the range within which the true regression line should lie given some degree of confidence. Thus, with `level = 0.95`, the confidence interval of 95%. We can see a different version by changing the `level = .99` for a 99% confidence interval.
+
+```{r}
+plot_lm99 <- FREE_100 |>
+  ggplot(mapping = aes(
+    x = Split50,
+    y = Time
+  )) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm", 
+              fullrange = TRUE,
+              col = "black",
+              fill = "firebrick",
+              level = .99
+              ) +
+  theme_light()
+
+plot_lm99
+```
+
+The bands are wider now because they are more likely to capture the true population parameter predicted by the model. The bands can vary in width based on the number of data points contributing to the prediction of y at any given x value but the bands will be most narrow at the model centroid (the point corresponding to the mean of x and the mean of y). Mapping aesthetics to a new point will illustrate this. The model needs to pass through this point. 
+
+```
+aes(x = mean(FREE_100$Split50), 
+    y = mean(FREE_100$Time)
+    )
+```
+
+```{r}
+plot_lm <- FREE_100 |>
+  ggplot(mapping = aes(
+    x = Split50,
+    y = Time
+  )) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm", 
+              fullrange = TRUE,
+              col = "black",
+              fill = "firebrick"
+              ) +
+  theme_light() +
+  geom_point(aes(x = mean(FREE_100$Split50), 
+                 y = mean(FREE_100$Time)
+             ),
+             size = 10, 
+             shape = "*",
+             col = "blue"
+  )
+
+plot_lm
+```
+
+We can remove the model error from the plot using `se = FALSE` but but doing so is not very honest communication.
+
+```{r}
+FREE_100 |>
+  ggplot(mapping = aes(
+    x = Split50,
+    y = Time
+  )) +
+  geom_point() +
+  geom_smooth(method = "lm", 
+              fullrange = TRUE,
+              se = FALSE,
+              col = "firebrick"
+              ) +
+  theme_light()
+```
+
+
+But even if a linear model did fit the data perfectly, the set of coefficients obtained were from a single model and that single model is based on the athletes who participated in events. What would the model look like if it did not include just those athletes but instead includes athletes who were sick and sat the sidelines or those who could have been disqualified for some reason?
+
+
+## **Bootstrap Models**
+
+`rsample::bootstraps()` will allow us to take samples from the full data set and run multiple models using various subsets of that full data set. Doing so will provide models that do not include best athletes, do not include worst athletes, include various mixtures, etc. The goal is not to teach bootstrapping methods but to help you understand how models are fit and how they differ, thus illuminating uncertainty in a different way than with `geom_smooth()`. The code is not provided as this just illustrates a plot of bootstrapped models.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+set.seed(167)
+library(tidymodels)
+## Model
+fit_mod <- lm(Time ~ Split50, data = FREE_100)
+
+num_samples <- 1000
+boot_samples <- rsample::bootstraps(
+  data = FREE_100 |> select(Time, Split50),
+  times = num_samples, 
+  apparent = TRUE
+)
+
+fit_boot <- boot_samples %>%
+  mutate(
+    model = purrr::map(
+      splits,
+      ~ lm(Time ~ Split50,
+           data = .x)
+    ))
+
+boot_coefs <- fit_boot %>%
+  mutate(coefs = purrr::map(model, tidy))
+```
+
+
+You can see some bootstrapped mode coefficients here.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+boot_coefs %>% tidyr::unnest(coefs) %>% head() 
+```
+
+Because there are more than one model, we can visualize distributions of the coefficients as a histogram.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+boot_coefs %>%
+  tidyr::unnest(coefs) %>%
+  select(term, estimate) %>%
+  ggplot(aes(x = estimate)) +
+  geom_histogram(color = "black",
+                 fill = "grey") +
+  facet_wrap(~term, scales = "free_x") +
+  theme(strip.background = element_rect(fill = "black"),
+        strip.text = element_text(color = "white", face = "bold")
+        )
+
+
+#percentile_intervals <- int_pctl(fit_boot, coef_info)
+
+#ggplot(boot_coefs, aes(estimate)) +
+#  geom_histogram(bins = 30) +
+#  facet_wrap( ~ term, scales = "free") +
+#  geom_vline(aes(xintercept = .lower), data = percentile_intervals, col = "blue") +
+#  geom_vline(aes(xintercept = .upper), data = percentile_intervals, col = "blue")
+```
+
+The mean and the standard deviation of the bootstrapped models:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+boot_coefs %>%
+  tidyr::unnest(coefs) %>%
+  select(term, estimate) %>%
+  group_by(term) %>%
+  summarize(across(.cols = estimate,
+                   list(mean = mean, sd = sd))) %>%
+  ungroup() %>%
+  table_kbl()
+```
+
+Compare the mean with the coefficient from the single model:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tidy(fit_mod) %>% table_kbl()
+```
+
+### **Plotting Bootstrapped Model Fits (Variants)**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#Using augment(), we can visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we’ll only show a sample of the model fits in our visualization:
+boot_aug <- 
+  fit_boot %>% 
+  #sample_n(200) %>% 
+  mutate(augmented = map(model, augment)) %>% 
+  tidyr::unnest(augmented)
+
+ggplot(data = boot_aug, 
+       mapping = aes(Split50, Time)
+       ) +
+  geom_line(mapping = aes(y = .fitted, 
+                          group = id
+                          ), 
+            alpha = .01, 
+            col = "firebrick"
+            ) +
+  geom_point(alpha = .005) +
+  #lims(y = c(0, 80)) +
+  theme_light()
+```
+
+Each model fit is plotted as a very this light red line in the plot. In fact, there are `r num_samples` different models fit through the points. Because each model includes a difference subset of athletes, the mean of the variables will differ based on the data used for each model. Thus, each model has its own centroid so there is no single point through which all models must pass. Nevertheless, you can see the most narrow part and darkest coloring (indicating more lines overlapping) of the band is located near the location of the original centroid. Also, upper right part of the plot is lighter than the lower left because there are fewer points in the upper right and thus there is corresponding uncertainty to visualize.
+
+
+
+## **Plotting Model Error Bars**
+
+Using **{tidyr}** we can create nested subsets of data using `tidyr::nest()` and then we can run models an each subset. We can group using `.by` and pass a vector of variable names for grouping. Make sure that you don't have `NA`s in your data frames.
+
+```{r}
+nested <- SWIM |>
+  filter(!is.na(Time)) |>
+  filter(!is.na(Split50)) |>
+  filter(Distance < 500) |>
+  filter(Event != "IM") |>
+  tidyr::nest(.by = c(Event, Distance))
+```
+
+The first instance is in `data`. 
+
+```{r}
+nested$data[[1]]
+```
+
+You see we have a tibble that contains nested subsets of data. There are not much data for some events but the goal is only to show how to visualize model error. We will now us `Base R` `lapply()` to apply a function to a list. For each nested data frame, the data will be `.x`. The model fit is retuned and 
+
+```{r}
+SWIM |>
+  filter(!is.na(Time)) |>
+  filter(!is.na(Split50)) |>
+  filter(Distance < 500) |>
+  filter(Event != "IM") |>
+  tidyr::nest(.by = c(Event, Distance)) |>
+  dplyr::mutate(models = lapply(X = data, 
+                                FUN = function(x) lm(Time ~ Split50, data = x)
+                                )
+                )
+```
+
+Great! We have a tibble of linear models for each `Event` and `Distance` pair. Using the **{broom}** library, perform some model cleaning using `broom::tidy()` to return a cleaned model and assign it as a column in the tibble. Using `lapply`, apply the `broom::tidy()` function on each model in the list. Finally, because the models are nested, `tidyr::unest()` them. 
+
+```{r}
+nested <- SWIM |>
+  filter(!is.na(Time)) |>
+  filter(!is.na(Split50)) |>
+  filter(Distance < 500) |>
+  filter(Event != "IM") |>
+  tidyr::nest(.by = c(Event, Distance)) |>
+  dplyr::mutate(models = lapply(X = data, 
+                                FUN = function(x) lm(Time ~ Split50, data = x)
+                                ),
+                tidy_mods = lapply(X = models, FUN = broom::tidy)
+                ) |>
+  tidyr::unnest(cols = tidy_mods)
+```
+
+The tibble is messy, so let's clean it up a bit by removing the *intercept* term. Also, we don't need columns like `models` or `data`.  
+
+```{r}
+nested <- SWIM |>
+  filter(!is.na(Time)) |>
+  filter(!is.na(Split50)) |>
+  filter(Distance < 500) |>
+  filter(Event != "IM") |>
+  tidyr::nest(.by = c(Event, Distance)) |>
+  dplyr::mutate(models = lapply(X = data, 
+                                FUN = function(x) lm(Time ~ Split50, data = x)
+                                ),
+                tidy_mods = map(models, broom::tidy)
+                ) |>
+  tidyr::unnest(cols = tidy_mods) |>
+  filter(term != "(Intercept)") |>
+  select(-c(models, data))
+  
+
+nested  
+```
+
+So we now have a tibble with nested model coefficients. We can visualize some of the models and their errors. In the tibble, `estimate` is the estimate and `std.error` is the error. We can create a 95% confidence interval with lower and upper bounds by subtracting and adding `1.96*std.error` (use 1.645 for 90% CI or 2.576 for a 99% CI). Map the color to the `Distance` column.
+
+```{r}
+nested |>
+  mutate(Distance = as.character(Distance)) |>
+  ggplot(mapping = aes(
+    x = Event, y = estimate,
+    ymin = estimate - 1.96*std.error,
+    ymax = estimate + 1.96*std.error,
+    col = Distance
+  )) +
+  geom_pointrange(position = position_dodge2(width = .5)
+  ) +
+  scale_y_continuous(n.breaks = 20) + 
+  theme(legend.position = "top")
+```
+
+
+
+Using the **{ggdist}** and **{distributional}** libraries, we can plot the distributions of errors as well.
+
+```{r}
+nested |>
+  mutate(Distance = as.character(Distance)) |>
+  ggplot(mapping = aes(x = estimate, y = Event, col = Distance)) +
+  ggdist::stat_dist_halfeye(mapping = aes(dist = distributional::dist_normal(mu = estimate, 
+                                                                             sigma = std.error)
+  ),
+  point_size = 3
+  )
+```
+
+
+
+
+# **Box Plots**
+
+Distributions can also be visualized with box plots as we have seen before. As with `geom_col()` used with `geom_errorbar()`, we will need to change the boxplot spatial positioning using `position = position_dodge2(preserve = "single")` so that there are boxes that are twice as wide as others, unless you like that aesthetic.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+HT %>%
+  filter(!is.na(Mark)) %>%
+  mutate(Season = as.character(Season)) %>%
+  ggplot(mapping = aes(x = Season, 
+                       y = Mark,
+                       #col = Team,
+                       fill = Team,
+                       shape = Team
+                       )) +
+  geom_boxplot(alpha = .7, position = position_dodge2(preserve = "single")) +
+  scale_fill_manual(values = c(Athena = "grey20", Stag = "firebrick")) +
+  coord_flip()
+
+
+  geom_point(position = position_jitter(seed = 167, height = 0, width = .4),
+             alpha = .5,
+             col = "grey60") 
+```
+
+Let's assign some color to `col_values` to use in the plot.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+col_values <- c(Women = "grey20", 
+                Men = "firebrick", 
+                Mixed = "cornflowerblue"
+                )
+SWIM %>%
+  filter(Time < 500) %>%
+  #filter(Team != "Mixed") %>%
+  ggplot(mapping = aes(x = Event, 
+                       y = Time,
+                       col = Team,
+                       fill = Team,
+                       shape = Team
+                       )) +
+  geom_boxplot(alpha = .5, 
+               position = position_dodge2(preserve = "single")
+               ) +
+  scale_color_manual(values = col_values) +
+  scale_fill_manual(values = col_values) +
+  coord_flip() +
+  theme_classic() +
+  # then add points
+  geom_point(position = position_jitterdodge(seed = 167),
+             alpha = .8, 
+             size = .8
+             )
+
+```
+
+
+
+# **Using `stat_summary()`**
+
+The above plots can also be created with `stat_summary()` as long as you specify the `fun` for calculating the statistics and the `geom` for the plot type. Because `stat_summary()` calculates the statistics, you can use the original data frame. However, in some instances, the function arguments are likely not as intuitive.
+
+`pointrange`:
+
+A "pointrange" is just a point plot without other values like `fun.min` and `fun.max`.
+
+```{r}
+SWIM |>
+  ggplot(mapping = aes(x = Event, y = Time, col = Team)) +
+  stat_summary(fun = mean,
+               geom = "pointrange",
+               position = position_dodge2(width = 1)
+             )
+
+```
+
+But ranges are very crude and do not represent average dispersion in the data.
+
+```{r}
+SWIM |>
+  ggplot(mapping = aes(x = Event, y = Time, col = Team)) +
+  stat_summary(fun = mean,
+               geom = "pointrange",
+               fun.min = min,
+               fun.max = max,
+               position = position_dodge2(width = 1)
+             )
+
+```
+
+Rather, for `fun.max` and `fun.min`, we can pass a `function(x) mean(x) + sd(x) / sqrt(length(x))` for the standard error.
+
+```{r}
+SWIM |>
+  ggplot(mapping = aes(x = Event, y = Time, col = Team)) +
+  stat_summary(fun = mean,
+               geom = "pointrange",
+               fun.max = function(x) mean(x) + sd(x) / sqrt(length(x)), # se 
+               fun.min = function(x) mean(x) - sd(x) / sqrt(length(x)), # se
+               position = position_dodge2(width = 1)
+)
+```
+
+
+`errorbar`:
+
+For an `errorbar`, just change the `geom`.
+
+```{r}
+SWIM |>
+  ggplot(mapping = aes(x = Event, y = Time, col = Team)) +
+  stat_summary(fun = mean,
+               geom = "errorbar",
+               fun.max = function(x) mean(x) + sd(x) / sqrt(length(x)), # se 
+               fun.min = function(x) mean(x) - sd(x) / sqrt(length(x)), # se
+               position = position_dodge2(width = 1),
+               width = .5,
+               linewidth = 1
+               )
+```
+
+But if you wanted to add a layer, for example, the points, they will likely not align with the error bars. You also cannot set a seed.
+
+```{r}
+SWIM |>
+ ggplot(mapping = aes(x = Event, y = Time, col = Team)) +
+ stat_summary(fun = mean,
+              geom = "errorbar",
+              fun.max = function(x) mean(x) + sd(x) / sqrt(length(x)), # se 
+              fun.min = function(x) mean(x) - sd(x) / sqrt(length(x)), # se
+              position = position_dodge2(width = 1),
+              width = .5,
+              linewidth = 1
+              ) +
+ stat_summary(fun = mean,
+              geom = "point",
+              position = position_dodge2(width = 1),
+              )
+```
 
