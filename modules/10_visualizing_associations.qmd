@@ -5,13 +5,19 @@ author: "Gabriel I. Cook"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 execute:
-  enabled: true #freeze: auto  # re-render only when source changes
+  enabled: true
 ---
 
 ```{r}
 #| label: load-packages
 #| include: false
 ```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+#.rs.restartR()
+# other examples https://www.datanovia.com/en/blog/elegant-visualization-of-density-distribution-in-r-using-ridgeline/
+```
+
 
 ::: callout-important
 ## Under construction. 
@@ -21,7 +27,6 @@ This page is a work in progress and may contain areas that need more detail or t
 :::
 
 # **Overview**
-
 
 # **To Do**
 

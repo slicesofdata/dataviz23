@@ -665,7 +665,7 @@ Under construction.
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Your first point plot! You see small black points, axis labels, tick marks for intervals, and some apparent clustering of points around certain distances. You also see the association between distances and time, a positive association.</p>
@@ -676,7 +676,7 @@ Under construction.
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The association is still apparent in the plot. The tick marks along the x-axis changed but the clustering of points is still present. We will reserve discussion of axes for a later topic but the clustering is still present. This issue will often present itself when plotting a continuous variable like time against a discrete variable like event distance.</p>
@@ -707,7 +707,7 @@ Under construction.
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You see the function curving in blue through the data and a gray shading around it.</p>
@@ -722,7 +722,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Now you see a <em>line of best fit</em> along with that gray shading again. That shading represents error variance in the model, which we will address in a topic on <em>visualizing uncertainty</em>. We can turn it off by setting <code>se = FALSE</code>.</p>
@@ -737,7 +737,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Of some plots, you may also not see the fit line through the entire plot. For example, changing the limits on the x axis, from 0 to 800 by adding plot layer, <code>xlim(0, 800)</code>, will demonstrate a problem that you might experience and wish to fix.</p>
@@ -752,7 +752,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can change the default behavior using <code>fullrange = T</code>:</p>
@@ -769,7 +769,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The line now extends to the limets. <code>geom_smooth()</code> has many options but for now you see how we can plot points and add various fits to them.</p>
@@ -784,7 +784,7 @@ Under construction.
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Distance), <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You see now that <code>geom_point()</code> will plot only the existing levels of <code>Distance</code> in the data set and provides the level label at each tick mark. If your goal is to change your tick marks for numeric data, this is not the solution because the scale will violate rules of mathematics.</p>
@@ -803,7 +803,7 @@ Under construction.
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The procedure of mapping aesthetics introduces other variables from the data set into the plot. We do not need to change the color or shape of points for each event distance for the viewer to understand the plot. Position along x already communicates the distance. Mapping aesthetics of variables already present would confound the data and result in a plot that manipulates both position and color to communicate one variable, distance. This is not needed. By contrast, mapping variables that are not already present in the data introduces new information and complexity. These represent a different class of plots altogether.</p>
@@ -830,7 +830,7 @@ Under construction.
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"jitter"</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We are not encoding a third variable in this plot but rather confounding color with an existing variable in the point plot. This approach can bias attention to particular subsets of the data unintentionally especially when some colors share properties with some colors used in the plot but not others.</p>
@@ -849,7 +849,7 @@ Under construction.
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"jitter"</span></span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The darker blue points are now associated with shorter distances, which itself may be conceptually difficult but the point here is that a data element can be mapped to an aesthetic.</p>
@@ -873,7 +873,7 @@ Under construction.
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend=</span>F</span>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>And for men and women:</p>
@@ -892,7 +892,7 @@ Under construction.
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">show.legend =</span> F</span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -923,7 +923,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We will that a line is fit through ALL of the data illustrating of course that time increases as a function of distance. Yes, this is silly but the main goal here is to understand how <strong>{ggplot}</strong> works.</p>
@@ -954,7 +954,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You see that the linear fits are almost identical for the two schools. You can comment out <code>show.legend = F</code> to see the school names.</p>
@@ -982,7 +982,7 @@ Under construction.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The visualization now shows that the slope differs by subgroup, in particular that the slope is steeper for female swimmers. Again, comment out <code>show.legend = F</code> to see. We can add confidence intervals or error to the fit line on the plot but doing so is something we will deal with in the topic on visualizing uncertainty. That being said, the astute student of statistics should also know there is uncertainty to the lint-of-best-fit because it represents a fit of the current data, which may have sampling error. Bootstrapping the model fit will allow or visualization of uncertainty of the model fit.</p>
@@ -1008,7 +1008,7 @@ Under construction.
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"jitter"</span></span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The bubbles here simply represent the y variable mapped to the size aesthetic. We are not conveying a third variable in this plot but rather confounding size with an existing variable in the point plot. One thing to know is that the visual system loves size and to shading (e.g,. contrast). Both are present here, so be mindful of bias such a plot has on visual attention and perception. We will address such issues when we address concepts of attentional control.</p>
@@ -1025,7 +1025,7 @@ Under construction.
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"jitter"</span></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1048,7 +1048,7 @@ Under construction.
 <pre><code>Warning: Removed 14 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can see that the split times for the first 50 meters seems to increase as the distance of the event increases. Swimmers are pacing differently.</p>
@@ -1068,7 +1068,7 @@ Under construction.
 <pre><code>Warning: Removed 14 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Longer split times are associated with overall longer event times.</p>
@@ -1089,7 +1089,7 @@ Under construction.
 <pre><code>Warning: Removed 14 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can see that the point diameter increases with distance. Although this bubble plot introduces a new variable, <code>Distance</code>, to the plot which was not visualized before, it really fails to communicate something useful in the data that was not already presented.</p>
@@ -1110,7 +1110,7 @@ Under construction.
 <pre><code>Warning: Removed 14 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This bubble plot now illustrates that the split times vary within the event distance and is associate with longer event times.</p>
@@ -1132,7 +1132,7 @@ Under construction.
 <pre><code>Warning: Removed 14 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can see that the larger point sizes reflecting longer split times also appears to be associated with the event participated in. Notice the color palette used and the size of the points in the legend. Some color are difficult to differentiate when the alpha is dialed down. But without lowering alpha, the points would have a different problem. If this were a plot we wanted to share, we would need to fix it a lot. Later on, we will cover ways to change colors, the size of the points in the legend later, change the scale and tick marks on the axes, etc.</p>
@@ -1158,7 +1158,7 @@ Under construction.
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A <code>geom_path()</code>:</p>
@@ -1167,7 +1167,7 @@ Under construction.
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Adding labels as text (and changing their color and size):</p>
@@ -1183,7 +1183,7 @@ Under construction.
 <pre><code>Warning: Using size for a discrete variable is not advised.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Note that <code>geom_line()</code> does not work well with the existing swim data. Points will be connected.</p>
@@ -1192,7 +1192,7 @@ Under construction.
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>And <code>geom_path()</code> will connect the based on the order of the date but this type of plot is not relevant here as there is no order or time course.</p>
@@ -1201,7 +1201,7 @@ Under construction.
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+<p><img src="10_visualizing_associations_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>

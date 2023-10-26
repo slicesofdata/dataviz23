@@ -4,13 +4,16 @@ author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
-# this is a test to fingure out why there is the following error when rendering many quarto files:
-# ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+execute:
+  enabled: true
 ---
 
 ```{r}
 #| label: load-packages
 #| include: false
+#| warning: false
+#opts_chunk$set(fig.align = "center", fig.height = 4, fig.width = 5.5)
+options(knitr.table.format = 'markdown')  # ensure table are markdown
 ```
 
 ::: callout-important
@@ -22,8 +25,149 @@ This page is a work in progress and may contain areas that need more detail or t
 
 # **Overview**
 
-In this module, we 
-If you like using formulas for plotting, you should check out [**{ggformula}**](https://www.mosaic-web.org/ggformula/reference/gf_linerange.html).
+In this module, we will deal with some ways to visualize variability and uncertainty in data or models. In most cases, we will visualize descriptive statistics like the mean and standard error as well as confidence intervals. If you like using formulas for plotting, you should check out [**{ggformula}**](https://www.mosaic-web.org/ggformula/reference/gf_linerange.html).
+
+Uncertainty can be communicated in data visualization using lines, shading and colors, bars, distributions, rugs, etc. The goal is may be communicate variability on its own or to complement measures like means or medians, which represent best guesses (point estimates) about centers of distributions. Central tendency measures by their very nature fail to communicate  Such measures don't account for the differences among events in a distribution. Models and data, however, typically have associated uncertainty, which should be communicated in some way. 
+
+Here is an example of uncertainty metrics visualized for a data set. This visualization is similar to [Figure 16.5](https://clauswilke.com/dataviz/visualizing-uncertainty.html) in Wilke's text. This multi-layered plot is created using `geom_point()`, `geom_linerange()` and `geom_pointrange()` with annotations using `geom_text()`, `geom_curve()`, `ggtext::geom_richtext()`, and and `annotate()`.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+source("https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R")
+
+SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv",
+                        show_col_types = F)
+
+FREE_100 <- SWIM |>
+  filter(Event == "Freestyle") |>
+  filter(Distance == 100) 
+
+FREE_100_summary <-
+  descriptives(SWIM, groupby = c(Event, Distance), var = Time) |>
+  filter(Event == "Freestyle") |>
+  filter(Distance == 100)
+
+
+multiplot <-
+  FREE_100_summary |>
+  ggplot(mapping = aes(x = Event, y = mean)) +
+  # add the distribution
+  geom_point(data = FREE_100,                                       
+             mapping = aes(x = -3.35, y = Time, col = Team),                       # fix the position
+             size = 1.5, alpha = .3,
+             position = position_jitter(seed = 167, width = .05)) +
+  # range
+  geom_linerange(aes(x = -3, y = mdn, ymin = min, ymax = max), linetype = "dotted") +
+  # add the mean 
+  geom_point(aes(x = -3.35), size = 3, col = "grey20") +
+  # add athena mean
+  geom_point(aes(x = -3.35, y = mean(FREE_100 |> filter(Team == "Women") |> pull(Time))), size = 3, col = "goldenrod") +
+  # add athena mean
+  geom_point(aes(x = -3.35, y = mean(FREE_100 |> filter(Team == "Men") |> pull(Time))), size = 3, col = "maroon") +
+  # add sd range
+  geom_pointrange(aes(x = -2.6, ymin = mean - sd, ymax = mean + sd)) +
+  # add se range
+  geom_pointrange(aes(x = -2.2, ymin = mean - se, ymax = mean + se)) +                          
+  # add 2 se range
+  geom_pointrange(aes(x = -1.8, ymin = mean - 2*se, ymax = mean + 2*se)) +  
+  # add 3 se range
+  geom_pointrange(aes(x = -1.4, ymin = mean - 3*se, ymax = mean + 3*se)) +  
+  # add 1.96 se range
+  geom_pointrange(aes(x = -1.0, ymin = mean - 1.96*se, ymax = mean + 1.96*se)) +  
+  # 95% ci
+  geom_pointrange(aes(x = -.6, ymin = ci.95l, ymax = ci.95u)) +
+  # 99% ci
+  geom_pointrange(aes(x = -.2, ymin = ci.99l, ymax = ci.99u)) +
+  # add median and iqr
+  geom_pointrange(aes(x = .2, y = mdn, ymin = mdn-(iqr/2), ymax = mdn+(iqr/2))) +
+  # clean up theme
+  theme_classic() +
+  # remove the axis levels
+  labs(x = NULL, y = NULL) +               
+  scale_y_continuous(n.breaks = 20) +
+  # remove the level label
+  scale_x_discrete(limits = c(-3, 3), labels = NULL) +        
+  # remove the line  
+  theme(axis.line.y = element_blank()) +   
+  # remove the tick mark
+  theme(axis.ticks.y = element_blank()) +  
+  coord_flip() +
+  scale_color_manual(values = c(Men = "maroon", Women = "goldenrod")) +
+  guides(colour = FALSE)
+
+
+# add labels. Rather than each individually, create a data frame
+plot_labels <- data.frame(
+  xpos = seq(-3.5, .2, .4),
+  ypos = rep(FREE_100_summary$mean, 10),
+  labels = c("full distribution with group means and total mean",
+             "range",
+             "+/- 1 standard deviation",
+             "+/- 1 sem",
+             "+/- 2 sem",
+             "+/- 3 sem",
+             "+/- 1.96 standard errors",
+             "95% confidence interval",
+             "99% confidence interval",
+             "median and interquartile range"
+          ))
+
+# add the labels to plot
+multiplot_with_labels <- 
+  multiplot +
+  geom_text(data = plot_labels,
+            mapping = aes(x = xpos, y = ypos, label = labels),
+            #hjust = "center", 
+            size = 3.3, colour = "grey10"
+  ) +
+  geom_text(
+            mapping = aes(y = mean), 
+            x = .65, size = 5, colour = "grey20",
+            label = "Visualizing Uncertainty in Data with Intervals",
+            fontface = "bold"
+  ) +
+  ggtext::geom_richtext(
+    mapping = aes(y = mean), 
+    x = .4, size = 4, #colour = "maroon",
+    label = "<span style = 'color:maroon'>Stag</span> and <span style = 'color:goldenrod'>Athena</span> 100 Freestyle (2023)",
+    fontface = "bold",
+    fill = NA,       # remove background 
+    label.color = NA # remove outline
+  )
+
+# then add arrows
+
+multiplot_with_arrows <- 
+  multiplot_with_labels +
+  geom_curve(x = -1.0, 
+             y = 54,
+             xend = -.6, 
+             yend = 54,
+             color = "grey20", 
+             arrow = arrow(angle = 20,              # angle of the arrow
+                           length = unit(0.25,"cm"),
+                           ends = "both",           # "last", "first", or "both"
+                           type = "closed"          # "open" or "closed" triangle
+                           ),
+             curvature = 1.2
+             ) +
+  annotate("text", 
+           col = "grey20",
+           x = -.8, y = 55.4, 
+           size = 3,
+           label = "same",
+           fontface = "italic"
+  )
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggsave(here::here("figs", "uncertainty_multiplot.png"),
+       width = 5.5, height = 6, units = "in"
+       )
+knitr::include_graphics(here::here("figs", "uncertainty_multiplot.png"))
+```
 
 
 # **To Do**
@@ -59,19 +203,17 @@ source(here::here("r", "my_functions.R"))
 
 ## **Custom Functions**
 
-We will use some custom functions to handle some tasks this module. For rnow, let's create a simple function that will cycle through a palette based on the length of the variable being passed to the color or fill scale. The function will `rep()`etc n `colors` until the vector contains enough colors for
+We will use some custom functions to handle some tasks this module. 
 
-```{r}
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#| warning: false
+# We will use some custom functions to handle some tasks this module. For rnow, let's create a simple function that will cycle through a palette based on the length of the variable being passed to the color or fill scale. The function will `rep()`etc n `colors` until the vector contains enough colors for
 scale_cycle <- function(scale_var, colors) {
   return(
     rep(colors, ((length(scale_var)) + 1) / length(colors) )
     )
 }
-```
 
-```{r}
-scale_cycle(scale_var = c("a", "b", "a", "b") ,
-            colors = c("cornflowerblue", "magenta"))
 ```
 
 
@@ -94,7 +236,7 @@ library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(tidyr)
-library(ggplot2)
+library(ggdist)
 library(broom)
 library(distributional)
 ```
@@ -110,7 +252,7 @@ SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-## Some othere data
+## Some other data
 
 #HT_SUM <- readRDS("C:/Users/gcook/Sync/git/dataviz23/data/tfrrs/HT_SUM.Rds")
 # HT <- readRDS("C:/Users/gcook/Sync/git/dataviz23/data/tfrrs/HT.Rds")
@@ -119,6 +261,7 @@ AT <- readRDS(here::here("data", "swim", "cleaned_cms_top_all_time_2023.Rds"))
 #AT <- readRDS("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned_cms_top_all_time_2023.Rds")
 
 HT <- readRDS(here::here("data", "tfrrs", "HT.Rds"))
+HT <- HT |> mutate(Mark = as.numeric(gsub("m", "", Mark)))
 ```
 
 
@@ -128,54 +271,68 @@ HT <- readRDS(here::here("data", "tfrrs", "HT.Rds"))
 Measurement is the systematic assignment of numbers to an event, or object, based on the properties inherent in that event, or object.
 For example, the properties of an apple may be its color, size, shape, sweetness, acidity, texture, etc. The properties of an individual may be ones height, weight, BMI, genetics, hair color, eye color, graphical literacy, decision-making ability, working-memory capacity, etc. 
 
-Statistical research is the pursuit of understanding the systematic relationships between events that vary.
-
-
-A key goal of statistics is to understand the systematic relationship between predictor and outcome variables. If fact, we don't really need statistics at all if there is no variability in measurement from person to person, event to event, or sample to sample.  
+Statistical research is the pursuit of understanding the systematic relationships between events that vary.  A key goal of statistics is to understand the systematic relationship between predictor and outcome variables. If fact, we don't really need statistics at all if there is no variability in measurement from person to person, event to event, or sample to sample.  
 
 # **Tables**
 
-Though tabular representations of data are visualizations, they are not what many think of when they think of data visualizations. Tables, however, are excellent when you need to convey exact numbers for examples, population statistics, prices, etc. Although we will likely address more table libraries and functions, the **{kableExtra}** library builds on the `knitr::kable` function for adding some detailing to table objects. In the event that you need to create a simple table, the custom function below uses `kableExtra::kbl` and `kableExtra::classic` to add decorative details to a table. The function takes a data frame, `x`, allows for adding a `caption`, `aligns` the caption (right by default), and specifies the `html_font` for the plot (default is Calibri). We will illustrate the function usage in a moment.
+Though tabular representations of data are visualizations, they are not what many think of when they think of data visualizations. Tables, however, are excellent when you need to convey exact numbers for examples, population statistics, prices, etc. Although we will likely address more table libraries and functions,  The function takes a data frame, `x`, allows for adding a `caption`, `aligns` the caption (right by default), and specifies the `format` for markdown. It also fixes digits. We will illustrate the function usage in a moment.
+
+The **{kableExtra}** library builds on the `knitr::kable` function for adding some detailing to table objects. You can do more using `kableExtra::kbl()` and `kableExtra::classic()` to add decorative details to a table, for example.
 
 ```{r}
 table_kbl <- function(
   x, 
   caption = NULL, 
   align = "r",
-  html_font = "Calibri",
+  format = "markdown",
+  position = "center",
   footnote = NULL,
+  digits = 2,
   ...
   ) {
        if (!require(kableExtra) ) {
          install.packages("kableExtra", dep = T) 
          }
   x |>      
-       kableExtra::kbl(caption = caption, 
-                       align = align
-                       ) |>
-       kableExtra::kable_classic(full_width = F, 
-                                 html_font = html_font
-                                 ) |>
-       kableExtra::footnote(footnote)
+       knitr::kable(format = format,
+                    align = align,
+                    caption = caption,
+                    digits = digits
+       ) 
 }
 ```
 
-# **Counts or Freqencies**
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+
+#|>
+#       kableExtra::kable_styling(full_width = F, 
+#                                 position = position
+ #                                ) |>
+#       kableExtra::footnote(footnote) #|>
+  #     kableExtra::kable_classic(full_width = F, 
+  #                               html_font = html_font
+  #                               )
+}
+```
+
+
+# **Counts or Frequencies**
 
 We have seen before that we can obtain frequency counts from the data for plotting. The approach taken was using `summarize()` to create a new `Count` variable as seen here.
 
 ```{r, message=FALSE}
+#| warning: false
 SWIM |>
   group_by(Team, Event) |>
   summarize(Count = dplyr::n()) |>
   ungroup() |>
-  arrange(desc(Count), desc(Event)) |>
+  arrange(desc(Count), desc(Event)) |> 
   table_kbl(caption = "Event participation in 2023", 
-            align = "r", 
-            html_font = "Times New Roman",
-            footnote = "Sorted by count"
+            align = "r"
             )
+  
 ```
+
 
 Notice that we can `arrange()` the data frame before passing to the function if we wanted something other than the default grouping order from `group_by()`.
 
@@ -188,10 +345,9 @@ SWIM |>
   ungroup() |>
   arrange(desc(n), desc(Event)) |>
   table_kbl(caption = "Event participation in 2023", 
-            align = "r", 
-            html_font = "Times New Roman",
-            footnote = "Sorted by count"
+            align = "r"
             )
+
 ```
 
 Though `geom_bar()` creates counts for you by default, `geom_col()` can map the counts to `x` or `y` aesthetics. `geom_col()` makes the most sense in this case. 
@@ -250,6 +406,7 @@ To the extent that an individual differs in number of millimeters jumped in 10 a
 
 Of course, all jumping events can be aggregated in an effort to summarize and estimate the central tendency of jumping ability (e.g., mean, median, mode) but this aggregation process does not remove the change in measurement from jump to jump called variability.
 
+
 ## **Point Estimates**
 
 We can filter or an event, group the data, and summarize by groups using means in order to plot those mean point estimates are bars. This is the traditional, though not personally recommended, approach to plotting data in various disciplines. This will serve as a starting point for plots.
@@ -265,6 +422,7 @@ SWIM |>
 ```
 
 Compared with the count data, the means are simply *point estimates* of the central tendency for sample data which are often used in service of estimating unknown population parameters. This is why a mean is called a [point estimate](https://en.wikipedia.org/wiki/Point_estimation) as it estimate a single value, or point, of a distribution. Plotting means does not provide information about variability in the sample data or in the uncertainty around the mean's ability to estimate the sample's center generally and more specifically its corresponding population parameter.
+
 
 ## **Visualizing Variability**
 
@@ -341,9 +499,8 @@ base_plot <- HT_summary %>%
          mapping = aes(x = Season, 
                        y = mean, 
                        fill = Team,
-                       col = as.character(Season), # for alternating colors
+                       #col = as.character(Season), # for alternating colors
                        shape = Team
-                       #group = Team
                        )
          ) +
   scale_x_continuous(name = NULL, breaks = seq(year_range[1], year_range[2], 1)) + 
@@ -357,6 +514,7 @@ base_plot <- HT_summary %>%
   #         color = "black", 
   #         position = position_dodge2(preserve = "single")
   #         ) +
+
 ```
 
 ```{r}
@@ -373,6 +531,7 @@ swim_base_plot <- SWIM_summary %>%
   theme_minimal() +
   theme(legend.position = "none")
 ```
+
 
 
 ### `geom_pointrange()`:
@@ -488,6 +647,7 @@ suppressMessages(
 
 **Plot A** will not achieve the dodge you desire and something something too small may not lead to enough change in position. **Plot Β** solves the issue but is challenged by the Gestalt perceptional grouping principle of [proximity](https://en.wikipedia.org/wiki/Principles_of_grouping). If you are curious about these principles in UX design [Nielsen Norman Group](https://www.nngroup.com/articles/gestalt-proximity/) also has a post on this issue. The dodging associated with `width = 1` does not facilitate the grouping of `Team` at each level of `Event` because the spacing between `Team`s for each event is the same as the spacing of `Team`s across `Event`s. Reduce the dodge so that proximity grouping facilitates plot perception and interpretation. Keep in mind that plot aspect ratios (see [here](https://ggplot2.tidyverse.org/reference/coord_fixed.html)) can also affect positioning and proximity in some cases. 
 
+
 #### `geom_pointrange()` with standard error
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -522,7 +682,7 @@ swim_base_plot +
 ```
 
 
-`geom_pointrange()` confidence intervals
+#### `geom_pointrange()` with confidence intervals
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 base_plot + 
@@ -567,6 +727,10 @@ geom_linerange(
 )
 ```
 
+
+#### `geom_linerange()` with min and max
+
+
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 base_plot + geom_linerange(aes(ymin = min, ymax = max, col = Team))
 ```
@@ -582,11 +746,14 @@ swim_base_plot +
 
 Such a visualization shows clearly where the data start and stop and allow for comparisons. You can also see when data were missing for `Event`s. Out of the box, the bars will overlap, which will require some adjustment. 
 
-`geom_linerange()` with standard deviation
+#### `geom_linerange()` with confidence intervals
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 base_plot + 
-  geom_linerange(mapping = aes(ymin = ci.99l, ymax = ci.99u, col = Team),
+  geom_linerange(mapping = aes(ymin = ci.99l, 
+                               ymax = ci.99u, 
+                               col = Team
+                               ),
                  position = position_dodge(width = 1)
                  ) +
   #scale_y_continuous(breaks = seq(0, max(HT_summary$max)+4, 2)) +
@@ -635,9 +802,11 @@ swim_base_plot +
 
 Error bars are likely the most familiar visual form of of uncertainty you see in data visualization. Error bars represent the measurable error associated with data cases deviating from the distribution's mean and is most typically the [*standard error of the mean*](https://en.wikipedia.org/wiki/Standard_error). Without delving too deeply into concepts of statistics, the standard error of the mean is calculated as `standard deviation / square root of the sample size`. Although there are libraries like **{plotrix}** containing functions for it, its calculation is so simple you don't need to bother with external libraries. 
 
-The `describe()` function calculates it as `se`.
+The `describe()` function calculates the standard error of the mean as `se`.
 
 `geom_errorbar()` will require setting the `ymin` and `ymax` values for the error bars. Because the `se` reflects error around the `mean`, we will need to add and subtract the `se` to and from the `mean` in order to determine its upper and lower limits.
+
+#### `geom_errorbar()` with standard error
 
 ```{r}
 swim_base_plot + 
@@ -647,20 +816,32 @@ swim_base_plot +
                 )
 ```
 
-Out of the box, the bars will overlap and they will can been quite large, thus requiring some adjustment. We will `position_dodge2()` the bars to prevent overlapping, change the `linewidth` to be more prominent, set the `col` to be the same (for now)
+Out of the box, the bars will overlap and they will can been quite large, thus requiring some adjustment. We will `position_dodge2()` the bars to prevent overlapping, change the `linewidth` to be more prominent.
 
 ```{r}
 swim_base_plot + 
   geom_errorbar(mapping = aes(ymin = mean - se, 
                               ymax = mean + se
                               ),
-                position = position_dodge2(width = .2),
-                col = "black",   # set them to all be the same color
-                linewidth = .6
+                position = position_dodge2(),
+                linewidth = .7,
+                width = .3       # make the horizontal bars shorter
   )
 ```
 
 
+#### `geom_errorbar()` with confidence intervals
+
+```{r}
+swim_base_plot + 
+  geom_errorbar(mapping = aes(ymin = ci.99l, 
+                              ymax = ci.99u
+                              ),
+                position = position_dodge2(),
+                linewidth = .7, 
+                width = .3       # make the horizontal bars shorter
+  )
+```
 
 Before even adding error bars, this `geom_col()` represents an excellent example of a pesky problem with out-of-the-box plots containing missing data. In any given data set, you might not have perfectly tidy data frames with data for all variable x variable combinations. For example, you might have data on the number of steps you walk during the morning and the afternoon (two levels of a time factor) for every day of the week (7 measures of another time variable) and you would have 2 x 7 = 14 bars to present in a plot. But if on Saturdays you sleep in past noon, you never have any data for the morning on Saturdays and you will have only 13 bars for your plot. 
 
@@ -692,7 +873,7 @@ suppressMessages(
 The bars are now all the same width. For `position_dodge2()`, the single bar is center-aligned whereas `position_dodge()` aligns it to the left. `position_dodge2()` seems like a better option.
 
 
-## Add the error bars using `geom_errorbar()`:
+#### *Add the error bars using `geom_errorbar()`*:
 
 We now will add the error bars to the plot. Just as we did for `geom_linerange()`, we will map the `ymin` and `ymax` to the for the line to terminate.
 
@@ -740,9 +921,9 @@ swim_base_plot +
   geom_errorbar(mapping = aes(ymin = mean - se, 
                               ymax = mean + se
                               ),
-                position = position_dodge2(preserve = "single", width = 1),
+                position = position_dodge2(preserve = "single"),
                 col = "black",   # set them to all be the same color
-                linewidth = .6
+                linewidth = .6, 
                 )
 
 ```
@@ -758,7 +939,7 @@ base_plot +
   geom_errorbar(mapping = aes(ymin = mean - se, 
                               ymax = mean + se
                               ),
-                position = position_dodge2(preserve = "single", width = 1),
+                position = position_dodge2(preserve = "single"),
                 col = "black",   # set them to all be the same color
                 linewidth = .6
                 )
@@ -769,6 +950,10 @@ Just remember that with multi-layered plots, the layers are added on top of exis
 
 ```{r}
 swim_base_plot +
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = 1,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
   geom_errorbar(mapping = aes(ymin = mean - se, 
                               ymax = mean + se
                               ),
@@ -776,10 +961,6 @@ swim_base_plot +
                 col = "black",   # set them to all be the same color
                 linewidth = .6
                 ) +
-  geom_col(position = position_dodge2(preserve = "single"),
-           alpha = 1,
-           col = "grey50"      # make the bar outline color the same and 
-           ) +
   scale_fill_manual(values = c(Women = "firebrick", 
                                Men = "cornflowerblue", 
                                Medley = "grey60"
@@ -794,18 +975,17 @@ We will create the same plot using confidence intervals.
 
 ```{r}
 swim_base_plot +
-  geom_errorbar(mapping = aes(ymin = mean - se, 
-                              ymax = mean + se
+  geom_col(position = position_dodge2(preserve = "single"),
+           alpha = .8,
+           col = "grey50"      # make the bar outline color the same and 
+           ) +
+  geom_errorbar(mapping = aes(ymin = ci.99l, 
+                              ymax = ci.99u
                               ),
-                position = position_dodge2(preserve = "single", width = 1),
+                position = position_dodge2(preserve = "single"),
                 col = "black",   # set them to all be the same color
                 linewidth = .6
                 ) +
-  geom_col(position = position_dodge2(preserve = "single"),
-           alpha = .7,
-           col = "grey50"      # make the bar outline color the same and 
-           ) +
-
   scale_fill_manual(values = c(Women = "firebrick", 
                                Men = "cornflowerblue", 
                                Mixed = "grey60"
@@ -840,6 +1020,8 @@ base_plot +
 
 ```
 
+The `geom_pointrange()` may likely be a better visualization of the data than the `geom_errobar()` paired with `geom_col()`.
+
 
 
 # **Models**
@@ -863,7 +1045,8 @@ fit <- lm(Time ~ Split50, data = FREE_100)
 
 fit |>
   broom::tidy() |>
-  table_kbl()
+  knitr::kable(format = "markdown")
+
 ```
 
 *Standardizing model coefficients*. Interpreting statistics is not the focus of this set of modules. To understand more about interpreting model coefficients and standardized coefficients, see this [tutorial](https://murraylax.org/rtutorials/multregression_standardized.html#standardized-regression) or search the web for others.
@@ -873,7 +1056,7 @@ fit |>
 ```{r}
 lm.beta::lm.beta(fit) |>
   broom::tidy() |>
-  table_kbl()
+  knitr::kable(format = "markdown")
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -888,11 +1071,12 @@ The tables contain the model coefficients to quantify elements like the linear r
 
 ```{r}
 confint(fit) |>
-  table_kbl()
+  knitr::kable(format = "markdown")
+
 
 lm.beta::lm.beta(fit) |>
   confint() |>
-  table_kbl()
+  knitr::kable(format = "markdown")
 ```
 
 
