@@ -64,7 +64,7 @@ multiplot <-
   geom_point(aes(x = -3.35), size = 3, col = "grey20") +
   # add athena mean
   geom_point(aes(x = -3.35, y = mean(FREE_100 |> filter(Team == "Women") |> pull(Time))), size = 3, col = "goldenrod") +
-  # add athena mean
+  # add stag mean
   geom_point(aes(x = -3.35, y = mean(FREE_100 |> filter(Team == "Men") |> pull(Time))), size = 3, col = "maroon") +
   # add sd range
   geom_pointrange(aes(x = -2.6, ymin = mean - sd, ymax = mean + sd)) +
@@ -226,7 +226,6 @@ scale_cycle <- function(scale_var, colors) {
 - **{distributional}** `r packageVersion("distributional")`: for plotting distributional information
 - **{tidyr}** `r packageVersion("tidyr")`: for tidying up models
 - **{broom}** `r packageVersion("broom")`: for cleaning up models
-
 
 
 ## **Load libraries**
@@ -776,10 +775,10 @@ swim_base_plot +
        )   
 ```
 
-Compared with `geom_pointrange()`, `geom_linerange()` only creates a perceptual grouping based on color. Because there are no points to plot, you cannot also change the `shape` of the points in order to make the grouping of `Team` redundant with color and point shape. Redundant encoding is something we will address in another module on **designing perceptually-efficient visualizations**). If you wish to achieve this redundancy, you will need to vary the `lintetype`. You can map the aesthetic to `Team`, set it specifically with `scale_linetype_manual()`, or code the linetype into the data frame and use `scale_linetype_identity()`. You can specify `linetype` by name or by number:  0 ("blank"), 1 ("solid"), 2 ("dashed"), 3, 4, 5, 6, etc. When passing `values` in `scale_linetype_manual()`, keep in mind this is a vector and vectors can be numeric or character but not both so you cannot mix numbers and strings for linetypes.
+Compared with `geom_pointrange()`, `geom_linerange()` only creates a perceptual grouping based on color. Because there are no points to plot, you cannot also change the `shape` of the points in order to make the grouping of `Team` redundant with color and point shape. Redundant encoding is something we will address in another module on **designing perceptually-efficient visualizations**). If you wish to achieve this redundancy, you will need to vary the `lintetype`. You can map the aesthetic to `Team`, set it specifically with `scale_linetype_manual()`, or code the line type into the data frame and use `scale_linetype_identity()`. You can specify `linetype` by name or by number:  0 ("blank"), 1 ("solid"), 2 ("dashed"), 3, 4, 5, 6, etc. When passing `values` in `scale_linetype_manual()`, keep in mind this is a vector and vectors can be numeric or character but not both so you cannot mix numbers and strings for line types.
 
 
-For more on linetype, read [here](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html)
+For more on line type, read [here](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html)
 
 ```{r}
 swim_base_plot + 
@@ -1028,7 +1027,7 @@ The `geom_pointrange()` may likely be a better visualization of the data than th
 
 Statistical models also have associated uncertainty because they are built on the data that have natural variability. We have seems some of this variability and uncertainty of models in the module on **visualizing associations**. 
 
-Let's build a model, however, and then see it's associated uncertianty.
+Let's build a model, however, and then see it's associated uncertainty.
 
 ```{r}
 FREE_100 <- SWIM |>
@@ -1300,7 +1299,7 @@ The first instance is in `data`.
 nested$data[[1]]
 ```
 
-You see we have a tibble that contains nested subsets of data. There are not much data for some events but the goal is only to show how to visualize model error. We will now us `Base R` `lapply()` to apply a function to a list. For each nested data frame, the data will be `.x`. The model fit is retuned and 
+You see we have a tibble that contains nested subsets of data. There are not much data for some events but the goal is only to show how to visualize model error. We will now us `Base R` `lapply()` to apply a function to a list. For each nested data frame, the data will be `.x`. The model fit is returned and 
 
 ```{r}
 SWIM |>
@@ -1528,3 +1527,8 @@ SWIM |>
               )
 ```
 
+# **Session Info**
+
+```{r, echo = FALSE}
+sessionInfo()
+```
