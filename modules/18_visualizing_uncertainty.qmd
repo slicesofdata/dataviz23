@@ -1378,10 +1378,62 @@ Using the **{ggdist}** and **{distributional}** libraries, we can plot the distr
 nested |>
   mutate(Distance = as.character(Distance)) |>
   ggplot(mapping = aes(x = estimate, y = Event, col = Distance)) +
-  ggdist::stat_dist_halfeye(mapping = aes(dist = distributional::dist_normal(mu = estimate, 
-                                                                             sigma = std.error)
+  ggdist::stat_dist_halfeye(
+    mapping = aes(dist = distributional::dist_normal(
+      mu = estimate, 
+      sigma = std.error)
   ),
   point_size = 3
+  )
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+nested |>
+  filter(Distance == 100) |>
+  #mutate(Distance = as.character(Distance)) |>
+  ggplot(mapping = aes(x = estimate, y = Event)) +
+  ggdist::stat_dist_gradientinterval(
+    mapping = aes(dist = distributional::dist_normal(
+      mu = estimate, 
+      sigma = std.error
+      )
+  ),
+  #point_size = 3,
+  fill = "firebrick",
+  scale = .5#,
+  #fill_type = "gradient"
+  )
+
+nested |>
+  filter(Distance == 100) |>
+  #mutate(Distance = as.character(Distance)) |>
+  ggplot(mapping = aes(x = estimate, y = Event)) +
+  ggdist::stat_dist_dotsinterval(
+    mapping = aes(dist = distributional::dist_normal(
+      mu = estimate, 
+      sigma = std.error
+      )
+  ),
+  point_size = 3,
+  fill = "firebrick",
+  quantiles = 200
+  )
+
+
+
+mod_time_event <- lm(Time ~ Event, data = SWIM |> filter(Distance == 100 & Team == "Women")) 
+mod_time_event |> gtsummary::tbl_regression()
+mod_time_event |> performance::check_model()
+
+mod_time_event |>
+  broom::tidy() |>
+  mutate(term = gsub("Event", "", term)) |>
+  ggplot(aes(y = term)) +
+  ggdist::stat_halfeye(
+    aes(xdist = distributional::dist_student_t(df = df.residual(mod_time_event), 
+                                               mu = estimate, 
+                                               sigma = std.error
+                                               ))
   )
 ```
 

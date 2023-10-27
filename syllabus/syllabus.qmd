@@ -14,7 +14,7 @@ library(magrittr)
 #library(kableExtra)
 #library(knitr)
 
-source(here::here("R/_common.R"))
+source(here::here("r/_common.R"))
 
 knitr::kable(
   data.frame(
