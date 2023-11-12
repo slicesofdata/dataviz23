@@ -46,7 +46,7 @@ descriptives <- function(data,
                          conf = .95,
                          ...
                          ) {
-  dep = c("dplyr", "DescTools")
+  dep = c("dplyr", "DescTools", "moments")
   pkgs = dep[!(dep %in%  installed.packages()[,"Package"])]
   if (length(pkgs)) install.packages(pkgs)
   
