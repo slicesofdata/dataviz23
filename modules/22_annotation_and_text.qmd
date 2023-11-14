@@ -579,7 +579,7 @@ SWIM_bar +
   ) +
   geom_text(mapping = aes(label = Seconds),    # map Seconds to label 
             col = "grey40",
-            #            family = "Courier New",
+            #            family = "Times New Roman",
             fontface = "italic",
             #            vjust = 0,                        # set the vertical adjustment
             hjust = 0,
