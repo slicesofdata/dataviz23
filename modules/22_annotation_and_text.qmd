@@ -279,7 +279,7 @@ SWIM |>
 We will return to this plot and discuss some ways to modify it but we need to take a brief detour into scatter plots and point labeling. 
 
 
-# **Labeling points in scatter plots`**
+# **Labeling points in scatter plots**
 
 Another way to visualize the data is with a scatter plot. Let's say you wanted to plot a scatter plot of years and times. We can add the athlete names to the plot by mapping the variable to a plot aesthetic, for example, the color of the points.
 
@@ -493,7 +493,6 @@ Using `geom_text()`, we can modify other text properties not yet discussed. Some
 - `nudge_x` and `nudge_y`: nudging horizontal and vertical labels 
 
 
-
 ## **Repositioning Bar Labels using `geom_text()`**
 
 For this plot, we will set: 
@@ -622,23 +621,7 @@ Putting the pieces all together.
 We can put all the plot layers together and add a title.
 
 ```{r}
-SWIM |>
-  filter(Event == "100 FREE") |>
-  filter(Team == "Athena") |>
-  ggplot(mapping = aes(
-           x = forcats::fct_reorder(Name_Year, 
-                                    .x = Seconds, 
-                                    .fun = min,
-                                    .desc = T),   # reorder the bars by Time
-           y = Seconds, 
-           fill = RelativeFill
-         )
-  ) + 
-  geom_col() +                    # column plot
-  coord_flip(ylim = c(50, 53)) +
-  scale_fill_identity() 
-
-
+# make an object
 (final_bar_plot <- SWIM |>
   filter(Event == "100 FREE") |>
   filter(Team == "Athena") |>
@@ -762,7 +745,7 @@ final_bar_plot +
 
 There are different ways to add code or other HTML formatting to plot objects. You can certainly edit the code and render as HTML is the `theme()` layer. The **{ggtext}** library offers some addition text detailing capability especially in cases where you want to place text is nontraditional locations. There are other ways too and will likely be more but these two options will take you some good distance.
 
-### **Adding font color using HTML code in`labs()` and rendering with`theme()`**
+### **Adding font color using HTML code in `labs()` and rendering with `theme()`**
 
 You can decorate your text with color by passing HTML code to the `labs()` function. However, unlike `geom_richtext()`, the text containing HTML code will render as pure text unless you have the element rendered for markdown using `element_markdown()` with in the `theme()`. 
 
@@ -770,7 +753,7 @@ If your code appears as the pure HTML code, then you have likely overlooked this
 
 For example, if you want to add a plot title and subtitle containing HTML code, you will pass the text to the `labs(title = "text", subtitle = "text")` function and then add (or edit) a `theme()` layer and make sure to have the  `plot.title` and `plot.subtitle` rendered as `element_markdown()`. 
 
-#### **Changing font face in theme() elements** 
+#### **Changing font face in `theme()` elements** 
 
 Within the `element_markdown()` rendering, we can also set the font to **bold** or *italics* by specifying `face`.
 
