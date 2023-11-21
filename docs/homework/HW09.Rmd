@@ -14,7 +14,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source("https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R")
 ```
 
 For this homework, you will save the `R Markdown` (e.g., `.Rmd`) homework document and save it to your `homework` project directory on your computer. Save a new copy of this file so that its name has the prefix `2023_Lastname_FirstInitial`. Full name example: `2023_cookg_EX_09.Rmd`. Feel free to work with a partner but understand that the work submitted has to be your own.
@@ -41,10 +40,7 @@ source(here::here("r", "my_functions.R"))
 # (1pt) **Load only used libraries**
 
 ```{r echo=TRUE}
-library(dplyr)
-library(ggplot2)
-library(magrittr)
-library(geomtextpath)
+
 ```
 
 **Load data**
