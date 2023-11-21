@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-11-07">
+<meta name="dcterms.date" content="2023-11-21">
 
 <title>PSYC167 - Attentional control</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -471,8 +505,59 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
   <ul class="collapse">
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
+  <li><a href="#external-functions" id="toc-external-functions" class="nav-link" data-scroll-target="#external-functions"><strong>External Functions</strong></a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><strong>Libraries</strong></a></li>
   </ul></li>
-  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
+  <li><a href="#loading-libraries" id="toc-loading-libraries" class="nav-link" data-scroll-target="#loading-libraries"><strong>Loading Libraries</strong></a></li>
+  <li><a href="#sizing-up-plot-elements" id="toc-sizing-up-plot-elements" class="nav-link" data-scroll-target="#sizing-up-plot-elements"><strong>Sizing up plot elements</strong></a>
+  <ul class="collapse">
+  <li><a href="#increase-the-size-of-axis-labels" id="toc-increase-the-size-of-axis-labels" class="nav-link" data-scroll-target="#increase-the-size-of-axis-labels"><strong>Increase the size of axis labels</strong></a></li>
+  <li><a href="#increase-the-size-of-the-legend-labels" id="toc-increase-the-size-of-the-legend-labels" class="nav-link" data-scroll-target="#increase-the-size-of-the-legend-labels"><strong>Increase the size of the legend labels</strong></a></li>
+  <li><a href="#increase-the-size-of-the-legend-shapes" id="toc-increase-the-size-of-the-legend-shapes" class="nav-link" data-scroll-target="#increase-the-size-of-the-legend-shapes"><strong>Increase the size of the legend ‘shapes’</strong></a></li>
+  <li><a href="#passing-objects-for-adjustments" id="toc-passing-objects-for-adjustments" class="nav-link" data-scroll-target="#passing-objects-for-adjustments"><strong>Passing objects for adjustments</strong></a></li>
+  </ul></li>
+  <li><a href="#identifying-points-of-interest" id="toc-identifying-points-of-interest" class="nav-link" data-scroll-target="#identifying-points-of-interest"><strong>Identifying points of interest</strong></a>
+  <ul class="collapse">
+  <li><a href="#adding-reference-points" id="toc-adding-reference-points" class="nav-link" data-scroll-target="#adding-reference-points"><strong>Adding reference points</strong></a></li>
+  <li><a href="#adding-reference-line" id="toc-adding-reference-line" class="nav-link" data-scroll-target="#adding-reference-line"><strong>Adding reference line</strong></a></li>
+  <li><a href="#adding-reference-point-with-annotation" id="toc-adding-reference-point-with-annotation" class="nav-link" data-scroll-target="#adding-reference-point-with-annotation"><strong>Adding reference point with annotation</strong></a>
+  <ul class="collapse">
+  <li><a href="#annotategeom-point" id="toc-annotategeom-point" class="nav-link" data-scroll-target="#annotategeom-point"><code>annotate(geom = "point")</code></a></li>
+  <li><a href="#annotategeom-point-and-annotategeom-text" id="toc-annotategeom-point-and-annotategeom-text" class="nav-link" data-scroll-target="#annotategeom-point-and-annotategeom-text"><code>annotate(geom = "point")</code> and <code>annotate(geom = "text")</code></a></li>
+  <li><a href="#geom_curve-with-arrow" id="toc-geom_curve-with-arrow" class="nav-link" data-scroll-target="#geom_curve-with-arrow"><code>geom_curve()</code> with <code>arrow()</code></a></li>
+  <li><a href="#geomtextpathgeom_textcurve" id="toc-geomtextpathgeom_textcurve" class="nav-link" data-scroll-target="#geomtextpathgeom_textcurve"><code>geomtextpath::geom_textcurve()</code></a></li>
+  <li><a href="#defining-an-arrow" id="toc-defining-an-arrow" class="nav-link" data-scroll-target="#defining-an-arrow">Defining an <code>arrow()</code></a></li>
+  <li><a href="#geomtextpathgeom_textcurve-with-a-new-data-frame" id="toc-geomtextpathgeom_textcurve-with-a-new-data-frame" class="nav-link" data-scroll-target="#geomtextpathgeom_textcurve-with-a-new-data-frame"><code>geomtextpath::geom_textcurve()</code> with a new data frame</a></li>
+  <li><a href="#geomtextpathgeom_labelcurve" id="toc-geomtextpathgeom_labelcurve" class="nav-link" data-scroll-target="#geomtextpathgeom_labelcurve"><code>geomtextpath::geom_labelcurve()</code></a></li>
+  <li><a href="#geomtextpathgeom_textline" id="toc-geomtextpathgeom_textline" class="nav-link" data-scroll-target="#geomtextpathgeom_textline"><code>geomtextpath::geom_textline()</code></a></li>
+  <li><a href="#geomtextpathgeom_labelline" id="toc-geomtextpathgeom_labelline" class="nav-link" data-scroll-target="#geomtextpathgeom_labelline"><code>geomtextpath::geom_labelline()</code></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#drawing-attention-to-plot-elements" id="toc-drawing-attention-to-plot-elements" class="nav-link" data-scroll-target="#drawing-attention-to-plot-elements"><strong>Drawing attention to plot elements</strong></a>
+  <ul class="collapse">
+  <li><a href="#drawing-attention-to-a-bar" id="toc-drawing-attention-to-a-bar" class="nav-link" data-scroll-target="#drawing-attention-to-a-bar"><strong>Drawing attention to a bar</strong></a></li>
+  <li><a href="#drawing-attention-to-a-bar-using-gghighlight" id="toc-drawing-attention-to-a-bar-using-gghighlight" class="nav-link" data-scroll-target="#drawing-attention-to-a-bar-using-gghighlight"><strong>Drawing attention to a bar using {gghighlight}</strong></a></li>
+  <li><a href="#fading-out-bars-by-mapping-a-variable-to-alpha" id="toc-fading-out-bars-by-mapping-a-variable-to-alpha" class="nav-link" data-scroll-target="#fading-out-bars-by-mapping-a-variable-to-alpha"><strong>Fading out bars by mapping a variable to <code>alpha</code></strong></a></li>
+  </ul></li>
+  <li><a href="#drawing-attention-to-points" id="toc-drawing-attention-to-points" class="nav-link" data-scroll-target="#drawing-attention-to-points"><strong>Drawing attention to points</strong></a>
+  <ul class="collapse">
+  <li><a href="#highlighting-lines" id="toc-highlighting-lines" class="nav-link" data-scroll-target="#highlighting-lines"><strong>Highlighting lines</strong></a></li>
+  <li><a href="#highlighting-with-gghighlight" id="toc-highlighting-with-gghighlight" class="nav-link" data-scroll-target="#highlighting-with-gghighlight"><strong>Highlighting with {gghighlight}</strong></a></li>
+  <li><a href="#highlighting-specific-data-with-gghighlight" id="toc-highlighting-specific-data-with-gghighlight" class="nav-link" data-scroll-target="#highlighting-specific-data-with-gghighlight"><strong>Highlighting specific data with {gghighlight}</strong></a></li>
+  </ul></li>
+  <li><a href="#drawing-attention-to-a-plot-region" id="toc-drawing-attention-to-a-plot-region" class="nav-link" data-scroll-target="#drawing-attention-to-a-plot-region"><strong>Drawing attention to a plot region</strong></a>
+  <ul class="collapse">
+  <li><a href="#highlighting-a-region-using-annotate" id="toc-highlighting-a-region-using-annotate" class="nav-link" data-scroll-target="#highlighting-a-region-using-annotate"><strong>Highlighting a region using <code>annotate()</code></strong></a>
+  <ul class="collapse">
+  <li><a href="#highlighting-a-slice-of-the-x-axis-using-annotate" id="toc-highlighting-a-slice-of-the-x-axis-using-annotate" class="nav-link" data-scroll-target="#highlighting-a-slice-of-the-x-axis-using-annotate"><strong>Highlighting a slice of the x-axis using <code>annotate()</code></strong></a></li>
+  <li><a href="#highlighting-a-slice-of-the-y-axis-using-annotate" id="toc-highlighting-a-slice-of-the-y-axis-using-annotate" class="nav-link" data-scroll-target="#highlighting-a-slice-of-the-y-axis-using-annotate"><strong>Highlighting a slice of the y-axis using <code>annotate()</code></strong></a></li>
+  <li><a href="#highlighting-a-slice-of-the-y-axis-using-geom_rect" id="toc-highlighting-a-slice-of-the-y-axis-using-geom_rect" class="nav-link" data-scroll-target="#highlighting-a-slice-of-the-y-axis-using-geom_rect"><strong>Highlighting a slice of the y-axis using <code>geom_rect()</code></strong></a></li>
+  <li><a href="#highlighting-a-rectangle-using-annotate" id="toc-highlighting-a-rectangle-using-annotate" class="nav-link" data-scroll-target="#highlighting-a-rectangle-using-annotate"><strong>Highlighting a rectangle using <code>annotate()</code></strong></a></li>
+  <li><a href="#highlighting-two-slices-of-the-x-axis-using-annotate" id="toc-highlighting-two-slices-of-the-x-axis-using-annotate" class="nav-link" data-scroll-target="#highlighting-two-slices-of-the-x-axis-using-annotate"><strong>Highlighting two slices of the x-axis using <code>annotate()</code></strong></a></li>
+  <li><a href="#comparing-annotate-versus-geom_rect" id="toc-comparing-annotate-versus-geom_rect" class="nav-link" data-scroll-target="#comparing-annotate-versus-geom_rect"><strong>Comparing <code>annotate()</code> versus <code>geom_rect()</code></strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><strong>Session Info</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -498,7 +583,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2023</p>
+      <p class="date">November 21, 2023</p>
     </div>
   </div>
   
@@ -523,6 +608,8 @@ Under construction.
 </div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
+<p>When creating data visualizations, your data should be communicated in a way that does not require your audience to think too much about the main points. This does not mean that viewers should not engage in deep and thoughtful interpretation of the data and look for patterns that are not perfectly clear. The visualization should be designed to communicate a particular goal, however, which is essential to the creation process. On some occasions, you may want to focus attention to particular plot elements. We have done this before by changing colors, shapes, size, and other decorative properties of visualizations. We have also narrowed the space by creating visualizations for a specific subset of the data (e.g., team, event, etc.) and we have guided attention by creating small multiples of a particular plot. Panel or facet plots present the same data that is presented in a plot for which an aesthetic is mapped to variables (creating a legend) but panel plots isolate the subgroups by creating separate plots. We have seen advantages and disadvantages of this approach. There are always trade offs if only one plot type is used.</p>
+<p>For this module, the goal is to further explore ways for you to control the attention of your audience. You may need to highlight some relevant or interesting aspect of the data that may be overlooked. You may also need to guide attention to a subset of data or a plot region so that your audience has no ambiguity about where to look and how to inspect. Controlling attention in these ways will of course have associated trade offs. You should evaluate the trade offs and ask yourself whether directing attention to a plot region or to a subset of data achieves your intended goal. If doing so may complicate plot interpretation or confuse user, then consider other ways. If you want to facilitate your audience making comparisons between the data or region of interest and other data or regions, then directing their attention may be preferred to creating multiple visualizations as comparisons can be compromised when make across space, pages, and time.</p>
 </section>
 <section id="to-do" class="level1">
 <h1><strong>To Do</strong></h1>
@@ -542,9 +629,1235 @@ Under construction.
 <li><a href="https://ieeexplore.ieee.org/document/9385921">Ajani et al.&nbsp;(2022). Declutter and Focus: Empirically Evaluating Design Guidelines for Effective Data Communication</a></li>
 </ul>
 </section>
+<section id="external-functions" class="level2">
+<h2 class="anchored" data-anchor-id="external-functions"><strong>External Functions</strong></h2>
+<p>Provided in class:</p>
+<p><code>view_html()</code>: for viewing data frames in html format, from <code>/r/my_functions.R</code></p>
+<p>You can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to <code>print()</code> on occasion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"r"</span>, <span class="st">"my_functions.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="under-construction-content-pending" class="level1">
-<h1><strong>Under construction, content pending</strong></h1>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries"><strong>Libraries</strong></h2>
+<ul>
+<li><strong>{dplyr}</strong> 1.1.2: for selecting, filtering, and mutating</li>
+<li><strong>{magrittr}</strong> 2.0.3: for code clarity and piping data frame objects</li>
+<li><strong>{ggplot2}</strong> 3.4.3: for plotting</li>
+<li><strong>{ggrepel}</strong> 0.9.3: for repelling labels from points and lines</li>
+<li><strong>{geomtextpath}</strong> 0.1.1: for annotation of curved paths (also straight)</li>
+<li><strong>{gghighlight}</strong> 0.4.0: for highlighting lines and points</li>
+<li><strong>{ggtext}</strong> 0.1.2: for text on plots; markdown elements (viz, element_markdown)</li>
+</ul>
+</section>
+</section>
+<section id="loading-libraries" class="level1">
+<h1><strong>Loading Libraries</strong></h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geomtextpath)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sizing-up-plot-elements" class="level1">
+<h1><strong>Sizing up plot elements</strong></h1>
+<p>The font size of plot elements can be increased to make them more easy to process. You can do this by adjusting text elements within <code>theme()</code>.</p>
+<section id="increase-the-size-of-axis-labels" class="level2">
+<h2 class="anchored" data-anchor-id="increase-the-size-of-axis-labels"><strong>Increase the size of axis labels</strong></h2>
+<p>For each <code>axis.text.&lt;axis&gt;</code>, you can adjust the <code>element_text()</code>.</p>
+<ul>
+<li><code>axis.text.x = element_text(size = 12)</code></li>
+<li><code>axis.text.y = element_text(size = 12)</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(base_plot <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">8</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># y-axis size</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice that this adjustment does not increase the legend text size too. This is a different element.</p>
+</section>
+<section id="increase-the-size-of-the-legend-labels" class="level2">
+<h2 class="anchored" data-anchor-id="increase-the-size-of-the-legend-labels"><strong>Increase the size of the legend labels</strong></h2>
+<ul>
+<li><code>legend.text = element_text(size = 12)</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># y-axis size</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># legend text size</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="increase-the-size-of-the-legend-shapes" class="level2">
+<h2 class="anchored" data-anchor-id="increase-the-size-of-the-legend-shapes"><strong>Increase the size of the legend ‘shapes’</strong></h2>
+<p>We have already addressed how to make legend shape elements larger too. This adjustment is in the <code>guides()</code> and requires overriding aesthetics. We need to add a <code>guides()</code> layer. Importantly, you need to be careful to specify the aesthetic mapped, in this case <code>col</code>. If you mapped a variable to a discrete color, then you will need to change the size of the <code>col</code> aesthetics. If you mapped a variable to a shape, and you want to increase the size of the shapes, then you will need to change the size of the <code>shape</code> aesthetics.</p>
+<ul>
+<li><code>guides(&lt;aesthetic mapped&gt; = guide_legend(override.aes = list(size = 3)))</code></li>
+</ul>
+<p>In this example, <code>col</code> was mapped and the goal is to change the size of the color ‘shape’ so the solution is:</p>
+<ul>
+<li><code>guides(col = guide_legend(override.aes = list(size = 3)))</code></li>
+</ul>
+<p>There is no <code>shape</code> mapping, so changing the size of the shape will not work:</p>
+<ul>
+<li><code>guides(shape = guide_legend(override.aes = list(size = 3)))</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># y-axis size</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># legend text size</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="passing-objects-for-adjustments" class="level2">
+<h2 class="anchored" data-anchor-id="passing-objects-for-adjustments"><strong>Passing objects for adjustments</strong></h2>
+<p>Of course, the points on the plot are small too, so you would want to adjust them if necessary. We can use some objects to make the process easier. If you want to apply the same approach to many or all plots you create, you might just prefer to create a custom <code>theme()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>point_size <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>font_size  <span class="ot">&lt;-</span> <span class="dv">11</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># the axis text in general</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size),     <span class="co"># both and ticks</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># or specifically</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#axis.text.x = element_text(size = font_size),  # x-axis size</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#axis.text.y = element_text(size = font_size),  # y-axis size</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># the title label</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">+</span> <span class="dv">3</span>),  <span class="co"># bump it up relatively</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># the legend text</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size <span class="sc">+</span> <span class="dv">1</span>),  <span class="co"># legend title, bump up if desired</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> font_size)    <span class="co"># legend text size</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> point_size)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="identifying-points-of-interest" class="level1">
+<h1><strong>Identifying points of interest</strong></h1>
+<section id="adding-reference-points" class="level2">
+<h2 class="anchored" data-anchor-id="adding-reference-points"><strong>Adding reference points</strong></h2>
+<p>Let’s say you want to highlight a data point or location of interest. We can do so by specifying the point or region.</p>
+<p>There are a few ways to address this. You can use <code>stat_summary()</code> to draw attention to a place on the plot, the mean of the variable mapped to y.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="st">"mean"</span>,        <span class="co"># the summary function</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"point"</span>,      <span class="co"># the geom </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#shape = 23,         # the geom_point shape if you wish to change it </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,            <span class="co"># the color </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fill = "grey",      # fill color if your point has fill </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"grey20"</span>,        <span class="co"># the color</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">8</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Whereas <code>stat_summary()</code> applies the function to the groups, you may wish to highlight a single point. When this is the case, you will use different data than what you pass to the <code>ggplot()</code> object.</p>
+<p>The best athlete.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>( best_2019 <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span>  <span class="fu">slice_max</span>(Score) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  Athlete        Rank Score Meet                               Date  Team   Year
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                              &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 Sill, Michael     2  49.8 SCIAC Track &amp; Field Conference Ch… Apr … Stag   2019</code></pre>
+</div>
+</div>
+<p>When only x or y matters, you can specify that single point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>( mean_y_2019 <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span>  <span class="fu">pull</span>(Score) <span class="sc">|&gt;</span> <span class="fu">mean</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.37329</code></pre>
+</div>
+</div>
+<p>When x and y matter, you may wish to specify that point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>( mean_xy_2019 <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Rank =</span> <span class="fu">mean</span>(Rank, <span class="at">na.rm =</span> T),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   Rank Score
+  &lt;dbl&gt; &lt;dbl&gt;
+1  2.54  39.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>( team_mean_xy_2019 <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Rank =</span> <span class="fu">mean</span>(Rank, <span class="at">na.rm =</span> T),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Team    Rank Score
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 Athena  2.42  32.4
+2 Stag    2.64  45.0</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-reference-line" class="level2">
+<h2 class="anchored" data-anchor-id="adding-reference-line"><strong>Adding reference line</strong></h2>
+<p>Let’s plot a horizontal line using <code>geom_hline()</code> to direct attention for reference or comparison.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mean_y_2019)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Let’s add a label easily using <strong>{geomtextpath}</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_texthline</span>(<span class="at">yintercept =</span> mean_y_2019,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">label =</span> <span class="st">"2019 average"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice, we are only specifying a place for all athletes rather than for Stags and Athenas separately.</p>
+</section>
+<section id="adding-reference-point-with-annotation" class="level2">
+<h2 class="anchored" data-anchor-id="adding-reference-point-with-annotation"><strong>Adding reference point with annotation</strong></h2>
+<section id="annotategeom-point" class="level3">
+<h3 class="anchored" data-anchor-id="annotategeom-point"><code>annotate(geom = "point")</code></h3>
+<p>Use <code>annotate()</code> to plot a point to highlight some element using <code>geom = "point"</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="annotategeom-point-and-annotategeom-text" class="level3">
+<h3 class="anchored" data-anchor-id="annotategeom-point-and-annotategeom-text"><code>annotate(geom = "point")</code> and <code>annotate(geom = "text")</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>, </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"mean"</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="geom_curve-with-arrow" class="level3">
+<h3 class="anchored" data-anchor-id="geom_curve-with-arrow"><code>geom_curve()</code> with <code>arrow()</code></h3>
+<p>Direct attention with annotation and an arrow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"mean"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_curve</span>(<span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank,                 <span class="co"># where the curve begins</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">xend =</span> mean_xy_2019<span class="sc">$</span>Rank <span class="sc">+</span> .<span class="dv">2</span>,          <span class="co"># where the curve ends</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">yend =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">+</span> <span class="dv">2</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"grey20"</span>, </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>,              <span class="co"># angle of the arrow</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>,<span class="st">"cm"</span>),</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ends =</span> <span class="st">"first"</span>,          <span class="co"># "last", "first", or "both"</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">type =</span> <span class="st">"closed"</span>          <span class="co"># "open" or "closed" triangle</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                           ),</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">curvature =</span> <span class="dv">1</span>                        <span class="co"># the amount of curvature (0 is a line, not a curve) </span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>             ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>But the arrow point is overlapping the mean point. Let’s back off. Also, if you won’t be getting new data, you can set the coordinates to static values. This plot reflects a series of edits.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"text"</span>, </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="dv">2</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">19</span>, </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"mean"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_curve</span>(<span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank <span class="sc">-</span> .<span class="dv">04</span>,           <span class="co"># where the curve begins</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">xend =</span> <span class="dv">2</span>,                              <span class="co"># where the curve ends</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">yend =</span> <span class="dv">20</span>,</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"grey20"</span>, </span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>,              <span class="co"># angle of the arrow</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>                           <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>,<span class="st">"cm"</span>),</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ends =</span> <span class="st">"first"</span>,          <span class="co"># "last", "first", or "both"</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">type =</span> <span class="st">"closed"</span>          <span class="co"># "open" or "closed" triangle</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>                           ),</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">curvature =</span> <span class="fl">0.1</span>                        <span class="co"># the amount of curvature (0 is a line, not a curve) </span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>             ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="geomtextpathgeom_textcurve" class="level3">
+<h3 class="anchored" data-anchor-id="geomtextpathgeom_textcurve"><code>geomtextpath::geom_textcurve()</code></h3>
+<p>Direct attention with annotation along the line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textcurve</span>(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank <span class="sc">-</span> .<span class="dv">04</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="dv">2</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">20</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">curvature =</span> .<span class="dv">1</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> .<span class="dv">5</span>,                                      <span class="co"># label at start (1), end (0), or other (.5 = center)  </span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="dv">0</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"first"</span>),</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"mean"</span>                                   <span class="co"># label required (this replaces annotate() layer)</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Warning:</strong> If your label is too long, fore example <code>"overall mean"</code>, R will throw an error.</p>
+<p><code>Error: Cannot create zero-length unit vector ("unit" subsetting)</code></p>
+</section>
+<section id="defining-an-arrow" class="level3">
+<h3 class="anchored" data-anchor-id="defining-an-arrow">Defining an <code>arrow()</code></h3>
+<p>Let’s make an arrow to reuse. The default is ugly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>my_arrow <span class="ot">&lt;-</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>,              </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.25</span>,<span class="st">"cm"</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ends =</span> <span class="st">"first"</span>,          </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">type =</span> <span class="st">"closed"</span>          </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can change the font <code>size</code> to a smaller value, for example, <code>size = 2</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textcurve</span>(</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank <span class="sc">-</span> .<span class="dv">04</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="dv">2</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">20</span>,</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">curvature =</span> .<span class="dv">1</span>,</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> .<span class="dv">5</span>,                                      <span class="co"># label at start (1), end (0), or other (.5 = center)  </span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="dv">0</span>,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> my_arrow,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"overall mean"</span>                                      <span class="co"># label required (this replaces annotate() layer)</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>OK, too small. You can also change the length to the curve or line by changing <code>xend</code> and <code>yend</code>. Also, accepting the default justification serves you well enough, so let’s comment out.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>base_plot <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"point"</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textcurve</span>(</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> mean_xy_2019<span class="sc">$</span>Rank <span class="sc">-</span> .<span class="dv">04</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mean_xy_2019<span class="sc">$</span>Score <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#size = 2,</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="fl">1.5</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">20</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">curvature =</span> <span class="dv">0</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#    hjust = .5,                                      # label at start (1), end (0), or other (.5 = center)  </span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#    vjust = 0,</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> my_arrow,</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"overall mean"</span>                                      <span class="co"># label required (this replaces annotate() layer)</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="geomtextpathgeom_textcurve-with-a-new-data-frame" class="level3">
+<h3 class="anchored" data-anchor-id="geomtextpathgeom_textcurve-with-a-new-data-frame"><code>geomtextpath::geom_textcurve()</code> with a new data frame</h3>
+<p>In the previous example, we set the coordinates from outside of <code>aes()</code>. This was done to show you that you could control the coordinates manually. In this example, we will take a new data frame and set <code>data = best_2019</code>. We will map <code>x</code> and <code>y</code> and then set <code>xmin</code> and <code>ymin</code> either because they do not exist in the data frame or because we just don’t want to map them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">75</span>,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># y-axis size</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textcurve</span>(</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> best_2019,                           <span class="co"># the data frame with the best athlete</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Score,</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label =</span> <span class="fu">paste</span>(Score, Athlete, <span class="at">sep =</span> <span class="st">"m  "</span>)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>                  ),</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="fl">3.5</span>,</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">60</span>,</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> my_arrow,</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Note:</strong> With <strong>{geomtextpath}</strong> text objects, if you receive the following error: <code>Error: Cannot create zero-length unit vector ("unit" subsetting)</code>, this may reflect that your plot space in RStudio is too small to render the object correctly. Your code may not be in error. Simply increase the size of your plot space environment in RStudio.</p>
+</section>
+<section id="geomtextpathgeom_labelcurve" class="level3">
+<h3 class="anchored" data-anchor-id="geomtextpathgeom_labelcurve"><code>geomtextpath::geom_labelcurve()</code></h3>
+<p>Same thing using <code>geomtextpath::geom_labelcurve()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">75</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># y-axis size</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_labelcurve</span>(</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> best_2019,                             <span class="co"># the data frame with the best athlete</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Score,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label =</span> <span class="fu">paste</span>(Score, Athlete, <span class="at">sep =</span> <span class="st">"m  "</span>)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>                  ),</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="fl">3.5</span>,</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="dv">60</span>,</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> my_arrow,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>One issue with <code>geom_textcurve()</code> and <code>geom_labelcurve()</code> is the difficulty controlling the size of the content and the length of the line.</p>
+</section>
+<section id="geomtextpathgeom_textline" class="level3">
+<h3 class="anchored" data-anchor-id="geomtextpathgeom_textline"><code>geomtextpath::geom_textline()</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">75</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># y-axis size</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_textline</span>(</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> best_2019,                             <span class="co"># the data frame with the best athlete</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Score,</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label =</span> <span class="fu">paste</span>(Score, Athlete, <span class="at">sep =</span> <span class="st">"m  "</span>)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>                  ),</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>But the line is directly over the point. You can add values to <code>x</code> and <code>y</code> to move it. For example, <code>aes(x = Score + 2, ...)</code> but that might still look odd without an arrow. This adjustment is nevertheless made in the next example using <code>geom_labelline()</code>.</p>
+</section>
+<section id="geomtextpathgeom_labelline" class="level3">
+<h3 class="anchored" data-anchor-id="geomtextpathgeom_labelline"><code>geomtextpath::geom_labelline()</code></h3>
+<p>If you want to <code>geomtextpath::geom_labelline()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.2</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">75</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># x-axis size</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)   <span class="co"># y-axis size</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_labelline</span>(</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> best_2019,                             <span class="co"># the data frame with the best athlete</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Score <span class="sc">+</span> <span class="dv">5</span>,</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label =</span> <span class="fu">paste</span>(Year, <span class="st">" Top Athlete</span><span class="sc">\n</span><span class="st">"</span>, Score, <span class="st">"m "</span>, Athlete, <span class="at">sep =</span> <span class="st">""</span>),</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>                  ),</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="co">#    fontface = "bold",</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="drawing-attention-to-plot-elements" class="level1">
+<h1><strong>Drawing attention to plot elements</strong></h1>
+<p>If you need to draw attention to a particular group level, one way is to add colors as a vector in the data frame and then map that vector to an aesthetic. This example shows how to do this by <code>fill</code> but you can address with other aesthetics too.</p>
+<section id="drawing-attention-to-a-bar" class="level2">
+<h2 class="anchored" data-anchor-id="drawing-attention-to-a-bar"><strong>Drawing attention to a bar</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rank) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">&gt;</span>  <span class="dv">1</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"grey60"</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">|&gt;</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill =</span> Rank_Color</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_identity</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="drawing-attention-to-a-bar-using-gghighlight" class="level2">
+<h2 class="anchored" data-anchor-id="drawing-attention-to-a-bar-using-gghighlight"><strong>Drawing attention to a bar using {gghighlight}</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rank) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill =</span> <span class="fu">factor</span>(Rank)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gghighlight</span>(Score <span class="sc">&gt;</span> <span class="dv">45</span>, </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">unhighlighted_params =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"black"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="fading-out-bars-by-mapping-a-variable-to-alpha" class="level2">
+<h2 class="anchored" data-anchor-id="fading-out-bars-by-mapping-a-variable-to-alpha"><strong>Fading out bars by mapping a variable to <code>alpha</code></strong></h2>
+<p>We will just adjust alpha in the data frame by the conditional.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rank) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cutoff =</span> <span class="dv">41</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Alpha =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>      Score <span class="sc">&lt;=</span> cutoff <span class="sc">~</span> .<span class="dv">5</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank, </span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill =</span> <span class="fu">factor</span>(Rank),</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> Alpha</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="drawing-attention-to-points" class="level1">
+<h1><strong>Drawing attention to points</strong></h1>
+<p>Drawing attention to points can be accomplished in different ways. You may wish to color code certain points, change the alpha of certain points, make the shape distinctive, make the stroke thicker, etc. Much of this can be done by making variables directly in the data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Color =</span> <span class="fu">ifelse</span>(Rank <span class="sc">==</span> <span class="dv">1</span>,  <span class="st">"goldenrod"</span>, <span class="st">"black"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">&gt;</span>  <span class="dv">1</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"grey60"</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Alpha =</span> <span class="fu">case_when</span>(</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">&gt;</span>  <span class="dv">1</span> <span class="sc">~</span> .<span class="dv">7</span>,</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> .<span class="dv">2</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Athlete) <span class="sc">|&gt;</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Season_Mean =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T), <span class="at">.groups =</span> <span class="st">"keep"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Meet, Date, Score, .groups)) <span class="sc">|&gt;</span> </span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year, </span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Season_Mean,</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Rank_Color,</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> Rank_Alpha</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">167</span>),</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2009</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_identity</span>() <span class="sc">+</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Season averages for Athenas in event x across years"</span>,</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"&lt;span style = 'color:goldenrod'&gt;Freshman&lt;/span&gt; are not always at the bottom of the pack and may sometimes be best"</span>) <span class="sc">+</span></span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"italic"</span>),</span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Similar plot with data from all meets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Color =</span> <span class="fu">ifelse</span>(Rank <span class="sc">==</span> <span class="dv">1</span>,  <span class="st">"goldenrod"</span>, <span class="st">"black"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">&gt;</span>  <span class="dv">1</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"grey60"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rank_Alpha =</span> <span class="fu">case_when</span>(</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    Rank <span class="sc">&gt;</span>  <span class="dv">1</span> <span class="sc">~</span> .<span class="dv">7</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> .<span class="dv">2</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Athena"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year, </span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Rank_Color,</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> Rank_Alpha</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">167</span>),</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2009</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_identity</span>() <span class="sc">+</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Athenas' individual meet performances in event x across years"</span>,</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"&lt;span style = 'color:goldenrod'&gt;Freshman&lt;/span&gt; are not always at the bottom of the pack and may sometimes be best."</span>) <span class="sc">+</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"italic"</span>),</span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>How about if you wanted to track the best performers over time. Or the single best athlete for an event.</p>
+<p>Here is just a simple example for highlighting athletes by particular performance metric. Identify the names of the athletes who performed the best in any year (e.g., <code>max()</code>) and those to have the worst average (e.g., something like <code>min(median(x))</code> because one could just have a flop as a minimum).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>(best_names <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Team) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(Score) <span class="sc">|&gt;</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 7
+   Athlete            Rank Score Meet                          Date  Team   Year
+   &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                         &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 Guang, Bonny          2  41.6 Cal Lu - CMS - La Verne - Wh… Mar … Athe…  2010
+ 2 Berliant, Taylor      3  61.0 SCIAC Quad Meet               Apr … Stag   2010
+ 3 Berliant, Taylor      4  61.6 2011 NCAA Division III Outdo… May … Stag   2011
+ 4 Kroll, Jackie        NA  35.7 2012 Pomona-Pitzer T&amp;F Invite Apr … Athe…  2012
+ 5 Gage, Chris          NA  53.4 Chapman/CMS/Pomona-Pitzer/Re… Mar … Stag   2012
+ 6 Kroll, Jackie         2  37.7 SCIAC Quad Meet               Apr … Athe…  2013
+ 7 Hobbs, Nicholas       3  53.6 Oxy Invitational              May … Stag   2013
+ 8 Laliberte, Nicole     1  42.4 SCIAC Multi Duals Meet #3     Apr … Athe…  2014
+ 9 Rich, Alex            2  51.0 2014 Pomona-Pitzer T&amp;F All C… Feb … Stag   2014
+10 Bassett, Emily        1  51.0 Pomona-Pitzer/Whittier/La Ve… Mar … Athe…  2015
+# ℹ 15 more rows</code></pre>
+</div>
+</div>
+<p>Then get the best athlete and highlight points along with a label using repelled text.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the best performance</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>best_athlete <span class="ot">&lt;-</span> best_names <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(Score) </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># OK, use regular expression to rearrange the name</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>best_athlete_clean <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(best_athlete<span class="sc">$</span>Athlete, <span class="st">"^(</span><span class="sc">\\</span><span class="st">w+),</span><span class="sc">\\</span><span class="st">s(</span><span class="sc">\\</span><span class="st">w+)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">2 </span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># make title using the name</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"&lt;span style = 'color:grey60'&gt;Stag&lt;/span&gt; and &lt;span style = 'color:goldenrod'&gt;Athena&lt;/span&gt; meet performances in event x across years"</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>plot_subtitle <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"The best athlete, "</span>, best_athlete_clean,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">", improves over the years and can have bad days"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># then plot</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Point_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Stag"</span>   <span class="sc">&amp;</span> Athlete <span class="sc">!=</span> best_athlete<span class="sc">$</span>Athlete <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Stag"</span>   <span class="sc">&amp;</span> Athlete <span class="sc">==</span> best_athlete<span class="sc">$</span>Athlete <span class="sc">~</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Athena"</span> <span class="sc">&amp;</span> Athlete <span class="sc">!=</span> best_athlete<span class="sc">$</span>Athlete <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Athena"</span> <span class="sc">&amp;</span> Athlete <span class="sc">==</span> best_athlete<span class="sc">$</span>Athlete <span class="sc">~</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Point_Alpha =</span> <span class="fu">case_when</span>(</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>    Athlete <span class="sc">==</span> best_athlete<span class="sc">$</span>Athlete <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> .<span class="dv">5</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> </span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year, </span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score,</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Point_Color,</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> Point_Alpha</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">167</span>),</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2009</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the identity aesthetics</span></span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_identity</span>() <span class="sc">+</span></span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_identity</span>() <span class="sc">+</span></span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the titles</span></span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> plot_title,</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> plot_subtitle</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># render as html</span></span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"italic"</span>),</span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># using the best athlete, plot label</span></span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data =</span> best_athlete,</span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year, </span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">label =</span> Athlete</span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>                                         ),</span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>                           <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>                           <span class="at">col =</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a>                           <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>                           <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>                           <span class="at">box.padding =</span> <span class="dv">1</span>,</span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a>                           <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>                           <span class="at">vjust =</span> <span class="dv">1</span>,</span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>                           <span class="at">segment.colour =</span> <span class="st">"firebrick"</span></span>
+<span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="highlighting-lines" class="level2">
+<h2 class="anchored" data-anchor-id="highlighting-lines"><strong>Highlighting lines</strong></h2>
+<p>You can use <code>geomtextpath::geom_labelline()</code> to label lines. In this example, we label lines with athlete names. Specifically, we will group and obtain best scores for each athlete’s participating year then get the count for rows and filter for athletes who participated in all 4 years.</p>
+<pre><code>group_by(Athlete, Rank) |&gt;
+summarize(Max_Score = max(Score), .groups = "keep") |&gt;
+group_by(Athlete) |&gt;
+mutate(Count = n()) |&gt;
+filter(Count == 4) </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Point_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Stag"</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Athena"</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete, Rank) <span class="sc">|&gt;</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Max_Score =</span> <span class="fu">max</span>(Score), <span class="at">.groups =</span> <span class="st">"keep"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete) <span class="sc">|&gt;</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Count <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Max_Score,</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Athlete</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  geomtextpath<span class="sc">::</span><span class="fu">geom_labelline</span>(</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">label =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>      Athlete, <span class="st">"^(</span><span class="sc">\\</span><span class="st">w+),</span><span class="sc">\\</span><span class="st">s(</span><span class="sc">\\</span><span class="st">w+)"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">2 </span><span class="sc">\\</span><span class="st">1"</span>)</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="highlighting-with-gghighlight" class="level2">
+<h2 class="anchored" data-anchor-id="highlighting-with-gghighlight"><strong>Highlighting with {gghighlight}</strong></h2>
+<p>Clearly, the legend is no longer needed so that could be removed. Also, the name labels are a bit of a mess. One approach is to use <strong>{gghighlight}</strong> and <code>gghighlight::gghighlight()</code> which by default will move the labels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Point_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Stag"</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Athena"</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete, Rank) <span class="sc">|&gt;</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Max_Score =</span> <span class="fu">max</span>(Score), <span class="at">.groups =</span> <span class="st">"keep"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete) <span class="sc">|&gt;</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Count <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Max_Score,</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Athlete</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>label_key: Athlete</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="highlighting-specific-data-with-gghighlight" class="level2">
+<h2 class="anchored" data-anchor-id="highlighting-specific-data-with-gghighlight"><strong>Highlighting specific data with {gghighlight}</strong></h2>
+<p><code>gghighlight::gghighlight()</code> will take expressions for filtering the data. We can highlight subsets of the data based on a function we pass.</p>
+<p>For example, <code>mean(Mean_Score) &gt; 45</code> will highlight lines for which the condition is met.</p>
+<ul>
+<li><code>gghighlight::gghighlight(mean(Mean_Score) &gt; 45)</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Point_Color =</span> <span class="fu">case_when</span>(</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Stag"</span> <span class="sc">~</span> <span class="st">"grey60"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Athena"</span> <span class="sc">~</span> <span class="st">"goldenrod"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete, Rank) <span class="sc">|&gt;</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean_Score =</span> <span class="fu">mean</span>(Score), </span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">Max_Score =</span> <span class="fu">max</span>(Score),</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"keep"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Athlete) <span class="sc">|&gt;</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Count <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Rank,</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Max_Score,</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Athlete</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a line plot</span></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># highlight conditions met</span></span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>  gghighlight<span class="sc">::</span><span class="fu">gghighlight</span>(<span class="fu">mean</span>(Mean_Score) <span class="sc">&gt;</span> <span class="dv">45</span>) <span class="sc">+</span></span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"My Title"</span>,</span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Out of the 5 athletes who participated all college years, only two maintained an average higher than 45 across meets each year"</span>) <span class="sc">+</span></span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_markdown</span>(<span class="at">face =</span> <span class="st">"italic"</span>),</span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>label_key: Athlete</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="drawing-attention-to-a-plot-region" class="level1">
+<h1><strong>Drawing attention to a plot region</strong></h1>
+<p>For various reasons, you may wish to draw attention to a particular region of a data visualization. Perhaps you want to highlight a time period of interest create an confidence interval band to frame out the data. We will address some ways you can do this using <code>annotate()</code> and <code>geom_rect()</code> but you could also apply other functions like <code>geom_ribbon()</code>, <code>geom_tile()</code>, or <code>geom_polygon()</code> in similar ways.</p>
+<section id="highlighting-a-region-using-annotate" class="level2">
+<h2 class="anchored" data-anchor-id="highlighting-a-region-using-annotate"><strong>Highlighting a region using <code>annotate()</code></strong></h2>
+<p>Using <code>geom = "text"</code>, you can annotate the plot with a rectangle to represent an area of interest. You can think of To draw a rectangle to highlight an area of interest in three useful ways.</p>
+<ol type="1">
+<li>To highlight a vertical band stretching the entire y-axis, beginning and ending at x-axis locations.</li>
+<li>To highlight a horizontal band stretching the entire x-axis, beginning and ending y-axis locations.</li>
+<li>To highlight a rectangle, beginning and ending x-axis and y-axis locations</li>
+</ol>
+<p>Bonus: You can create more than one of any of the preceding.</p>
+<section id="highlighting-a-slice-of-the-x-axis-using-annotate" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-a-slice-of-the-x-axis-using-annotate"><strong>Highlighting a slice of the x-axis using <code>annotate()</code></strong></h3>
+<p>For this, we will specify:</p>
+<ul>
+<li><code>xmin</code>: beginning point of x</li>
+<li><code>xmax</code>: ending point of x</li>
+<li><code>ymin</code>: beginning point of y<br>
+</li>
+<li><code>ymax</code>: ending point of y</li>
+<li><code>fill</code>: the color inside the rectangle</li>
+<li><code>alpha</code>: the alpha of the fill color inside the rectangle</li>
+<li><code>col</code>: the line border of the rectangle</li>
+<li><code>linewidth</code>: the line thickness of the border</li>
+<li><code>linetype</code>: the type of the line border</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">25</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the rectangle</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"rect"</span>, </span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> <span class="fl">2012.5</span>,            <span class="co"># beginning point of x</span></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmax =</span> <span class="fl">2013.5</span>,            <span class="co"># ending point of x</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>,              <span class="co"># make the rectangle extend along y  </span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymax =</span> <span class="cn">Inf</span>,               <span class="co"># make the rectangle extend along y</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"goldenrod"</span>,       <span class="co"># the color inside the rectangle</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.25</span>,             <span class="co"># the alpha of the fill color inside the rectangle</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="st">"black"</span>,            <span class="co"># the line border of the rectangle</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">linewidth =</span> .<span class="dv">5</span>,           <span class="co"># the line thickness of the border </span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">linetype =</span> <span class="st">"solid"</span>        <span class="co"># the type of the line border</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>           ) <span class="sc">+</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="highlighting-a-slice-of-the-y-axis-using-annotate" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-a-slice-of-the-y-axis-using-annotate"><strong>Highlighting a slice of the y-axis using <code>annotate()</code></strong></h3>
+<p>Some elements of the rectangle are removed here and the <code>annotate()</code> layer is added before the points to remind you that layers build on top of each other. Even with transparency of the fill of the rectangle, adding the layer after previous geoms (points in this instance) will result in a visualization that creates the perception of the rectangle covering, and thus, adding color to, the points behind it. If you wish the highlighted region to fade into the background and allow the points to float on top of the rectangle, make sure that your layer order achieves that goal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the rectangle</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"rect"</span>, </span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,           <span class="co"># beginning point of x</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmax =</span> <span class="cn">Inf</span>,            <span class="co"># ending point of x</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="dv">55</span>,             <span class="co"># make the rectangle extend along y  </span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymax =</span> <span class="dv">65</span>,             <span class="co"># make the rectangle extend along y</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"goldenrod"</span>,    <span class="co"># the color inside the rectangle</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> <span class="fl">0.25</span>           <span class="co"># the alpha of the fill color inside the rectangle</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>           ) <span class="sc">+</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">25</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="highlighting-a-slice-of-the-y-axis-using-geom_rect" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-a-slice-of-the-y-axis-using-geom_rect"><strong>Highlighting a slice of the y-axis using <code>geom_rect()</code></strong></h3>
+<p>Using <code>annotate()</code> along with <code>geom = "rect"</code>. However, you can certainly use <code>geom_rect()</code> to build a rectangle.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add the rectangle</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, </span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymin =</span> <span class="dv">55</span>,         </span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymax =</span> <span class="dv">65</span>,         </span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"goldenrod"</span>, </span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">25</span>,              <span class="co"># same alpha</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">+</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">25</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice the color differences. We will address this curiosity later.</p>
+</section>
+<section id="highlighting-a-rectangle-using-annotate" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-a-rectangle-using-annotate"><strong>Highlighting a rectangle using <code>annotate()</code></strong></h3>
+<p>When you have a rectangular area of interest, build an actual rectangle. We will also create a data summary based on a subset of athletes and years to obtain the 95% confidence interval for all performances during those years. There is no particular reason those this type of data but this could represent a significant time period.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>DATA_CI95 <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">|&gt;</span>             <span class="co"># get stag only</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2016</span><span class="sc">:</span><span class="dv">2020</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xmin =</span> <span class="fu">min</span>(Year),</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">xmax =</span> <span class="fu">max</span>(Year),</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymin =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T) <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sd</span>(Score, <span class="at">na.rm =</span> T)),</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymax =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T) <span class="sc">+</span> (<span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sd</span>(Score, <span class="at">na.rm =</span> T)),</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># build the rectangle based on the subset summary</span></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">"rect"</span>,</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmin =</span> DATA_CI95<span class="sc">$</span>xmin <span class="sc">-</span> .<span class="dv">5</span>, <span class="co"># add a buffer to highlight the jittered points</span></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">xmax =</span> DATA_CI95<span class="sc">$</span>xmax <span class="sc">+</span> .<span class="dv">5</span>, <span class="co"># add a buffer to highlight the jittered points</span></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> DATA_CI95<span class="sc">$</span>ymin,         </span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymax =</span> DATA_CI95<span class="sc">$</span>ymax,         </span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"firebrick"</span>, </span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha =</span> .<span class="dv">25</span>,              </span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>           ) <span class="sc">+</span></span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">25</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2023</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>During this time period, you can see there are a few event performances (not athletes) outside this confidence section. However, in other years, there some performances that fall quite above that range.</p>
+</section>
+<section id="highlighting-two-slices-of-the-x-axis-using-annotate" class="level3">
+<h3 class="anchored" data-anchor-id="highlighting-two-slices-of-the-x-axis-using-annotate"><strong>Highlighting two slices of the x-axis using <code>annotate()</code></strong></h3>
+<p>Because <code>Year</code> and <code>Score</code> are mapped already, we can simply create these two variables in the data frame. If they are not in the data frame, you will get an error and need to troubleshoot. Adding them is a simple solution. As long as the variable type created is the same as the variable in the other data frame, you will be OK. In this instance, we can just add a numeric value that is within the plot coordinates. The mean will ensure this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>(DATA_topbottom <span class="ot">&lt;-</span> DATA <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">|&gt;</span>             <span class="co"># get stag only</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Decile =</span> <span class="fu">ntile</span>(Score, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Decile) <span class="sc">|&gt;</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">xmax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymin =</span> <span class="fu">min</span>(Score, <span class="at">na.rm =</span> T),</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">ymax =</span> <span class="fu">max</span>(Score, <span class="at">na.rm =</span> T),</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">Year =</span> <span class="fu">mean</span>(Year, <span class="at">na.rm =</span> T),   <span class="co"># a numeric value needs to be added </span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">Score =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> T)  <span class="co"># a numeric value needs to be added </span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">|&gt;</span> </span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Decile <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>))   <span class="co"># keep data in the top and bottom decile</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  Decile  xmin  xmax  ymin  ymax  Year Score
+   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1      1  -Inf   Inf  5.32  33.9 2017.  29.7
+2     10  -Inf   Inf 51.0   61.6 2013.  55.0</code></pre>
+</div>
+</div>
+<p>We now have a data frame with two rows, one for the top decile and one for the bottom. Let’s add a <code>geom_rect()</code> and specify <code>data = DATA_topbottom</code> and then map the variables to the required aesthetics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>DATA <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"Stag"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Rank)) <span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Score</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># build the rectangle based on new data</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> DATA_topbottom,</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> xmin,</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">xmax =</span> xmax,</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymin =</span> ymin,</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymax =</span> ymax, </span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="fu">factor</span>(Decile)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>                          ),</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">2</span>,              </span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>           ) <span class="sc">+</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add point plot</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> <span class="fu">factor</span>(Year)),</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">25</span>, <span class="at">seed =</span> <span class="dv">167</span>)</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2010</span>, <span class="dv">2023</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="24_attentional_control_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Removing the legend and instead either direct labeling the deciles or using color in the title to clarify them will help communicate the intent of these bands without the legend taking up so much real estate. And of course, you could add a color variable to the data frame and <code>scale_color_identity()</code> the color for the 1st and 10th decile. If you are already using color for the points, then coloring them would be challenging. You could use filled shapes and add a black color ring around them or change the stroke. But using a rectangle might serve a useful purpose. Whatever you do to draw attention to plot elements, ensure that your audience understands your intent.</p>
+</section>
+<section id="comparing-annotate-versus-geom_rect" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-annotate-versus-geom_rect"><strong>Comparing <code>annotate()</code> versus <code>geom_rect()</code></strong></h3>
+<p>Why introduce you to both approaches if they can achieve the same outcome? Well, notice the difference between the rectangle added with <code>annotate()</code> and <code>geom_rect()</code> when the alpha is the same. Although <code>alpha = .25</code> in both some instances, <code>geom_rect()</code> draws a darker rectangle.</p>
+<p>Why? Remember that geoms will iterate for each row in the data frame. Because the variables are mapped to aesthetics in <code>geom_rect()</code>, the rectangle is built over and over again. You can experience this with the time required to build the plot when there are many rows. If you want more control over alpha, you might consider <code>annotate()</code>.</p>
+</section>
+</section>
+</section>
+<section id="session-info" class="level1">
+<h1><strong>Session Info</strong></h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.1 (2023-06-16 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 11 x64 (build 22621)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Los_Angeles
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggtext_0.1.2       gghighlight_0.4.0  geomtextpath_0.1.1 ggrepel_0.9.3     
+[5] ggplot2_3.4.3      magrittr_2.0.3     dplyr_1.1.2       
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.4      jsonlite_1.8.7    compiler_4.3.1    tidyselect_1.2.0 
+ [5] Rcpp_1.0.11       stringr_1.5.0     xml2_1.3.5        systemfonts_1.0.4
+ [9] scales_1.2.1      textshaping_0.3.6 yaml_2.3.7        fastmap_1.1.1    
+[13] here_1.0.1        R6_2.5.1          commonmark_1.9.0  labeling_0.4.2   
+[17] generics_0.1.3    knitr_1.43        htmlwidgets_1.6.2 tibble_3.2.1     
+[21] munsell_0.5.0     rprojroot_2.0.3   pillar_1.9.0      rlang_1.1.1      
+[25] utf8_1.2.3        stringi_1.7.12    xfun_0.40         cli_3.6.1        
+[29] withr_2.5.0       gridtext_0.1.5    digest_0.6.33     grid_4.3.1       
+[33] rstudioapi_0.15.0 markdown_1.8      lifecycle_1.0.3   vctrs_0.6.3      
+[37] evaluate_0.21     glue_1.6.2        farver_2.1.1      fansi_1.0.4      
+[41] colorspace_2.1-0  purrr_1.0.2       rmarkdown_2.24    tools_4.3.1      
+[45] pkgconfig_2.0.3   htmltools_0.5.6  </code></pre>
+</div>
+</div>
 
 
 </section>
