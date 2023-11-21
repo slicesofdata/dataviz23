@@ -92,7 +92,7 @@ DATA <- readRDS(here::here("data", "mock_data.Rds"))
 ```
 
 
-# **Small Multiples, Facetting, and Multiple Panels**
+# **Small Multiples, Faceting, and Multiple Panels**
 
 We will create a base plot for passing to facet layers.
 
@@ -107,7 +107,6 @@ We will create a base plot for passing to facet layers.
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none")
 )
 ```
@@ -226,7 +225,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team))
 ```
@@ -245,7 +243,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team))
 ```
@@ -274,7 +271,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team))
 ```
@@ -297,7 +293,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team))
 ```
@@ -327,7 +322,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team)) +
   labs(title = "")
@@ -354,7 +348,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team),
              strip.position = "left"
@@ -378,7 +371,6 @@ DATA |>
               method = "lm", 
               fullrange = T
               ) +
-  #scale_x_continuous(breaks = seq(2010, 2024, 1)) +
   theme(legend.position = "none") +
   facet_wrap(facets = vars(Team),
              strip.position = "bottom"
