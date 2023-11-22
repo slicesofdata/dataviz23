@@ -89,12 +89,14 @@ descriptives <- function(data,
                 max = max(value),
                 range = (max(value) - min(value)),
                 iqr = IQR(value, na.rm = T, type = 7),
-                mad = mad(value),
-                sum = sum(value), 
-                ci.95l = t.test(value, conf.level = .95)$conf.int[1],
-                ci.95u = t.test(value, conf.level = .95)$conf.int[2],
-                ci.99l = t.test(value, conf.level = .99)$conf.int[1],
-                ci.99u = t.test(value, conf.level = .99)$conf.int[2]
+                q25 = as.numeric(quantile({{var}}, probs = c(0.25, 0.5, 0.75))[1]),
+                q75 = as.numeric(quantile({{var}}, probs = c(0.25, 0.5, 0.75))[3]),
+                mad = mad({{var}}),
+                sum = sum({{var}}), 
+                ci.95l = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .95)$conf.int[1], NA),
+                ci.95u = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .95)$conf.int[2], NA),
+                ci.99l = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .99)$conf.int[1], NA),
+                ci.99u = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .99)$conf.int[2], NA)
     )))
     }
   } # end vector summary
@@ -125,10 +127,11 @@ descriptives <- function(data,
       if (is.numeric(pull(data, !!enquo(var) ))) {
         suppressMessages( 
         return(
-          data %>%
+          data |>
             filter(!is.na({{var}})) |>
             group_by(across({{groupby}})) |>
             summarize(n = dplyr::n(),
+                      #!enquo(var) = mean({{var}}),
                       mean = mean({{var}}),
                       mean.trim = mean(DescTools::Trim({{var}}, trim = trim)),
                       mdn = median({{var}}),
@@ -143,12 +146,14 @@ descriptives <- function(data,
                       max = max({{var}}),
                       range = (max({{var}}) - min({{var}})),
                       iqr = IQR({{var}}, na.rm = T, type = 7),
+                      q25 = as.numeric(quantile({{var}}, probs = c(0.25, 0.5, 0.75))[1]),
+                      q75 = as.numeric(quantile({{var}}, probs = c(0.25, 0.5, 0.75))[3]),
                       mad = mad({{var}}),
                       sum = sum({{var}}), 
-                      ci.95l = t.test({{var}}, conf.level = .95)$conf.int[1],
-                      ci.95u = t.test({{var}}, conf.level = .95)$conf.int[2],
-                      ci.99l = t.test({{var}}, conf.level = .99)$conf.int[1],
-                      ci.99u = t.test({{var}}, conf.level = .99)$conf.int[2]
+                      ci.95l = ifelse(dplyr::n() < 1, t.test({{var}}, conf.level = .95)$conf.int[1], NA),
+                      ci.95u = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .95)$conf.int[2], NA),
+                      ci.99l = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .99)$conf.int[1], NA),
+                      ci.99u = ifelse(dplyr::n() > 1, t.test({{var}}, conf.level = .99)$conf.int[2], NA)
             ) |>
             ungroup() 
         )
