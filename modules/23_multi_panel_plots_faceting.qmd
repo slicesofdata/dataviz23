@@ -522,13 +522,14 @@ DATA |>
 ```
 
 
-## Rows and colmns `facet_grid(cols = vars())`
+## Rows and columns `facet_grid(cols = vars())`
 
 If your variables allow, you can combine the two.
 
 ```{r}
 SWIM <- readr::read_csv("https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv", show_col_types = F)
 
+suppressWarnings(
 SWIM |>
   filter(Distance > 50 & Distance < 500) |>
   ggplot(mapping = aes(x = Split50, 
@@ -539,11 +540,13 @@ SWIM |>
   facet_grid(rows = vars(Event),
              cols = vars(Distance)
              )
+)
 ```
 
 Or by a character vector variable.
 
 ```{r}
+suppressWarnings(
 SWIM |>
   filter(Team != "Mixed") |>
   filter(Team != "Freestyle") |>
@@ -555,11 +558,13 @@ SWIM |>
   facet_grid(rows = vars(Distance),
              cols = vars(Team)
              )
+)
 ```
 
 Clearly, we need to clean up the axes for this plot. You can allow scales to vary as was done using `facet_wrap()` or you can adjust the scales. 
 
 ```{r}
+suppressWarnings(
 SWIM |>
   filter(Team != "Mixed") |>
   filter(Team != "Freestyle") |>
@@ -572,6 +577,7 @@ SWIM |>
              cols = vars(Team),
              scales = "free"
              )
+)
 ```
 
 

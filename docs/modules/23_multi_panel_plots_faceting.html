@@ -537,7 +537,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#facet_gridrows-vars" id="toc-facet_gridrows-vars" class="nav-link" data-scroll-target="#facet_gridrows-vars"><code>facet_grid(rows = vars())</code></a></li>
   <li><a href="#facet_gridcols-vars" id="toc-facet_gridcols-vars" class="nav-link" data-scroll-target="#facet_gridcols-vars"><code>facet_grid(cols = vars())</code></a></li>
-  <li><a href="#rows-and-colmns-facet_gridcols-vars" id="toc-rows-and-colmns-facet_gridcols-vars" class="nav-link" data-scroll-target="#rows-and-colmns-facet_gridcols-vars">Rows and colmns <code>facet_grid(cols = vars())</code></a></li>
+  <li><a href="#rows-and-columns-facet_gridcols-vars" id="toc-rows-and-columns-facet_gridcols-vars" class="nav-link" data-scroll-target="#rows-and-columns-facet_gridcols-vars">Rows and columns <code>facet_grid(cols = vars())</code></a></li>
   </ul></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><strong>Session Info</strong></a></li>
   </ul>
@@ -1275,22 +1275,24 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </section>
-<section id="rows-and-colmns-facet_gridcols-vars" class="level2">
-<h2 class="anchored" data-anchor-id="rows-and-colmns-facet_gridcols-vars">Rows and colmns <code>facet_grid(cols = vars())</code></h2>
+<section id="rows-and-columns-facet_gridcols-vars" class="level2">
+<h2 class="anchored" data-anchor-id="rows-and-columns-facet_gridcols-vars">Rows and columns <code>facet_grid(cols = vars())</code></h2>
 <p>If your variables allow, you can combine the two.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv"</span>, <span class="at">show_col_types =</span> F)</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> Distance <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Event),</span>
-<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Distance)</span>
-<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> Distance <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Event),</span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Distance)</span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -1363,17 +1365,19 @@ Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 </div>
 <p>Or by a character vector variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Mixed"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Freestyle"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
-<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Distance),</span>
-<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Team)</span>
-<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Mixed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Freestyle"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Distance),</span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Team)</span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -1608,18 +1612,20 @@ Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 </div>
 <p>Clearly, we need to clean up the axes for this plot. You can allow scales to vary as was done using <code>facet_wrap()</code> or you can adjust the scales.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
-<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Mixed"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Freestyle"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb153-4"><a href="#cb153-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
-<span id="cb153-5"><a href="#cb153-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
-<span id="cb153-6"><a href="#cb153-6" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
-<span id="cb153-7"><a href="#cb153-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
-<span id="cb153-8"><a href="#cb153-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb153-9"><a href="#cb153-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Distance),</span>
-<span id="cb153-10"><a href="#cb153-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Team),</span>
-<span id="cb153-11"><a href="#cb153-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">"free"</span></span>
-<span id="cb153-12"><a href="#cb153-12" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressWarnings</span>(</span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">|&gt;</span></span>
+<span id="cb153-3"><a href="#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Mixed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb153-4"><a href="#cb153-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">!=</span> <span class="st">"Freestyle"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb153-5"><a href="#cb153-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, </span>
+<span id="cb153-6"><a href="#cb153-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> Time</span>
+<span id="cb153-7"><a href="#cb153-7" aria-hidden="true" tabindex="-1"></a>                       )) <span class="sc">+</span></span>
+<span id="cb153-8"><a href="#cb153-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>()) <span class="sc">+</span> </span>
+<span id="cb153-9"><a href="#cb153-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb153-10"><a href="#cb153-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Distance),</span>
+<span id="cb153-11"><a href="#cb153-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">cols =</span> <span class="fu">vars</span>(Team),</span>
+<span id="cb153-12"><a href="#cb153-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">scales =</span> <span class="st">"free"</span></span>
+<span id="cb153-13"><a href="#cb153-13" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb153-14"><a href="#cb153-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
