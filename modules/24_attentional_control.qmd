@@ -96,6 +96,104 @@ library(ggtext)
 #  Rank == "SR-4" ~ 4,
 #))
 DATA <- readRDS(here::here("data", "mock_data.Rds"))
+
+geom_pointrange()
+descriptives(DATA, groupby = c(), var = )
+DATA |>
+  group_by(Athlete, Year) |>
+  slice_max(Score) |>
+  ungroup() |>
+  ggplot(mapping = aes(Athlete, Score)) +
+  geom_point()
+  
+
+  geom_pointrange_(Athlete, Score, median) 
+
+  facet_wrap(facets = vars(Year))
+
+  
+DATA |> 
+  mutate(c = case_when(
+    Team == "Athena" ~ paste('<span style="color:firebrick">',Athlete,'</span>', sep = ""),
+    TRUE ~ paste0('<span style="color:grey">',Athlete,'</span>')
+    )) |> view_html()
+
+  descriptives(groupby = c(Athlete, Team, Rank, Year), var = Score) |> 
+  mutate(Quartile = ntile(mean, 4)) |> #view_html()
+  ggplot(mapping = aes(x = Athlete, 
+                       y = mean, 
+#                       col = Year
+                       )
+         ) +
+  theme_minimal() +
+  #theme(legend.position = "none") +
+  geom_pointrange(aes(x = forcats::fct_reorder(.f = Athlete, 
+                                               .x = mean, 
+                                               .fun = function(x) { max(x) }
+                                               ),
+                      ymin = min, 
+                      ymax = max,
+                      col = factor(Quartile)
+                      ),
+                  position = position_dodge2(width = 1)
+                  ) +
+  coord_flip() +
+  facet_grid(cols = vars(Rank))
+
+for (name in DATA$Athlete) {
+  c = ifelse()
+  append()
+}
+  
+DATA |> 
+  #group_by(Athlete, Year) |> #slice_max(Score) |> 
+  #ungroup() |> 
+  #filter(Athlete == "Palunas, Vaiva")
+  descriptives(groupby = c(Athlete), var = Score) |>
+  filter(!is.na(min) & !is.na(mean) & !is.na(max)) |>
+  #?cor
+  #cor(x = skew, y = mean, method = "pearson") #pull(min)
+  ggplot(aes(x = Athlete)) +
+  geom_pointrange(aes(forcats::fct_reorder(.f = Athlete, 
+                                    .x = mean, 
+                                    .fun = function(x) {mean(x)}), 
+                                    max)) + 
+  coord_flip()
+  
+    geom_linerange(#y = mean,
+                  ymin = min, 
+                  ymax = max
+                  )
+
+
+
+
+swim_base_plot + 
+    geom_pointrange(mapping = aes(ymin = mean - sd, 
+                                  ymax = mean + sd,
+                                  col = Team),
+                  alpha = .8,
+                  position = position_dodge2(width = .25)
+                  )
+?geom_pointrange
+
+geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = "summary",
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+  
+?facet_wrap
+  DATA |>
+  geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = "summary",
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
 ```
 
 # **Sizing up plot elements**

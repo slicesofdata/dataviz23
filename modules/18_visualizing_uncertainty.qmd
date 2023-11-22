@@ -524,9 +524,8 @@ swim_base_plot <- SWIM_summary %>%
                        fill = Team,
                        col = Team,
                        shape = Team
-                       ),
-         position = position_dodge2(width = 1)
-         ) +
+                       )
+         )+
   theme_minimal() +
   theme(legend.position = "none")
 ```
@@ -557,6 +556,7 @@ geom_pointrange(
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 base_plot + geom_pointrange(mapping = aes(ymin = mean - sd, 
                                           ymax = mean + sd),
+                            position = position_dodge2(width = 1),
                             alpha = .8
                             )
 ```
@@ -566,6 +566,7 @@ swim_base_plot +
   geom_pointrange(mapping = aes(ymin = mean - sd, 
                                 ymax = mean + sd
                                 ),
+                  position = position_dodge2(width = 1),
                   alpha = .8
                   )
 ```
@@ -577,6 +578,7 @@ swim_base_plot +
   geom_pointrange(mapping = aes(ymin = mean - sd, 
                                 ymax = mean + sd
                                 ),
+                  position = position_dodge2(width = 1),
                   alpha = .8
                   )
 ```
@@ -617,9 +619,9 @@ suppressMessages(
     geom_pointrange(mapping = aes(ymin = mean - sd, 
                                   ymax = mean + sd,
                                   col = Team),
-                  alpha = .8,
-                  position = position_dodge2(width = 1)
-                  ) +
+                    alpha = .8,
+                    position = position_dodge2(width = 1)
+                    ) +
     labs(title = "position_dodge2(width = 1)", tag = "B"),
   
   swim_base_plot + 
@@ -651,24 +653,14 @@ suppressMessages(
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 base_plot + geom_pointrange(mapping = aes(ymin = mean - se, 
-                                          ymax = mean + se)
-                            )
-
-base_plot + geom_pointrange(mapping = aes(ymin = mean - se, 
                                           ymax = mean + se),
                             position = position_dodge2(width = 1)
                             ) +
   labs(title = "Mean Throwing Distances for Stags and Athenas by Season",
-       caption = "lines represent standard deviations from the mean")
+       caption = "lines represent a standard error of the mean")
 ```
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-swim_base_plot + 
-  geom_pointrange(mapping = aes(ymin = mean - se, 
-                                ymax = mean + se
-                                )
-                  )
-
 swim_base_plot + 
   geom_pointrange(mapping = aes(ymin = mean - se, 
                                 ymax = mean + se

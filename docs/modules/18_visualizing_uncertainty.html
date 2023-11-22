@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-11-21">
+<meta name="dcterms.date" content="2023-11-22">
 
 <title>PSYC167 - Visualizing uncertainty</title>
 <style>
@@ -567,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2023</p>
+      <p class="date">November 22, 2023</p>
     </div>
   </div>
   
@@ -1023,11 +1023,10 @@ Under construction.
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill =</span> Team,</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col =</span> Team,</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shape =</span> Team</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                       ),</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="dv">1</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>         )<span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="geom_pointrange" class="level3">
@@ -1052,8 +1051,9 @@ Under construction.
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> sd, </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ymax =</span> mean <span class="sc">+</span> sd</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                ),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> .<span class="dv">8</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="dv">1</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> .<span class="dv">8</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="18_visualizing_uncertainty_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1064,8 +1064,9 @@ Under construction.
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> sd, </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ymax =</span> mean <span class="sc">+</span> sd</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                ),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> .<span class="dv">8</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="dv">1</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> .<span class="dv">8</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="18_visualizing_uncertainty_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1104,9 +1105,9 @@ Under construction.
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pointrange</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> sd, </span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ymax =</span> mean <span class="sc">+</span> sd,</span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">col =</span> Team),</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alpha =</span> .<span class="dv">8</span>,</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="dv">1</span>)</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>                  ) <span class="sc">+</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> .<span class="dv">8</span>,</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>                    <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="dv">1</span>)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>                    ) <span class="sc">+</span></span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"position_dodge2(width = 1)"</span>, <span class="at">tag =</span> <span class="st">"B"</span>),</span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  swim_base_plot <span class="sc">+</span> </span>
