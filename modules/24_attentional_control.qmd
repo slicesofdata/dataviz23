@@ -764,7 +764,7 @@ DATA |>
   scale_color_identity() +
   scale_alpha_identity() +
   labs(title = "Athenas' individual meet performances in event x across years",
-       subtitle = "<span style = 'color:goldenrod'>Freshman</span> are not always at the bottom of the pack and may sometimes be best.") +
+       subtitle = "<span style = 'color:goldenrod'>Freshman</span> are not always at the bottom of the pack and may sometimes be best") +
   theme(plot.title = element_markdown(face = "bold"),
         plot.subtitle = element_markdown(face = "italic"),
         )
