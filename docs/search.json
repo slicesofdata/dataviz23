@@ -1880,12 +1880,12 @@
     "href": "project/10_project_report.html",
     "title": "Final report",
     "section": "",
-    "text": "NOTE: This page is in progress and will be officially completed with this this message is removed."
+    "text": "The final written report for the project will be delivered to me and to your liaison. I can provide a color-printed copy for you to distrubtue to the liaison and for their offices.\nThe final report is to be created in R Markdown and knit as a Pdf or Word document. An example starter file will be provided in the project repository. When working with a report file on GitHub, I recommend that you first pull down the fill from the repo, then add your content, push the changed file to the repo, and then close your file. If you leave the file open in RStudio and you pull down the changes made by your peers, you will wan to ensure that you reload/refresh the file so that when you push the changed file, it contains the previous changes.\nIf someone is familiar with LaTeX coding, Overleaf.com provides a way for collaborating without having to pull and push from GitHub."
   },
   {
     "objectID": "project/10_project_report.html#telling-a-story",
     "href": "project/10_project_report.html#telling-a-story",
-    "title": "Final report",
+    "title": "Overview",
     "section": "Telling a Story",
     "text": "Telling a Story"
   },
@@ -2630,5 +2630,110 @@
     "title": "Multi-panel plots: Faceting",
     "section": "Rows and columns facet_grid(cols = vars())",
     "text": "Rows and columns facet_grid(cols = vars())\nIf your variables allow, you can combine the two.\n\nSWIM &lt;- readr::read_csv(\"https://github.com/slicesofdata/dataviz23/raw/main/data/swim/cleaned-2023-CMS-Invite.csv\", show_col_types = F)\n\nSWIM |&gt;\n  filter(Distance &gt; 50 & Distance &lt; 500) |&gt;\n  ggplot(mapping = aes(x = Split50, \n                       y = Time\n                       )) +\n  geom_point(position = position_jitter()) + \n  geom_smooth() +\n  facet_grid(rows = vars(Event),\n             cols = vars(Distance)\n             )\n\n\n\n\nOr by a character vector variable.\n\nSWIM |&gt;\n  filter(Team != \"Mixed\") |&gt;\n  filter(Team != \"Freestyle\") |&gt;\n  ggplot(mapping = aes(x = Split50, \n                       y = Time\n                       )) +\n  geom_point(position = position_jitter()) + \n  geom_smooth() +\n  facet_grid(rows = vars(Distance),\n             cols = vars(Team)\n             )\n\n\n\n\nClearly, we need to clean up the axes for this plot. You can allow scales to vary as was done using facet_wrap() or you can adjust the scales.\n\nSWIM |&gt;\n  filter(Team != \"Mixed\") |&gt;\n  filter(Team != \"Freestyle\") |&gt;\n  ggplot(mapping = aes(x = Split50, \n                       y = Time\n                       )) +\n  geom_point(position = position_jitter()) + \n  geom_smooth() +\n  facet_grid(rows = vars(Distance),\n             cols = vars(Team),\n             scales = \"free\"\n             )"
+  },
+  {
+    "objectID": "project/10_project_report.html#title-page",
+    "href": "project/10_project_report.html#title-page",
+    "title": "Final report",
+    "section": "Title Page",
+    "text": "Title Page\n\nFinal Report for Claremont-Mudd-Scripps Track and Field\nTitle\nDate\nTeam Members\nFaculty Advisor: Professor Gabriel I. Cook\nLiaison"
+  },
+  {
+    "objectID": "project/10_project_report.html#abstract",
+    "href": "project/10_project_report.html#abstract",
+    "title": "Final report",
+    "section": "Abstract",
+    "text": "Abstract\nThe abstract provides a main summary of data, problem, methods, and key findings."
+  },
+  {
+    "objectID": "project/10_project_report.html#contents",
+    "href": "project/10_project_report.html#contents",
+    "title": "Final report",
+    "section": "Contents",
+    "text": "Contents\nA contents pages, or table of contents, provides a listing of the document sections and subsections as we as a page for location.\n\nTitle Page\nAbstract\nTable of Contents\nAcknowledgments\n\nChapters:\n\nIntroduction\nData\nResults/Findings\nDiscussion\nConclusion\nReferences"
+  },
+  {
+    "objectID": "project/10_project_report.html#data",
+    "href": "project/10_project_report.html#data",
+    "title": "Overview",
+    "section": "Data",
+    "text": "Data\nA description of the data, its source, format, etc. The data were obtained from https://www.tfrrs.org/."
+  },
+  {
+    "objectID": "project/10_project_report.html#source-of-data",
+    "href": "project/10_project_report.html#source-of-data",
+    "title": "Overview",
+    "section": "Source of Data",
+    "text": "Source of Data\nWhat was the data source/where did you obtain it from? Include the source URL of the website from which you accessed the data.\nInclude information about where and how the data were collected or obtained. Specify whether the data were obtained from internal databases, external sources, or gathered through specific methods (surveys, sensors, web scraping, etc.)."
+  },
+  {
+    "objectID": "project/10_project_report.html#data-characteristics",
+    "href": "project/10_project_report.html#data-characteristics",
+    "title": "Final report",
+    "section": "Data Characteristics",
+    "text": "Data Characteristics\nDiscuss the data in detail. In which format was the data stored? How many cases were there in total? How many variables were contained? What variables were contained? What were the key variables you used?\nDescribe the types of variables present in the data set (numerical, categorical, text, etc.). When discussing variables of the visualization in the results chapter, make sure to provide clarity about the variable, its metric, and reason for using that variable (e.g., mean, max, median, mean of max values, median of max values, dispersion measures, etc.).\nList and briefly describe each attribute, feature, or variable in the data set, paying special attention to those used for the project."
+  },
+  {
+    "objectID": "project/10_project_report.html#data-quality",
+    "href": "project/10_project_report.html#data-quality",
+    "title": "Overview",
+    "section": "Data Quality",
+    "text": "Data Quality"
+  },
+  {
+    "objectID": "project/10_project_report.html#data-preprocessing",
+    "href": "project/10_project_report.html#data-preprocessing",
+    "title": "Overview",
+    "section": "Data Preprocessing",
+    "text": "Data Preprocessing\nDescribe the steps taken to clean and preprocess the data before investigation. This may include removing duplicates, standardizing formats, trimming, correcting inconsistencies, etc.\n\nMissing Values\nExplain the presence and treatment of missing data. Explain how missing values were handled during analysis (removal, replacement, etc.).\n\n\nOutliers and Anomalies\nMention any identified outliers or anomalies and how they were addressed (treatment or exclusion).\n\n\nVariables Created\nDescribe the variables created. units of measurement, etc. Explain if any normalization or scaling procedures applied to create the variables and to ensure data consistency and comparability across measures."
+  },
+  {
+    "objectID": "project/10_project_report.html#data-limitations",
+    "href": "project/10_project_report.html#data-limitations",
+    "title": "Final report",
+    "section": "Data Limitations",
+    "text": "Data Limitations\nHighlight any limitations or constraints of the data set that affected the team’s ability to address the initial problem. Similarly, describe how any limitations might affect the interpretation of the findings."
+  },
+  {
+    "objectID": "project/10_project_report.html#linearchronological",
+    "href": "project/10_project_report.html#linearchronological",
+    "title": "Overview",
+    "section": "Linear/Chronological",
+    "text": "Linear/Chronological"
+  },
+  {
+    "objectID": "project/10_project_report.html#problem-solution-structure",
+    "href": "project/10_project_report.html#problem-solution-structure",
+    "title": "Overview",
+    "section": "Problem-Solution Structure",
+    "text": "Problem-Solution Structure"
+  },
+  {
+    "objectID": "project/10_project_report.html#rising-action-and-climax",
+    "href": "project/10_project_report.html#rising-action-and-climax",
+    "title": "Overview",
+    "section": "Rising Action and Climax",
+    "text": "Rising Action and Climax\nBuild the story with in the data until reaching a crucial point (the climax) that unveils key insights.\nThemes: Frame the data around a central theme or message, weaving the analysis and visualizations to reinforce that theme."
+  },
+  {
+    "objectID": "project/10_project_report.html#key-findings-and-insights",
+    "href": "project/10_project_report.html#key-findings-and-insights",
+    "title": "Overview",
+    "section": "Key Findings and Insights",
+    "text": "Key Findings and Insights\n\nMain Discoveries\nPresent the most significant findings derived from the analysis in a clear, understandable manner.\nInsights Recap: Summarize the insights gained from the data and analysis, focusing on their relevance to the client’s business.\nFor each section, introduce the\nExample:\n3.1 Topic/Question A\nIntroduce the topic or question of interest.\n3.2 Topic/Question A\n3.3 Topic/Question A\n3.4 Topic/Question A\nOrganize by Present the most important elements first\nCreate subsections were relevant. Insert data visualizations at appropriate locations (trying to ensure that a visualization is referenced and appears on the same page).\nIf there are exploratory findings worth sharing that are beyond the scopee of the main project goal, you can add a subsection."
+  },
+  {
+    "objectID": "project/10_project_report.html#sources-of-data",
+    "href": "project/10_project_report.html#sources-of-data",
+    "title": "Final report",
+    "section": "Sources of Data",
+    "text": "Sources of Data\nWhat was the data source/where did you obtain it from? Include the source URL of the website from which you accessed the data.The data were obtained from https://www.tfrrs.org/. Include information about where and how the data were collected or obtained. Specify whether the data were obtained from internal databases, external sources, or gathered through specific methods (surveys, sensors, web scraping, etc.)."
+  },
+  {
+    "objectID": "project/10_project_report.html#data-quality-and-data-preprocessing",
+    "href": "project/10_project_report.html#data-quality-and-data-preprocessing",
+    "title": "Final report",
+    "section": "Data Quality and Data Preprocessing",
+    "text": "Data Quality and Data Preprocessing\nDescribe the steps taken to clean and prepare the data for investigation. This description may include removing duplicates, standardizing formats, trimming, correcting inconsistencies, etc. Explain any criteria used to select variables or features for visualization, focusing on those most impactful or insightful for the organization’s understanding.\nSome key details to address include:\n\nMissing Values: Explain the presence and treatment of any missing data. Explain how missing values were handled during analysis (removal, replacement, etc.).\nOutliers and Anomalies: Mention any identified outliers or anomalies and how they were addressed (treatment or exclusion).\nVariables Created: Describe the variables created, their units of measurement, etc. Explain if any normalization or scaling procedures applied to create the variables and to ensure data consistency and comparability across measures.\n\nAlso, specify where the cleaned data may be obtained."
   }
 ]
