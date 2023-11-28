@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-11-07">
+<meta name="dcterms.date" content="2023-11-28">
 
 <title>PSYC167 - Figure Design &amp; Themes</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -471,8 +505,30 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do"><strong>To Do</strong></a>
   <ul class="collapse">
   <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings"><strong>Readings</strong></a></li>
+  <li><a href="#external-functions" id="toc-external-functions" class="nav-link" data-scroll-target="#external-functions"><strong>External Functions</strong></a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><strong>Libraries</strong></a></li>
   </ul></li>
-  <li><a href="#under-construction-content-pending" id="toc-under-construction-content-pending" class="nav-link" data-scroll-target="#under-construction-content-pending"><strong>Under construction, content pending</strong></a></li>
+  <li><a href="#loading-libraries" id="toc-loading-libraries" class="nav-link" data-scroll-target="#loading-libraries"><strong>Loading Libraries</strong></a></li>
+  <li><a href="#built-in-themes" id="toc-built-in-themes" class="nav-link" data-scroll-target="#built-in-themes"><strong>Built-in Themes</strong></a>
+  <ul class="collapse">
+  <li><a href="#cowplottheme_minimal_vgrid" id="toc-cowplottheme_minimal_vgrid" class="nav-link" data-scroll-target="#cowplottheme_minimal_vgrid"><strong><code>cowplot::theme_minimal_vgrid()</code></strong></a></li>
+  <li><a href="#theme_classic" id="toc-theme_classic" class="nav-link" data-scroll-target="#theme_classic"><strong><code>theme_classic()</code></strong></a></li>
+  <li><a href="#theme_minimal" id="toc-theme_minimal" class="nav-link" data-scroll-target="#theme_minimal"><strong><code>theme_minimal()</code></strong></a></li>
+  <li><a href="#seetheme_modern" id="toc-seetheme_modern" class="nav-link" data-scroll-target="#seetheme_modern"><strong><code>see::theme_modern()</code></strong></a></li>
+  </ul></li>
+  <li><a href="#the-glory-of-a-theme" id="toc-the-glory-of-a-theme" class="nav-link" data-scroll-target="#the-glory-of-a-theme"><strong>The Glory of a Theme</strong></a></li>
+  <li><a href="#setting-themes-for-plot-consistency" id="toc-setting-themes-for-plot-consistency" class="nav-link" data-scroll-target="#setting-themes-for-plot-consistency"><strong>Setting Themes for Plot Consistency</strong></a>
+  <ul class="collapse">
+  <li><a href="#setting-a-theme-with-theme_set" id="toc-setting-a-theme-with-theme_set" class="nav-link" data-scroll-target="#setting-a-theme-with-theme_set"><strong>Setting a theme with <code>theme_set()</code></strong></a></li>
+  </ul></li>
+  <li><a href="#creating-custom-themes" id="toc-creating-custom-themes" class="nav-link" data-scroll-target="#creating-custom-themes"><strong>Creating Custom Themes</strong></a>
+  <ul class="collapse">
+  <li><a href="#an-example" id="toc-an-example" class="nav-link" data-scroll-target="#an-example"><strong>An example</strong></a></li>
+  <li><a href="#getting-a-theme-with-themeget" id="toc-getting-a-theme-with-themeget" class="nav-link" data-scroll-target="#getting-a-theme-with-themeget"><strong>Getting a theme with <code>theme(get)</code></strong></a></li>
+  <li><a href="#creating-a-custom-theme-from-another-theme" id="toc-creating-a-custom-theme-from-another-theme" class="nav-link" data-scroll-target="#creating-a-custom-theme-from-another-theme"><strong>Creating a custom theme from another theme`</strong></a></li>
+  <li><a href="#theme_167_classic" id="toc-theme_167_classic" class="nav-link" data-scroll-target="#theme_167_classic"><code>theme_167_classic()</code></a></li>
+  <li><a href="#theme_167_minimal" id="toc-theme_167_minimal" class="nav-link" data-scroll-target="#theme_167_minimal"><code>theme_167_minimal()</code></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -498,7 +554,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2023</p>
+      <p class="date">November 28, 2023</p>
     </div>
   </div>
   
@@ -523,6 +579,7 @@ Under construction.
 </div>
 <section id="overview" class="level1">
 <h1><strong>Overview</strong></h1>
+<p>The main workhorse of all plots is the theme. Up until now, we have not addresses much with the <code>theme()</code> function. However, ll of the elements that we have created for the plot represent components of the theme. The font, the lines, the colors, the grid, the legend, the text, the background, and so forth. All of these are theme component and all can be changed. This module will address some theme details but will not address how to modify them all.</p>
 </section>
 <section id="to-do" class="level1">
 <h1><strong>To Do</strong></h1>
@@ -541,11 +598,371 @@ Under construction.
 <li><a href="https://ggplot2-book.org/statistical-summaries#sec-uncertainty">Wickham, Navarro, &amp; Pedersen (under revision). <em>ggplot2: Elegant Graphics for Data Analysis (3e)</em>. Extensions</a>(https://ggplot2-book.org/extensions)</li>
 </ul>
 </section>
+<section id="external-functions" class="level2">
+<h2 class="anchored" data-anchor-id="external-functions"><strong>External Functions</strong></h2>
+<p>Provided in class:</p>
+<p><code>view_html()</code>: for viewing data frames in html format, from <code>/r/my_functions.R</code></p>
+<p>You can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to <code>print()</code> on occasion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"r"</span>, <span class="st">"my_functions.R"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Defining describe.R</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Done Defining describe.R</code></pre>
+</div>
+</div>
 </section>
-<section id="under-construction-content-pending" class="level1">
-<h1><strong>Under construction, content pending</strong></h1>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries"><strong>Libraries</strong></h2>
+<ul>
+<li><strong>{dplyr}</strong> 1.1.2: for selecting, filtering, and mutating</li>
+<li><strong>{magrittr}</strong> 2.0.3: for code clarity and piping data frame objects</li>
+<li><strong>{ggplot2}</strong> 3.4.3: for plotting</li>
+</ul>
+</section>
+</section>
+<section id="loading-libraries" class="level1">
+<h1><strong>Loading Libraries</strong></h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geomtextpath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="built-in-themes" class="level1">
+<h1><strong>Built-in Themes</strong></h1>
+<p>There are several simple functions as your fingertips for changing the theme.</p>
+<ul>
+<li><code>theme_gray()</code>: Gray background color and white grid lines</li>
+<li><code>theme_bw()</code>: White background and gray grid line</li>
+<li><code>theme_minimal()</code>: A minimal theme containing no background annotations</li>
+<li><code>theme_classic()</code>: A classic theme, with x and y axis lines; no grid lines.</li>
+<li><code>theme_linedraw()</code>: A theme with black lines of various widths on white backgrounds, reminiscent of a line drawings.</li>
+<li><code>theme_light()</code>: A theme similar to <code>theme_linedraw()</code> but with light grey lines and axes, to direct more attention towards the data</li>
+<li><code>see::theme_modern()</code>: a modern looking theme</li>
+<li><code>theme_dark()</code>: Same as theme_light but with a dark background.</li>
+<li><code>theme_void()</code>: a completely empty theme, useful for plots with non-standard coordinates or for drawings.</li>
+<li><code>cowplot::theme_minimal_grid()</code>: both vertical and horizontal grid lines</li>
+<li><code>cowplot::theme_minimal_hgrid()</code>: horizontal grid lines</li>
+<li><code>cowplot::theme_minimal_vgrid()</code>: vertical grid lines</li>
+</ul>
+<p>And there are more in <strong>{ggthemes}</strong>, <strong>{ggthemr}</strong>, or other libraries.</p>
+<section id="cowplottheme_minimal_vgrid" class="level2">
+<h2 class="anchored" data-anchor-id="cowplottheme_minimal_vgrid"><strong><code>cowplot::theme_minimal_vgrid()</code></strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> cowplot<span class="sc">::</span><span class="fu">theme_minimal_vgrid</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="theme_classic" class="level2">
+<h2 class="anchored" data-anchor-id="theme_classic"><strong><code>theme_classic()</code></strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="theme_minimal" class="level2">
+<h2 class="anchored" data-anchor-id="theme_minimal"><strong><code>theme_minimal()</code></strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="seetheme_modern" class="level2">
+<h2 class="anchored" data-anchor-id="seetheme_modern"><strong><code>see::theme_modern()</code></strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> see<span class="sc">::</span><span class="fu">theme_modern</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="the-glory-of-a-theme" class="level1">
+<h1><strong>The Glory of a Theme</strong></h1>
+<p>This is a beast of a function, it all its glory. Look at all you can change!</p>
+<pre><code>theme(
+  line,
+  rect,
+  text,
+  title,
+  aspect.ratio,
+  axis.title,
+  axis.title.x,
+  axis.title.x.top,
+  axis.title.x.bottom,
+  axis.title.y,
+  axis.title.y.left,
+  axis.title.y.right,
+  axis.text,
+  axis.text.x,
+  axis.text.x.top,
+  axis.text.x.bottom,
+  axis.text.y,
+  axis.text.y.left,
+  axis.text.y.right,
+  axis.ticks,
+  axis.ticks.x,
+  axis.ticks.x.top,
+  axis.ticks.x.bottom,
+  axis.ticks.y,
+  axis.ticks.y.left,
+  axis.ticks.y.right,
+  axis.ticks.length,
+  axis.ticks.length.x,
+  axis.ticks.length.x.top,
+  axis.ticks.length.x.bottom,
+  axis.ticks.length.y,
+  axis.ticks.length.y.left,
+  axis.ticks.length.y.right,
+  axis.line,
+  axis.line.x,
+  axis.line.x.top,
+  axis.line.x.bottom,
+  axis.line.y,
+  axis.line.y.left,
+  axis.line.y.right,
+  legend.background,
+  legend.margin,
+  legend.spacing,
+  legend.spacing.x,
+  legend.spacing.y,
+  legend.key,
+  legend.key.size,
+  legend.key.height,
+  legend.key.width,
+  legend.text,
+  legend.text.align,
+  legend.title,
+  legend.title.align,
+  legend.position,
+  legend.direction,
+  legend.justification,
+  legend.box,
+  legend.box.just,
+  legend.box.margin,
+  legend.box.background,
+  legend.box.spacing,
+  panel.background,
+  panel.border,
+  panel.spacing,
+  panel.spacing.x,
+  panel.spacing.y,
+  panel.grid,
+  panel.grid.major,
+  panel.grid.minor,
+  panel.grid.major.x,
+  panel.grid.major.y,
+  panel.grid.minor.x,
+  panel.grid.minor.y,
+  panel.ontop,
+  plot.background,
+  plot.title,
+  plot.title.position,
+  plot.subtitle,
+  plot.caption,
+  plot.caption.position,
+  plot.tag,
+  plot.tag.position,
+  plot.margin,
+  strip.background,
+  strip.background.x,
+  strip.background.y,
+  strip.clip,
+  strip.placement,
+  strip.text,
+  strip.text.x,
+  strip.text.x.bottom,
+  strip.text.x.top,
+  strip.text.y,
+  strip.text.y.left,
+  strip.text.y.right,
+  strip.switch.pad.grid,
+  strip.switch.pad.wrap,
+  ...,
+  complete = FALSE,
+  validate = TRUE
+)</code></pre>
+</section>
+<section id="setting-themes-for-plot-consistency" class="level1">
+<h1><strong>Setting Themes for Plot Consistency</strong></h1>
+<p>Adding <code>theme()</code> layers to plots can be tedious. Ensuring all plots follow the same theme may be a nightmare. Although you can modify the plot theme by adding it as a layer, doing so may be redundant when you do not wish to accept the default theme. Rather that add a <code>theme_*()</code> layer to your plot using <code>theme_minimal()</code>, <code>theme_classic()</code>, or some other theme, you could set the theme at the top of your code file using theme_set(). Then, all plots in the file will adhere to that theme unless you add a layer to change it.</p>
+<p>To set the theme to <code>theme_minimal()</code>, pass the theme into <code>theme_set()</code>. A modern theme can be taken from the <strong>{see}</strong> library (e.g., <code>see::theme_modern()</code>). If set here, all plots after, and only after, setting the theme will abide by those theme characteristics. Setting themes can ensure consistency with all plots and reduce coding the theme for each plot.</p>
+<section id="setting-a-theme-with-theme_set" class="level2">
+<h2 class="anchored" data-anchor-id="setting-a-theme-with-theme_set"><strong>Setting a theme with <code>theme_set()</code></strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="creating-custom-themes" class="level1">
+<h1><strong>Creating Custom Themes</strong></h1>
+<p>Here is a great illustration was created by <a href="https://henrywang.nl/ggplot2-theme-elements-demonstration/">Henry Wang</a>. You can find more examples and a walk-through <a href="https://henrywang.nl/ggplot2-theme-elements-demonstration/">here</a>.</p>
+<section id="an-example" class="level2">
+<h2 class="anchored" data-anchor-id="an-example"><strong>An example</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"images"</span>, <span class="st">"theme_elements.png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="../images/theme_elements.png" class="img-fluid" width="596"></p>
+</div>
+</div>
+</section>
+<section id="getting-a-theme-with-themeget" class="level2">
+<h2 class="anchored" data-anchor-id="getting-a-theme-with-themeget"><strong>Getting a theme with <code>theme(get)</code></strong></h2>
+<p>If you want to see how the current active theme components are set, use <code>theme_get()</code>. This default theme is <code>theme_grey()</code>. Whenever you restart R, this default theme will load. You can load a different theme but you will need to add code to do this so that you ensure the same operation once R reloads.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>the_theme <span class="ot">&lt;-</span> <span class="fu">theme_get</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Assigning the theme to an object, we can see the components as elements of the <code>names()</code> vector. We will not print all of the components of the theme here because there are 97 of them.</p>
+<p>You can see the 97 theme components by passing the theme object to <code>names()</code>. You can see there are far many more than what <a href="https://henrywang.nl/ggplot2-theme-elements-demonstration/">Wang</a> provided in his illustration. You can, however, see the first 10 using <code>names(the_theme)[1:10]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(the_theme)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "line"                "rect"                "text"               
+ [4] "title"               "aspect.ratio"        "axis.title"         
+ [7] "axis.title.x"        "axis.title.x.top"    "axis.title.x.bottom"
+[10] "axis.title.y"       </code></pre>
+</div>
+</div>
+</section>
+<section id="creating-a-custom-theme-from-another-theme" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-custom-theme-from-another-theme"><strong>Creating a custom theme from another theme`</strong></h2>
+<p>To set new theme components use <code>theme_set()</code>. Modifying a theme is not too difficult. You will need to remember that changes to a theme will need to be loaded at the top of your R Markdown file so that the theme is applied to all plots. If you are working with collaborators, consider putting your theme in file names something like <code>/r/theme.R</code> (or add it to a library call file). Then, source the code where you load libraries. All team members can source the same file and modifications to the theme will occur everywhere.</p>
+<p>Modify the default theme using <code>theme_set()</code> and passing it a theme object. You can add a new layer to plots but calling the theme when you load your libraries is likely a more foolproof approach.</p>
+<p>In this example, <code>r/theme.R</code> defines two new themes. <code>theme_classic_167()</code> is based on <code>theme_classic()</code> and <code>theme_minimal_167()</code> is based on <code>theme_minimal()</code>. Both functions can take two arguments for adjusting the base font size and family (font type). You should try to set the font <code>family</code> to match the font of your document or website within which your visualization will appear.</p>
+<ul>
+<li><code>base_size = 14</code></li>
+<li><code>base_family = "Book Antiqua"</code></li>
+</ul>
+<p>As part of the function, you will also see the addition of the <code>...</code> argument in the third position. This special argument indicates a <em>variable number of arguments</em> to pass to other functions. Use the <code>...</code> argument when you want to extend a function without being so verbose that you list the exhaustive list of arguments in your function. Besides, even if you do list them all by name, their names may change or new arguments will be added to other function, thus causing your function (which relies upon the other function) to break.</p>
+<p>You will add <code>...</code> in two places, which you will see in <code>r/theme.R</code>, <code>...</code> appears:</p>
+<ol type="1">
+<li>In the definition: <code>function(base_size = 14, base_family = "Book Antiqua", ...)</code></li>
+<li>On the last line of <code>ggplot2::theme(&lt;other arguments&gt;, ...)</code></li>
+</ol>
+<p>Load the new theme function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"r"</span>, <span class="st">"theme.R"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="theme_167_classic" class="level2">
+<h2 class="anchored" data-anchor-id="theme_167_classic"><code>theme_167_classic()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">theme_167_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database
+
+Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="theme_167_minimal" class="level2">
+<h2 class="anchored" data-anchor-id="theme_167_minimal"><code>theme_167_minimal()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">theme_167_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database
+
+Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
+not found in Windows font database</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database
+
+Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
+family not found in Windows font database</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="26_themes_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

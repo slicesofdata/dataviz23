@@ -12,6 +12,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 #| label: load-packages
 #| include: false
 
+#see https://www.nsgrantham.com/wealth-gap for a theme
 
 ```
 
@@ -24,9 +25,10 @@ This page is a work in progress and may contain areas that need more detail or t
 
 # **Overview**
 
+The main workhorse of all plots is the theme. Up until now, we have not addresses much with the `theme()` function. However, ll of the elements that we have created for the plot represent components of the theme. The font, the lines, the colors, the grid, the legend, the text, the background, and so forth. All of these are theme component and all can be changed. This module will address some theme details but will not address how to modify them all.
+
 
 # **To Do**
-
 
 ## **Readings**
 
@@ -45,5 +47,392 @@ Reading should take place in two parts:
 - [Wickham, Navarro, & Pedersen (under revision). *ggplot2: Elegant Graphics for Data Analysis (3e)*. Extensions](https://ggplot2-book.org/statistical-summaries#sec-uncertainty)(https://ggplot2-book.org/extensions)
 
 
+## **External Functions**
 
-# **Under construction, content pending**
+Provided in class:
+
+`view_html()`: for viewing data frames in html format, from `/r/my_functions.R` 
+
+You can use this in your own work space but I am having a challenge rendering this of the website, so I'll default to `print()` on occasion.
+
+```{r}
+source(here::here("r", "my_functions.R"))
+source("https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R")
+```
+
+## **Libraries**
+
+- **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
+- **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
+- **{ggplot2}** `r packageVersion("ggplot2")`: for plotting
+
+# **Loading Libraries**
+
+```{r}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(geomtextpath)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#HT <- readRDS(here::here("data", "tfrrs", "HT.Rds"))
+#names(HT) <- c("Athlete", "Rank", "Score", "Conv", "Meet", "Date", "Team", "Event", "Year", "Location")
+#HT |>
+#  dplyr::mutate(Score = as.numeric(gsub("m", "", Score))) |>
+#  dplyr::select("Athlete", "Rank", "Score", "Meet", "Date", "Team", "Year") |>
+#saveRDS(DATA, here::here("data", "mock_data.Rds"))
+#DATA <- mutate(DATA, 
+#       Rank = case_when(
+#  Rank == "FR-1" ~ 1,
+#  Rank == "SO-2" ~ 2,
+#  Rank == "JR-3" ~ 3,
+#  Rank == "SR-4" ~ 4,
+#))
+DATA <- readRDS(here::here("data", "mock_data.Rds"))
+
+#plot <- here::here("figs", "my_plot.png")
+#cowplot::ggdraw() + 
+#  cowplot::draw_image(plot)
+
+suppressMessages(legend_color_manual <- list(
+  values = 
+    monochromeR::generate_palette("blue", blend_color = "grey40", n_colours = 4),
+  breaks = c("0-25", "26-50", "51-75", "75-100")
+))
+
+DATA_max_dist_avg <- DATA |>
+  group_by(Athlete) |>
+  mutate(max_dist = max(Score) - Score) |>
+  summarize(max_dist_avg = mean(max_dist)) |> 
+  ungroup() |>
+  select(Athlete, max_dist_avg)
+  
+
+DATA_summary <- DATA |> 
+  descriptives(groupby = c(Athlete, Team), var = Score) |> 
+  mutate(ci = (ci.99u - ci.99l)) |>
+  mutate(Quartile = ntile(max, 4)) |> #select(c(Quartile, max))
+  mutate(Percentile = factor(Quartile, 
+                             labels = c("0-25", "26-50", "51-75", "75-100")
+                           )
+         )
+
+DATA_summary <- merge(DATA_summary, DATA_max_dist_avg)
+
+plot <- DATA_summary |>
+  ggplot(mapping = aes(x = sd, 
+                       y = max
+                       )
+  ) +
+  geom_point(size = 2, alpha = .8, aes(col = Percentile)) +
+#  geomtextpath::geom_labelsmooth(label = cor(DATA_summary$ci, DATA_summary$max)) +
+ # geom_smooth(method = "lm", formula = y ~ x, col = "grey", se = FALSE) +
+  geomtextpath::geom_textsmooth(label = " ", # cor_value not rendering -
+                                method = "lm", linetype = "dashed",
+                                formula = y ~ x, 
+                                col = "black", size = 3, se = FALSE,
+                                hjust = 1) +
+  scale_y_continuous(breaks = seq(0, 70, 5)) + 
+  scale_x_continuous(breaks = seq(0, 15, 1)) + 
+  theme_classic() +
+  theme(legend.position = c(x = .85, y = .3)) +
+  scale_color_manual(values = c("royalblue", "tomato", "purple", "goldenrod"),
+                     breaks = rev(legend_color_manual$breaks)
+                     ) +
+  labs(col = "Percentile", x = "Mean Distance from Maximum (m)", 
+       y = "Distance (m)",
+       caption = "Greater maximum throwing distances are associated with less variability. Athletes throwing greater maximum distances tend to express less uncertainty as reflected by narrower 99% confidence intervals around mean performance (r = -.46)."  ) +
+  theme(plot.caption = ggtext::element_markdown(hjust = 0))
+
+
+plot_pointrange <- DATA_summary |>
+  ggplot(mapping = aes(x = Athlete, 
+                       y = mean, 
+#                       col = Year
+                       )
+         ) +
+  #theme_minimal() +
+  theme(legend.position = c(.85, .2)) +
+  labs(col = "Percentile",                   # the color legend
+       x = NULL, 
+       y = "Distance (m)"
+       ) +
+  geom_pointrange(aes(x = forcats::fct_reorder(.f = Athlete, 
+                                               .x = max, 
+                                               .fun = function(x) { max(x) }
+                                               ),
+                      y = mdn,                # median rather than mean
+                      ymin = min, 
+                      ymax = max,
+                      col = Percentile
+                      ),
+                  position = position_dodge2(width = 1)
+                  ) +
+  #geom_pointrange(aes(x = forcats::fct_reorder(.f = Athlete, 
+  #                                             .x = max, 
+  #                                             .fun = function(x) { max(x) }
+  #                                             ),
+  #                    y = mean,                # median rather than mean
+  #                    ymin = min, 
+  #                    ymax = max,
+  #                    col = Percentile, alpha = .2
+  #                    ),
+  #                position = position_dodge2(width = 1),
+  #                show.legend = F
+  #                ) +
+  coord_flip() +
+  scale_y_continuous(breaks = seq(0, 70, 5)) +
+  scale_color_manual(values = c("royalblue", "tomato", "purple", "goldenrod"),
+                     breaks = rev(legend_color_manual$breaks)
+                     ) 
+
+plot <- plot_pointrange
+
+
+```
+
+
+# **Built-in Themes**
+
+There are several simple functions as your fingertips for changing the theme. 
+
+- `theme_gray()`: Gray background color and white grid lines
+- `theme_bw()`: White background and gray grid line
+- `theme_minimal()`: A minimal theme containing no background annotations
+- `theme_classic()`: A classic theme, with x and y axis lines; no grid lines.
+- `theme_linedraw()`: A theme with black lines of various widths on white backgrounds, reminiscent of a line drawings.
+- `theme_light()`: A theme similar to `theme_linedraw()` but with light grey lines and axes, to direct more attention towards the data
+- `see::theme_modern()`: a modern looking theme
+- `theme_dark()`: Same as theme_light but with a dark background. 
+- `theme_void()`: a completely empty theme, useful for plots with non-standard coordinates or for drawings.
+- `cowplot::theme_minimal_grid()`: both vertical and horizontal grid lines
+- `cowplot::theme_minimal_hgrid()`: horizontal grid lines
+- `cowplot::theme_minimal_vgrid()`: vertical grid lines
+
+And there are more in **{ggthemes}**, **{ggthemr}**, or other libraries. 
+
+
+## **`cowplot::theme_minimal_vgrid()`**
+
+```{r}
+plot + cowplot::theme_minimal_vgrid()
+```
+
+## **`theme_classic()`**
+
+```{r}
+plot + theme_classic()
+```
+
+
+## **`theme_minimal()`**
+
+```{r}
+plot + theme_minimal()
+```
+
+
+## **`see::theme_modern()`**
+
+```{r}
+plot + see::theme_modern()
+```
+
+
+
+# **The Glory of a Theme**
+
+This is a beast of a function, it all its glory. Look at all you can change!
+
+```
+theme(
+  line,
+  rect,
+  text,
+  title,
+  aspect.ratio,
+  axis.title,
+  axis.title.x,
+  axis.title.x.top,
+  axis.title.x.bottom,
+  axis.title.y,
+  axis.title.y.left,
+  axis.title.y.right,
+  axis.text,
+  axis.text.x,
+  axis.text.x.top,
+  axis.text.x.bottom,
+  axis.text.y,
+  axis.text.y.left,
+  axis.text.y.right,
+  axis.ticks,
+  axis.ticks.x,
+  axis.ticks.x.top,
+  axis.ticks.x.bottom,
+  axis.ticks.y,
+  axis.ticks.y.left,
+  axis.ticks.y.right,
+  axis.ticks.length,
+  axis.ticks.length.x,
+  axis.ticks.length.x.top,
+  axis.ticks.length.x.bottom,
+  axis.ticks.length.y,
+  axis.ticks.length.y.left,
+  axis.ticks.length.y.right,
+  axis.line,
+  axis.line.x,
+  axis.line.x.top,
+  axis.line.x.bottom,
+  axis.line.y,
+  axis.line.y.left,
+  axis.line.y.right,
+  legend.background,
+  legend.margin,
+  legend.spacing,
+  legend.spacing.x,
+  legend.spacing.y,
+  legend.key,
+  legend.key.size,
+  legend.key.height,
+  legend.key.width,
+  legend.text,
+  legend.text.align,
+  legend.title,
+  legend.title.align,
+  legend.position,
+  legend.direction,
+  legend.justification,
+  legend.box,
+  legend.box.just,
+  legend.box.margin,
+  legend.box.background,
+  legend.box.spacing,
+  panel.background,
+  panel.border,
+  panel.spacing,
+  panel.spacing.x,
+  panel.spacing.y,
+  panel.grid,
+  panel.grid.major,
+  panel.grid.minor,
+  panel.grid.major.x,
+  panel.grid.major.y,
+  panel.grid.minor.x,
+  panel.grid.minor.y,
+  panel.ontop,
+  plot.background,
+  plot.title,
+  plot.title.position,
+  plot.subtitle,
+  plot.caption,
+  plot.caption.position,
+  plot.tag,
+  plot.tag.position,
+  plot.margin,
+  strip.background,
+  strip.background.x,
+  strip.background.y,
+  strip.clip,
+  strip.placement,
+  strip.text,
+  strip.text.x,
+  strip.text.x.bottom,
+  strip.text.x.top,
+  strip.text.y,
+  strip.text.y.left,
+  strip.text.y.right,
+  strip.switch.pad.grid,
+  strip.switch.pad.wrap,
+  ...,
+  complete = FALSE,
+  validate = TRUE
+)
+```
+
+# **Setting Themes for Plot Consistency**
+
+Adding `theme()` layers to plots can be tedious. Ensuring all plots follow the same theme may be a nightmare.  Although you can modify the plot theme by adding it as a layer, doing so may be redundant when you do not wish to accept the default theme. Rather that add a `theme_*()` layer to your plot using `theme_minimal()`, `theme_classic()`, or some other theme, you could set the theme at the top of your code file using theme_set(). Then, all plots in the file will adhere to that theme unless you add a layer to change it.
+
+To set the theme to `theme_minimal()`, pass the theme into `theme_set()`. A modern theme can be taken from the **{see}** library (e.g., `see::theme_modern()`). If set here, all plots after, and only after, setting the theme will abide by those theme characteristics. Setting themes can ensure consistency with all plots and reduce coding the theme for each plot.
+
+## **Setting a theme with `theme_set()`**
+
+```{r}
+plot
+```
+
+```{r}
+theme_set(theme_minimal())
+
+plot
+```
+
+
+# **Creating Custom Themes**
+
+Here is a great illustration was created by [Henry Wang](https://henrywang.nl/ggplot2-theme-elements-demonstration/). You can find more examples and a walk-through [here](https://henrywang.nl/ggplot2-theme-elements-demonstration/). 
+
+## **An example**
+
+```{r}
+knitr::include_graphics(here::here("images", "theme_elements.png"))
+```
+
+## **Getting a theme with `theme(get)`**
+
+If you want to see how the current active theme components are set, use `theme_get()`. This default theme is `theme_grey()`. Whenever you restart R, this default theme will load. You can load a different theme but you will need to add code to do this so that you ensure the same operation once R reloads. 
+
+```{r}
+the_theme <- theme_get()
+```
+
+Assigning the theme to an object, we can see the components as elements of the `names()` vector. We will not print all of the components of the theme here because there are `r length(the_theme)` of them. 
+
+
+You can see the `r length(the_theme)` theme components by passing the theme object to `names()`. You can see there are far many more than what [Wang](https://henrywang.nl/ggplot2-theme-elements-demonstration/) provided in his illustration. You can, however, see the first 10 using  `names(the_theme)[1:10]`.
+
+```{r}
+names(the_theme)[1:10]
+```
+
+
+
+
+
+## **Creating a custom theme from another theme`**
+
+To set new theme components use `theme_set()`. Modifying a theme is not too difficult. You will need to remember that changes to a theme will need to be loaded at the top of your R Markdown file so that the theme is applied to all plots. If you are working with collaborators, consider putting your theme in file names something like `/r/theme.R` (or add it to a library call file). Then, source the code where you load libraries. All team members can source the same file and modifications to the theme will occur everywhere. 
+
+Modify the default theme using `theme_set()` and passing it a theme object. You can add a new layer to plots but calling the theme when you load your libraries is likely a more foolproof approach.
+
+In this example, `r/theme.R` defines two new themes. `theme_classic_167()` is based on `theme_classic()` and `theme_minimal_167()` is based on `theme_minimal()`. Both functions can take two arguments for adjusting the base font size and family (font type). You should try to set the font `family` to match the font of your document or website within which your visualization will appear. 
+
+- `base_size = 14`
+- `base_family = "Book Antiqua"` 
+
+As part of the function, you will also see the addition of the `...` argument in the third position. This special argument indicates a *variable number of arguments* to pass to other functions. Use the `...` argument when you want to extend a function without being so verbose that you list the exhaustive list of arguments in your function. Besides, even if you do list them all by name, their names may change or new arguments will be added to other function, thus causing your function (which relies upon the other function) to break.
+
+You will add `...` in two places, which you will see in `r/theme.R`, `...` appears:
+
+1. In the definition: `function(base_size = 14, base_family = "Book Antiqua", ...)`
+2. On the last line of `ggplot2::theme(<other arguments>, ...)`
+
+Load the new theme function.
+
+```{r}
+source(here::here("r", "theme.R"))
+```
+
+## `theme_167_classic()`
+
+```{r}
+plot + theme_167_classic()
+```
+
+## `theme_167_minimal()`
+
+```{r}
+plot + theme_167_minimal()
+```
+

@@ -975,6 +975,13 @@ knitr::include_graphics(path = here::here("figs", "my_plot.png"),
 </div>
 </div>
 </div>
+<p>If you wish to add R code at the top of your R Markdown file, you can set the options for all chunks using <code>opt_chunk</code>. This way, all plots will take the same settings unless the specific code block in which the plot is rendered so defined otherwise.</p>
+<p>For example:</p>
+<pre><code>knitr::opts_chunk$set(
+ fig.width = 6,
+ fig.asp = 0.8,
+ out.width = "80%"
+)</code></pre>
 </section>
 <section id="plot-file-formats" class="level2">
 <h2 class="anchored" data-anchor-id="plot-file-formats"><strong>Plot file formats</strong></h2>

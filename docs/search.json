@@ -1873,14 +1873,14 @@
     "href": "project/08_project_final.html",
     "title": "Final presentation",
     "section": "",
-    "text": "NOTE: This page is in progress and will be officially completed with this this message is removed.\n\nOverview\n\n\nElements to Focus On\n\n\nPresentation Medium\nYou can use any slide-presentation tool you wish. You will just need to provide me with: * a printed version of the slide deck for class time and * an electronic pdf of the slide deck before or after the presentation.\n\n\nStakeholders\nIdentify the stakeholders for your project. For example, include you liaison, professor, athletic director, college, etc. for whom the final work will be submitted.\n\n\nEvaluation and Generalized Rubric\nMore detail will be added here similar to the Midterm Presentation.\n\nQuality of project deliverable documents (e.g., organization, coherence, story, coding clarity/organization, plots, etc.)\nProfessionalism (e.g., liaison meeting etiquette and responsibility, timely discord communication, non-tardy attendance at weekly team meeting, weekly worklogs, feedback from liaison, etc.)\nPeer evaluation (e.g., contributions, team player, etc.)\n\nNote: Liaison’s will also participate in evaluating all teams. The team with the most impressive project (e.g., most clear, most useful and actionable, most interesting, most thought provoking, etc.) will receive bonus points.\n\n\nPresentation Tips\nMay be moved to a new sidebar link due to redundancy with Midterm Presentation."
+    "text": "Overview\nThe final written report for the project will be delivered to me and to your liaison. I can provide a color-printed copy for you to distrubtue to the liaison and for their offices.\n\n\nElements to Focus On\n\n\nPresentation Medium\nYou can use any slide-presentation tool you wish. You will just need to provide me with: * a printed version of the slide deck for class time and * an electronic pdf of the slide deck before or after the presentation.\n\n\nStakeholders\nIdentify the stakeholders for your project. For example, include you liaison, professor, athletic director, college, etc. for whom the final work will be submitted.\n\n\nEvaluation and Generalized Rubric\nMore detail will be added here similar to the Midterm Presentation.\n\nQuality of project deliverable documents (e.g., organization, coherence, story, coding clarity/organization, plots, etc.)\nProfessionalism (e.g., liaison meeting etiquette and responsibility, timely discord communication, non-tardy attendance at weekly team meeting, weekly worklogs, feedback from liaison, etc.)\nPeer evaluation (e.g., contributions, team player, etc.)\n\nNote: Liaison’s will also participate in evaluating all teams. The team with the most impressive project (e.g., most clear, most useful and actionable, most interesting, most thought provoking, etc.) will receive bonus points.\n\n\nPresentation Tips\nMay be moved to a new sidebar link due to redundancy with Midterm Presentation."
   },
   {
     "objectID": "project/10_project_report.html",
     "href": "project/10_project_report.html",
     "title": "Final report",
     "section": "",
-    "text": "The final written report for the project will be delivered to me and to your liaison. I can provide a color-printed copy for you to distrubtue to the liaison and for their offices.\nThe final report is to be created in R Markdown and knit as a Pdf or Word document. An example starter file will be provided in the project repository. When working with a report file on GitHub, I recommend that you first pull down the fill from the repo, then add your content, push the changed file to the repo, and then close your file. If you leave the file open in RStudio and you pull down the changes made by your peers, you will wan to ensure that you reload/refresh the file so that when you push the changed file, it contains the previous changes.\nIf someone is familiar with LaTeX coding, Overleaf.com provides a way for collaborating without having to pull and push from GitHub."
+    "text": "The final written report for the project will be delivered to me and to your liaison. I can provide a color-printed copy for you to distribute to the liaison and for their offices.\nThe final report is to be created in R Markdown and knit as a Pdf or Word document. An example starter file will be provided in the project repository. When working with a report file on GitHub, I recommend that you first pull down the fill from the repo, then add your content, push the changed file to the repo, and then close your file. If you leave the file open in RStudio and you pull down the changes made by your peers, you will wan to ensure that you reload/refresh the file so that when you push the changed file, it contains the previous changes.\nIf someone is familiar with LaTeX coding, Overleaf.com provides a way for collaborating without having to pull and push from GitHub."
   },
   {
     "objectID": "project/10_project_report.html#telling-a-story",
@@ -2426,7 +2426,7 @@
     "href": "modules/24_attentional_control.html#external-functions",
     "title": "Attentional control",
     "section": "External Functions",
-    "text": "External Functions\nProvided in class:\nview_html(): for viewing data frames in html format, from /r/my_functions.R\nYou can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to print() on occasion.\n\nsource(here::here(\"r\", \"my_functions.R\"))"
+    "text": "External Functions\nProvided in class:\nview_html(): for viewing data frames in html format, from /r/my_functions.R\nYou can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to print() on occasion.\n\nsource(here::here(\"r\", \"my_functions.R\"))\nsource(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R\")\n\nDefining describe.R\n\n\nDone Defining describe.R"
   },
   {
     "objectID": "modules/24_attentional_control.html#libraries",
@@ -2734,6 +2734,195 @@
     "href": "project/10_project_report.html#data-quality-and-data-preprocessing",
     "title": "Final report",
     "section": "Data Quality and Data Preprocessing",
-    "text": "Data Quality and Data Preprocessing\nDescribe the steps taken to clean and prepare the data for investigation. This description may include removing duplicates, standardizing formats, trimming, correcting inconsistencies, etc. Explain any criteria used to select variables or features for visualization, focusing on those most impactful or insightful for the organization’s understanding.\nSome key details to address include:\n\nMissing Values: Explain the presence and treatment of any missing data. Explain how missing values were handled during analysis (removal, replacement, etc.).\nOutliers and Anomalies: Mention any identified outliers or anomalies and how they were addressed (treatment or exclusion).\nVariables Created: Describe the variables created, their units of measurement, etc. Explain if any normalization or scaling procedures applied to create the variables and to ensure data consistency and comparability across measures.\n\nAlso, specify where the cleaned data may be obtained."
+    "text": "Data Quality and Data Preprocessing\nDescribe the steps taken to clean and prepare the data for investigation. This description may include removing duplicates, standardizing formats, trimming, correcting inconsistencies, etc. Explain any criteria used to select variables or features for visualization, focusing on those with the greatest impact or insight for the organization’s understanding.\nSome key details to address include:\n\nMissing Values: Explain the presence and treatment of any missing data. Explain how missing values were handled during analysis (removal, replacement, etc.).\nOutliers and Anomalies: Mention any identified outliers or anomalies and how they were addressed (treatment or exclusion).\nVariables Created: Describe the variables created, their units of measurement, etc. Explain if any normalization or scaling procedures applied to create the variables and to ensure data consistency and comparability across measures.\n\nAlso, specify where the cleaned data may be obtained."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#external-functions",
+    "href": "modules/25_titles_captions_and_tables.html#external-functions",
+    "title": "Title, Captions, and Tables",
+    "section": "External Functions",
+    "text": "External Functions\nProvided in class:\nview_html(): for viewing data frames in html format, from /r/my_functions.R\nYou can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to print() on occasion.\n\nsource(here::here(\"r\", \"my_functions.R\"))\nsource(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R\")\n\nDefining describe.R\n\n\nDone Defining describe.R"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#libraries",
+    "href": "modules/25_titles_captions_and_tables.html#libraries",
+    "title": "Title, Captions, and Tables",
+    "section": "Libraries",
+    "text": "Libraries\n\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{ggplot2} 3.4.3: for plotting\n{geomtextpath} 0.1.1: for annotation of curved paths (also straight)\n{ggtext} 0.1.2: for text on plots; markdown elements (viz, element_markdown)"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#adding-the-title",
+    "href": "modules/25_titles_captions_and_tables.html#adding-the-title",
+    "title": "Title, Captions, and Tables",
+    "section": "Adding the title",
+    "text": "Adding the title\nBy now, you know how to add a title. One way is with labs().\n\nmy_title &lt;- \"A clear title of the main point\"\n\nplot +\n  labs(title = my_title)"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#making-a-title-font-bold",
+    "href": "modules/25_titles_captions_and_tables.html#making-a-title-font-bold",
+    "title": "Title, Captions, and Tables",
+    "section": "Making a title font bold ",
+    "text": "Making a title font bold \n\nplot +\n  labs(title = my_title) +\n  theme(title = element_markdown(face = \"bold\"))"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#inserting-a-new-line-using-n",
+    "href": "modules/25_titles_captions_and_tables.html#inserting-a-new-line-using-n",
+    "title": "Title, Captions, and Tables",
+    "section": "Inserting a new line using \\n",
+    "text": "Inserting a new line using \\n\nOne way to deal with long titles is to break up the text \n\nmy_title &lt;- \"A very, very, very, very, very, \\nvery, very, very, very, very, very, \\nvery, very, very, very, very, very, \\nvery, long title\"\n\nplot +\n  labs(title = my_title) +\n  theme(title = element_markdown(face = \"bold\"))"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#inserting-breaks-in-html-using",
+    "href": "modules/25_titles_captions_and_tables.html#inserting-breaks-in-html-using",
+    "title": "Title, Captions, and Tables",
+    "section": "Inserting breaks in HTML using ",
+    "text": "Inserting breaks in HTML using \nIf you have an HTML formatted title, you will need to use breaks rather than new lines.\n\nmy_html_title &lt;- '&lt;span style=\"color:blue\"&gt;A very, very, very, very, very, very, &lt;br&gt;very, very, very, very, very, very, very, very, &lt;br&gt;very, very, very, very, &lt;br&gt;long title&lt;/span&gt;'\n\nplot +\n  labs(title = my_html_title) +\n  theme(plot.title = element_markdown(face = \"bold\"))"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#wrapping-strings-using-stringrstr_wrap",
+    "href": "modules/25_titles_captions_and_tables.html#wrapping-strings-using-stringrstr_wrap",
+    "title": "Title, Captions, and Tables",
+    "section": "Wrapping strings using stringr::str_wrap()",
+    "text": "Wrapping strings using stringr::str_wrap()\nIf you prefer not finding a place to insert a new line or a break, user str_wrap() from {stringr}. By setting width to a value represent the number of characters, str_wrap() will break up the string into pieces that do not exceed the width. You will want to adjust the width to be appropriate given your plot output dimensions. More on saving plots of given dimensions later.\n\nplot +\n  labs(title = stringr::str_wrap(my_title, width = 20))\n\n\n\n\nAlthough this approach is fine with element_text(), it seems compromised with element_markdown(). I have not had time to discover a work around.\n\nplot +\n  labs(title = stringr::str_wrap(my_title, width = 20)) +\n  theme(plot.title = element_markdown(face = \"bold\"))\n\n\n\nplot +\n  labs(title = stringr::str_wrap(my_title, width = 20)) +\n  theme(plot.title = element_markdown(face = \"bold\"))\n\n\n\n\nAnd element_markdown() is how you process the HTML code.\n\nmy_html_title &lt;- '&lt;span style=\"color:blue\"&gt;A very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, long title&lt;/span&gt;'\n\nplot +\n  labs(title = stringr::str_wrap(my_html_title,  width = 40)) +\n  theme(plot.title = element_markdown(face = \"bold\"))\n\n\n\n\nIf you are passing HTML code to the text (e.g., you are using direct labeling of color), you may need to use the"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#adjusting-horizontal-justification",
+    "href": "modules/25_titles_captions_and_tables.html#adjusting-horizontal-justification",
+    "title": "Title, Captions, and Tables",
+    "section": "Adjusting horizontal justification",
+    "text": "Adjusting horizontal justification\n\nRight justification\n\nplot +\n  labs(title = my_title, caption = my_caption) +   \n  theme(plot.caption = element_text(hjust = 1))\n\n\n\n\n\n\nCentered\n\nplot +\n  labs(title = my_title, caption = my_caption) +   \n  theme(plot.caption = element_text(hjust = .5))\n\n\n\n\n\n\nLeft justification\n\nplot +\n  labs(title = my_title, caption = my_caption) +   \n  theme(plot.caption = element_text(hjust = 0))\n\n\n\n\nThis looks good about right for the caption."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#titles-in-a-figure-caption",
+    "href": "modules/25_titles_captions_and_tables.html#titles-in-a-figure-caption",
+    "title": "Title, Captions, and Tables",
+    "section": "Titles in a Figure Caption",
+    "text": "Titles in a Figure Caption\n\nmy_full_caption &lt;- \"Figure x: Range of distance is not always indicative of maximum distance. Minimum and maximum distances \\nillustrated by line length are complemented with median distance represented by a point. Within each \\nquartile of performance based on maximum distance thrown, athletes with small ranges or with lower \\nmedian distance are not always those throwing greater distances.\"\n\nplot +\n  labs(col = \"Percentile\", \n       title = NULL,                 # make sure to remove title \n       x = NULL,\n       y = \"Distance (m)\",\n       caption = my_full_caption\n       ) +\n  theme(plot.title = element_text(face = \"bold\"), \n        plot.caption = element_text(hjust = 0)\n        )\n\n\n\n\nThis looks good for the title and the caption."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#fonts-with-ragg-device",
+    "href": "modules/25_titles_captions_and_tables.html#fonts-with-ragg-device",
+    "title": "Title, Captions, and Tables",
+    "section": "Fonts with {ragg} device",
+    "text": "Fonts with {ragg} device\nThere are a few ways to manage custom fonts. You can use {showtext} to download custom font binaries and access them. Managing fonts, however, is beyond the scope of this topic.\nA good option is to use {ragg}, which provides graphic devices for R based on the AGG (anti-grain geometry) library. Why use the AGG device?\n\nYou have direct access to all system fonts\nIt supports advanced text rendering, (e.g., right-to-left text, emojis, etc.)\nFor its high quality for anti-aliasing and rotated text\nIt supports 16-bit output\nIt’s system independent, which is greats for collaborating with others using Mac, Windows, and Linux operating systems\nSpeed\n\n\nSetting the {ragg} graphics device\n\nFirst, install the {ragg} library.\nIn RStudio, navigate to the Tools menu item and then navigate the drop down to Global Options. Click the Graphics tab on the top and set your Graphics Device back end to AGG.\n\n\n\n\n\n\n\n\n\n\n\nLoad the library in your R Markdown file\nYou can also set the device in your global option settings for your R Markdown file by adding this before your first code block: knitr::opts_chunk$set(dev = \"ragg_png\"). You can make changes within a code block too but I don’t know why you would want to use different devices."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#changing-fonts-in-the-theme",
+    "href": "modules/25_titles_captions_and_tables.html#changing-fonts-in-the-theme",
+    "title": "Title, Captions, and Tables",
+    "section": "Changing fonts in the theme",
+    "text": "Changing fonts in the theme\nWithin theme(), you can set the fonts for different elements. Here we change the title, subtitle, axis titles, and axis text."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#saving-your-plot",
+    "href": "modules/25_titles_captions_and_tables.html#saving-your-plot",
+    "title": "Title, Captions, and Tables",
+    "section": "Saving your plot",
+    "text": "Saving your plot\nThere are different ways to save plots but using ggsave() may be the easiest. It will use your system graphics device settings. If you change that device in your global settings, that device will be used for your plots. You can also specify the device in ggsave().\n\ndevice = ragg::agg_png\n\n\nggsave(filename = here::here(\"figs\", \"my_plot.png\"), \n       plot = new_plot,              # last_plot(),  the default is the last plot \n       device = ragg::agg_png,\n       dpi = 320                     # 320 retina, 300 is fine \n       )\n\nSaving 7 x 5 in image"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#plot-tile-formats",
+    "href": "modules/25_titles_captions_and_tables.html#plot-tile-formats",
+    "title": "Title, Captions, and Tables",
+    "section": "Plot tile formats",
+    "text": "Plot tile formats\nYou may not understand all of the differences between image file formats but you are likely familiar with image file extensions like .jpg (Joint Photographic Experts Group), .png (Portable Network Graphics), pdf (Portable Document Format). XML-based scalable vector graphics files like .svg are what you might for some\nYou can read more in Wilke’s Data Visualization book or in Peng’s Exploratory Data Analysis book.\n\nRaster: Constructed by a series of pixels (e.g., JPEG, GIF, and PNG)\nVector: Constructed using proportional formulas rather than pixels; they are great when when they need to be resized, for example a logo that would appear on a business card or a billboard) (e.g., EPS, AI and PDF)\n\nVector formats like .pdf and .svg may be good for line drawings and solid colors (bars) but they are less familiar by some and you might not be able to get someone to load them someplace.\nRaster or Bitmap formats like .png (and .jpg but stay away from it) are generally good for visualization many number points and are good for embedding on web pages. This is likely your go-to. Whatever you do, don’t save your plots image files as .jpg. Your best option will be to use .png for its portability. You could use .pdf and convert them as needed but that will require other steps. I recommend just saving as ragg::png file."
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#loading-saved-plots-in-r-markdown",
+    "href": "modules/25_titles_captions_and_tables.html#loading-saved-plots-in-r-markdown",
+    "title": "Title, Captions, and Tables",
+    "section": "Loading saved plots in R Markdown",
+    "text": "Loading saved plots in R Markdown\nIf you have saved plots that you wish to call into your R Markdown file, the easiest way will likely be to use knitr::include_graphics(). Using {here} to assist with access the project and within which /figs directory, we can specify it all for the path.\n\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"))\n\n\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"),\n                        dpi = 320\n                        )\n\n\n\n\nBy default, the alignment will be left. You can change the alignment in the {r} code chunk by setting fig.align to fig.align = 'center' or fig.align = 'right'.\nExample:\n{r fig.align = 'center'}\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"),\n                        dpi = 320\n                        )\n\n\n\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"),\n                        dpi = 320\n                        )\n\n\n\n\n\n\n\n\nTo change the size you can change:\n\nfig.width = 7.7 or some other number of inches\nfig.height = 6\nout.width=\"50%\" or some other percent\nout.height=\"50%\"\n\nExample:\n{r fig.align=\"center\", out.width=\"90%\"}\n\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"),\n                        dpi = 320\n                        )\n\n\n\n\n\n\n\n\nExample:\n{r fig.align=\"center\", fig.width = 7.78}\n\nknitr::include_graphics(path = here::here(\"figs\", \"my_plot.png\"),\n                        dpi = 320\n                        )\n\n\n\n\n\n\n\n\nIf you wish to add R code at the top of your R Markdown file, you can set the options for all chunks using opt_chunk. This way, all plots will take the same settings unless the specific code block in which the plot is rendered so defined otherwise.\nFor example:\nknitr::opts_chunk$set(\n fig.width = 6,\n fig.asp = 0.8,\n out.width = \"80%\"\n)"
+  },
+  {
+    "objectID": "modules/25_titles_captions_and_tables.html#plot-file-formats",
+    "href": "modules/25_titles_captions_and_tables.html#plot-file-formats",
+    "title": "Title, Captions, and Tables",
+    "section": "Plot file formats",
+    "text": "Plot file formats\nYou may not understand all of the differences between image file formats but you are likely familiar with image file extensions like .jpg (Joint Photographic Experts Group), .png (Portable Network Graphics), pdf (Portable Document Format), or XML-based scalable vector graphics files like .svg.\nYou can read more in Wilke’s Data Visualization book or in Peng’s Exploratory Data Analysis book.\n\nRaster: Constructed by a series of pixels (e.g., JPEG, GIF, and PNG)\nVector: Constructed using proportional formulas rather than pixels; they are great when when they need to be resized, for example a logo that would appear on a business card or a billboard) (e.g., EPS, AI and PDF)\n\nVector formats like .pdf and .svg may be good for line drawings and solid colors (bars) but they are less familiar by some and you might not be able to get someone to load them someplace.\nRaster or Bitmap formats like .png (and .jpg but stay away from it) are generally good for visualization many number points and are good for embedding on web pages. This is likely your go-to. Whatever you do, don’t save your plots image files as .jpg. Your best option will be to use .png for its portability. You could use .pdf and convert them as needed but that will require other steps. I recommend just saving as ragg::png file."
+  },
+  {
+    "objectID": "modules/26_themes.html#external-functions",
+    "href": "modules/26_themes.html#external-functions",
+    "title": "Figure Design & Themes",
+    "section": "External Functions",
+    "text": "External Functions\nProvided in class:\nview_html(): for viewing data frames in html format, from /r/my_functions.R\nYou can use this in your own work space but I am having a challenge rendering this of the website, so I’ll default to print() on occasion.\n\nsource(here::here(\"r\", \"my_functions.R\"))\nsource(\"https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R\")\n\nDefining describe.R\n\n\nDone Defining describe.R"
+  },
+  {
+    "objectID": "modules/26_themes.html#libraries",
+    "href": "modules/26_themes.html#libraries",
+    "title": "Figure Design & Themes",
+    "section": "Libraries",
+    "text": "Libraries\n\n{dplyr} 1.1.2: for selecting, filtering, and mutating\n{magrittr} 2.0.3: for code clarity and piping data frame objects\n{ggplot2} 3.4.3: for plotting"
+  },
+  {
+    "objectID": "modules/26_themes.html#cowplottheme_minimal_vgrid",
+    "href": "modules/26_themes.html#cowplottheme_minimal_vgrid",
+    "title": "Figure Design & Themes",
+    "section": "cowplot::theme_minimal_vgrid()",
+    "text": "cowplot::theme_minimal_vgrid()\n\nplot + cowplot::theme_minimal_vgrid()"
+  },
+  {
+    "objectID": "modules/26_themes.html#theme_classic",
+    "href": "modules/26_themes.html#theme_classic",
+    "title": "Figure Design & Themes",
+    "section": "theme_classic()",
+    "text": "theme_classic()\n\nplot + theme_classic()"
+  },
+  {
+    "objectID": "modules/26_themes.html#theme_minimal",
+    "href": "modules/26_themes.html#theme_minimal",
+    "title": "Figure Design & Themes",
+    "section": "theme_minimal()",
+    "text": "theme_minimal()\n\nplot + theme_minimal()"
+  },
+  {
+    "objectID": "modules/26_themes.html#seetheme_modern",
+    "href": "modules/26_themes.html#seetheme_modern",
+    "title": "Figure Design & Themes",
+    "section": "see::theme_modern()",
+    "text": "see::theme_modern()\n\nplot + see::theme_modern()"
+  },
+  {
+    "objectID": "modules/26_themes.html#setting-a-theme-with-theme_set",
+    "href": "modules/26_themes.html#setting-a-theme-with-theme_set",
+    "title": "Figure Design & Themes",
+    "section": "Setting a theme with theme_set()",
+    "text": "Setting a theme with theme_set()\n\nplot\n\n\n\n\n\ntheme_set(theme_minimal())\n\nplot"
+  },
+  {
+    "objectID": "modules/26_themes.html#an-example",
+    "href": "modules/26_themes.html#an-example",
+    "title": "Figure Design & Themes",
+    "section": "An example",
+    "text": "An example\n\nknitr::include_graphics(here::here(\"images\", \"theme_elements.png\"))"
+  },
+  {
+    "objectID": "modules/26_themes.html#getting-a-theme-with-themeget",
+    "href": "modules/26_themes.html#getting-a-theme-with-themeget",
+    "title": "Figure Design & Themes",
+    "section": "Getting a theme with theme(get)",
+    "text": "Getting a theme with theme(get)\nIf you want to see how the current active theme components are set, use theme_get(). This default theme is theme_grey(). Whenever you restart R, this default theme will load. You can load a different theme but you will need to add code to do this so that you ensure the same operation once R reloads.\n\nthe_theme &lt;- theme_get()\n\nAssigning the theme to an object, we can see the components as elements of the names() vector. We will not print all of the components of the theme here because there are 97 of them.\nYou can see the 97 theme components by passing the theme object to names(). You can see there are far many more than what Wang provided in his illustration. You can, however, see the first 10 using names(the_theme)[1:10].\n\nnames(the_theme)[1:10]\n\n [1] \"line\"                \"rect\"                \"text\"               \n [4] \"title\"               \"aspect.ratio\"        \"axis.title\"         \n [7] \"axis.title.x\"        \"axis.title.x.top\"    \"axis.title.x.bottom\"\n[10] \"axis.title.y\""
+  },
+  {
+    "objectID": "modules/26_themes.html#creating-a-custom-theme-from-another-theme",
+    "href": "modules/26_themes.html#creating-a-custom-theme-from-another-theme",
+    "title": "Figure Design & Themes",
+    "section": "Creating a custom theme from another theme`",
+    "text": "Creating a custom theme from another theme`\nTo set new theme components use theme_set(). Modifying a theme is not too difficult. You will need to remember that changes to a theme will need to be loaded at the top of your R Markdown file so that the theme is applied to all plots. If you are working with collaborators, consider putting your theme in file names something like /r/theme.R (or add it to a library call file). Then, source the code where you load libraries. All team members can source the same file and modifications to the theme will occur everywhere.\nModify the default theme using theme_set() and passing it a theme object. You can add a new layer to plots but calling the theme when you load your libraries is likely a more foolproof approach.\nIn this example, r/theme.R defines two new themes. theme_classic_167() is based on theme_classic() and theme_minimal_167() is based on theme_minimal(). Both functions can take two arguments for adjusting the base font size and family (font type). You should try to set the font family to match the font of your document or website within which your visualization will appear.\n\nbase_size = 14\nbase_family = \"Book Antiqua\"\n\nAs part of the function, you will also see the addition of the ... argument in the third position. This special argument indicates a variable number of arguments to pass to other functions. Use the ... argument when you want to extend a function without being so verbose that you list the exhaustive list of arguments in your function. Besides, even if you do list them all by name, their names may change or new arguments will be added to other function, thus causing your function (which relies upon the other function) to break.\nYou will add ... in two places, which you will see in r/theme.R, ... appears:\n\nIn the definition: function(base_size = 14, base_family = \"Book Antiqua\", ...)\nOn the last line of ggplot2::theme(&lt;other arguments&gt;, ...)\n\nLoad the new theme function.\n\nsource(here::here(\"r\", \"theme.R\"))"
+  },
+  {
+    "objectID": "modules/26_themes.html#theme_167_classic",
+    "href": "modules/26_themes.html#theme_167_classic",
+    "title": "Figure Design & Themes",
+    "section": "theme_167_classic()",
+    "text": "theme_167_classic()\n\nplot + theme_167_classic()\n\nWarning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family\nnot found in Windows font database\n\nWarning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family\nnot found in Windows font database\n\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database"
+  },
+  {
+    "objectID": "modules/26_themes.html#theme_167_minimal",
+    "href": "modules/26_themes.html#theme_167_minimal",
+    "title": "Figure Design & Themes",
+    "section": "theme_167_minimal()",
+    "text": "theme_167_minimal()\n\nplot + theme_167_minimal()\n\nWarning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family\nnot found in Windows font database\n\nWarning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family\nnot found in Windows font database\n\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database\n\nWarning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font\nfamily not found in Windows font database"
   }
 ]

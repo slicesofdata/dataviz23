@@ -4,14 +4,13 @@ author: "Gabriel I. Cook"
 #date: "`r Sys.Date()`"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
-# this is a test to fingure out why there is the following error when rendering many quarto files:
-# ERROR: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+execute:
+  enabled: true
 ---
 
 ```{r}
 #| label: load-packages
 #| include: false
-
 
 ```
 
@@ -24,9 +23,11 @@ This page is a work in progress and may contain areas that need more detail or t
 
 # **Overview**
 
+Every data visualization has a purpose, which is to offer a visual representation of data. The visualization serves as an actor in the overall story of data. A visualization's effectiveness relies on its ability to convey a finding and communicate some important element or point to an audience. The type of visualization should be chosen purposefully based on ease of processing and interpretation. There are other actors, however. For example, the title, figure caption, annotations, labels, legend, which are also important. This messaging plays an important role in communicating the meaning of those data and to reduce misinterpretation. 
+
+The title will play a role in dressing up the plot and contextualizing it. By dressing up, or accessorizing, the plot, we do not mean to improve the aesthetics of the visualization but rather to leave no ambiguity as to the message and intent. Consider the following analogy. A button-up long-sleeved shirt paired with slacks communicate some information about where a person might be going to or coming from. A tie, coat, belt, and shoes will contextualize the scene quite differently. Still yet, a bow tie, coat, cumber bun, and black shoes will provide a different set of expectations. There are few places one will go dressed in a tuxedo. The same is true for data visualizations. The data presented in the form of bars, lines, points, tiles, or otherwise should serve to communicate something meaningful. Proper accessorizing with a clear title, subtitle, and relevant legend or caption will contextualize the plot and leave little ambiguity of its intent. This module is about contextualizing plots with accompanying titles, captions, and other annotations to guide the reader to extract particularly relevant information. 
 
 # **To Do**
-
 
 ## **Readings**
 
@@ -44,5 +45,505 @@ Reading should take place in two parts:
 - [Wilke (2019). *Fundamentals of Data Visualization*. Titles, captions, and tables](https://clauswilke.com/dataviz/figure-titles-captions.html)
 
 
+## **External Functions**
 
-# **Under construction, content pending**
+Provided in class:
+
+`view_html()`: for viewing data frames in html format, from `/r/my_functions.R` 
+
+You can use this in your own work space but I am having a challenge rendering this of the website, so I'll default to `print()` on occasion.
+
+```{r}
+source(here::here("r", "my_functions.R"))
+source("https://raw.githubusercontent.com/slicesofdata/dataviz23/main/R/functions/describe.R")
+```
+
+## **Libraries**
+
+- **{dplyr}** `r packageVersion("dplyr")`: for selecting, filtering, and mutating
+- **{magrittr}** `r packageVersion("magrittr")`: for code clarity and piping data frame objects
+- **{ggplot2}** `r packageVersion("ggplot2")`: for plotting
+- **{geomtextpath}** `r packageVersion("geomtextpath")`: for annotation of curved paths (also straight)
+- **{ggtext}** `r packageVersion("ggtext")`: for text on plots; markdown elements (viz, element_markdown)
+
+
+# **Loading Libraries**
+
+```{r}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(geomtextpath)
+library(ggtext)
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#HT <- readRDS(here::here("data", "tfrrs", "HT.Rds"))
+#names(HT) <- c("Athlete", "Rank", "Score", "Conv", "Meet", "Date", "Team", "Event", "Year", "Location")
+#HT |>
+#  dplyr::mutate(Score = as.numeric(gsub("m", "", Score))) |>
+#  dplyr::select("Athlete", "Rank", "Score", "Meet", "Date", "Team", "Year") |>
+#saveRDS(DATA, here::here("data", "mock_data.Rds"))
+#DATA <- mutate(DATA, 
+#       Rank = case_when(
+#  Rank == "FR-1" ~ 1,
+#  Rank == "SO-2" ~ 2,
+#  Rank == "JR-3" ~ 3,
+#  Rank == "SR-4" ~ 4,
+#))
+DATA <- readRDS(here::here("data", "mock_data.Rds"))
+```
+
+# **Titles**
+
+Visualizations should contain titles. We have used functions to add words to plots in places were titles would go but until now we have not addressed the significance of a title or how to create one. 
+
+The title is used to precisely and accurately communicate the main point of the visualization. After all, the visualization was created and selected for a particular purpose. What is that purpose? Make that purpose clear in your title. Are you communicating key differences across groups? If so, communicate them. Are you illustrating a trend or association? If so, make that clear. Are you showcasing similarities in trends or in shapes of distributions? If so, highlight them in your title. Are you differentiating trends, associations, or distribution shapes across groups? If so, direct your audience to examine those differences in the title. 
+
+Remember, you should not be selecting geoms and creating data visualizations that look aesthetically pleasing without considering whether that visualization is the best for your communication goals. Whatever that key finding is that you are trying to communicate, you should make that a part of your title. If you are communicating differences in average performance or in the range of data, is a sina plot necessary? If you are communicating differences in shapes of distributions, is a point-range plot relevant or bar plot a good choice? The geometric choice and the title need to match the goal of the data being visualized.
+
+Now that you have a title, you have to determine where to place it. The location of the title is independent of its intent. Yes, tiles are often positioned above the graphical representation of data. Perhaps they are centered or even left or right justified. Data visualizations that appear on webpages, in newspapers or magazines, or serve as isolated info-graphics (without explanatory text) will typically contain titles in these locations. Titles may appear inside the plot space or even positioned below the plot in a caption position as your might find in books, journals, or scientific pieces. The title type does not make a visualization more professional than another; location may simply align with formatting standards of the medium within which you place the visualization.  
+
+For visualizations appearing in reports, papers, journals, etc., for which a figure caption is relevant, ensure placing the title before the caption. If the title is not placed in the caption, then there will not be a title. And yes, visualizations need titles.
+
+Finally, follow the title with a more clear and detailed description of the data presented. If the title highlights the key difference and the caption addresses less significant but nevertheless relevant nuances. If there are no other meaningful messages, you can be more detailed about the main message.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+DATA_max_dist_avg <- DATA |>
+  group_by(Athlete) |>
+  mutate(max_dist = max(Score) - Score) |>
+  summarize(max_dist_avg = mean(max_dist)) |> 
+  ungroup() |>
+  select(Athlete, max_dist_avg)
+  
+
+DATA_summary <- DATA |> 
+  descriptives(groupby = c(Athlete, Team), var = Score) |> 
+  mutate(ci = (ci.99u - ci.99l)) |>
+  mutate(Quartile = ntile(max, 4)) |> #select(c(Quartile, max))
+  mutate(Percentile = factor(Quartile, 
+                             labels = c("0-25", "26-50", "51-75", "75-100")
+                           )
+         )
+
+DATA_summary <- merge(DATA_summary, DATA_max_dist_avg)
+
+
+
+cor_value <- paste('', round(cor(DATA_summary$ci, DATA_summary$max), 2))
+#cor.test(DATA_summary$max_dist_avg, DATA_summary$max)
+#paste('', round(cor(DATA_summary$sd, DATA_summary$max), 2))
+#paste('', round(cor(DATA_summary$mad, DATA_summary$max), 2))
+#paste('', round(cor(DATA_summary$max_dist_avg, DATA_summary$max), 2))
+
+
+suppressMessages(legend_color_manual <- list(
+  values = 
+    monochromeR::generate_palette("blue", blend_color = "grey40", n_colours = 4),
+  breaks = c("0-25", "26-50", "51-75", "75-100")
+))
+
+#DATA_summary |> select(c(Athlete, max, Percentile, mad, se, ci))
+
+plot <- DATA_summary |>
+  ggplot(mapping = aes(x = sd, 
+                       y = max
+                       )
+  ) +
+  geom_point(size = 2, alpha = .8, aes(col = Percentile)) +
+#  geomtextpath::geom_labelsmooth(label = cor(DATA_summary$ci, DATA_summary$max)) +
+ # geom_smooth(method = "lm", formula = y ~ x, col = "grey", se = FALSE) +
+  geomtextpath::geom_textsmooth(label = " ", # cor_value not rendering -
+                                method = "lm", linetype = "dashed",
+                                formula = y ~ x, 
+                                col = "black", size = 3, se = FALSE,
+                                hjust = 1) +
+  scale_y_continuous(breaks = seq(0, 70, 5)) + 
+  scale_x_continuous(breaks = seq(0, 15, 1)) + 
+  theme_classic() +
+  theme(legend.position = c(x = .85, y = .3)) +
+  scale_color_manual(values = c("royalblue", "tomato", "purple", "goldenrod"),
+                     breaks = rev(legend_color_manual$breaks)
+                     ) +
+  labs(col = "Percentile", x = "Mean Distance from Maximum (m)", 
+       y = "Distance (m)",
+       caption = "Greater maximum throwing distances are associated with less variability. Athletes throwing greater maximum distances tend to express less uncertainty as reflected by narrower 99% confidence intervals around mean performance (r = -.46)."  ) +
+  theme(plot.caption = ggtext::element_markdown(hjust = 0))
+
+
+plot_pointrange <- DATA_summary |>
+  ggplot(mapping = aes(x = Athlete, 
+                       y = mean, 
+#                       col = Year
+                       )
+         ) +
+  #theme_minimal() +
+  theme(legend.position = c(.85, .2)) +
+  labs(col = "Percentile",                   # the color legend
+       x = NULL, 
+       y = "Distance (m)"
+       ) +
+  geom_pointrange(aes(x = forcats::fct_reorder(.f = Athlete, 
+                                               .x = max, 
+                                               .fun = function(x) { max(x) }
+                                               ),
+                      y = mdn,                # median rather than mean
+                      ymin = min, 
+                      ymax = max,
+                      col = Percentile
+                      ),
+                  position = position_dodge2(width = 1)
+                  ) +
+  #geom_pointrange(aes(x = forcats::fct_reorder(.f = Athlete, 
+  #                                             .x = max, 
+  #                                             .fun = function(x) { max(x) }
+  #                                             ),
+  #                    y = mean,                # median rather than mean
+  #                    ymin = min, 
+  #                    ymax = max,
+  #                    col = Percentile, alpha = .2
+  #                    ),
+  #                position = position_dodge2(width = 1),
+  #                show.legend = F
+  #                ) +
+  coord_flip() +
+  scale_y_continuous(breaks = seq(0, 70, 5)) +
+  scale_color_manual(values = c("royalblue", "tomato", "purple", "goldenrod"),
+                     breaks = rev(legend_color_manual$breaks)
+                     ) 
+plot <- plot_pointrange
+
+```
+
+# **A plot with no title **
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+plot
+```
+
+
+## **Adding the title**
+
+By now, you know how to add a title. One way is with `labs()`. 
+
+```{r}
+my_title <- "A clear title of the main point"
+
+plot +
+  labs(title = my_title)
+```
+
+
+## **Making a title font bold **
+
+```{r}
+plot +
+  labs(title = my_title) +
+  theme(title = element_markdown(face = "bold"))
+```
+
+
+# **Wrapping long titles**
+
+## **Inserting a new line using `\n`**
+
+One way to deal with long titles is to break up the text \n
+
+```{r}
+my_title <- "A very, very, very, very, very, \nvery, very, very, very, very, very, \nvery, very, very, very, very, very, \nvery, long title"
+
+plot +
+  labs(title = my_title) +
+  theme(title = element_markdown(face = "bold"))
+```
+
+## **Inserting breaks in HTML using <br>**
+
+If you have an HTML formatted title, you will need to use breaks rather than new lines.
+
+```{r}
+my_html_title <- '<span style="color:blue">A very, very, very, very, very, very, <br>very, very, very, very, very, very, very, very, <br>very, very, very, very, <br>long title</span>'
+
+plot +
+  labs(title = my_html_title) +
+  theme(plot.title = element_markdown(face = "bold"))
+```
+
+
+## **Wrapping strings using `stringr::str_wrap()`**
+
+If you prefer not finding a place to insert a new line or a break, user `str_wrap()` from **{stringr}**. By setting `width` to a value represent the number of characters, `str_wrap()` will break up the string into pieces that do not exceed the width. You will want to adjust the `width` to be appropriate given your plot output dimensions. More on saving plots of given dimensions later.
+
+```{r}
+plot +
+  labs(title = stringr::str_wrap(my_title, width = 20))
+```
+
+Although this approach is fine with `element_text()`, it seems compromised with `element_markdown()`. I have not had time to discover a work around.
+
+```{r}
+plot +
+  labs(title = stringr::str_wrap(my_title, width = 20)) +
+  theme(plot.title = element_markdown(face = "bold"))
+
+plot +
+  labs(title = stringr::str_wrap(my_title, width = 20)) +
+  theme(plot.title = element_markdown(face = "bold"))
+```
+
+And `element_markdown()` is how you process the HTML code.
+
+```{r}
+my_html_title <- '<span style="color:blue">A very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, long title</span>'
+
+plot +
+  labs(title = stringr::str_wrap(my_html_title,  width = 40)) +
+  theme(plot.title = element_markdown(face = "bold"))
+```
+
+If you are passing HTML code to the text (e.g., you are using direct labeling of color), you may need to use the  
+
+
+# **Figure Caption**
+
+The figure caption is where you communicate a more detailed description of the data than what the title communicates alone. 
+
+```{r}
+my_title <- "Range of Distance is not always Indicative of Maximum Distance"
+
+my_caption <- "Minimum and maximum distances illustrated by line length are complemented with median distance \nrepresented by a point. Within each quartile of performance based on maximum distance thrown, \nathletes with small ranges or with lower median distance are not always those throwing greater distances."
+
+plot +
+  labs(title = my_title, 
+       caption = my_caption
+       )
+```
+
+You see that the figure caption is justified to the right. 
+
+
+## **Adjusting horizontal justification**
+
+### *Right justification*
+
+```{r}
+plot +
+  labs(title = my_title, caption = my_caption) +   
+  theme(plot.caption = element_text(hjust = 1))
+```
+
+### *Centered*
+
+```{r}
+plot +
+  labs(title = my_title, caption = my_caption) +   
+  theme(plot.caption = element_text(hjust = .5))
+```
+
+### *Left justification*
+
+```{r}
+plot +
+  labs(title = my_title, caption = my_caption) +   
+  theme(plot.caption = element_text(hjust = 0))
+```
+
+This looks good about right for the caption.
+
+
+## **Titles in a Figure Caption**
+
+```{r}
+my_full_caption <- "Figure x: Range of distance is not always indicative of maximum distance. Minimum and maximum distances \nillustrated by line length are complemented with median distance represented by a point. Within each \nquartile of performance based on maximum distance thrown, athletes with small ranges or with lower \nmedian distance are not always those throwing greater distances."
+
+plot +
+  labs(col = "Percentile", 
+       title = NULL,                 # make sure to remove title 
+       x = NULL,
+       y = "Distance (m)",
+       caption = my_full_caption
+       ) +
+  theme(plot.title = element_text(face = "bold"), 
+        plot.caption = element_text(hjust = 0)
+        )
+```
+
+This looks good for the title and the caption.
+
+# **Changing Fonts **
+
+Modifying fonts is achieved by changing the `family` element of `element_text()` for each plot component. We can do this for the title, subtitle, and axis components.
+
+## **Fonts with {ragg} device**
+
+```{r include=FALSE}
+#https://r-graph-gallery.com/custom-fonts-in-R-and-ggplot2.html
+```
+
+There are a few ways to manage custom fonts. You can use **{showtext}** to download custom font binaries and access them. Managing fonts, however, is beyond the scope of this topic. 
+
+A good option is to use [**{ragg}**](https://ragg.r-lib.org/), which provides graphic devices for R based on the AGG [(anti-grain geometry)](https://en.wikipedia.org/wiki/Anti-Grain_Geometry) library. Why use the AGG device?
+
+- You have direct access to all system fonts
+- It supports advanced text rendering, (e.g., right-to-left text, emojis, etc.)
+- For its high quality for anti-aliasing and rotated text
+- It supports 16-bit output
+- It's system independent, which is greats for collaborating with others using Mac, Windows, and Linux operating systems
+- Speed
+
+
+### **Setting the {ragg} graphics device**
+
+* First, install the **{ragg}** library. 
+
+* In RStudio, navigate to the *Tools* menu item and then navigate the drop down to *Global Options*. Click the *Graphics* tab on the top and set your *Graphics Device* back end to *AGG*.
+
+```{r fig.align = 'center', echo=FALSE, message=FALSE, warning=FALSE}
+#here::here("images", "global_options_ragg.png")
+knitr::include_graphics(path = here::here("images", "global_options_ragg.png"))
+```
+
+* Load the library in your R Markdown file 
+
+* You can also set the device in your global option settings for your R Markdown file by adding this before your first code block: `knitr::opts_chunk$set(dev = "ragg_png")`. You can make changes within a code block too but I don't know why you would want to use different devices.
+
+
+## **Changing fonts in the theme**
+
+Within `theme()`, you can set the fonts for different elements. Here we change the title, subtitle, axis titles, and axis text. 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+(new_plot <- plot +
+  labs(title = "This plot has a font identity crisis",
+       subtitle = "subtitle"
+       ) +
+  theme(plot.title    = element_text(family = "Times New Roman",
+                                     size = 18
+                                     ), 
+        plot.subtitle = element_text(family = "Courier New",
+                                     size = 11
+                                     ),
+        axis.title.x  = element_text(family = "Comic Sans MS"),
+        axis.title.y  = element_text(family = "Chiller"),
+        axis.text.x   = element_text(family = "Algerian"),
+        axis.text.y   = element_text(family = "Bauhaus 93")
+        )
+)
+```
+
+## **Saving your plot**
+
+There are different ways to save plots but using `ggsave()` may be the easiest. It will use your system graphics device settings. If you change that device in your global settings, that device will be used for your plots. You can also specify the device in `ggsave()`.
+
+- `device = ragg::agg_png`
+
+```{r}
+ggsave(filename = here::here("figs", "my_plot.png"), 
+       plot = new_plot,              # last_plot(),  the default is the last plot 
+       device = ragg::agg_png,
+       dpi = 320                     # 320 retina, 300 is fine 
+       )
+```
+
+## **Loading saved plots in R Markdown**
+
+If you have saved plots that you wish to call into your R Markdown file, the easiest way will likely be to use `knitr::include_graphics()`. Using **{here}** to assist with access the project and within which `/figs` directory, we can specify it all for the path.
+
+- `knitr::include_graphics(path = here::here("figs", "my_plot.png"))`
+
+
+```{r}
+knitr::include_graphics(path = here::here("figs", "my_plot.png"),
+                        dpi = 320
+                        )
+```
+
+By default, the alignment will be left. You can change the alignment in the `{r}` code chunk by setting `fig.align` to `fig.align = 'center'` or `fig.align = 'right'`. 
+
+Example:
+
+```
+{r fig.align = 'center'}
+knitr::include_graphics(path = here::here("figs", "my_plot.png"),
+                        dpi = 320
+                        )
+
+
+```
+
+```{r, fig.align = 'center'}
+knitr::include_graphics(path = here::here("figs", "my_plot.png"),
+                        dpi = 320
+                        )
+```
+
+
+To change the size you can change:
+
+- `fig.width = 7.7` or some other number of inches
+- `fig.height = 6`
+- `out.width="50%"` or some other percent
+- `out.height="50%"`
+
+
+Example:
+
+```
+{r fig.align="center", out.width="90%"}
+```
+
+```{r fig.align="center", out.width="90%"}
+knitr::include_graphics(path = here::here("figs", "my_plot.png"),
+                        dpi = 320
+                        )
+```
+
+Example:
+
+```
+{r fig.align="center", fig.width = 7.78}
+```
+
+```{r fig.align="center", fig.width = 7.7}
+knitr::include_graphics(path = here::here("figs", "my_plot.png"),
+                        dpi = 320
+                        )
+```
+
+
+If you wish to add R code at the top of your R Markdown file, you can set the options for all chunks using `opt_chunk`. This way, all plots will take the same settings unless the specific code block in which the plot is rendered so defined otherwise.
+
+For example:
+
+```
+knitr::opts_chunk$set(
+ fig.width = 6,
+ fig.asp = 0.8,
+ out.width = "80%"
+)
+```
+
+
+## **Plot file formats**
+
+You may not understand all of the differences between image file formats but you are likely familiar with image file extensions like `.jpg` (Joint Photographic Experts Group), `.png` (Portable Network Graphics), `pdf` (Portable Document Format), or XML-based scalable vector graphics files like `.svg`. 
+
+You can read more in [Wilke's Data Visualization book](https://clauswilke.com/dataviz/image-file-formats.html) or in [Peng's Exploratory Data Analysis book](https://bookdown.org/rdpeng/exdata/graphics-devices.html).
+
+- *Raster*: Constructed by a series of pixels (e.g., JPEG, GIF, and PNG)
+
+- *Vector*: Constructed using proportional formulas rather than pixels; they are great when when they need to be resized, for example a logo that would appear on a business card or a billboard) (e.g., EPS, AI and PDF)
+
+Vector formats like `.pdf` and `.svg` may be good for line drawings and solid colors (bars) but they are less familiar by some and you might not be able to get someone to load them someplace. 
+
+Raster or Bitmap formats like `.png` (and `.jpg` but stay away from it) are generally good for visualization many number points and are good for embedding on web pages. This is likely your go-to. Whatever you do, don't save your plots image files as `.jpg`. Your best option will be to use `.png` for its portability. You could use `.pdf` and convert them as needed but that will require other steps. I recommend just saving as `ragg::png` file.
+
+
+
+# **Session Info**
+
+```{r, echo = FALSE}
+sessionInfo()
+```
+
