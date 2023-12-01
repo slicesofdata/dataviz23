@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel I. Cook">
-<meta name="dcterms.date" content="2023-11-07">
+<meta name="dcterms.date" content="2023-12-01">
 
 <title>PSYC167 - Coordinates, axes, and position scales</title>
 <style>
@@ -517,10 +517,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#coord_flip" id="toc-coord_flip" class="nav-link" data-scroll-target="#coord_flip"><strong><code>coord_flip()</code></strong></a></li>
   <li><a href="#coord_fixed" id="toc-coord_fixed" class="nav-link" data-scroll-target="#coord_fixed"><strong><code>coord_fixed()</code></strong></a></li>
+  <li><a href="#coord_equal" id="toc-coord_equal" class="nav-link" data-scroll-target="#coord_equal"><strong><code>coord_equal()</code></strong></a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#coord_fixedratio-1" id="toc-coord_fixedratio-1" class="nav-link" data-scroll-target="#coord_fixedratio-1">coord_fixed(ratio = 1) +</a>
-  <ul class="collapse">
   <li><a href="#nonlinear-scales" id="toc-nonlinear-scales" class="nav-link" data-scroll-target="#nonlinear-scales"><strong>Nonlinear scales</strong></a></li>
   <li><a href="#examples-of-plots-with-axis-problems" id="toc-examples-of-plots-with-axis-problems" class="nav-link" data-scroll-target="#examples-of-plots-with-axis-problems"><strong>Examples of Plots with Axis Problems</strong></a></li>
   </ul></li>
@@ -570,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2023</p>
+      <p class="date">December 1, 2023</p>
     </div>
   </div>
   
@@ -744,7 +742,7 @@ Under construction.
 <p><img src="15_coordinates_axes_and_position_scales_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Be careful</p>
+<p>Be careful:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>noexpand_plot2 <span class="ot">&lt;-</span> SWIM <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance <span class="sc">==</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -775,38 +773,26 @@ Under construction.
 </div>
 </div>
 </section>
-</section>
-</section>
-<section id="coord_fixedratio-1" class="level1">
-<h1>coord_fixed(ratio = 1) +</h1>
-<p>scale_x_continuous(n.breaks = 10) + #+ # breaks = seq(24, 40, 1)) + scale_y_continuous(expand = c(0, 0), n.breaks = 20) + # do not expand axis (no padding)) coord_cartesian(expand = FALSE)</p>
-<p>#scale_x_continuous(breaks = seq(45, 40, 1))</p>
-<p>?scale_y_continuous</p>
-<pre><code>
-Adjusting the breaks 
-
-
-### **`coord_equal()`**
-
-
-::: {.cell}
-
-```{.r .cell-code}
-SWIM %&gt;% 
-  filter(Distance == 100) %&gt;%
-  ggplot(data = .,
-         mapping = aes(x = Split50, y = Time)) +
-  geom_point() +
-  xlim(0, 60) +
-  ylim(0, 60) +
-  coord_equal()</code></pre>
+<section id="coord_equal" class="level3">
+<h3 class="anchored" data-anchor-id="coord_equal"><strong><code>coord_equal()</code></strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>SWIM <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance <span class="sc">==</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> .,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Split50, <span class="at">y =</span> Time)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 12 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="15_coordinates_axes_and_position_scales_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
-<p>:::</p>
+</div>
+</section>
+</section>
 <section id="nonlinear-scales" class="level2">
 <h2 class="anchored" data-anchor-id="nonlinear-scales"><strong>Nonlinear scales</strong></h2>
 <p>In many cases, you will be trying to visualize data that are linear such that the numeric values of the variable map on to the same positions in space. The interval between numeric values is the same as the interval in physical space for the printed plot. In other cases, the interval between values may not be linear. For example, data that are converted to logarithms, square roots, cubes, etc. have one distance representing the actual numeric values (linear) and another distance corresponding to the values on the transformed scale (ordinal).</p>
